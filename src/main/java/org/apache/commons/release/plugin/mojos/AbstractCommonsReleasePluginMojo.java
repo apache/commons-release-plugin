@@ -14,4 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.build.plugin;
+package org.apache.commons.release.plugin.mojos;
+
+import org.apache.maven.plugin.AbstractMojo;
+
+/**
+ * Contains the logging mechanics for the commons-release-plugin.
+ *
+ * @author chtompki
+ * @since 1.0
+ */
+public abstract class AbstractCommonsReleasePluginMojo extends AbstractMojo {
+}

@@ -14,19 +14,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.build.plugin.mojos;
-
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugins.annotations.Mojo;
-
-/**
- * @author chtompki
- * @since 1.0
- */
-@Mojo( name = "test", threadSafe = true )
-public class CommonsBuildPluginMojo extends AbstractMojo {
-
-    public void execute() {
-        getLog().info("Hello World");
-    }
-}
+package org.apache.commons.release.plugin;

@@ -14,15 +14,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.build.plugin.mojos;
-
-import org.apache.maven.plugin.AbstractMojo;
-
-/**
- * Contains the logging mechanics for the commons-build-plugin.
- *
- * @author chtompki
- * @since 1.0
- */
-public abstract class AbstractCommonsBuildPluginMojo extends AbstractMojo {
-}
+package org.apache.commons.release.plugin;
