@@ -27,20 +27,26 @@
   <packaging>maven-plugin</packaging>
   <version>0.1-SNAPSHOT</version>
   <name>Apache Commons Release Plugin Maven Mojo</name>
+
   <description>
     Apache Maven Mojo for Apache Commons Release tasks.
   </description>
+
   <url>http://commons.apache.org/proper/commons-release-plugin/</url>
+
   <issueManagement>
     <system>jira</system>
     <url>http://issues.apache.org/jira/browse/COMMONSSITE</url>
   </issueManagement>
+
   <inceptionYear>2008</inceptionYear>
+
   <scm>
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-release-plugin.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-release-plugin.git</developerConnection>
     <url>https://git-wip-us.apache.org/repos/asf?p=commons-release-plugin.git</url>
   </scm>
+
   <distributionManagement>
     <site>
       <id>commons.site</id>
@@ -48,6 +54,7 @@
       <url>scm:svn:${commons.scmPubUrl}</url>
     </site>
   </distributionManagement>
+
   <developers>
     <developer>
       <name>Rob Tompkins</name>
@@ -57,12 +64,27 @@
     </developer>
   </developers>
 
+  <properties>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <commons.manifestfile/>
+    <commons.componentid>commons-release-plugin</commons.componentid>
+    <commons.jira.id>COMMONSSITE</commons.jira.id>
+    <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
+    <commons.release.version>${project.version}</commons.release.version>
+    <commons.rc.version>RC1</commons.rc.version>
+    <commons.site.path>commons-release-plugin</commons.site.path>
+    <commons.scmPubUrl>
+      https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}
+    </commons.scmPubUrl>
+    <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
+  </properties>
+
   <dependencies>
     <dependency>
-      <groupId>org.apache.maven.plugin-tools</groupId>
-      <artifactId>maven-plugin-tools</artifactId>
-      <version>3.5</version>
-      <type>pom</type>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>3.5.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
@@ -87,34 +109,6 @@
       </resource>
     </resources>
     <plugins>
-      <plugin>
-        <artifactId>maven-plugin-plugin</artifactId>
-        <version>2.9</version>
-        <!-- Add the Ant plugin tools to the plugin -->
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.maven.plugin-tools</groupId>
-            <artifactId>maven-plugin-tools-ant</artifactId>
-            <version>2.9</version>
-          </dependency>
-        </dependencies>
-
-        <configuration>
-          <goalPrefix>commons</goalPrefix>
-        </configuration>
-
-        <executions>
-          <execution>
-            <phase>pre-site</phase>
-            <goals>
-              <goal>xdoc</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>target/plugin-generated-xdocs</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -166,64 +160,4 @@
       </plugin>
     </plugins>
   </reporting>
-  <properties>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-    <commons.manifestfile/>
-    <commons.componentid>commons-release-plugin</commons.componentid>
-    <commons.jira.id>COMMONSSITE</commons.jira.id>
-    <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
-    <commons.release.version>${project.version}</commons.release.version>
-    <commons.rc.version>RC1</commons.rc.version>
-    <commons.site.path>commons-release-plugin</commons.site.path>
-    <commons.scmPubUrl>
-      https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}
-    </commons.scmPubUrl>
-    <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
-  </properties>
-  <profiles>
-    <profile>
-      <id>setup-checkout</id>
-      <activation>
-        <file>
-          <missing>site-content</missing>
-        </file>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>prepare-checkout</id>
-                <phase>pre-site</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <tasks>
-                    <exec executable="svn">
-                      <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}"/>
-                    </exec>
-
-                    <exec executable="svn">
-                      <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs"/>
-                    </exec>
-
-                    <pathconvert pathsep=" " property="dirs">
-                      <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*"/>
-                    </pathconvert>
-                    <exec executable="svn">
-                      <arg line="update --set-depth infinity ${dirs}"/>
-                    </exec>
-                  </tasks>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>

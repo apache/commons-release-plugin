@@ -21,7 +21,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * @author chtompki
- * @since 1.8
+ * @since 1.0
  */
 @Mojo( name = "test", threadSafe = true )
 public class CommonsBuildPluginMojo extends AbstractMojo {
