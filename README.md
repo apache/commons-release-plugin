@@ -40,17 +40,17 @@
  |                                                                      |
  +======================================================================+
 --->
-Apache Commons Release Plugin Maven Mojo
+Apache Commons Release Plugin.
 ===================
 
-Apache Maven Mojo for Apache Commons Release tasks.
+Apache Maven Plugin for Apache Commons Release tasks.
 
 Documentation
 -------------
 
 More information can be found on the [homepage](https://commons.apache.org/proper/commons-commons-release-plugin).
 The [JavaDoc](https://commons.apache.org/proper/commons-commons-release-plugin/javadocs/api-release) can be browsed.
-Questions related to the usage of Apache Commons Release Plugin Maven Mojo should be posted to the [user mailing list][ml].
+Questions related to the usage of Apache Commons Release Plugin should be posted to the [user mailing list][ml].
 
 [![Build Status](https://travis-ci.org/apache/commons-release-plugin.svg?branch=trunk)](https://travis-ci.org/apache/commons-release-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin)
