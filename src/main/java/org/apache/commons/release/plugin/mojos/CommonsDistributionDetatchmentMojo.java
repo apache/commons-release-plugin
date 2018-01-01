@@ -29,7 +29,6 @@ import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,7 +45,7 @@ import java.util.Set;
  * @author chtompki
  * @since 1.0
  */
-@Mojo( name = "detatch-assemblies", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
+@Mojo( name = "detatch-distributions", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
 
     /**
