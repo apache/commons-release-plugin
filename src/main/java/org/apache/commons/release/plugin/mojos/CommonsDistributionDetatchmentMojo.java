@@ -91,7 +91,9 @@ public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
         for(AttachedArtifact artifactToRemove : detatchedArtifacts) {
             project.getAttachedArtifacts().remove(artifactToRemove);
         }
-        SharedFunctions.initWorkingDirectory(getLog(), workingDirectory);
+        if (!workingDirectory.exists()) {
+            SharedFunctions.initWorkingDirectory(getLog(), workingDirectory);
+        }
         copyRemovedArtifactsToWorkingDirectory();
         getLog().info("");
         sha1AndMd5SignArtifacts();
