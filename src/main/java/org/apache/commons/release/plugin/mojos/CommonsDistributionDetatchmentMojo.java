@@ -18,6 +18,7 @@ package org.apache.commons.release.plugin.mojos;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -90,24 +91,10 @@ public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
         for(AttachedArtifact artifactToRemove : detatchedArtifacts) {
             project.getAttachedArtifacts().remove(artifactToRemove);
         }
-        initWorkingDirectory();
+        SharedFunctions.initWorkingDirectory(getLog(), workingDirectory);
         copyRemovedArtifactsToWorkingDirectory();
         getLog().info("");
         sha1AndMd5SignArtifacts();
-    }
-
-    private void initWorkingDirectory() throws MojoExecutionException {
-        if (workingDirectory.exists()) {
-            try {
-                FileUtils.deleteDirectory(workingDirectory);
-            } catch (IOException e) {
-                getLog().error(e.getMessage());
-                throw new MojoExecutionException("Unable to remove working directory: " + e.getMessage(), e);
-            }
-        }
-        if (!workingDirectory.exists()) {
-            workingDirectory.mkdirs();
-        }
     }
 
     private void copyRemovedArtifactsToWorkingDirectory() throws MojoExecutionException {
