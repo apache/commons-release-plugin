@@ -65,7 +65,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-release-plugin</artifactId>
-  <version>1.7</version>
+  <version>0.1-SNAPSHOT</version>
 </dependency>
 ```
 
