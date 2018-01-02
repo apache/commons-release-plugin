@@ -26,7 +26,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.artifact.AttachedArtifact;
-import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -92,7 +91,7 @@ public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
             project.getAttachedArtifacts().remove(artifactToRemove);
         }
         if (!workingDirectory.exists()) {
-            SharedFunctions.initWorkingDirectory(getLog(), workingDirectory);
+            SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
         copyRemovedArtifactsToWorkingDirectory();
         getLog().info("");

@@ -1,3 +1,19 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.commons.release.plugin;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -26,13 +42,13 @@ public class SharedFunctions {
      * @param log is the maven log for output logging, particularly in regards to error management.
      * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete then create.
      */
-    public static void initWorkingDirectory(Log log, File workingDirectory) throws MojoExecutionException {
+    public static void initDirectory(Log log, File workingDirectory) throws MojoExecutionException {
         if (workingDirectory.exists()) {
             try {
                 FileUtils.deleteDirectory(workingDirectory);
             } catch (IOException e) {
                 log.error(e.getMessage());
-                throw new MojoExecutionException("Unable to remove working directory: " + e.getMessage(), e);
+                throw new MojoExecutionException("Unable to remove directory: " + e.getMessage(), e);
             }
         }
         if (!workingDirectory.exists()) {

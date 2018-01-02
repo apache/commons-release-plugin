@@ -43,7 +43,8 @@
 
   <scm>
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-release-plugin.git</connection>
-    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-release-plugin.git</developerConnection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-release-plugin.git
+    </developerConnection>
     <url>https://git-wip-us.apache.org/repos/asf?p=commons-release-plugin.git</url>
   </scm>
 
@@ -97,9 +98,24 @@
       <version>2.2.1</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.maven.wagon</groupId>
-      <artifactId>wagon-provider-api</artifactId>
-      <version>3.0.0</version>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-api</artifactId>
+      <version>1.9.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-provider-svnexe</artifactId>
+      <version>1.9.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-provider-svn-commons</artifactId>
+      <version>1.9.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.plexus</groupId>
+      <artifactId>plexus-sec-dispatcher</artifactId>
+      <version>1.4</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.wagon</groupId>
