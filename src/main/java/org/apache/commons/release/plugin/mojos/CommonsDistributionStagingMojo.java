@@ -23,9 +23,13 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.scm.ScmException;
+import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.manager.BasicScmManager;
 import org.apache.maven.scm.manager.NoSuchScmProviderException;
 import org.apache.maven.scm.manager.ScmManager;
+import org.apache.maven.scm.provider.ScmProvider;
+import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
 import org.apache.maven.scm.repository.ScmRepositoryException;
@@ -35,11 +39,6 @@ import java.io.File;
 
 @Mojo( name = "stage-distributions", defaultPhase = LifecyclePhase.DEPLOY, threadSafe = true)
 public class CommonsDistributionStagingMojo extends AbstractMojo {
-
-    /**
-     */
-    @Parameter( defaultValue = "${settings}", readonly = true, required = true )
-    private Settings settings;
 
     /**
      */
@@ -56,36 +55,26 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     @Parameter ( required = true )
     private String distSvnStagingUrl;
 
-    /**
-     * The SCM username to use.
-     */
-    @Parameter( property = "username" )
-    private String username;
-
-    /**
-     * The SCM password to use.
-     */
-    @Parameter( property = "password" )
-    private String password;
-
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             ScmManager scmManager = new BasicScmManager();
             scmManager.setScmProvider("svn", new SvnExeScmProvider());
             ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
+            ScmProvider provider = scmManager.getProviderByRepository(repository);
+            ScmProviderRepository providerRepository = repository.getProviderRepository();
             if (!workingDirectory.exists()) {
                 SharedFunctions.initDirectory(getLog(), workingDirectory);
             }
             if (!distCheckoutDirectory.exists()) {
                 SharedFunctions.initDirectory(getLog(), distCheckoutDirectory);
             }
-        } catch (ScmRepositoryException e) {
-            getLog().error("Failed getting scm repository: " + distSvnStagingUrl, e);
-            throw new MojoExecutionException("Failed getting scm repository: " + distSvnStagingUrl, e);
-        } catch (NoSuchScmProviderException e) {
-            getLog().error("No Scm Provider For: " + distSvnStagingUrl, e);
-            throw new MojoExecutionException("No Scm Provider For: " + distSvnStagingUrl, e);
+            ScmFileSet scmFileSet = new ScmFileSet(distCheckoutDirectory);
+            getLog().info("Checking out dist from: " + distSvnStagingUrl);
+            provider.checkOut(repository, scmFileSet);
+        } catch (ScmException e) {
+            getLog().error("Could not commit files to dist: " + distSvnStagingUrl, e);
+            throw new MojoExecutionException("Could not commit files to dist: " + distSvnStagingUrl, e);
         }
     }
 }
