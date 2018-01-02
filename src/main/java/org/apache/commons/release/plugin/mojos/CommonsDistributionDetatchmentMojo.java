@@ -108,22 +108,7 @@ public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
             copiedArtifactAbsolutePath.append(artifactFile.getName());
             File copiedArtifact = new File(copiedArtifactAbsolutePath.toString());
             getLog().info("Copying: " + artifactFile.getName());
-            FileInputStream in;
-            FileOutputStream out;
-            try {
-                in = new FileInputStream(artifactFile);
-                out = new FileOutputStream(copiedArtifact);
-                byte[] buf = new byte[1024];
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-                in.close();
-                out.close();
-            } catch (IOException e) {
-                getLog().error(e.getMessage());
-                throw new MojoExecutionException("Unable to copy file: " + e.getMessage(), e);
-            }
+            SharedFunctions.copyFile(getLog(), artifactFile, copiedArtifact);
         }
     }
 

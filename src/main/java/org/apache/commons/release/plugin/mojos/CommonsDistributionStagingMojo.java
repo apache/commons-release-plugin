@@ -23,6 +23,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.artifact.AttachedArtifact;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.manager.BasicScmManager;
@@ -36,23 +37,44 @@ import org.apache.maven.scm.repository.ScmRepositoryException;
 import org.apache.maven.settings.Settings;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
-@Mojo( name = "stage-distributions", defaultPhase = LifecyclePhase.DEPLOY, threadSafe = true)
+/**
+ * This class checks out the dev distribution location, copies the distributions into that directory
+ * structure under the <code>target</code> directory. Then commits the distributions back up to SVN.
+ * Also, we include the built and zipped site as well as the RELEASE-NOTES.txt.
+ *
+ * @author chtompki
+ * @since 1.0
+ */
+@Mojo(name = "stage-distributions", defaultPhase = LifecyclePhase.DEPLOY, threadSafe = true)
 public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /**
      */
-    @Parameter( defaultValue = "${project.build.directory}/commons-release-plugin", alias = "outputDirectory" )
+    @Parameter(defaultValue = "${basedir}")
+    private File basedir;
+
+    /**
+     */
+    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", alias = "outputDirectory")
     private File workingDirectory;
 
     /**
      */
-    @Parameter( defaultValue = "${project.build.directory}/commons-release-plugin/scm", alias = "outputDirectory" )
+    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm", alias = "outputDirectory")
     private File distCheckoutDirectory;
+
+    @Parameter(defaultValue = "false")
+    private Boolean dryRun;
 
     /**
      */
-    @Parameter ( required = true )
+    @Parameter(required = true)
     private String distSvnStagingUrl;
 
     @Override
@@ -72,9 +94,56 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             ScmFileSet scmFileSet = new ScmFileSet(distCheckoutDirectory);
             getLog().info("Checking out dist from: " + distSvnStagingUrl);
             provider.checkOut(repository, scmFileSet);
+            copyReleaseNotesToWorkingDirectory();
+            copyDistributionsIntoScmDirectoryStructure();
         } catch (ScmException e) {
             getLog().error("Could not commit files to dist: " + distSvnStagingUrl, e);
             throw new MojoExecutionException("Could not commit files to dist: " + distSvnStagingUrl, e);
         }
+    }
+
+    private void copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
+        StringBuffer copiedReleaseNotesAbsolutePath;
+        getLog().info("Copying RELEASE-NOTES.txt to working directory.");
+        File releaseNotes = new File(basedir + "/RELEASE-NOTES.txt");
+        copiedReleaseNotesAbsolutePath = new StringBuffer(workingDirectory.getAbsolutePath());
+        copiedReleaseNotesAbsolutePath.append("/scm/");
+        copiedReleaseNotesAbsolutePath.append(releaseNotes.getName());
+        File copiedReleaseNotes = new File(copiedReleaseNotesAbsolutePath.toString());
+        getLog().info("Copying: " + releaseNotes.getName());
+        SharedFunctions.copyFile(getLog(), releaseNotes, copiedReleaseNotes);
+    }
+
+    private void copyDistributionsIntoScmDirectoryStructure() throws MojoExecutionException {
+        List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
+        String scmBinariesRoot = buildDistBinariesRoot();
+        String scmSourceRoot = buildDistSourceRoot();
+        File copy;
+        for (File file : workingDirectoryFiles) {
+            if (file.getName().contains("src")) {
+                copy = new File(scmSourceRoot + "/" + file.getName());
+                SharedFunctions.copyFile(getLog(), file, copy);
+            } else if (file.getName().contains("bin")) {
+                copy = new File(scmBinariesRoot + "/" + file.getName());
+                SharedFunctions.copyFile(getLog(), file, copy);
+            } else if (file.getName().contains("scm")){
+                //do nothing because we are copying into scm
+            } else {
+                copy = new File(distCheckoutDirectory.getAbsolutePath() + "/" + file.getName());
+                SharedFunctions.copyFile(getLog(), file, copy);
+            }
+        }
+    }
+
+    private String buildDistBinariesRoot() {
+        StringBuffer buffer = new StringBuffer(distCheckoutDirectory.getAbsolutePath());
+        buffer.append("/binaries");
+        return buffer.toString();
+    }
+
+    private String buildDistSourceRoot() {
+        StringBuffer buffer = new StringBuffer(distCheckoutDirectory.getAbsolutePath());
+        buffer.append("/source");
+        return buffer.toString();
     }
 }

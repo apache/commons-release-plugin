@@ -21,6 +21,8 @@ import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -53,6 +55,33 @@ public class SharedFunctions {
         }
         if (!workingDirectory.exists()) {
             workingDirectory.mkdirs();
+        }
+    }
+
+    /**
+     * Copies a file from the from file to the to file and logs the failure using the maven logger.
+     *
+     * @param log the {@link Log}, the maven logger.
+     * @param fromFile the {@link File} from which to copy.
+     * @param toFile the {@link File} to which to copy into.
+     * @throws MojoExecutionException if an {@link IOException} occurs.
+     */
+    public static void copyFile(Log log, File fromFile,  File toFile) throws MojoExecutionException{
+        FileInputStream in;
+        FileOutputStream out;
+        try {
+            in = new FileInputStream(fromFile);
+            out = new FileOutputStream(toFile);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            throw new MojoExecutionException("Unable to copy file: " + e.getMessage(), e);
         }
     }
 }
