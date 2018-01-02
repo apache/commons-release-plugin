@@ -23,6 +23,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.artifact.AttachedArtifact;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
@@ -40,6 +41,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,6 +55,11 @@ import java.util.List;
  */
 @Mojo(name = "stage-distributions", defaultPhase = LifecyclePhase.DEPLOY, threadSafe = true)
 public class CommonsDistributionStagingMojo extends AbstractMojo {
+
+    /**
+     */
+    @Parameter( defaultValue = "${project}", required = true )
+    private MavenProject project;
 
     /**
      */
@@ -95,7 +102,18 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             getLog().info("Checking out dist from: " + distSvnStagingUrl);
             provider.checkOut(repository, scmFileSet);
             copyReleaseNotesToWorkingDirectory();
-            copyDistributionsIntoScmDirectoryStructure();
+            List<File> filesToCommit = copyDistributionsIntoScmDirectoryStructure();
+            ScmFileSet scmFileSetToCommit = new ScmFileSet(distCheckoutDirectory, filesToCommit);
+            if (!dryRun) {
+                provider.checkIn(
+                        repository,
+                        scmFileSetToCommit,
+                        "Staging release: " + project.getArtifactId() + ", version: " + project.getVersion()
+                );
+            } else {
+                getLog().info("Would have committed to: " + distSvnStagingUrl);
+                getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
+            }
         } catch (ScmException e) {
             getLog().error("Could not commit files to dist: " + distSvnStagingUrl, e);
             throw new MojoExecutionException("Could not commit files to dist: " + distSvnStagingUrl, e);
@@ -114,25 +132,30 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         SharedFunctions.copyFile(getLog(), releaseNotes, copiedReleaseNotes);
     }
 
-    private void copyDistributionsIntoScmDirectoryStructure() throws MojoExecutionException {
+    private List<File> copyDistributionsIntoScmDirectoryStructure() throws MojoExecutionException {
         List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
         String scmBinariesRoot = buildDistBinariesRoot();
         String scmSourceRoot = buildDistSourceRoot();
+        List<File> filesForMavenScmFileSet = new ArrayList<>();
         File copy;
         for (File file : workingDirectoryFiles) {
             if (file.getName().contains("src")) {
                 copy = new File(scmSourceRoot + "/" + file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
+                filesForMavenScmFileSet.add(copy);
             } else if (file.getName().contains("bin")) {
                 copy = new File(scmBinariesRoot + "/" + file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
+                filesForMavenScmFileSet.add(copy);
             } else if (file.getName().contains("scm")){
                 //do nothing because we are copying into scm
             } else {
                 copy = new File(distCheckoutDirectory.getAbsolutePath() + "/" + file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
+                filesForMavenScmFileSet.add(copy);
             }
         }
+        return filesForMavenScmFileSet;
     }
 
     private String buildDistBinariesRoot() {
