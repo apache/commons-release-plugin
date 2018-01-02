@@ -24,23 +24,18 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.artifact.AttachedArtifact;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
+import org.apache.maven.scm.command.add.AddScmResult;
+import org.apache.maven.scm.command.checkin.CheckInScmResult;
 import org.apache.maven.scm.manager.BasicScmManager;
-import org.apache.maven.scm.manager.NoSuchScmProviderException;
 import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.ScmProvider;
 import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
-import org.apache.maven.scm.repository.ScmRepositoryException;
-import org.apache.maven.settings.Settings;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,6 +81,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        getLog().info("Preparing to stage distributions");
         try {
             ScmManager scmManager = new BasicScmManager();
             scmManager.setScmProvider("svn", new SvnExeScmProvider());
@@ -105,11 +101,26 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             List<File> filesToCommit = copyDistributionsIntoScmDirectoryStructure();
             ScmFileSet scmFileSetToCommit = new ScmFileSet(distCheckoutDirectory, filesToCommit);
             if (!dryRun) {
-                provider.checkIn(
+                AddScmResult addResult = provider.add(
                         repository,
                         scmFileSetToCommit,
                         "Staging release: " + project.getArtifactId() + ", version: " + project.getVersion()
                 );
+                if (addResult.isSuccess()) {
+                    getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
+                    CheckInScmResult checkInResult = provider.checkIn(
+                            repository,
+                            scmFileSetToCommit,
+                            "Staging release: " + project.getArtifactId() + ", version: " + project.getVersion()
+                    );
+                    if (!checkInResult.isSuccess()) {
+                        getLog().error("Committing dist files failed: " + checkInResult.getCommandOutput());
+                        throw new MojoExecutionException("Committing dist files failed: " + checkInResult.getCommandOutput());
+                    }
+                } else {
+                    getLog().error("Adding dist files failed: " + addResult.getCommandOutput());
+                    throw new MojoExecutionException("Adding dist files failed: " + addResult.getCommandOutput());
+                }
             } else {
                 getLog().info("Would have committed to: " + distSvnStagingUrl);
                 getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
@@ -155,6 +166,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 filesForMavenScmFileSet.add(copy);
             }
         }
+        filesForMavenScmFileSet.add(new File(distCheckoutDirectory + "/RELEASE-NOTES.txt"));
         return filesForMavenScmFileSet;
     }
 
