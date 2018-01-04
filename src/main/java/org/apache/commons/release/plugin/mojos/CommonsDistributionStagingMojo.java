@@ -32,6 +32,7 @@ import org.apache.maven.scm.manager.BasicScmManager;
 import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.ScmProvider;
 import org.apache.maven.scm.provider.ScmProviderRepository;
+import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
 
@@ -53,7 +54,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /**
      */
-    @Parameter( defaultValue = "${project}", required = true )
+    @Parameter(defaultValue = "${project}", required = true )
     private MavenProject project;
 
     /**
@@ -71,6 +72,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm", alias = "outputDirectory")
     private File distCheckoutDirectory;
 
+    /**
+     */
     @Parameter(defaultValue = "false")
     private Boolean dryRun;
 
@@ -78,6 +81,16 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     @Parameter(required = true)
     private String distSvnStagingUrl;
+
+    /**
+     */
+    @Parameter(property = "user.name")
+    private String username;
+
+    /**
+     */
+    @Parameter(property = "user.password")
+    private String password;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -87,7 +100,9 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             scmManager.setScmProvider("svn", new SvnExeScmProvider());
             ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
             ScmProvider provider = scmManager.getProviderByRepository(repository);
-            ScmProviderRepository providerRepository = repository.getProviderRepository();
+            SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
+            providerRepository.setUser(username);
+            providerRepository.setPassword(password);
             if (!workingDirectory.exists()) {
                 SharedFunctions.initDirectory(getLog(), workingDirectory);
             }
