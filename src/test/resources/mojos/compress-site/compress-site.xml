@@ -25,8 +25,6 @@
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
                     <siteDirectory>${basedir}/target/test-classes/mojos/compress-site/example-site</siteDirectory>
-                    <goals>site-deploy</goals>
-                    <useReleaseProfile>true</useReleaseProfile>
                 </configuration>
             </plugin>
         </plugins>

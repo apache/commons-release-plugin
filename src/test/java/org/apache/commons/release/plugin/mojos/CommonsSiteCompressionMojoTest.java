@@ -34,11 +34,11 @@ public class CommonsSiteCompressionMojoTest extends AbstractMojoTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        File testFile = getTestFile("target/test-classes/mojos/compress-site/compress-site.xml");
-        mojo = (CommonsSiteCompressionMojo) lookupMojo("compress-site", testFile);
     }
 
-    public void testCompressSite() throws MojoExecutionException, MojoFailureException {
+    public void testCompressSite() throws Exception {
+        File testFile = getTestFile("target/test-classes/mojos/compress-site/compress-site.xml");
+        mojo = (CommonsSiteCompressionMojo) lookupMojo("compress-site", testFile);
         mojo.execute();
     }
 }
