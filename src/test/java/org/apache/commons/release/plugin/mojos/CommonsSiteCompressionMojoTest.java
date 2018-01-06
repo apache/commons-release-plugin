@@ -16,8 +16,6 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 import java.io.File;
@@ -32,12 +30,10 @@ public class CommonsSiteCompressionMojoTest extends AbstractMojoTestCase {
 
     protected CommonsSiteCompressionMojo mojo;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
     public void testCompressSite() throws Exception {
-        File testFile = getTestFile("target/test-classes/mojos/compress-site/compress-site.xml");
+        File testFile = new File("src/test/resources/mojos/compress-site/compress-site.xml");
+        assertNotNull(testFile);
+        assertTrue(testFile.exists());
         mojo = (CommonsSiteCompressionMojo) lookupMojo("compress-site", testFile);
         mojo.execute();
     }
