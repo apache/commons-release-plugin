@@ -45,11 +45,20 @@ import java.util.zip.ZipOutputStream;
 @Mojo(name = "compress-site", defaultPhase = LifecyclePhase.POST_SITE, threadSafe = true)
 public class CommonsSiteCompressionMojo extends AbstractMojo {
 
+    /**
+     */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", alias = "outputDirectory")
     private File workingDirectory;
 
+    /**
+     */
     @Parameter(defaultValue = "${project.build.directory}/site", alias = "siteOutputDirectory")
     private File siteDirectory;
+
+    /**
+     */
+    @Parameter(required = true)
+    private String distSvnStagingUrl;
 
     private ScatterZipOutputStream dirs;
 

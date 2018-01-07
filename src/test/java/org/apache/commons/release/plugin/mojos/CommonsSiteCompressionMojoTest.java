@@ -17,8 +17,14 @@
 package org.apache.commons.release.plugin.mojos;
 
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.apache.maven.plugin.testing.MojoRule;
+import org.junit.Rule;
+import org.junit.Test;
 
 import java.io.File;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit tests for {@link CommonsSiteCompressionMojo}.
@@ -26,15 +32,29 @@ import java.io.File;
  * @author chtompki
  * @since 1.0
  */
-public class CommonsSiteCompressionMojoTest extends AbstractMojoTestCase {
+public class CommonsSiteCompressionMojoTest {
+
+    @Rule
+    public MojoRule rule = new MojoRule() {
+        @Override
+        protected void before() throws Throwable {
+        }
+
+        @Override
+        protected void after() {
+        }
+    };
 
     protected CommonsSiteCompressionMojo mojo;
 
+    @Test
     public void testCompressSite() throws Exception {
         File testFile = new File("src/test/resources/mojos/compress-site/compress-site.xml");
         assertNotNull(testFile);
         assertTrue(testFile.exists());
-        mojo = (CommonsSiteCompressionMojo) lookupMojo("compress-site", testFile);
+        mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testFile);
         mojo.execute();
+        File siteZip = new File("target/commons-release-plugin/site.zip");
+        assertTrue(siteZip.exists());
     }
 }

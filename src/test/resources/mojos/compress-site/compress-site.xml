@@ -42,6 +42,7 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
+                    <workingDirectory>target/commons-release-plugin</workingDirectory>
                     <distSvnStagingUrl>aBadUrl</distSvnStagingUrl>
                     <siteDirectory>${basedir}/target/test-classes/mojos/compress-site/example-site</siteDirectory>
                 </configuration>
