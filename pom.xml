@@ -39,7 +39,7 @@
         <url>http://issues.apache.org/jira/browse/COMMONSSITE</url>
     </issueManagement>
 
-    <inceptionYear>2008</inceptionYear>
+    <inceptionYear>2018</inceptionYear>
 
     <scm>
         <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-release-plugin.git</connection>
@@ -69,7 +69,6 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.dependency.version>3.5.2</maven.dependency.version>
-        <commons.jacoco.version>0.7.9</commons.jacoco.version>
         <commons.manifestfile/>
         <commons.componentid>commons-release-plugin</commons.componentid>
         <commons.jira.id>COMMONSSITE</commons.jira.id>
@@ -83,6 +82,14 @@
         <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
         <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
         <checkstyle.version>6.19</checkstyle.version>
+        <commons.jacoco.version>0.7.9</commons.jacoco.version>
+        <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
+        <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
+        <commons.jacoco.methodRatio>0.1</commons.jacoco.methodRatio>
+        <commons.jacoco.branchRatio>0.1</commons.jacoco.branchRatio>
+        <commons.jacoco.lineRatio>0.1</commons.jacoco.lineRatio>
+        <commons.jacoco.complexityRatio>0.1</commons.jacoco.complexityRatio>
+        <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
     </properties>
 
     <dependencies>
@@ -244,6 +251,79 @@
                     </ignorePathsToDelete>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${commons.jacoco.version}</version>
+                <!-- Note that since JaCoCo relies on an agent to perform tests,
+                     it changes the surefire arguments line. If a component also
+                     needs to change the argument line of maven-surefire-plugin,
+                     then it must add ${argLine} property (which is set by JaCoCo)
+                     in the argLine configuration element of maven-surefire-plugin
+                     to preserve JaCoCo settings. -->
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>CLASS</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${commons.jacoco.classRatio}</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${commons.jacoco.instructionRatio}</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>METHOD</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${commons.jacoco.methodRatio}</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${commons.jacoco.branchRatio}</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${commons.jacoco.lineRatio}</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>COMPLEXITY</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${commons.jacoco.complexityRatio}</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                            <haltOnFailure>${commons.jacoco.haltOnFailure}</haltOnFailure>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <reporting>
@@ -365,6 +445,11 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>javancss-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${commons.jacoco.version}</version>
             </plugin>
         </plugins>
     </reporting>
