@@ -194,4 +194,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         buffer.append("/source");
         return buffer.toString();
     }
+
+    protected void setBasedir(File basedir) {
+        this.basedir = basedir;
+    }
 }
