@@ -21,7 +21,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.testing.stubs.ArtifactStub;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.artifact.AttachedArtifact;
 
 import java.io.File;
 import java.util.ArrayList;

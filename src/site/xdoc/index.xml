@@ -28,12 +28,11 @@
 
     <body>
 
-        <section name="Build Plugin">
+        <section name="Release Plugin">
 
             <p>
-            This is a <a href="http://maven.apache.org/">Maven 2.x/3.x</a> 
-            <a href="http://ant.apache.org/">Ant</a> Plugin which is
-            used by <a href="http://commons.apache.org/">Apache Commons</a> builds. See
+            This is a <a href="http://maven.apache.org/">Maven 2.x/3.x</a>Plugin which is
+            used by <a href="http://commons.apache.org/">Apache Commons</a> releases. See
             the <a href="development.html">Development</a> page for information to
             help maintain this plugin.
             </p>

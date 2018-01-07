@@ -153,7 +153,6 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         copiedReleaseNotesAbsolutePath.append("/scm/");
         copiedReleaseNotesAbsolutePath.append(releaseNotes.getName());
         File copiedReleaseNotes = new File(copiedReleaseNotesAbsolutePath.toString());
-        getLog().info("Copying: " + releaseNotes.getName());
         SharedFunctions.copyFile(getLog(), releaseNotes, copiedReleaseNotes);
     }
 
