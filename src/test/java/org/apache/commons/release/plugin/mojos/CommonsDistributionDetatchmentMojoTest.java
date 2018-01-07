@@ -23,6 +23,7 @@ import org.junit.Test;
 import java.io.File;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -50,5 +51,25 @@ public class CommonsDistributionDetatchmentMojoTest {
         File testPom = new File("src/test/resources/mojos/detatch-distributions/detatch-distributions.xml");
         assertNotNull(testPom);
         assertTrue(testPom.exists());
+        mojo = (CommonsDistributionDetatchmentMojo) rule.lookupMojo("detatch-distributions", testPom);
+        mojo.execute();
+        File detachedTarGz = new File("target/commons-release-plugin/mockAttachedTar.tar.gz");
+        File detachedTarGzAsc = new File("target/commons-release-plugin/mockAttachedTar.tar.gz.asc");
+        File detachedTarMd5 = new File("target/commons-release-plugin/mockAttachedTar.tar.gz.md5");
+        File detachedTarGzSha1 = new File("target/commons-release-plugin/mockAttachedTar.tar.gz.sha1");
+        File detachedZip = new File("target/commons-release-plugin/mockAttachedZip.zip");
+        File detachedZipAsc = new File("target/commons-release-plugin/mockAttachedZip.zip.asc");
+        File detachedZipMd5 = new File("target/commons-release-plugin/mockAttachedZip.zip.md5");
+        File detachedZipSha1 = new File("target/commons-release-plugin/mockAttachedZip.zip.sha1");
+        File notDetatchedMockAttachedFile = new File("target/commons-release-plugin/mockAttachedFile.html");
+        assertTrue(detachedTarGz.exists());
+        assertTrue(detachedTarGzAsc.exists());
+        assertTrue(detachedTarMd5.exists());
+        assertTrue(detachedTarGzSha1.exists());
+        assertTrue(detachedZip.exists());
+        assertTrue(detachedZipAsc.exists());
+        assertTrue(detachedZipMd5.exists());
+        assertTrue(detachedZipSha1.exists());
+        assertFalse(notDetatchedMockAttachedFile.exists());
     }
 }

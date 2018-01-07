@@ -42,8 +42,9 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
+                    <project implementation="org.apache.commons.release.plugin.stubs.DistributionDetatchmentProjectStub" />
                     <workingDirectory>target/commons-release-plugin</workingDirectory>
-                    <siteDirectory>${basedir}/target/test-classes/mojos/compress-site/example-site</siteDirectory>
+                    <distSvnStagingUrl>mockDistSvnStagingUrl</distSvnStagingUrl>
                 </configuration>
             </plugin>
         </plugins>

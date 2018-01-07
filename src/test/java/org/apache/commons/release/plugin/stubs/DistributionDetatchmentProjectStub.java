@@ -18,10 +18,13 @@ package org.apache.commons.release.plugin.stubs;
 
 import org.apache.commons.release.plugin.mojos.CommonsDistributionDetatchmentMojoTest;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.testing.stubs.ArtifactStub;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.artifact.AttachedArtifact;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +36,59 @@ public class DistributionDetatchmentProjectStub extends MavenProjectStub {
 
     private List<Artifact> attachedArtifacts;
 
+    @Override
+    public List<Artifact> getAttachedArtifacts() {
+        attachedArtifacts = new ArrayList<>();
+        attachedArtifacts.add(
+                new DistributionDetatchmentArtifactStub(
+                        new File("src/test/resources/mojos/detatch-distributions/target/mockAttachedFile.html"),
+                        "html"
+                )
+        );
+        attachedArtifacts.add(
+                new DistributionDetatchmentArtifactStub(
+                        new File("src/test/resources/mojos/detatch-distributions/target/mockAttachedTar.tar.gz"),
+                        "tar.gz"
+                )
+        );
+        attachedArtifacts.add(
+                new DistributionDetatchmentArtifactStub(
+                        new File("src/test/resources/mojos/detatch-distributions/target/mockAttachedTar.tar.gz.asc"),
+                        "tar.gz.asc"
+                )
+        );
+        attachedArtifacts.add(
+                new DistributionDetatchmentArtifactStub(
+                        new File("src/test/resources/mojos/detatch-distributions/target/mockAttachedZip.zip"),
+                        "zip"
+                )
+        );
+        attachedArtifacts.add(
+                new DistributionDetatchmentArtifactStub(
+                        new File("src/test/resources/mojos/detatch-distributions/target/mockAttachedZip.zip.asc"),
+                        "zip.asc"
+                )
+        );
+        return attachedArtifacts;
+    }
 
+    public class DistributionDetatchmentArtifactStub extends ArtifactStub {
 
+        private File artifact;
+
+        private String type;
+
+        public DistributionDetatchmentArtifactStub(File file, String type) {
+            this.artifact = file;
+            this.type = type;
+        }
+
+        public File getFile() {
+            return this.artifact;
+        }
+
+        public String getType() {
+            return this.type;
+        }
+    }
 }
