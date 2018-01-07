@@ -25,8 +25,8 @@
   </properties>
 
   <body>
-    <release version="1.0" date="YYYY-MM-DD" description="Feature release">
-      <action dev="chtompki" type="add">Placeholder</action>
+    <release version="1.0" date="YYYY-MM-DD" description="Future release">
+      <action issue="COMMONSSITE-96" type="add" dev="chtompki">Create commons-release-component project skeleton.</action>
     </release>
   </body>
 </document>
