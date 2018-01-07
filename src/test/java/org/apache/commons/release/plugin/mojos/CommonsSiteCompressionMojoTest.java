@@ -16,7 +16,7 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,6 +24,7 @@ import org.junit.Test;
 import java.io.File;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -48,7 +49,7 @@ public class CommonsSiteCompressionMojoTest {
     protected CommonsSiteCompressionMojo mojo;
 
     @Test
-    public void testCompressSite() throws Exception {
+    public void testCompressSiteSuccess() throws Exception {
         File testFile = new File("src/test/resources/mojos/compress-site/compress-site.xml");
         assertNotNull(testFile);
         assertTrue(testFile.exists());
@@ -56,5 +57,20 @@ public class CommonsSiteCompressionMojoTest {
         mojo.execute();
         File siteZip = new File("target/commons-release-plugin/site.zip");
         assertTrue(siteZip.exists());
+    }
+
+    @Test
+    public void testCompressSiteDirNonExistentFailure() throws Exception {
+        File testFile = new File("src/test/resources/mojos/compress-site/compress-site-failure.xml");
+        assertNotNull(testFile);
+        assertTrue(testFile.exists());
+        mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testFile);
+        try {
+            mojo.execute();
+        } catch (MojoFailureException e) {
+            assertEquals(
+                    "\"mvn site\" was not run before this goal, or a siteDirectory did not exist.", e.getMessage()
+            );
+        }
     }
 }

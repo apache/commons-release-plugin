@@ -55,11 +55,6 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project.build.directory}/site", alias = "siteOutputDirectory")
     private File siteDirectory;
 
-    /**
-     */
-    @Parameter(required = true)
-    private String distSvnStagingUrl;
-
     private ScatterZipOutputStream dirs;
 
     private ParallelScatterZipCreator scatterZipCreator;
@@ -68,6 +63,12 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if (!siteDirectory.exists()) {
+            getLog().error("\"mvn site\" was not run before this goal, or a siteDirectory did not exist.");
+            throw new MojoFailureException(
+                    "\"mvn site\" was not run before this goal, or a siteDirectory did not exist."
+            );
+        }
         if (!workingDirectory.exists()) {
             SharedFunctions.initDirectory(getLog(), workingDirectory);
         }

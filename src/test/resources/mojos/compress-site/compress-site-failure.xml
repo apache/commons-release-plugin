@@ -23,7 +23,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.apache.commons.plugin.my.unit</groupId>
-    <artifactId>compress-site-test</artifactId>
+    <artifactId>compress-site-test-failure</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Test MyMojo</name>
@@ -43,7 +43,7 @@
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
                     <workingDirectory>target/commons-release-plugin</workingDirectory>
-                    <siteDirectory>${basedir}/target/test-classes/mojos/compress-site/example-site</siteDirectory>
+                    <siteDirectory>${basedir}/target/test-classes/mojos/junk</siteDirectory>
                 </configuration>
             </plugin>
         </plugins>
