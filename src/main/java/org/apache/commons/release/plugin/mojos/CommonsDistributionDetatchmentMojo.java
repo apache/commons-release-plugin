@@ -24,11 +24,10 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.artifact.AttachedArtifact;
+import org.apache.maven.artifact.Artifact;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -65,7 +64,7 @@ public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
      * This list is supposed to hold the maven references to the aformentioned artifacts so that we
      * can upload them to svn after they've been detatched from the maven deployment.
      */
-    private List<AttachedArtifact> detatchedArtifacts = new ArrayList<>();
+    private List<Artifact> detatchedArtifacts = new ArrayList<>();
 
     /**
      * The maven project context injection so that we can get a hold of the variables at hand.
@@ -86,11 +85,11 @@ public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         getLog().info("Detatching Assemblies");
         for (Object attachedArtifact : project.getAttachedArtifacts()) {
-            if (ARTIFACT_TYPES_TO_DETATCH.contains(((AttachedArtifact) attachedArtifact).getType())) {
-                detatchedArtifacts.add((AttachedArtifact) attachedArtifact);
+            if (ARTIFACT_TYPES_TO_DETATCH.contains(((Artifact) attachedArtifact).getType())) {
+                detatchedArtifacts.add((Artifact) attachedArtifact);
             }
         }
-        for(AttachedArtifact artifactToRemove : detatchedArtifacts) {
+        for(Artifact artifactToRemove : detatchedArtifacts) {
             project.getAttachedArtifacts().remove(artifactToRemove);
         }
         if (!workingDirectory.exists()) {
@@ -104,7 +103,7 @@ public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
     private void copyRemovedArtifactsToWorkingDirectory() throws MojoExecutionException {
         StringBuffer copiedArtifactAbsolutePath;
         getLog().info("Copying detatched artifacts to working directory.");
-        for (AttachedArtifact artifact: detatchedArtifacts) {
+        for (Artifact artifact: detatchedArtifacts) {
             File artifactFile = artifact.getFile();
             copiedArtifactAbsolutePath = new StringBuffer(workingDirectory.getAbsolutePath());
             copiedArtifactAbsolutePath.append("/");
@@ -116,7 +115,7 @@ public class CommonsDistributionDetatchmentMojo extends AbstractMojo {
     }
 
     private void sha1AndMd5SignArtifacts() throws MojoExecutionException {
-        for (AttachedArtifact artifact : detatchedArtifacts) {
+        for (Artifact artifact : detatchedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
                 try {
                     FileInputStream artifactFileInputStream = new FileInputStream(artifact.getFile());
