@@ -53,6 +53,7 @@ The [JavaDoc](https://commons.apache.org/proper/commons-commons-release-plugin/j
 Questions related to the usage of Apache Commons Release Plugin should be posted to the [user mailing list][ml].
 
 [![Build Status](https://travis-ci.org/apache/commons-release-plugin.svg?branch=master)](https://travis-ci.org/apache/commons-release-plugin)
+[![Coverage Status](https://coveralls.io/repos/github/apache/commons-release-plugin/badge.svg?branch=master)](https://coveralls.io/github/apache/commons-release-plugin?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin)
 
 Where can I get the latest release?
