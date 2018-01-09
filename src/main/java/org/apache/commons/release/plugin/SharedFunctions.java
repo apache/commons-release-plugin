@@ -33,6 +33,15 @@ import java.io.IOException;
  */
 public final class SharedFunctions {
 
+    /**
+     * I want a buffer that is an array with 1024 elements of bytes. We declare
+     * the constant here for the sake of making the code more readable.
+     */
+    private static final int BUFFER_BYTE_SIZE = 1024;
+
+    /**
+     * Making the constructor private because the class only contains static methods.
+     */
     private SharedFunctions() {
         //Uitility Class
     }
@@ -43,6 +52,8 @@ public final class SharedFunctions {
      *
      * @param log is the maven log for output logging, particularly in regards to error management.
      * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete then create.
+     * @throws MojoExecutionException when an {@link IOException} occurrs for the purpose of bubbling the exception
+     *                                up to maven properly.
      */
     public static void initDirectory(Log log, File workingDirectory) throws MojoExecutionException {
         if (workingDirectory.exists()) {
@@ -67,13 +78,13 @@ public final class SharedFunctions {
      * @param toFile the {@link File} to which to copy into.
      * @throws MojoExecutionException if an {@link IOException} occurs.
      */
-    public static void copyFile(Log log, File fromFile,  File toFile) throws MojoExecutionException{
+    public static void copyFile(Log log, File fromFile,  File toFile) throws MojoExecutionException {
         FileInputStream in;
         FileOutputStream out;
         try {
             in = new FileInputStream(fromFile);
             out = new FileOutputStream(toFile);
-            byte[] buf = new byte[1024];
+            byte[] buf = new byte[BUFFER_BYTE_SIZE];
             int len;
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);

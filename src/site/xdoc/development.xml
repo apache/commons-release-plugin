@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<!--
+   $HeadURL$
+   $Revision$ $Date$
+ -->
+<document>
+
+  <properties>
+    <title>Development</title>
+    <author email="dev@commons.apache.org">Apache Commons Documentation Team</author>
+  </properties>
+
+  <body>
+
+    <section name="Help with Maven Mojos">
+
+      <p>
+        The best sources of information are
+        <a href="http://maven.apache.org/guides/plugin/guide-java-plugin-development.html">Developing Java Plugins for Maven 3.x</a>
+        and <a href="http://www.sonatype.com/book/chapter-11.html">Maven: The Definitive Guide: Chapter 11 Writing Plugins</a>.
+      </p>
+
+    </section>
+
+    <section name="New Mojos">
+
+      <p>
+        Each Mojo is a java file that extends <code>Abstract</code>
+        <ul>
+          <li>An ant build file
+            <ul><li>[naming convention: <i>basename</i><b>.build.xml</b>]</li></ul>
+          </li>
+          <li>A <i>mapping document</i> which wires the build file into maven's plugin framework
+            <ul><li>[naming convention: <i>basename</i><b>.mojos.xml</b>]</li></ul>
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        So if you want to add a new <i>foo-bar</i> ant script you would create a <code>foo-bar.build.xml</code>
+        ant script file and <code>foo-bar.mojos.xml</code> mapping document.
+      </p>
+
+      <p>
+        Both these files should be located in the
+        <a href="http://svn.apache.org/repos/asf/commons/proper/commons-build-plugin/trunk/src/main/scripts/">src/main/scripts</a>
+        directory.
+      </p>
+
+      <p>
+        If you want to access variables from the component's <code>pom.xml</code> in the ant script
+        then you need to do two things in the <i>mapping document</i>:
+        <ul>
+          <li>Add the <code>&lt;requiresProject&gt;true&lt;/requiresProject&gt;</code></li>
+          <li>Add <code>&lt;parameter&gt;</code> elements for each of the variables you
+            want to use.</li>
+        </ul>
+      </p>
+
+    </section>
+
+    <section name="Goal Prefix">
+
+      <p>
+        This plugin uses <code>commons</code> as the goal prefix. So if you add a new <code>foo-bar</code>
+        goal, then it can be executed on the command line using <code>mvn commons:foo-bar</code>. This prefix
+        is defined in this plugin's
+        <a href="http://svn.apache.org/repos/asf/commons/proper/commons-build-plugin/trunk/pom.xml">pom.xml</a>.
+      </p>
+
+    </section>
+
+    <section name="Modifying Existing Scripts">
+
+      <p>
+        Not alot to say about this except, if you need access to additional variables from the component's
+        <code>pom.xml</code> in the ant build script then you will need to define additional <i>parameters</i>
+        for these in the associated <i>mapping document</i>.
+      </p>
+
+    </section>
+
+    <section name="Debugging">
+
+      <p>
+        The <i>message level</i> for ant is <i>info</i> by default. Running the plugin goal using a message
+        level of <i>debug</i> can help in discovering problems - for example:
+        <source><![CDATA[
+    mvn commons:jira-page -DantMessageLevel=debug
+]]></source>
+      </p>
+
+    </section>
+
+  </body>
+</document>
