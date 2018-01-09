@@ -27,6 +27,7 @@
   <body>
     <release version="1.0" date="YYYY-MM-DD" description="Future release">
       <action issue="COMMONSSITE-96" type="add" dev="chtompki">Create commons-release-component project skeleton.</action>
+      <action issue="COMMONSSITE-99" type="add" dev="chtompki"></action>
     </release>
   </body>
 </document>
