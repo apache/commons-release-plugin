@@ -14,5 +14,33 @@
    limitations under the License.
 -->
 <FindBugsFilter>
-
+  <!-- Omit junit tests -->
+  <Match>
+    <Class name="~.*\.*Test.*"/>
+    <Not>
+      <Bug code="IJU"/>
+    </Not>
+  </Match>
+  <Match>
+    <Class name="~.*\.*Test.*"/>
+    <Not>
+      <Bug pattern="SE_BAD_FIELD, EI_EXPOSE_REP, EI_EXPOSE_REP2"/>
+    </Not>
+  </Match>
+  <Match>
+    <Class name="~.*\.*SharedFunctions.*" />
+    <Bug pattern="OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE,RV_RETURN_VALUE_IGNORED_BAD_PRACTICE" />
+  </Match>
+  <Match>
+    <Class name="~.*\.*CommonsDistributionDetachmentMojo.*" />
+    <Bug pattern="DM_DEFAULT_ENCODING" />
+  </Match>
+  <Match>
+    <Class name="~.*\.*CommonsDistributionStagingMojo.*" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+  </Match>
+  <Match>
+    <Class name="~.*\.*CommonsSiteCompressionMojo.*" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE,OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE,UUF_UNUSED_FIELD" />
+  </Match>
 </FindBugsFilter>

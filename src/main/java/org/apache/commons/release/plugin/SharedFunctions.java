@@ -37,7 +37,7 @@ public final class SharedFunctions {
      * I want a buffer that is an array with 1024 elements of bytes. We declare
      * the constant here for the sake of making the code more readable.
      */
-    private static final int BUFFER_BYTE_SIZE = 1024;
+    public static final int BUFFER_BYTE_SIZE = 1024;
 
     /**
      * Making the constructor private because the class only contains static methods.
