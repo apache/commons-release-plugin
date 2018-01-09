@@ -36,14 +36,15 @@ import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * This class checks out the dev distribution location, copies the distributions into that directory
- * structure under the <code>target</code> directory. Then commits the distributions back up to SVN.
- * Also, we include the built and zipped site as well as the RELEASE-NOTES.txt.
+ * structure under the <code>target/commons-release-plugin/scm</code> directory. Then commits the
+ * distributions back up to SVN. Also, we include the built and zipped site as well as the RELEASE-NOTES.txt.
  *
  * @author chtompki
  * @since 1.0
@@ -52,41 +53,58 @@ import java.util.List;
 public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /**
+     * The {@link MavenProject} object is essentially the context of the maven build at
+     * a given time.
      */
-    @Parameter(defaultValue = "${project}", required = true )
+    @Parameter(defaultValue = "${project}", required = true)
     private MavenProject project;
 
     /**
+     * The {@link File} that contains a file to the root directory of the working project. Typically
+     * this directory is where the <code>pom.xml</code> resides.
      */
     @Parameter(defaultValue = "${basedir}")
     private File basedir;
 
     /**
+     * The main working directory for the plugin, namely <code>target/commons-release-plugin</code>, but
+     * that assumes that we're using the default maven <code>${project.build.directory}</code>.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", alias = "outputDirectory")
     private File workingDirectory;
 
     /**
+     * The location to which to checkout the dist subversion repository under our working directory, which
+     * was given above.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm", alias = "outputDirectory")
     private File distCheckoutDirectory;
 
     /**
+     * A boolean that determines whether or not we actually commit the files up to the subversion repository.
+     * If this is set to <code>true</code>, we do all but make the commits. We do checkout the repository in question
+     * though.
      */
     @Parameter(defaultValue = "false")
     private Boolean dryRun;
 
     /**
+     * The url of the subversion repository to which we wish the artifacts to be staged. Typicallly
+     * this would need to be of the form:
+     * <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</code>. Note. that the prefix to the
+     * substring <code>https</code> is a requirement.
      */
     @Parameter(required = true)
     private String distSvnStagingUrl;
 
     /**
+     * The username for the distribution subversion repository. This is typically your apache id.
      */
     @Parameter(property = "user.name")
     private String username;
 
     /**
+     * The password associated with {@link CommonsDistributionStagingMojo#username}.
      */
     @Parameter(property = "user.password")
     private String password;
@@ -129,7 +147,9 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                     );
                     if (!checkInResult.isSuccess()) {
                         getLog().error("Committing dist files failed: " + checkInResult.getCommandOutput());
-                        throw new MojoExecutionException("Committing dist files failed: " + checkInResult.getCommandOutput());
+                        throw new MojoExecutionException(
+                                "Committing dist files failed: " + checkInResult.getCommandOutput()
+                        );
                     }
                 } else {
                     getLog().error("Adding dist files failed: " + addResult.getCommandOutput());
@@ -145,6 +165,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         }
     }
 
+    /**
+     * A utility method that takes the <code>RELEASE-NOTES.txt</code> file from the base directory of the
+     * project and copies it into {@link CommonsDistributionStagingMojo#workingDirectory}.
+     *
+     * @throws MojoExecutionException if an {@link IOException} occurrs as a wrapper so that maven
+     *                                can properly handle the exception.
+     */
     private void copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
         StringBuffer copiedReleaseNotesAbsolutePath;
         getLog().info("Copying RELEASE-NOTES.txt to working directory.");
@@ -156,6 +183,29 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         SharedFunctions.copyFile(getLog(), releaseNotes, copiedReleaseNotes);
     }
 
+    /**
+     * Copies the list of files at the root of the {@link CommonsDistributionStagingMojo#workingDirectory} into
+     * the directory structure of the distribution staging repository. Specifically:
+     * <ul>
+     *     <li>root:</li>
+     *     <li><ul>
+     *         <li>site.zip</li>
+     *         <li>RELEASE-NOTES.txt</li>
+     *         <li>source:</li>
+     *         <li><ul>
+     *             <li>-src artifacts....</li>
+     *         </ul></li>
+     *         <li>binaries:</li>
+     *         <li><ul>
+     *             <li>-bin artifacts....</li>
+     *         </ul></li>
+     *     </ul></li>
+     * </ul>
+     *
+     * @return a {@link List} of {@link File}'s in the directory for the purpose of adding them to the maven
+     *         {@link ScmFileSet}.
+     * @throws MojoExecutionException if an {@link IOException} occurrs so that Maven can handle it properly.
+     */
     private List<File> copyDistributionsIntoScmDirectoryStructure() throws MojoExecutionException {
         List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
         String scmBinariesRoot = buildDistBinariesRoot();
@@ -171,7 +221,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 copy = new File(scmBinariesRoot + "/" + file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
                 filesForMavenScmFileSet.add(copy);
-            } else if (file.getName().contains("scm")){
+            } else if (file.getName().contains("scm")) {
+                getLog().debug("Not copying scm directory over to the scm directory because it is the scm directory.");
                 //do nothing because we are copying into scm
             } else {
                 copy = new File(distCheckoutDirectory.getAbsolutePath() + "/" + file.getName());
@@ -183,18 +234,37 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         return filesForMavenScmFileSet;
     }
 
+    /**
+     * Build the path for the distribution binaries directory.
+     *
+     * @return the local absolute path into the checkedout subversion repository that is where
+     *         the binaries distributions are to be copied.
+     */
     private String buildDistBinariesRoot() {
         StringBuffer buffer = new StringBuffer(distCheckoutDirectory.getAbsolutePath());
         buffer.append("/binaries");
         return buffer.toString();
     }
 
+    /**
+     * Build the path for the distribution source directory.
+     *
+     * @return the local absolute path into the checkedout subversion repository that is where
+     *         the source distributions are to be copied.
+     */
     private String buildDistSourceRoot() {
         StringBuffer buffer = new StringBuffer(distCheckoutDirectory.getAbsolutePath());
         buffer.append("/source");
         return buffer.toString();
     }
 
+    /**
+     * This method is the setter for the {@link CommonsDistributionStagingMojo#basedir} field, specifically
+     * for the usage in the unit tests.
+     *
+     * @param basedir is the {@link File} to be used as the project's root directory when this mojo
+     *                is invoked.
+     */
     protected void setBasedir(File basedir) {
         this.basedir = basedir;
     }

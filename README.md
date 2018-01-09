@@ -52,7 +52,7 @@ More information can be found on the [homepage](https://commons.apache.org/prope
 The [JavaDoc](https://commons.apache.org/proper/commons-commons-release-plugin/javadocs/api-release) can be browsed.
 Questions related to the usage of Apache Commons Release Plugin should be posted to the [user mailing list][ml].
 
-[![Build Status](https://travis-ci.org/apache/commons-release-plugin.svg?branch=trunk)](https://travis-ci.org/apache/commons-release-plugin)
+[![Build Status](https://travis-ci.org/apache/commons-release-plugin.svg?branch=master)](https://travis-ci.org/apache/commons-release-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin)
 
 Where can I get the latest release?

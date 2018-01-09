@@ -197,6 +197,28 @@
         </pluginManagement>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${commons.javadoc.version}</version>
+                <configuration>
+                    <!-- keep only errors and warnings -->
+                    <show>private</show>
+                    <quiet>true</quiet>
+                    <encoding>${commons.encoding}</encoding>
+                    <notimestamp>true</notimestamp>
+                    <links>
+                        <link>${commons.javadoc.java.link}</link>
+                        <link>${commons.javadoc.javaee.link}</link>
+                    </links>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.plugin.version}</version>
                 <configuration>
@@ -345,6 +367,28 @@
                 <reportSets>
                     <reportSet/>
                 </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${commons.javadoc.version}</version>
+                <configuration>
+                    <!-- keep only errors and warnings -->
+                    <show>private</show>
+                    <quiet>true</quiet>
+                    <encoding>${commons.encoding}</encoding>
+                    <notimestamp>true</notimestamp>
+                    <links>
+                        <link>${commons.javadoc.java.link}</link>
+                        <link>${commons.javadoc.javaee.link}</link>
+                    </links>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
