@@ -165,6 +165,7 @@
     </dependencies>
 
     <build>
+        <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc</defaultGoal>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
