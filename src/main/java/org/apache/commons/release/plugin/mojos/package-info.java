@@ -14,4 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * This package contains all of the maven mojos for the commons-release-plugin. Currently
+ * this only has the following mojos:
+ * <ul>
+ *     <li>{@link org.apache.commons.release.plugin.mojos.CommonsDistributionDetachmentMojo},</li>
+ *     <li>{@link org.apache.commons.release.plugin.mojos.CommonsDistributionStagingMojo}, and</li>
+ *     <li>{@link org.apache.commons.release.plugin.mojos.CommonsSiteCompressionMojo}</li>
+ * </ul>
+ *
+ * @author chtompki
+ * @since 1.0
+ */
 package org.apache.commons.release.plugin.mojos;

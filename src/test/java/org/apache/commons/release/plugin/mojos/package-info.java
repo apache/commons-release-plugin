@@ -21,4 +21,10 @@
  * @author chtompki
  * @since 1.0
  */
+/**
+ * Unit tests for all of the mojos of the project.
+ *
+ * @author chtompki
+ * @since 1.0
+ */
 package org.apache.commons.release.plugin.mojos;
