@@ -23,7 +23,7 @@
 
     <properties>
         <title>Overview</title>
-        <author email="dev@commons.apache.org">Apache Commons Documentation Team</author>
+        <author email="dev@commons.apache.org">Apache Commons Team</author>
     </properties>
 
     <body>
@@ -31,42 +31,106 @@
         <section name="Release Plugin">
 
             <p>
-            This is a <a href="http://maven.apache.org/">Maven 2.x/3.x</a>Plugin which is
+            This is a <a href="http://maven.apache.org/">Maven 3.x</a> Plugin which is
             used by <a href="http://commons.apache.org/">Apache Commons</a> releases. See
             the <a href="development.html">Development</a> page for information to
             help maintain this plugin.
+            </p>
+
+            <p>The main purpose of the plugin is to automate the steps of our, namely
+            The Apache Commons Project's, release process. Currently we have the mechanics
+            for detaching distribution artifacts (i.e. all <code>tar.gz</code> artifacts and
+            signatures as well as all <code>.zip</code> artifacts and signatures), creating
+            a <code>site.zip</code> file, and staging all of those artifacts in a subversion
+            repository (for the most part a sub directory of
+            <a href="https://dist.apache.org/repos/dist/dev/commons/">https://dist.apache.org/repos/dist/dev/commons/</a>.
+            It can, however, stage to any subversion repository.
             </p>
 
         </section>
 
         <section name="Plugin Goals">
             <p>
-            Available Goals:
+            Available Goals (which are meant to be used together; the only reason they are separated is for
+            code readability):
             <ul>
-                <li><a href="download-page.html">commons:download-page</a> - Generate a Download page for the component's latest release</li>
-                <li><a href="mail-page.html">commons:mail-page</a> - Generate a custom <i>Mailing List</i> page for a component</li>
-                <li><a href="jira-page.html">commons:jira-page</a> - Generate a custom <i>JIRA Issue Tracking</i> page for a component</li>
-                <li><a href="sandbox-jira-page.html">commons:sandbox-jira-page</a> - Generate a custom <i>JIRA Issue Tracking page</i> for a Sandbox component</li>
-                <li><a href="copy-javadoc-files-build.html">commons:copy-javadoc-files</a> - Copy NOTICE and LICENSE files to -javadoc jar</li>
-                <li><a href="readme-md.html">commons:readme-md</a> - Generate a README.md file containing information for contributors from GitHub</li>
-                <li><a href="contributing-md.html">commons:contributing-md</a> - Generate a CONTRIBUTING.md file containing information on how to contribute for contributors from GitHub</li>
+                <li>
+                    <b>commons-release:detach-distributions</b> - Remove
+                    <code>tar.gz</code>, <code>tar.gz.asc</code>, <code>zip</code>, and <code>zip.asc</code>
+                    files from being uploaded to nexus and copy them to the <code>target/commons-release-plugin</code>
+                    directory.
+                </li>
+                <li>
+                    <b>commons-release:compress-site</b> - Generate <code>site.zip</code> file
+                    in the <code>target/commons-release-plugin</code> directory.</li>
+                <li>
+                    <b>commons-release:stage-distributions</b> - Take all staged files in the
+                    <code>target/commons-release-plugin</code> directory, and the <code>RELEASE-NOTES.txt</code> from
+                    the root of the project, and commit them to a specified staging subversion repository.
+                </li>
             </ul>
             </p>
         </section>
 
-        <section name="Trying out the plugin">
+        <section name="Using the plugin">
             <p>
-            Configure the plugin in the <code>&lt;build&gt;</code> section of the <code>pom.xml</code>
+            Configure the plugin as the last plugin in the<code>&lt;build&gt;</code> section of the <code>pom.xml</code>
 <source><![CDATA[
 <plugin>
   <groupId>org.apache.commons</groupId>
-  <artifactId>commons-build-plugin</artifactId>
-  <version>1.6</version>
+  <artifactId>commons-release-plugin</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <configuration>
+    <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</distSvnStagingUrl>
+  </configuration>
+  <executions>
+    <execution>
+      <id>detatch-distributions</id>
+      <phase>verify</phase>
+      <goals>
+        <goal>detatch-distributions</goal>
+      </goals>
+    </execution>
+    <execution>
+      <id>compress-site</id>
+      <phase>site</phase>
+      <goals>
+        <goal>compress-site</goal>
+      </goals>
+    </execution>
+    <execution>
+      <id>stage-distributions</id>
+      <phase>deploy</phase>
+      <goals>
+        <goal>stage-distributions</goal>
+      </goals>
+    </execution>
+  </executions>
 </plugin>
 ]]></source>
             </p>
             <p>
-            Configure any properties required by the goal and try executing.
+            After the above configuration performing the release would occur by (<i>note.</i> more
+            in depth details can be found at
+            <a href="http://commons.apache.org/releases/prepare.html">Preparations For A Release</a>):
+                <ol>
+                    <li>creating our release branch,</li>
+                    <li>checking compatibility,</li>
+                    <li>checking your dependencies,</li>
+                    <li>checking javadocs and code style,</li>
+                    <li>checking the apache license,</li>
+                    <li>configure the build to generate a complete set of release artifacts,</li>
+                    <li>preparing the release notes, updating the download file and other autogenerated files,</li>
+                    <li>tagging the release candidate, and</li>
+                    <li>
+                        running the following command:
+<source><![CDATA[
+mvn -Duser.name=<yourApacheId> -Prelease clean test site deploy
+]]></source>
+                    </li>
+                </ol>
+             If the component is new, then, before running this maven command, you would want to create
+             the requisite subversion directory <code>https://dist.apache.org/repos/dist/dev/commons/foo</code>.
             </p>
         </section>
 

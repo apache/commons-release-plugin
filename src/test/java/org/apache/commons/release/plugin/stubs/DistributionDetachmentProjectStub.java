@@ -16,6 +16,7 @@
  */
 package org.apache.commons.release.plugin.stubs;
 
+import org.apache.commons.release.plugin.mojos.CommonsDistributionDetachmentMojoTest;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.testing.stubs.ArtifactStub;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -26,9 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Stub for {@link MavenProject} for the {@link CommonsDistributionDetachmentMojoTest}.
+ * Stub for {@link MavenProject} for the {@link CommonsDistributionDetachmentMojoTest}. See the testing pom,
+ * <code>src/test/resources/detach-distributions/detach-distributions.xml</code> for the declared usage of
+ * this class.
  *
  * @author chtompki
+ * @since 1.0
  */
 public class DistributionDetachmentProjectStub extends MavenProjectStub {
 

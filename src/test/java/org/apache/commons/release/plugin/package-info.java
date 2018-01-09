@@ -14,4 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * This is the base package containing the unit tests
+ * <code>commons-release-plugin</code>.
+ *
+ * @author chtompki
+ * @since 1.0
+ */
 package org.apache.commons.release.plugin;

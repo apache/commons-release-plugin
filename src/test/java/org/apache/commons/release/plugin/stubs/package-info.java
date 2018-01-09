@@ -14,4 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * This package is meant to contain stubbed objects for the maven testing
+ * paradigm. These stubs can in turn be used in the poms in the <code>src/test/resources</code>
+ * directory of the project in the implementation block of the declaration of the configuration
+ * property. The maven unit testing framework then wires this stubbed object into the appropriate mojo
+ * for testing purposes.
+ *
+ * @author chtompki
+ * @since 1.0
+ */
 package org.apache.commons.release.plugin.stubs;

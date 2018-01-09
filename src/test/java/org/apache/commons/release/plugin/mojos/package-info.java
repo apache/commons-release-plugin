@@ -14,4 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * This package contains the unit tests for the package
+ * {@link org.apache.commons.release.plugin.mojos}.
+ *
+ * @author chtompki
+ * @since 1.0
+ */
 package org.apache.commons.release.plugin.mojos;
