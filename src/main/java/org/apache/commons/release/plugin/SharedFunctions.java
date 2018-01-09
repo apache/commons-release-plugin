@@ -26,12 +26,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Shared static functions for all of our Mojos
+ * Shared static functions for all of our Mojos.
  *
  * @author chtompki
  * @since 1.0
  */
-public class SharedFunctions {
+public final class SharedFunctions {
 
     private SharedFunctions() {
         //Uitility Class
@@ -59,7 +59,8 @@ public class SharedFunctions {
     }
 
     /**
-     * Copies a file from the from file to the to file and logs the failure using the maven logger.
+     * Copies a {@link File} from the <code>fromfile</code> to the <code>tofile</code> and logs the failure
+     * using the maven {@link Log}.
      *
      * @param log the {@link Log}, the maven logger.
      * @param fromFile the {@link File} from which to copy.
