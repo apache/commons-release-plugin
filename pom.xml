@@ -75,6 +75,7 @@
         <commons.release.version>${project.version}</commons.release.version>
         <commons.rc.version>RC1</commons.rc.version>
         <commons.site.path>commons-release-plugin</commons.site.path>
+        <commons.manifestfile/>
         <commons.scmPubUrl>
             https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}
         </commons.scmPubUrl>
@@ -555,6 +556,73 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-install-plugin</artifactId>
+                        <configuration>
+                            <createChecksum>true</createChecksum>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <!-- Pass these arguments to the deploy plugin. -->
+                            <arguments>-Prelease</arguments>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>create-javadoc-jar</id>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <source>${maven.compiler.source}</source>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <!-- COMMONSSITE-87 Ensure this runs after all package phase plugins -->
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>test-deploy</id>
+            <properties>
+                <altDeploymentRepository>id::default::file:target/deploy</altDeploymentRepository>
+            </properties>
         </profile>
     </profiles>
 </project>
