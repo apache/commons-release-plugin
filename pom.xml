@@ -69,7 +69,6 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.dependency.version>3.5.2</maven.dependency.version>
-        <commons.manifestfile/>
         <commons.componentid>commons-release-plugin</commons.componentid>
         <commons.jira.id>COMMONSSITE</commons.jira.id>
         <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
