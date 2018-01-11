@@ -52,7 +52,7 @@
         <site>
             <id>commons.site</id>
             <name>Apache Commons Site SVN</name>
-            <url>scm:svn:${commons.scmPubUrl}</url>
+            <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-release-plugin</url>
         </site>
     </distributionManagement>
 
@@ -60,7 +60,7 @@
         <developer>
             <name>Rob Tompkins</name>
             <id>chtompki</id>
-            <email>chtompki AT apache.org</email>
+            <email>chtompki@apache.org</email>
             <timezone>-5</timezone>
         </developer>
     </developers>
@@ -165,7 +165,8 @@
     </dependencies>
 
     <build>
-        <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc</defaultGoal>
+        <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc
+        </defaultGoal>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -251,15 +252,16 @@
                     </descriptors>
                     <tarLongFileMode>gnu</tarLongFileMode>
                 </configuration>
-            </plugin><plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>findbugs-maven-plugin</artifactId>
-            <!-- Use version from parent pom as that is adjusted according to the Java version used to run Maven -->
-            <version>${commons.findbugs.version}</version>
-            <configuration>
-                <excludeFilterFile>${basedir}/fb-excludes.xml</excludeFilterFile>
-            </configuration>
-        </plugin>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <!-- Use version from parent pom as that is adjusted according to the Java version used to run Maven -->
+                <version>${commons.findbugs.version}</version>
+                <configuration>
+                    <excludeFilterFile>${basedir}/fb-excludes.xml</excludeFilterFile>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -503,4 +505,50 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>setup-checkout</id>
+            <activation>
+                <file>
+                    <missing>site-content</missing>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-checkout</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <phase>pre-site</phase>
+                                <configuration>
+                                    <tasks>
+                                        <exec executable="svn">
+                                            <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}"/>
+                                        </exec>
+
+                                        <exec executable="svn">
+                                            <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs"/>
+                                        </exec>
+
+                                        <pathconvert pathsep=" " property="dirs">
+                                            <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*"/>
+                                        </pathconvert>
+                                        <exec executable="svn">
+                                            <arg line="update --set-depth infinity ${dirs}"/>
+                                        </exec>
+                                    </tasks>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
