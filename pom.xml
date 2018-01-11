@@ -198,6 +198,11 @@
         </pluginManagement>
         <plugins>
             <plugin>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-build-plugin</artifactId>
+                <version>1.7</version>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${commons.javadoc.version}</version>
