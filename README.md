@@ -58,7 +58,7 @@ Questions related to the usage of Apache Commons Release Plugin should be posted
 
 Where can I get the latest release?
 -----------------------------------
-You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-commons-release-plugin/download_commons-release-plugin.cgi).
+You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-release-plugin/download_commons-release-plugin.cgi).
 
 Alternatively you can pull it from the central Maven repositories:
 
