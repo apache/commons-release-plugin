@@ -85,7 +85,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * If this is set to <code>true</code>, we do all but make the commits. We do checkout the repository in question
      * though.
      */
-    @Parameter(defaultValue = "false")
+    @Parameter(property = "commons.release.dryRun", defaultValue = "false")
     private Boolean dryRun;
 
     /**
