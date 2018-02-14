@@ -86,10 +86,10 @@
   </configuration>
   <executions>
     <execution>
-      <id>detatch-distributions</id>
+      <id>detach-distributions</id>
       <phase>verify</phase>
       <goals>
-        <goal>detatch-distributions</goal>
+        <goal>detach-distributions</goal>
       </goals>
     </execution>
     <execution>
