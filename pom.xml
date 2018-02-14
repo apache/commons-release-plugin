@@ -82,6 +82,7 @@
         <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
         <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
         <checkstyle.version>6.19</checkstyle.version>
+        <maven-scm.version>1.9.5</maven-scm.version>
         <commons.jacoco.version>0.8.0</commons.jacoco.version>
         <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
         <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
@@ -129,17 +130,17 @@
         <dependency>
             <groupId>org.apache.maven.scm</groupId>
             <artifactId>maven-scm-api</artifactId>
-            <version>1.9.5</version>
+            <version>${maven-scm.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.scm</groupId>
             <artifactId>maven-scm-provider-svnexe</artifactId>
-            <version>1.9.5</version>
+            <version>${maven-scm.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.scm</groupId>
             <artifactId>maven-scm-provider-svn-commons</artifactId>
-            <version>1.9.5</version>
+            <version>${maven-scm.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
