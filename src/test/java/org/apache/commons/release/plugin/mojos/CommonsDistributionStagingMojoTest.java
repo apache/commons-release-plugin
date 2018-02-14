@@ -44,7 +44,7 @@ public class CommonsDistributionStagingMojoTest {
         }
     };
 
-    private CommonsDistributionDetachmentMojo detatchmentMojo;
+    private CommonsDistributionDetachmentMojo detachmentMojo;
 
     private CommonsDistributionStagingMojo mojoForTest;
 
@@ -57,8 +57,8 @@ public class CommonsDistributionStagingMojoTest {
         assertNotNull(detachmentPom);
         assertTrue(detachmentPom.exists());
         mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
-        detatchmentMojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", detachmentPom);
-        detatchmentMojo.execute();
+        detachmentMojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", detachmentPom);
+        detachmentMojo.execute();
         File releaseNotesBasedir = new File("src/test/resources/mojos/stage-distributions/");
         mojoForTest.setBasedir(releaseNotesBasedir);
         mojoForTest.execute();
