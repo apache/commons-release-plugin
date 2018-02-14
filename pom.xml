@@ -82,7 +82,7 @@
         <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
         <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
         <checkstyle.version>6.19</checkstyle.version>
-        <commons.jacoco.version>0.7.9</commons.jacoco.version>
+        <commons.jacoco.version>0.8.0</commons.jacoco.version>
         <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
         <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
         <commons.jacoco.methodRatio>0.1</commons.jacoco.methodRatio>
