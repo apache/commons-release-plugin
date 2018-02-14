@@ -63,6 +63,12 @@
             <email>chtompki@apache.org</email>
             <timezone>-5</timezone>
         </developer>
+        <developer>
+            <name>Gary Gregory</name>
+            <id>ggregory</id>
+            <email>ggregory@apache.org</email>
+            <timezone>-6</timezone>
+        </developer>
     </developers>
 
     <properties>
