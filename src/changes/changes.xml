@@ -26,7 +26,6 @@
 
   <body>
     <release version="1.1" date="2018-02-15" description="1.1">
-    <release version="1.1" date="YYYY-MM-DD" description="tbd">
       <action issue="COMMONSSITE-102" type="fix" dev="chtompki">Commons Release Plugin doesn't work with Commons Release Plugin</action>
       <action issue="COMMONSSITE-101" type="fix" dev="chtompki">Make -Dcommons.release.dryRun=true our commit toggle</action>
     </release>
