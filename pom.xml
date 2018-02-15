@@ -574,7 +574,7 @@
             </configuration>
             <executions>
               <execution>
-                <id>detatch-distributions</id>
+                <id>detach-distributions</id>
                 <phase>verify</phase>
                 <goals>
                   <goal>detach-distributions</goal>
