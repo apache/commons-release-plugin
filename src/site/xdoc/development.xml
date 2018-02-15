@@ -57,7 +57,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         imported to the Mojo by the existent maven variables or the declared <code>&lt;configuration&gt;</code>. For
         example, we have a boolean variable named <code>dryRun</code> declared as:
 <source><![CDATA[
-@Parameter
+@Parameter(property = "commons.release.dryRun", defaultValue = "false")
 private Boolean dryRun;
 ]]></source>
         that can be configured by
@@ -65,11 +65,14 @@ private Boolean dryRun;
 <plugin>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-release-plugin</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <configuration>
     <dryRun>true</dryRun>
   </configuration>
 </plugin>]]></source>
+
+        And, because we've set the <code>property here</code> (as in the 1.1 release), you can, on the command line,
+        use the following <code>-Dcommons.release.dryRun=true</code>.
       </p>
 
     </section>
