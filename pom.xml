@@ -561,6 +561,38 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-release-plugin</artifactId>
+                    <version>1.0</version>
+                    <configuration>
+                        <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin/</distSvnStagingUrl>
+                        <dryRun>${dryRun}</dryRun>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>detatch-distributions</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>detach-distributions</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>compress-site</id>
+                            <phase>site</phase>
+                            <goals>
+                                <goal>compress-site</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>stage-distributions</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>stage-distributions</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
