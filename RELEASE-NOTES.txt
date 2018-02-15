@@ -1,5 +1,5 @@
                          Apache Commons Release Plugin
-                                  Version 1.0
+                                  Version 1.1
                                  Release Notes
 
 INTRODUCTION
@@ -14,6 +14,17 @@ together for the purpose of removing the manual steps required to produce an Apa
 
 
 Changes in this version include:
+
+FIXED BUGS
+==========
+
+o COMMONSSITE-101: Make -Dcommons.release.dryRun=true our commit toggle
+
+=============================================================================
+
+                         Apache Commons Release Plugin
+                                  Version 1.0
+                                 Release Notes
 
 NEW FEATURES
 ============
