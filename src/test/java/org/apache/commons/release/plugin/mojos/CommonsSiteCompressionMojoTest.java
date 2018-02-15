@@ -55,7 +55,7 @@ public class CommonsSiteCompressionMojoTest {
         assertTrue(testPom.exists());
         mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
         mojo.execute();
-        File siteZip = new File("target/commons-release-plugin/site.zip");
+        File siteZip = new File("target/testing-commons-release-plugin/site.zip");
         assertTrue(siteZip.exists());
     }
 

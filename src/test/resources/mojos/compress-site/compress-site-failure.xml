@@ -42,7 +42,7 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
-                    <workingDirectory>target/commons-release-plugin</workingDirectory>
+                    <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
                     <siteDirectory>${basedir}/target/test-classes/mojos/junk</siteDirectory>
                 </configuration>
             </plugin>

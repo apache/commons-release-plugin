@@ -62,7 +62,7 @@ public class CommonsDistributionStagingMojoTest {
         File releaseNotesBasedir = new File("src/test/resources/mojos/stage-distributions/");
         mojoForTest.setBasedir(releaseNotesBasedir);
         mojoForTest.execute();
-        File targetScmDirectory = new File("target/commons-release-plugin/scm");
+        File targetScmDirectory = new File("target/testing-commons-release-plugin/scm");
         assertTrue(targetScmDirectory.exists());
     }
 }

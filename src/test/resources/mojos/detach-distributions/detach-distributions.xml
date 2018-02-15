@@ -43,7 +43,7 @@
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
                     <project implementation="org.apache.commons.release.plugin.stubs.DistributionDetachmentProjectStub" />
-                    <workingDirectory>target/commons-release-plugin</workingDirectory>
+                    <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
                     <distSvnStagingUrl>mockDistSvnStagingUrl</distSvnStagingUrl>
                 </configuration>
             </plugin>
