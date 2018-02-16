@@ -61,7 +61,7 @@ public class CommonsDistributionDetachmentMojoTest {
         File detachedZipAsc = new File("target/testing-commons-release-plugin/mockAttachedZip.zip.asc");
         File detachedZipMd5 = new File("target/testing-commons-release-plugin/mockAttachedZip.zip.md5");
         File detachedZipSha1 = new File("target/testing-commons-release-plugin/mockAttachedZip.zip.sha1");
-        File notDetatchedMockAttachedFile = new File("target/testing-commons-release-plugin/mockAttachedFile.html");
+        File notDetachedMockAttachedFile = new File("target/testing-commons-release-plugin/mockAttachedFile.html");
         assertTrue(detachedTarGz.exists());
         assertTrue(detachedTarGzAsc.exists());
         assertTrue(detachedTarMd5.exists());
@@ -70,6 +70,6 @@ public class CommonsDistributionDetachmentMojoTest {
         assertTrue(detachedZipAsc.exists());
         assertTrue(detachedZipMd5.exists());
         assertTrue(detachedZipSha1.exists());
-        assertFalse(notDetatchedMockAttachedFile.exists());
+        assertFalse(notDetachedMockAttachedFile.exists());
     }
 }

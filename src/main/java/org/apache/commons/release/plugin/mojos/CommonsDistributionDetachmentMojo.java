@@ -54,14 +54,14 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * from the deployment, namely *-src.zip, *-src.tar.gz, *-bin.zip,
      * *-bin.tar.gz, and the corresponding .asc pgp signatures.
      */
-    private static final Set<String> ARTIFACT_TYPES_TO_DETATCH;
+    private static final Set<String> ARTIFACT_TYPES_TO_DETACH;
     static {
         Set<String> hashSet = new HashSet<>();
         hashSet.add("zip");
         hashSet.add("tar.gz");
         hashSet.add("zip.asc");
         hashSet.add("tar.gz.asc");
-        ARTIFACT_TYPES_TO_DETATCH = Collections.unmodifiableSet(hashSet);
+        ARTIFACT_TYPES_TO_DETACH = Collections.unmodifiableSet(hashSet);
     }
 
     /**
@@ -90,9 +90,9 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        getLog().info("Detatching Assemblies");
+        getLog().info("Detaching Assemblies");
         for (Object attachedArtifact : project.getAttachedArtifacts()) {
-            if (ARTIFACT_TYPES_TO_DETATCH.contains(((Artifact) attachedArtifact).getType())) {
+            if (ARTIFACT_TYPES_TO_DETACH.contains(((Artifact) attachedArtifact).getType())) {
                 detachedArtifacts.add((Artifact) attachedArtifact);
             }
         }

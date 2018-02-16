@@ -42,31 +42,31 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
     public List<Artifact> getAttachedArtifacts() {
         attachedArtifacts = new ArrayList<>();
         attachedArtifacts.add(
-                new DistributionDetatchmentArtifactStub(
+                new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedFile.html"),
                         "html"
                 )
         );
         attachedArtifacts.add(
-                new DistributionDetatchmentArtifactStub(
+                new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedTar.tar.gz"),
                         "tar.gz"
                 )
         );
         attachedArtifacts.add(
-                new DistributionDetatchmentArtifactStub(
+                new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedTar.tar.gz.asc"),
                         "tar.gz.asc"
                 )
         );
         attachedArtifacts.add(
-                new DistributionDetatchmentArtifactStub(
+                new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedZip.zip"),
                         "zip"
                 )
         );
         attachedArtifacts.add(
-                new DistributionDetatchmentArtifactStub(
+                new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedZip.zip.asc"),
                         "zip.asc"
                 )
@@ -74,13 +74,13 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
         return attachedArtifacts;
     }
 
-    public class DistributionDetatchmentArtifactStub extends ArtifactStub {
+    public class DistributionDetachmentArtifactStub extends ArtifactStub {
 
         private File artifact;
 
         private String type;
 
-        public DistributionDetatchmentArtifactStub(File file, String type) {
+        public DistributionDetachmentArtifactStub(File file, String type) {
             this.artifact = file;
             this.type = type;
         }
