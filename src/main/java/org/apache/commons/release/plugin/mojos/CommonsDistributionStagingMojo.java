@@ -49,7 +49,10 @@ import java.util.List;
  * @author chtompki
  * @since 1.0
  */
-@Mojo(name = "stage-distributions", defaultPhase = LifecyclePhase.DEPLOY, threadSafe = true)
+@Mojo(name = "stage-distributions",
+        defaultPhase = LifecyclePhase.VERIFY,
+        threadSafe = true,
+        aggregator = true)
 public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /**
@@ -131,8 +134,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             provider.checkOut(repository, scmFileSet);
             copyReleaseNotesToWorkingDirectory();
             List<File> filesToCommit = copyDistributionsIntoScmDirectoryStructure();
-            ScmFileSet scmFileSetToCommit = new ScmFileSet(distCheckoutDirectory, filesToCommit);
             if (!dryRun) {
+                ScmFileSet scmFileSetToCommit = new ScmFileSet(distCheckoutDirectory, filesToCommit);
                 AddScmResult addResult = provider.add(
                         repository,
                         scmFileSetToCommit,
