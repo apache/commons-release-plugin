@@ -44,7 +44,10 @@ import java.util.Set;
  * @author chtompki
  * @since 1.0
  */
-@Mojo(name = "detach-distributions", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
+@Mojo(name = "detach-distributions",
+        defaultPhase = LifecyclePhase.VERIFY,
+        threadSafe = true,
+        aggregator = true)
 public class CommonsDistributionDetachmentMojo extends AbstractMojo {
 
     /**

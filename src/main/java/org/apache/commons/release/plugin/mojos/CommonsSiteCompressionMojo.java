@@ -42,7 +42,10 @@ import java.util.zip.ZipOutputStream;
  * @author chtompki
  * @since 1.0
  */
-@Mojo(name = "compress-site", defaultPhase = LifecyclePhase.POST_SITE, threadSafe = true)
+@Mojo(name = "compress-site",
+        defaultPhase = LifecyclePhase.VERIFY,
+        threadSafe = true,
+        aggregator = true)
 public class CommonsSiteCompressionMojo extends AbstractMojo {
 
     /**
