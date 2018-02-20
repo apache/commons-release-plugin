@@ -50,7 +50,7 @@ import java.util.List;
  * @since 1.0
  */
 @Mojo(name = "stage-distributions",
-        defaultPhase = LifecyclePhase.VERIFY,
+        defaultPhase = LifecyclePhase.DEPLOY,
         threadSafe = true,
         aggregator = true)
 public class CommonsDistributionStagingMojo extends AbstractMojo {
