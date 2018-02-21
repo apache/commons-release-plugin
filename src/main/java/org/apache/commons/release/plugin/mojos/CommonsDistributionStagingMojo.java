@@ -84,6 +84,12 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private File distCheckoutDirectory;
 
     /**
+     * The location of the RELEASE-NOTES.txt file such that multimodule builds can configure it.
+     */
+    @Parameter(defaultValue = "${basedir}/RELEASE-NOTES.txt", alias = "releaseNotesLocation")
+    private File releaseNotesFile;
+
+    /**
      * A boolean that determines whether or not we actually commit the files up to the subversion repository.
      * If this is set to <code>true</code>, we do all but make the commits. We do checkout the repository in question
      * though.
@@ -178,12 +184,11 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private void copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
         StringBuffer copiedReleaseNotesAbsolutePath;
         getLog().info("Copying RELEASE-NOTES.txt to working directory.");
-        File releaseNotes = new File(basedir + "/RELEASE-NOTES.txt");
         copiedReleaseNotesAbsolutePath = new StringBuffer(workingDirectory.getAbsolutePath());
         copiedReleaseNotesAbsolutePath.append("/scm/");
-        copiedReleaseNotesAbsolutePath.append(releaseNotes.getName());
+        copiedReleaseNotesAbsolutePath.append(releaseNotesFile.getName());
         File copiedReleaseNotes = new File(copiedReleaseNotesAbsolutePath.toString());
-        SharedFunctions.copyFile(getLog(), releaseNotes, copiedReleaseNotes);
+        SharedFunctions.copyFile(getLog(), releaseNotesFile, copiedReleaseNotes);
     }
 
     /**
@@ -233,7 +238,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 filesForMavenScmFileSet.add(copy);
             }
         }
-        filesForMavenScmFileSet.add(new File(distCheckoutDirectory + "/RELEASE-NOTES.txt"));
+        filesForMavenScmFileSet.add(releaseNotesFile);
         return filesForMavenScmFileSet;
     }
 
