@@ -218,6 +218,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
         String scmBinariesRoot = buildDistBinariesRoot();
         String scmSourceRoot = buildDistSourceRoot();
+        SharedFunctions.initDirectory(getLog(), new File(scmBinariesRoot));
+        SharedFunctions.initDirectory(getLog(), new File(scmSourceRoot));
         List<File> filesForMavenScmFileSet = new ArrayList<>();
         File copy;
         for (File file : workingDirectoryFiles) {
