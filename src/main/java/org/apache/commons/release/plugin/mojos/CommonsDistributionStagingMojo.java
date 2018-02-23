@@ -80,7 +80,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * The location to which to checkout the dist subversion repository under our working directory, which
      * was given above.
      */
-    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm", alias = "outputDirectory")
+    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm", alias = "distCheckoutDirectory")
     private File distCheckoutDirectory;
 
     /**
