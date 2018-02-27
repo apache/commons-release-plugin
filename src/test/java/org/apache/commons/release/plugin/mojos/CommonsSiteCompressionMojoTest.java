@@ -18,6 +18,8 @@ package org.apache.commons.release.plugin.mojos;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.MojoRule;
+import org.codehaus.plexus.util.FileUtils;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -25,6 +27,7 @@ import java.io.File;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -34,6 +37,8 @@ import static org.junit.Assert.assertNotNull;
  * @since 1.0
  */
 public class CommonsSiteCompressionMojoTest {
+
+    private static final String COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH = "target/testing-commons-release-plugin";
 
     @Rule
     public MojoRule rule = new MojoRule() {
@@ -48,14 +53,24 @@ public class CommonsSiteCompressionMojoTest {
 
     protected CommonsSiteCompressionMojo mojo;
 
+    @Before
+    public void setUp() throws Exception {
+        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        if (testingDirectory.exists()) {
+            FileUtils.deleteDirectory(testingDirectory);
+        }
+    }
+
     @Test
     public void testCompressSiteSuccess() throws Exception {
+        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        testingDirectory.mkdir();
         File testPom = new File("src/test/resources/mojos/compress-site/compress-site.xml");
         assertNotNull(testPom);
         assertTrue(testPom.exists());
         mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
         mojo.execute();
-        File siteZip = new File("target/testing-commons-release-plugin/site.zip");
+        File siteZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/site.zip");
         assertTrue(siteZip.exists());
     }
 
@@ -72,5 +87,16 @@ public class CommonsSiteCompressionMojoTest {
                     "\"mvn site\" was not run before this goal, or a siteDirectory did not exist.", e.getMessage()
             );
         }
+    }
+
+    @Test
+    public void testDisabled() throws Exception {
+        File testPom = new File("src/test/resources/mojos/compress-site/compress-site-disabled.xml");
+        assertNotNull(testPom);
+        assertTrue(testPom.exists());
+        mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
+        mojo.execute();
+        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        assertFalse(testingDirectory.exists());
     }
 }

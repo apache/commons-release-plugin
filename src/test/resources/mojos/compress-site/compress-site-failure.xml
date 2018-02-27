@@ -44,6 +44,7 @@
                 <configuration>
                     <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
                     <siteDirectory>${basedir}/target/test-classes/mojos/junk</siteDirectory>
+                    <distSvnStagingUrl>something</distSvnStagingUrl>
                 </configuration>
             </plugin>
         </plugins>

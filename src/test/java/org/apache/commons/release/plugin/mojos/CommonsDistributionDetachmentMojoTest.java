@@ -17,6 +17,8 @@
 package org.apache.commons.release.plugin.mojos;
 
 import org.apache.maven.plugin.testing.MojoRule;
+import org.codehaus.plexus.util.FileUtils;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -32,6 +34,8 @@ import static org.junit.Assert.assertNotNull;
  * @author chtompki
  */
 public class CommonsDistributionDetachmentMojoTest {
+    
+    private static final String COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH = "target/testing-commons-release-plugin";
 
     @Rule
     public MojoRule rule = new MojoRule() {
@@ -46,6 +50,14 @@ public class CommonsDistributionDetachmentMojoTest {
 
     private CommonsDistributionDetachmentMojo mojo;
 
+    @Before
+    public void setUp() throws Exception {
+        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        if (testingDirectory.exists()) {
+            FileUtils.deleteDirectory(testingDirectory);
+        }
+    }
+
     @Test
     public void testSuccess() throws Exception {
         File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml");
@@ -53,15 +65,15 @@ public class CommonsDistributionDetachmentMojoTest {
         assertTrue(testPom.exists());
         mojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", testPom);
         mojo.execute();
-        File detachedTarGz = new File("target/testing-commons-release-plugin/mockAttachedTar.tar.gz");
-        File detachedTarGzAsc = new File("target/testing-commons-release-plugin/mockAttachedTar.tar.gz.asc");
-        File detachedTarMd5 = new File("target/testing-commons-release-plugin/mockAttachedTar.tar.gz.md5");
-        File detachedTarGzSha1 = new File("target/testing-commons-release-plugin/mockAttachedTar.tar.gz.sha1");
-        File detachedZip = new File("target/testing-commons-release-plugin/mockAttachedZip.zip");
-        File detachedZipAsc = new File("target/testing-commons-release-plugin/mockAttachedZip.zip.asc");
-        File detachedZipMd5 = new File("target/testing-commons-release-plugin/mockAttachedZip.zip.md5");
-        File detachedZipSha1 = new File("target/testing-commons-release-plugin/mockAttachedZip.zip.sha1");
-        File notDetachedMockAttachedFile = new File("target/testing-commons-release-plugin/mockAttachedFile.html");
+        File detachedTarGz = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedTar.tar.gz");
+        File detachedTarGzAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedTar.tar.gz.asc");
+        File detachedTarMd5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedTar.tar.gz.md5");
+        File detachedTarGzSha1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedTar.tar.gz.sha1");
+        File detachedZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip");
+        File detachedZipAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.asc");
+        File detachedZipMd5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.md5");
+        File detachedZipSha1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.sha1");
+        File notDetachedMockAttachedFile = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedFile.html");
         assertTrue(detachedTarGz.exists());
         assertTrue(detachedTarGzAsc.exists());
         assertTrue(detachedTarMd5.exists());
@@ -71,5 +83,16 @@ public class CommonsDistributionDetachmentMojoTest {
         assertTrue(detachedZipMd5.exists());
         assertTrue(detachedZipSha1.exists());
         assertFalse(notDetachedMockAttachedFile.exists());
+    }
+
+    @Test
+    public void testDisabled() throws Exception {
+        File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions-disabled.xml");
+        assertNotNull(testPom);
+        assertTrue(testPom.exists());
+        mojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", testPom);
+        mojo.execute();
+        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        assertFalse(testingDirectory.exists());
     }
 }
