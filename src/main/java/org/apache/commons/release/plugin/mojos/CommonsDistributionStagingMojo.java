@@ -16,6 +16,7 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -121,8 +122,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        if ("".equals(distSvnStagingUrl)) {
-            getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run");
+        if (StringUtils.isEmpty(distSvnStagingUrl)) {
+            getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run.");
             return;
         }
         if (!workingDirectory.exists()) {

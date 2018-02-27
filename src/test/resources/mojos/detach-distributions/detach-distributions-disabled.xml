@@ -22,11 +22,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.apache.commons.plugin.my.unit</groupId>
-    <artifactId>compress-site-test</artifactId>
+    <groupId>org.apache.commons.release.plugin.unit</groupId>
+    <artifactId>detach-distributions-test</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Test MyMojo</name>
+    <name>Mock Pom For Testing CommonsDistributionDetachmentMojo</name>
 
     <dependencies>
         <dependency>
@@ -42,9 +42,8 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
+                    <project implementation="org.apache.commons.release.plugin.stubs.DistributionDetachmentProjectStub" />
                     <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
-                    <siteDirectory>${basedir}/target/test-classes/mojos/compress-site/example-site</siteDirectory>
-                    <distSvnStagingUrl>something</distSvnStagingUrl>
                 </configuration>
             </plugin>
         </plugins>

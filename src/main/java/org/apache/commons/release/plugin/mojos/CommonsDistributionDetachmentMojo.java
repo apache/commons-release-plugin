@@ -17,6 +17,7 @@
 package org.apache.commons.release.plugin.mojos;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -94,8 +95,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        if ("".equals(distSvnStagingUrl)) {
-            getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run");
+        if (StringUtils.isEmpty(distSvnStagingUrl)) {
+            getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run.");
             return;
         }
         getLog().info("Detaching Assemblies");
