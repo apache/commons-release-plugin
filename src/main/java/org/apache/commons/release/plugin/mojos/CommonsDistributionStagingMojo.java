@@ -73,20 +73,21 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * The main working directory for the plugin, namely <code>target/commons-release-plugin</code>, but
      * that assumes that we're using the default maven <code>${project.build.directory}</code>.
      */
-    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", alias = "outputDirectory")
+    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", property = "commons.outputDirectory")
     private File workingDirectory;
 
     /**
      * The location to which to checkout the dist subversion repository under our working directory, which
      * was given above.
      */
-    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm", alias = "distCheckoutDirectory")
+    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm",
+            property = "commons.distCheckoutDirectory")
     private File distCheckoutDirectory;
 
     /**
      * The location of the RELEASE-NOTES.txt file such that multimodule builds can configure it.
      */
-    @Parameter(defaultValue = "${basedir}/RELEASE-NOTES.txt", alias = "releaseNotesLocation")
+    @Parameter(defaultValue = "${basedir}/RELEASE-NOTES.txt", property = "commons.releaseNotesLocation")
     private File releaseNotesFile;
 
     /**
@@ -103,7 +104,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</code>. Note. that the prefix to the
      * substring <code>https</code> is a requirement.
      */
-    @Parameter(required = true)
+    @Parameter(defaultValue = "", property = "commons.distSvnStagingUrl")
     private String distSvnStagingUrl;
 
     /**
@@ -120,6 +121,14 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if ("".equals(distSvnStagingUrl)) {
+            getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run");
+            return;
+        }
+        if (!workingDirectory.exists()) {
+            getLog().info("Current project contains no distributions. Not executing.");
+            return;
+        }
         getLog().info("Preparing to stage distributions");
         try {
             ScmManager scmManager = new BasicScmManager();
@@ -129,9 +138,6 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
             providerRepository.setUser(username);
             providerRepository.setPassword(password);
-            if (!workingDirectory.exists()) {
-                SharedFunctions.initDirectory(getLog(), workingDirectory);
-            }
             if (!distCheckoutDirectory.exists()) {
                 SharedFunctions.initDirectory(getLog(), distCheckoutDirectory);
             }

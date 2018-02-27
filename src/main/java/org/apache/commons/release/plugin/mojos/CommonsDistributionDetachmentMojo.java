@@ -82,22 +82,31 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     /**
      * The working directory in <code>target</code> that we use as a sandbox for the plugin.
      */
-    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", alias = "outputDirectory")
+    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin",
+            property = "commons.outputDirectory")
     private File workingDirectory;
 
     /**
      * The subversion staging url to which we upload all of our staged artifacts.
      */
-    @Parameter(required = true)
+    @Parameter(defaultValue = "", property = "commons.distSvnStagingUrl")
     private String distSvnStagingUrl;
 
     @Override
     public void execute() throws MojoExecutionException {
+        if ("".equals(distSvnStagingUrl)) {
+            getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run");
+            return;
+        }
         getLog().info("Detaching Assemblies");
         for (Object attachedArtifact : project.getAttachedArtifacts()) {
             if (ARTIFACT_TYPES_TO_DETACH.contains(((Artifact) attachedArtifact).getType())) {
                 detachedArtifacts.add((Artifact) attachedArtifact);
             }
+        }
+        if (detachedArtifacts.isEmpty()) {
+            getLog().info("Current project contains no distributions. Not executing.");
+            return;
         }
         for (Artifact artifactToRemove : detachedArtifacts) {
             project.getAttachedArtifacts().remove(artifactToRemove);
