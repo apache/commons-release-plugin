@@ -52,13 +52,23 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      * The working directory for the plugin which, assuming the maven uses the default
      * <code>${project.build.directory}</code>, this becomes <code>target/commons-release-plugin</code>.
      */
-    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", alias = "outputDirectory")
+    @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin",
+            property = "commons.outputDirectory")
     private File workingDirectory;
 
     /**
      */
-    @Parameter(defaultValue = "${project.build.directory}/site", alias = "siteOutputDirectory")
+    @Parameter(defaultValue = "${project.build.directory}/site", property = "commons.siteOutputDirectory")
     private File siteDirectory;
+
+    /**
+     * The url of the subversion repository to which we wish the artifacts to be staged. Typicallly
+     * this would need to be of the form:
+     * <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</code>. Note. that the prefix to the
+     * substring <code>https</code> is a requirement.
+     */
+    @Parameter(defaultValue = "", property = "commons.distSvnStagingUrl")
+    private String distSvnStagingUrl;
 
     /**
      * A variable for the process of creating the site.zip file.
@@ -77,6 +87,10 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if ("".equals(distSvnStagingUrl)) {
+            getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run");
+            return;
+        }
         if (!siteDirectory.exists()) {
             getLog().error("\"mvn site\" was not run before this goal, or a siteDirectory did not exist.");
             throw new MojoFailureException(
@@ -84,7 +98,8 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
             );
         }
         if (!workingDirectory.exists()) {
-            SharedFunctions.initDirectory(getLog(), workingDirectory);
+            getLog().info("Current project contains no distributions. Not executing.");
+            return;
         }
         try {
             filesToCompress = new ArrayList<>();
