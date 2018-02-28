@@ -44,6 +44,7 @@
         <configuration>
           <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
           <siteDirectory>${basedir}/target/test-classes/mojos/compress-site/example-site</siteDirectory>
+          <isDistModule>true</isDistModule>
           <distSvnStagingUrl>something</distSvnStagingUrl>
         </configuration>
       </plugin>

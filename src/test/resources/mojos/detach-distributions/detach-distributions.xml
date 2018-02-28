@@ -44,6 +44,7 @@
                 <configuration>
                     <project implementation="org.apache.commons.release.plugin.stubs.DistributionDetachmentProjectStub" />
                     <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
+                    <isDistModule>true</isDistModule>
                     <distSvnStagingUrl>mockDistSvnStagingUrl</distSvnStagingUrl>
                 </configuration>
             </plugin>

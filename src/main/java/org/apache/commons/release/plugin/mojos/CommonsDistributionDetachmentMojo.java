@@ -93,8 +93,19 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     @Parameter(defaultValue = "", property = "commons.distSvnStagingUrl")
     private String distSvnStagingUrl;
 
+    /**
+     * A parameter to generally avoid running unless it is specifically turned on by the consuming module.
+     */
+    @Parameter(defaultValue = "false", property = "commons.release.isDistModule")
+    private Boolean isDistModule;
+
     @Override
     public void execute() throws MojoExecutionException {
+        if (!isDistModule) {
+            getLog().info("This module is marked as a non distribution " +
+                    "or assembly module, and the plugin will not run.");
+            return;
+        }
         if (StringUtils.isEmpty(distSvnStagingUrl)) {
             getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run.");
             return;

@@ -109,6 +109,12 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private String distSvnStagingUrl;
 
     /**
+     * A parameter to generally avoid running unless it is specifically turned on by the consuming module.
+     */
+    @Parameter(defaultValue = "false", property = "commons.release.isDistModule")
+    private Boolean isDistModule;
+
+    /**
      * The username for the distribution subversion repository. This is typically your apache id.
      */
     @Parameter(property = "user.name")
@@ -122,6 +128,11 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if (!isDistModule) {
+            getLog().info("This module is marked as a non distribution " +
+                    "or assembly module, and the plugin will not run.");
+            return;
+        }
         if (StringUtils.isEmpty(distSvnStagingUrl)) {
             getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run.");
             return;
