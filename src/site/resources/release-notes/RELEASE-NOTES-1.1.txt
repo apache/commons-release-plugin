@@ -18,6 +18,8 @@ Changes in this version include:
 FIXED BUGS
 ==========
 
+o COMMONSSITE-98:  Making the project more multi-module compatible
+o COMMONSSITE-102: Commons Release Plugin doesn't work with Commons Release Plugin
 o COMMONSSITE-101: Make -Dcommons.release.dryRun=true our commit toggle
 
 =============================================================================
