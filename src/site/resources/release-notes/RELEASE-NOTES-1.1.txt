@@ -15,12 +15,19 @@ together for the purpose of removing the manual steps required to produce an Apa
 
 Changes in this version include:
 
+NEW FEATURES
+============
+
+o COMMONSSITE-98:  Making the project more multi-module compatible
+
 FIXED BUGS
 ==========
 
-o COMMONSSITE-98:  Making the project more multi-module compatible
+o COMMONSSITE-104: Sha1 signature files now reflect actual signatures.
 o COMMONSSITE-102: Commons Release Plugin doesn't work with Commons Release Plugin
 o COMMONSSITE-101: Make -Dcommons.release.dryRun=true our commit toggle
+
+
 
 =============================================================================
 
