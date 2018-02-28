@@ -72,6 +72,12 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     private String distSvnStagingUrl;
 
     /**
+     * A parameter to generally avoid running unless it is specifically turned on by the consuming module.
+     */
+    @Parameter(defaultValue = "false", property = "commons.release.isDistModule")
+    private Boolean isDistModule;
+
+    /**
      * A variable for the process of creating the site.zip file.
      */
     private ScatterZipOutputStream dirs;
@@ -88,6 +94,11 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if (!isDistModule) {
+            getLog().info("This module is marked as a non distribution " +
+                    "or assembly module, and the plugin will not run.");
+            return;
+        }
         if (StringUtils.isEmpty(distSvnStagingUrl)) {
             getLog().warn("commons.distSvnStagingUrl is not set, the commons-release-plugin will not run.");
             return;

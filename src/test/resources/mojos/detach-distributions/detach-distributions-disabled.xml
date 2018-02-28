@@ -43,6 +43,7 @@
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
                     <project implementation="org.apache.commons.release.plugin.stubs.DistributionDetachmentProjectStub" />
+                    <isDistModule>true</isDistModule>
                     <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
                 </configuration>
             </plugin>
