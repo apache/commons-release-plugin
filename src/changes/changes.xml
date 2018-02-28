@@ -26,6 +26,7 @@
 
   <body>
     <release version="1.1" date="YYYY-MM-DD" description="tbd">
+      <action issue="COMMONSSITE-104" type="fix" dev="chtompki">Sha1 signature files now reflect actual signatures.</action>
       <action issue="COMMONSSITE-98"  type="add" dev="chtompki">Making the project more multi-module compatible</action>
       <action issue="COMMONSSITE-102" type="fix" dev="chtompki">Commons Release Plugin doesn't work with Commons Release Plugin</action>
       <action issue="COMMONSSITE-101" type="fix" dev="chtompki">Make -Dcommons.release.dryRun=true our commit toggle</action>
