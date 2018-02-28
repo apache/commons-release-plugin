@@ -16,6 +16,7 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
+import java.nio.file.Files;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
@@ -164,12 +165,11 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         for (Artifact artifact : detachedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
                 try {
-                    FileInputStream artifactFileInputStream = new FileInputStream(artifact.getFile());
-                    String md5 = DigestUtils.md5Hex(artifactFileInputStream);
+                    String md5 = DigestUtils.md5Hex(Files.readAllBytes(artifact.getFile().toPath()));
                     getLog().info(artifact.getFile().getName() + " md5: " + md5);
                     PrintWriter md5Writer = new PrintWriter(getMd5FilePath(workingDirectory, artifact.getFile()));
                     md5Writer.println(md5);
-                    String sha1 = DigestUtils.sha1Hex(artifactFileInputStream);
+                    String sha1 = DigestUtils.sha1Hex(Files.readAllBytes(artifact.getFile().toPath()));
                     getLog().info(artifact.getFile().getName() + " sha1: " + sha1);
                     PrintWriter sha1Writer = new PrintWriter(getSha1FilePath(workingDirectory, artifact.getFile()));
                     sha1Writer.println(sha1);
