@@ -24,8 +24,10 @@
     <fileSets>
         <fileSet>
             <includes>
+                <include>CONTRIBUTING.md</include>
                 <include>LICENSE.txt</include>
                 <include>NOTICE.txt</include>
+                <include>README.md</include>
                 <include>RELEASE-NOTES.txt</include>
             </includes>
         </fileSet>
