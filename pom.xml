@@ -373,7 +373,7 @@
                 <artifactId>commons-release-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>
-                    <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</distSvnStagingUrl>
+                    <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin</distSvnStagingUrl>
                     <dryRun>${dryRun}</dryRun>
                 </configuration>
                 <executions>

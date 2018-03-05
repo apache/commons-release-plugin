@@ -79,10 +79,10 @@
 <plugin>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-release-plugin</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <configuration>
     <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</distSvnStagingUrl>
-    <dryRun>${dryRun}</dryRun>
+    <isDistModule>true</isDistModule>
   </configuration>
   <executions>
     <execution>
@@ -126,14 +126,14 @@
                     <li>
                         running the following command:
 <source><![CDATA[
-mvn -Duser.name=<yourApacheId> [-Duser.password=<yourApacheIdsPassword] [-DdryRun=true -Ptest-deploy] -Prelease clean test site deploy
+mvn -Duser.name=<yourApacheId> [-Duser.password=<yourApacheIdsPassword] [-Dcommons.release.dryRun=true -Ptest-deploy] -Prelease clean test site deploy
 ]]></source>
                     </li>
                 </ol>
             If the component is new, then, before running this maven command, you would want to create
             the requisite subversion directory <code>https://dist.apache.org/repos/dist/dev/commons/foo</code>. Notice,
             that the way to perform a dry run of the release you need to include
-            <code>-DdryRun=true -Ptest-deploy</code>.
+            <code>-Dcommons.release.dryRun=true -Ptest-deploy</code>.
             </p>
         </section>
 
