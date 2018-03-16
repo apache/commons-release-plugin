@@ -25,7 +25,8 @@
   </properties>
 
   <body>
-    <release version="1.2" date="YYYY-MM-DD" description="tbd">
+    <release version="1.2" date="YYYY-MM-DD" description="Version 1.2">
+      <action issue="COMMONSSITE-107" type="fix" dev="chtompki">Adding ./target/commons-release-plugin/scm/RELEASE-NOTES.txt to svn as opposed to ./RELEASE-NOTES.txt</action>
     </release>
 
     <release version="1.1" date="2018-02-28" description="1.1">

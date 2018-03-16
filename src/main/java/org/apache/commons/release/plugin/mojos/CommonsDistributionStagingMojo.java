@@ -156,8 +156,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             ScmFileSet scmFileSet = new ScmFileSet(distCheckoutDirectory);
             getLog().info("Checking out dist from: " + distSvnStagingUrl);
             provider.checkOut(repository, scmFileSet);
-            copyReleaseNotesToWorkingDirectory();
-            List<File> filesToCommit = copyDistributionsIntoScmDirectoryStructure();
+            File copiedReleaseNotes = copyReleaseNotesToWorkingDirectory();
+            List<File> filesToCommit = copyDistributionsIntoScmDirectoryStructure(copiedReleaseNotes);
             if (!dryRun) {
                 ScmFileSet scmFileSetToCommit = new ScmFileSet(distCheckoutDirectory, filesToCommit);
                 AddScmResult addResult = provider.add(
@@ -196,10 +196,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * A utility method that takes the <code>RELEASE-NOTES.txt</code> file from the base directory of the
      * project and copies it into {@link CommonsDistributionStagingMojo#workingDirectory}.
      *
+     * @return the RELEASE-NOTES.txt file that exists in the <code>target/commons-release-notes/scm</code>
+     *         directory for the purpose of adding it to the scm change set in the method
+     *         {@link CommonsDistributionStagingMojo#copyDistributionsIntoScmDirectoryStructure(File)}.
      * @throws MojoExecutionException if an {@link IOException} occurrs as a wrapper so that maven
      *                                can properly handle the exception.
      */
-    private void copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
+    private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
         StringBuffer copiedReleaseNotesAbsolutePath;
         getLog().info("Copying RELEASE-NOTES.txt to working directory.");
         copiedReleaseNotesAbsolutePath = new StringBuffer(workingDirectory.getAbsolutePath());
@@ -207,6 +210,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         copiedReleaseNotesAbsolutePath.append(releaseNotesFile.getName());
         File copiedReleaseNotes = new File(copiedReleaseNotesAbsolutePath.toString());
         SharedFunctions.copyFile(getLog(), releaseNotesFile, copiedReleaseNotes);
+        return copiedReleaseNotes;
     }
 
     /**
@@ -228,11 +232,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      *     </ul></li>
      * </ul>
      *
+     * @param copiedReleaseNotes is the RELEASE-NOTES.txt file that exists in the
+     *                           <code>target/commons-release-plugin/scm</code> directory.
      * @return a {@link List} of {@link File}'s in the directory for the purpose of adding them to the maven
      *         {@link ScmFileSet}.
      * @throws MojoExecutionException if an {@link IOException} occurrs so that Maven can handle it properly.
      */
-    private List<File> copyDistributionsIntoScmDirectoryStructure() throws MojoExecutionException {
+    private List<File> copyDistributionsIntoScmDirectoryStructure(File copiedReleaseNotes) throws MojoExecutionException {
         List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
         String scmBinariesRoot = buildDistBinariesRoot();
         String scmSourceRoot = buildDistSourceRoot();
@@ -258,7 +264,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 filesForMavenScmFileSet.add(copy);
             }
         }
-        filesForMavenScmFileSet.add(releaseNotesFile);
+        filesForMavenScmFileSet.add(copiedReleaseNotes);
         return filesForMavenScmFileSet;
     }
 
