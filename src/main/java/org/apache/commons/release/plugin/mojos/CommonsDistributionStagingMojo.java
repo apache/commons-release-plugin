@@ -129,8 +129,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (!isDistModule) {
-            getLog().info("This module is marked as a non distribution " +
-                    "or assembly module, and the plugin will not run.");
+            getLog().info("This module is marked as a non distribution "
+                    + "or assembly module, and the plugin will not run.");
             return;
         }
         if (StringUtils.isEmpty(distSvnStagingUrl)) {
@@ -238,7 +238,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      *         {@link ScmFileSet}.
      * @throws MojoExecutionException if an {@link IOException} occurrs so that Maven can handle it properly.
      */
-    private List<File> copyDistributionsIntoScmDirectoryStructure(File copiedReleaseNotes) throws MojoExecutionException {
+    private List<File> copyDistributionsIntoScmDirectoryStructure(File copiedReleaseNotes)
+            throws MojoExecutionException {
         List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
         String scmBinariesRoot = buildDistBinariesRoot();
         String scmSourceRoot = buildDistSourceRoot();

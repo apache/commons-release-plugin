@@ -95,8 +95,8 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (!isDistModule) {
-            getLog().info("This module is marked as a non distribution " +
-                    "or assembly module, and the plugin will not run.");
+            getLog().info("This module is marked as a non distribution "
+                    + "or assembly module, and the plugin will not run.");
             return;
         }
         if (StringUtils.isEmpty(distSvnStagingUrl)) {

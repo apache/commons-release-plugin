@@ -37,7 +37,7 @@
   </Match>
   <Match>
     <Class name="~.*\.*CommonsDistributionStagingMojo.*" />
-    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE,URF_UNREAD_FIELD" />
   </Match>
   <Match>
     <Class name="~.*\.*CommonsSiteCompressionMojo.*" />

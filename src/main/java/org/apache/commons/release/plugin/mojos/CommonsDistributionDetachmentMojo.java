@@ -16,22 +16,21 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
-import java.nio.file.Files;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.artifact.Artifact;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -103,8 +102,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         if (!isDistModule) {
-            getLog().info("This module is marked as a non distribution " +
-                    "or assembly module, and the plugin will not run.");
+            getLog().info("This module is marked as a non distribution "
+                    + "or assembly module, and the plugin will not run.");
             return;
         }
         if (StringUtils.isEmpty(distSvnStagingUrl)) {

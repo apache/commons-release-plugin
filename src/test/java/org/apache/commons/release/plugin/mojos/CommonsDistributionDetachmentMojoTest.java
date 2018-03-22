@@ -34,7 +34,7 @@ import static org.junit.Assert.assertNotNull;
  * @author chtompki
  */
 public class CommonsDistributionDetachmentMojoTest {
-    
+
     private static final String COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH = "target/testing-commons-release-plugin";
 
     @Rule
