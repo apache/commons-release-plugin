@@ -371,7 +371,7 @@
             <plugin>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-release-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>1.1</version>
                 <configuration>
                     <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin</distSvnStagingUrl>
                 </configuration>
@@ -388,6 +388,13 @@
                         <phase>site</phase>
                         <goals>
                             <goal>compress-site</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stage-distributions</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>stage-distributions</goal>
                         </goals>
                     </execution>
                 </executions>
