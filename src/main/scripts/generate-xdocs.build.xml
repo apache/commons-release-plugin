@@ -37,7 +37,6 @@
         <echo level="${level}" message="commons.release.version     : ${commons.release.version}" />
         <echo level="${level}" message="commons.rc.version          : ${commons.rc.version}" />
         <echo level="${level}" message="commons.bc.version          : ${commons.bc.version}" />    	
-        <echo level="${level}" message="commons.componentrootid     : ${commons.componentrootid}" />
         <echo level="${level}" message="commons.componentid         : ${commons.componentid}" />
         <echo level="${level}" message="commons.releaseManagerName  : ${commons.releaseManagerName}" />
         <echo level="${level}" message="commons.releaseManagerKey   : ${commons.releaseManagerKey}" />
@@ -66,7 +65,7 @@
         </loadresource>
 
         <exec executable="svn" outputproperty="svn.rc.revision">
-          <arg line="info https://dist.apache.org/repos/dist/dev/commons/${commons.componentrootid}/${commons.release.version}-${commons.rc.version} --show-item revision" />
+          <arg line="info https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version} --show-item revision" />
         </exec>
         <echo level="${level}" message="svn.rc.revision             : ${svn.rc.revision}" />
 
@@ -83,7 +82,6 @@
              <filter token="BC"             value="${commons.bc.version}"/>
              <filter token="DESCRIPTION"    value="${project.description}"/>
              <filter token="ID"             value="${commons.componentid}"/>            	
-             <filter token="ROOTID"         value="${commons.componentrootid}"/>            	
              <filter token="RMNAME"         value="${commons.releaseManagerName}"/>            	
              <filter token="RMKEY"          value="${commons.releaseManagerKey}"/>            	
              <filter token="RCREV"          value="${svn.rc.revision}"/>            	

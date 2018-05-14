@@ -67,15 +67,6 @@
           <description>The external JIRA id for the project (alphabetic, upper case.)</description>
         </parameter>
         <parameter>
-          <name>commons.componentrootid</name>
-          <property>commons.componentrootid</property>
-          <required>true</required>
-          <readonly>true</readonly>
-          <defaultValue>${commons.componentrootid}</defaultValue>
-          <type>java.lang.String</type>
-          <description>The commons component root id.</description>
-        </parameter>
-        <parameter>
           <name>commons.componentid</name>
           <property>commons.componentid</property>
           <required>true</required>

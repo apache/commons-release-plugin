@@ -21,10 +21,10 @@ Subject: [VOTE] Release @NAME@ @VERSION@ based on @RC@
 We have fixed quite a few bugs and added some significant enhancements since @NAME@ @BC@ was released, so I would like to release @NAME@ @VERSION@.
 
 @NAME@ @VERSION@ @RC@ is available for review here:
-    https://dist.apache.org/repos/dist/dev/commons/@ROOTID@/@ARTIFACTID@-@VERSION@-@RC@ (svn revision @RCREV@)
+    https://dist.apache.org/repos/dist/dev/commons/@ID@/@ARTIFACTID@-@VERSION@-@RC@ (svn revision @RCREV@)
 
 The Subversion tag for this RC is here:
-    http://svn.apache.org/repos/asf/commons/proper/@ROOTID@/tags/@ARTIFACTID@-@VERSION@-@RC@/ (svn revision XYZ2)
+    http://svn.apache.org/repos/asf/commons/proper/@ID@/tags/@ARTIFACTID@-@VERSION@-@RC@/ (svn revision XYZ2)
     N.B. the SVN revision is required because SVN tags are not immutable.
 ***OR***    
 The Git tag for this RC is here:
@@ -69,15 +69,15 @@ Use the output from "mvn -version" for each combination you tested.
 ***
 
 Details of changes since @BC@ are in the release notes:
-    https://dist.apache.org/repos/dist/dev/commons/@ROOTID@/@VERSION@-@RC@/RELEASE-NOTES.txt
-    https://dist.apache.org/repos/dist/dev/commons/@ROOTID@/@VERSION@-@RC@/site/changes-report.html
+    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/RELEASE-NOTES.txt
+    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/site/changes-report.html
 
 Site:
-    https://dist.apache.org/repos/dist/dev/commons/@ROOTID@/@VERSION@-@RC@/site
+    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/site
     (note some *relative* links are broken and the @VERSION@ directories are not yet created - these will be OK once the site is deployed.)
 
 CLIRR OR JaCoCo Report (compared to @BC@):
-    https://dist.apache.org/repos/dist/dev/commons/@ROOTID@/@VERSION@-@RC@/site/clirr-report.html
+    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/site/clirr-report.html
     
     ***
     Note that Clirr reports several errors.
@@ -90,7 +90,7 @@ CLIRR OR JaCoCo Report (compared to @BC@):
     ***
     
 RAT Report:
-    https://dist.apache.org/repos/dist/dev/commons/@ROOTID@/@VERSION@-@RC@/site/rat-report.html
+    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/site/rat-report.html
 
 KEYS:
   https://www.apache.org/dist/commons/KEYS
