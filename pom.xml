@@ -403,7 +403,6 @@
     </build>
     <reporting>
         <plugins>
-
             <!-- exclude surefire report -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
