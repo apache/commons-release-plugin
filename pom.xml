@@ -262,6 +262,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptors>
+                        <descriptor>src/assembly/bin.xml</descriptor>
                         <descriptor>src/assembly/src.xml</descriptor>
                     </descriptors>
                     <tarLongFileMode>gnu</tarLongFileMode>
@@ -274,16 +275,6 @@
                 <version>${commons.findbugs.version}</version>
                 <configuration>
                     <excludeFilterFile>${basedir}/fb-excludes.xml</excludeFilterFile>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/assembly/bin.xml</descriptor>
-                        <descriptor>src/assembly/src.xml</descriptor>
-                    </descriptors>
-                    <tarLongFileMode>gnu</tarLongFileMode>
                 </configuration>
             </plugin>
             <plugin>
