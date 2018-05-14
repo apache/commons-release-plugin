@@ -178,6 +178,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                                 "Committing dist files failed: " + checkInResult.getCommandOutput()
                         );
                     }
+                    getLog().info("Committed revision " + checkInResult.getScmRevision());
                 } else {
                     getLog().error("Adding dist files failed: " + addResult.getCommandOutput());
                     throw new MojoExecutionException("Adding dist files failed: " + addResult.getCommandOutput());
