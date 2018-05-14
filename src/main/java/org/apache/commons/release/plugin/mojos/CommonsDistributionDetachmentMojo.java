@@ -166,14 +166,14 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                 try {
                     String md5 = DigestUtils.md5Hex(Files.readAllBytes(artifact.getFile().toPath()));
                     getLog().info(artifact.getFile().getName() + " md5: " + md5);
-                    PrintWriter md5Writer = new PrintWriter(getMd5FilePath(workingDirectory, artifact.getFile()));
-                    md5Writer.println(md5);
+                    try (PrintWriter md5Writer = new PrintWriter(getMd5FilePath(workingDirectory, artifact.getFile()))){
+                        md5Writer.println(md5);
+                    }
                     String sha1 = DigestUtils.sha1Hex(Files.readAllBytes(artifact.getFile().toPath()));
                     getLog().info(artifact.getFile().getName() + " sha1: " + sha1);
-                    PrintWriter sha1Writer = new PrintWriter(getSha1FilePath(workingDirectory, artifact.getFile()));
-                    sha1Writer.println(sha1);
-                    md5Writer.close();
-                    sha1Writer.close();
+                    try (PrintWriter sha1Writer = new PrintWriter(getSha1FilePath(workingDirectory, artifact.getFile()))) {
+                        sha1Writer.println(sha1);
+                    }
                 } catch (IOException e) {
                     throw new MojoExecutionException("Could not sign file: " + artifact.getFile().getName(), e);
                 }
