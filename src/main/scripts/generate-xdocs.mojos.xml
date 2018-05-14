@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements. See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+  Mojo metadata for "Commons Build: Standard XDOC Pages Generation".
+-->
+<pluginMetadata     
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/PLUGIN-METADATA/1.1.0"
+    xsi:schemaLocation="http://maven.apache.org/PLUGIN-METADATA/1.1.0 http://maven.apache.org/xsd/plugin-metadata-1.1.0.xsd">
+  <mojos>
+    <mojo>
+      <goal>vote-txt</goal>
+      <call>vote-txt</call>
+      <description>Apache Commons Release Mojo: Generate VOTE.txt file.</description>
+      <requiresProject>true</requiresProject>
+      <parameters>
+        <parameter>
+          <name>project.name</name>
+          <property>project.name</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${project.name}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The name of the project currently being built.</description>
+        </parameter>
+        <parameter>
+          <name>project.groupId</name>
+          <property>project.groupId</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${project.groupId}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The groupId of the project currently being built.</description>
+        </parameter>
+        <parameter>
+          <name>project.artifactId</name>
+          <property>project.artifactId</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${project.artifactId}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The artifactId of the project currently being built.</description>
+        </parameter>
+        <parameter>
+          <name>commons.jira.id</name>
+          <property>commons.jira.id</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.jira.id}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The external JIRA id for the project (alphabetic, upper case.)</description>
+        </parameter>
+        <parameter>
+          <name>commons.componentrootid</name>
+          <property>commons.componentrootid</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${commons.componentrootid}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The commons component root id.</description>
+        </parameter>
+        <parameter>
+          <name>commons.componentid</name>
+          <property>commons.componentid</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${commons.componentid}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The commons component id.</description>
+        </parameter>
+        <parameter>
+          <name>commons.jira.pid</name>
+          <property>commons.jira.pid</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.jira.pid}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The internal JIRA id for the project (numeric.)</description>
+        </parameter>
+        <parameter>
+          <name>commons.rc.version</name>
+          <property>commons.rc.version</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.rc.version}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The version of the latest release candidate of the project.</description>
+        </parameter>
+        <parameter>
+          <name>commons.bc.version</name>
+          <property>commons.bc.version</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.bc.version}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The version of the latest release of the project this candidate should have binary compatibility.</description>
+        </parameter>
+        <parameter>
+          <name>commons.release.version</name>
+          <property>commons.release.version</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.release.version}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The version of the latest release of the project.</description>
+        </parameter>
+        <parameter>
+          <name>commons.release.name</name>
+          <property>commons.release.name</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.release.name}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The name of the latest release of the project.</description>
+        </parameter>
+        <parameter>
+          <name>commons.binary.suffix</name>
+          <property>commons.binary.suffix</property>
+          <required>false</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.binary.suffix}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The suffix for the binary distribution.</description>
+        </parameter>
+        <parameter>
+          <name>commons.release.desc</name>
+          <property>commons.release.desc</property>
+          <required>false</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.release.desc}</defaultValue>
+          <type>java.lang.String</type>
+          <description>Release Title or Description.</description>
+        </parameter>
+        <parameter>
+          <name>commons.release.subdir</name>
+          <property>commons.release.subdir</property>
+          <required>false</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.release.subdir}</defaultValue>
+          <type>java.lang.String</type>
+          <description>Subdirectory (instead of source/binaries.)</description>
+        </parameter>
+        <parameter>
+          <name>commons.releaseManagerName</name>
+          <property>commons.releaseManagerName</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.releaseManagerName}</defaultValue>
+          <type>java.lang.String</type>
+          <description>Release manager name.</description>
+        </parameter>
+        <parameter>
+          <name>commons.releaseManagerKey</name>
+          <property>commons.releaseManagerKey</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.releaseManagerKey}</defaultValue>
+          <type>java.lang.String</type>
+          <description>Release manager key.</description>
+        </parameter>
+      </parameters>
+    </mojo>
+  </mojos>
+</pluginMetadata>

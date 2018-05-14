@@ -106,7 +106,7 @@
         <project.reporting.outputEncoding>${commons.encoding}</project.reporting.outputEncoding>
     </properties>
 
-    <dependencies>
+    <dependencies> 
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
@@ -157,7 +157,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
             <version>1.16.1</version>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>org.apache.maven.plugin-testing</groupId>
             <artifactId>maven-plugin-testing-harness</artifactId>
@@ -176,6 +176,12 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!--  A bit of jar-hell requires this to come last. -->
+        <dependency>
+          <groupId>org.apache.maven</groupId>
+          <artifactId>maven-script-ant</artifactId>
+          <version>2.2.1</version>
+       </dependency>
     </dependencies>
 
     <build>
@@ -212,10 +218,29 @@
             </plugins>
         </pluginManagement>
         <plugins>
+        
+      <plugin>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.5.1</version>
+        <!-- Add the Ant plugin tools to the plugin -->
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-tools-ant</artifactId>
+            <version>3.5.1</version>
+          </dependency>
+        </dependencies>
+
+        <configuration>
+          <goalPrefix>commons-release</goalPrefix>
+        </configuration>
+        
+      </plugin>
+      
             <plugin>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-build-plugin</artifactId>
-                <version>1.7</version>
+                <version>1.8</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

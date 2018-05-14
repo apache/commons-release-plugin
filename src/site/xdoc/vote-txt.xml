@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<document>
+
+    <properties>
+        <title>Generating VOTE.txt</title>
+        <author email="dev@commons.apache.org">Apache Commons Documentation Team</author>
+    </properties>
+
+    <body>
+
+
+        <section name="commons-release:vote-txt" href="vote-txt">
+
+            <subsection name="Overview">
+                <p>
+                The <code>commons-release:vote-txt</code> goal generates a VOTE.txt file for a component.
+                Execute the goal using the following command: <source>mvn commons-release:vote-txt</source>
+                </p>
+
+                <p>
+                <strong>Note:</strong> The VOTE.txt should be regenerated before every release candidate.
+                </p>
+
+                <p>
+                This goal uses the following:
+                <ul>
+                    <li>The goal is mapped to the ant script/target using the <code>vote-txt</code> mojo defintion in the
+                        <a href="http://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.mojos.xml">generate-xdocs.mojos.xml</a> mapping document</li>
+                    <li>Executes the <code>vote-txt</code> target in
+                        <a href="http://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.build.xml">generate-xdocs.build.xml</a>
+                        ant script</li>
+                    <li>Uses the <a href="http://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/resources/commons-xdoc-templates/vote-txt-template.md">vote-txt-template.md</a>
+                        template</li>
+                    <li>Uses the <a href="vote-txt-mojo.html">goal's (i.e. mojo's) parameters</a> to filter values in the template</li>
+                </ul>
+                </p>
+            </subsection>
+
+            <subsection name="Configuration">
+                <p>
+                To generate a VOTE.txt, the following <a href="vote-txt-mojo.html">properties</a>  are configured in the component's <code>pom.xml</code>
+                <ul>
+                    <li><b>commons.componentid</b> - Commons component ID</li>
+                    <li><b>commons.release.version</b> - The version number of the latest release of the component</li>
+                </ul>
+                </p>
+                <p>
+                Example configuration for Commons Chain:
+<source><![CDATA[
+    <properties>
+        <commons.componentid>chain</commons.componentid>
+        <commons.release.version>1.4</commons.release.version>
+    </properties> 
+]]></source>
+                </p>
+            </subsection>
+
+        </section>
+
+    </body>
+</document>

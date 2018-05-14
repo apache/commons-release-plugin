@@ -1,0 +1,95 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+   
+         http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!--
+   Commons Build: Standard XDOC Pages Generation.
+ -->
+<project name="Commons Release: Standard XDOC Pages Generation" basedir=".">
+
+    <property name="commonsMojoId"      value="Commons:xdoc-generate" />
+    <property name="commonsMojoXdocDir" value="resources/commons-xdoc-templates" />
+    <property name="commonsMojoTempDir" value="target/commons-generated-xdocs" />
+    <property name="level"              value="info" />
+
+
+    <!-- ========== Generate VOTE.txt file ================================ -->
+
+    <target name="vote-txt" description="Generates VOTE.txt">
+
+        <echo level="${level}" message="----- commons:vote-txt - Parameters - START -----" />
+        <echo level="${level}" message="project.name                : ${project.name}" />
+        <echo level="${level}" message="project.artifactId          : ${project.artifactId}" />
+        <echo level="${level}" message="project.groupId             : ${project.groupId}" />
+        <echo level="${level}" message="commons.jira.id             : ${commons.jira.id}" />
+        <echo level="${level}" message="commons.release.version     : ${commons.release.version}" />
+        <echo level="${level}" message="commons.rc.version          : ${commons.rc.version}" />
+        <echo level="${level}" message="commons.bc.version          : ${commons.bc.version}" />    	
+        <echo level="${level}" message="commons.componentrootid     : ${commons.componentrootid}" />
+        <echo level="${level}" message="commons.componentid         : ${commons.componentid}" />
+        <echo level="${level}" message="commons.releaseManagerName  : ${commons.releaseManagerName}" />
+        <echo level="${level}" message="commons.releaseManagerKey   : ${commons.releaseManagerKey}" />
+        <echo level="${level}" message="----- commons:vote-txt - Parameters - END   -----" />
+
+        <echo level="info" message="*** Generating ${project.name} VOTE.txt ***" />
+
+        <!-- Create a temporary directory to load the template files into -->
+        <mkdir dir="${commonsMojoTempDir}"/>
+
+        <!-- Load the vote-txt template from mojo resources to temp directory -->
+        <loadresource property="vote-txt">
+            <javaresource name="${commonsMojoXdocDir}/vote-txt-template.txt"/>
+        </loadresource>
+        <echo message="${vote-txt}" file="${commonsMojoTempDir}/vote-txt-template.txt" append="false" />
+
+        <!-- Without using ant-contrib: remove "-project" for multi-module artifacts -->
+        <loadresource property="tmp.artifactId">
+            <propertyresource name="project.artifactId" />
+            <filterchain>
+                <tokenfilter>
+                    <filetokenizer/>
+                    <replacestring from="-project" to=""/>
+                </tokenfilter>
+            </filterchain>
+        </loadresource>
+
+        <exec executable="svn" outputproperty="svn.rc.revision">
+          <arg line="info https://dist.apache.org/repos/dist/dev/commons/${commons.componentrootid}/${commons.release.version}-${commons.rc.version} --show-item revision" />
+        </exec>
+        <echo level="${level}" message="svn.rc.revision             : ${svn.rc.revision}" />
+
+        <!-- Copy the vote-txt template filtering to replace properties -->
+        <copy file="${commonsMojoTempDir}/vote-txt-template.txt" tofile="VOTE.txt" overwrite="true">
+            <filterset>
+             <filter token="NAME"           value="${project.name}"/>
+             <filter token="ARTIFACTID"     value="${project.artifactId}"/>
+             <filter token="ARTIFACTCOREID" value="${tmp.artifactId}"/>
+             <filter token="GROUPID"        value="${project.groupId}"/>
+             <filter token="JIRA_ID"        value="${commons.jira.id}"/>
+             <filter token="VERSION"        value="${commons.release.version}"/>
+             <filter token="RC"             value="${commons.rc.version}"/>
+             <filter token="BC"             value="${commons.bc.version}"/>
+             <filter token="DESCRIPTION"    value="${project.description}"/>
+             <filter token="ID"             value="${commons.componentid}"/>            	
+             <filter token="ROOTID"         value="${commons.componentrootid}"/>            	
+             <filter token="RMNAME"         value="${commons.releaseManagerName}"/>            	
+             <filter token="RMKEY"          value="${commons.releaseManagerKey}"/>            	
+             <filter token="RCREV"          value="${svn.rc.revision}"/>            	
+            </filterset>
+        </copy>
+
+    </target>
+
+</project>
