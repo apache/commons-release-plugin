@@ -62,7 +62,8 @@
                 </li>
                 <li>
                     <b>commons-release:compress-site</b> - Generate <code>site.zip</code> file
-                    in the <code>target/commons-release-plugin</code> directory.</li>
+                    in the <code>target/commons-release-plugin</code> directory.
+                </li>
                 <li>
                     <b>commons-release:stage-distributions</b> - Take all staged files in the
                     <code>target/commons-release-plugin</code> directory, and the <code>RELEASE-NOTES.txt</code> from
