@@ -44,31 +44,36 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
         attachedArtifacts.add(
                 new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedFile.html"),
-                        "html"
+                        "html",
+                    "mockAttachedFile"
                 )
         );
         attachedArtifacts.add(
                 new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedTar.tar.gz"),
-                        "tar.gz"
+                        "tar.gz",
+                        "mockAttachedTar"
                 )
         );
         attachedArtifacts.add(
                 new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedTar.tar.gz.asc"),
-                        "tar.gz.asc"
+                        "tar.gz.asc",
+                        "mockAttachedTar"
                 )
         );
         attachedArtifacts.add(
                 new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedZip.zip"),
-                        "zip"
+                        "zip",
+                        "mockAttachedZip"
                 )
         );
         attachedArtifacts.add(
                 new DistributionDetachmentArtifactStub(
                         new File("src/test/resources/mojos/detach-distributions/target/mockAttachedZip.zip.asc"),
-                        "zip.asc"
+                        "zip.asc",
+                        "mockAttachedZip"
                 )
         );
         return attachedArtifacts;
@@ -80,7 +85,8 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
 
         private String type;
 
-        public DistributionDetachmentArtifactStub(File file, String type) {
+        public DistributionDetachmentArtifactStub(File file, String type, String artifactId) {
+            this.setArtifactId(artifactId);
             this.artifact = file;
             this.type = type;
         }

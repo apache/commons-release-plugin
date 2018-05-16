@@ -74,6 +74,7 @@ public class CommonsDistributionDetachmentMojoTest {
         File detachedZipMd5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.md5");
         File detachedZipSha1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.sha1");
         File notDetachedMockAttachedFile = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedFile.html");
+        File sha1Properties = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/sha1.properties");
         assertTrue(detachedTarGz.exists());
         assertTrue(detachedTarGzAsc.exists());
         assertTrue(detachedTarMd5.exists());
@@ -82,6 +83,7 @@ public class CommonsDistributionDetachmentMojoTest {
         assertTrue(detachedZipAsc.exists());
         assertTrue(detachedZipMd5.exists());
         assertTrue(detachedZipSha1.exists());
+        assertTrue(sha1Properties.exists());
         assertFalse(notDetachedMockAttachedFile.exists());
     }
 
