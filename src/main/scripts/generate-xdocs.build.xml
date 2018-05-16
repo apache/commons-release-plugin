@@ -47,6 +47,9 @@
         <!-- Create a temporary directory to load the template files into -->
         <mkdir dir="${commonsMojoTempDir}"/>
 
+    	<!-- Load SHA1 file created by the deploy goal -->
+    	<loadfile property="commons.sha1list" srcFile="target/commons-release-plugin/sha1.properties"/>
+    	
         <!-- Load the vote-txt template from mojo resources to temp directory -->
         <loadresource property="vote-txt">
             <javaresource name="${commonsMojoXdocDir}/vote-txt-template.txt"/>
@@ -85,6 +88,7 @@
              <filter token="RMNAME"         value="${commons.releaseManagerName}"/>            	
              <filter token="RMKEY"          value="${commons.releaseManagerKey}"/>            	
              <filter token="RCREV"          value="${svn.rc.revision}"/>            	
+             <filter token="SHA1LIST"       value="${commons.sha1list}"/>            	
             </filterset>
         </copy>
 

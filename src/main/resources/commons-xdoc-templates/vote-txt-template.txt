@@ -35,31 +35,7 @@ Maven artifacts are here:
 
 These are the Maven artifacts and their hashes in Nexus:
 
-***
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@.jar.asc
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@.jar
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@-tests.jar.asc
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@-tests.jar
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@.pom
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@-test-sources.jar
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@-sources.jar.asc
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@-sources.jar
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@-javadoc.jar.asc
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@-test-sources.jar.asc
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@-javadoc.jar
-(SHA1: ***DEADBEEF***)
-/org/apache/commons/@ARTIFACTID@/@VERSION@/@ARTIFACTID@-@VERSION@.pom.asc
-(SHA1: ***DEADBEEF***)
+@SHA1LIST@
 
 (no need for .asc hashes!)
 
