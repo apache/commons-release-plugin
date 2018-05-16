@@ -178,9 +178,9 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private void logAllArtifactsInPropertiesFile() throws MojoExecutionException {
         File sha1PropertiesFile = new File(workingDirectory, "sha1.properties");
         try (FileOutputStream fileWriter = new FileOutputStream(sha1PropertiesFile)) {
-            artifactSha1s.store(fileWriter, "release sha1s");
+            artifactSha1s.store(fileWriter, "Release SHA1s");
         } catch (IOException e) {
-            throw new MojoExecutionException("Failure to write sha1's", e);
+            throw new MojoExecutionException("Failure to write SHA1's", e);
         }
     }
 
