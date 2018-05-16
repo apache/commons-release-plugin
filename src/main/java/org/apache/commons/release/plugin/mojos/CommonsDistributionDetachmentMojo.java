@@ -176,9 +176,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @throws MojoExecutionException if we cant write the file due to an {@link IOException}.
      */
     private void logAllArtifactsInPropertiesFile() throws MojoExecutionException {
-        try {
-            File sha1PropertiesFile = new File(workingDirectory, "sha1.properties");
-            FileOutputStream fileWriter = new FileOutputStream(sha1PropertiesFile);
+        File sha1PropertiesFile = new File(workingDirectory, "sha1.properties");
+        try (FileOutputStream fileWriter = new FileOutputStream(sha1PropertiesFile)) {
             artifactSha1s.store(fileWriter, "release sha1s");
         } catch (IOException e) {
             throw new MojoExecutionException("Failure to write sha1's", e);
