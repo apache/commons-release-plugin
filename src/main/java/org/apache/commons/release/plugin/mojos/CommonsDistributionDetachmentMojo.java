@@ -76,7 +76,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private List<Artifact> detachedArtifacts = new ArrayList<>();
 
     /**
-     * A {@link Properties} of {@link Artifact} -> {@link String} containing the sha1 signatures
+     * A {@link Properties} of {@link Artifact} → {@link String} containing the sha1 signatures
      * for the individual artifacts, where the {@link Artifact} is represented as:
      * <code>groupId:artifactId:version:type=sha1</code>.
      */
