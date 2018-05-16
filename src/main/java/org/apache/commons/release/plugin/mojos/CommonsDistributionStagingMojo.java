@@ -257,7 +257,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 copy = new File(scmBinariesRoot + "/" + file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
                 filesForMavenScmFileSet.add(copy);
-            } else if (file.getName().contains("scm") || file.getName().contains("properties")) {
+            } else if (StringUtils.containsAny(file.getName(), "scm", "sha1.properties")) {
                 getLog().debug("Not copying scm directory over to the scm directory because it is the scm directory.");
                 //do nothing because we are copying into scm
             } else {
