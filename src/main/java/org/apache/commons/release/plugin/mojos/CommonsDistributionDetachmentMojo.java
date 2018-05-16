@@ -151,7 +151,6 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         try {
             StringBuffer artifactKey = new StringBuffer();
             artifactKey
-                .append(artifact.getGroupId()).append('-')
                 .append(artifact.getArtifactId()).append('-')
                 .append(artifact.getVersion()).append('-')
                 .append(artifact.getType());
