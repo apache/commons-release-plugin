@@ -14,7 +14,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-*** THESE ITEMS REQUIRED YOUR ATTENTION ***
+*** THESE ITEMS REQUIRE YOUR ATTENTION ***
 To: dev@commons.apache.org
 Subject: [VOTE] Release @NAME@ @VERSION@ based on @RC@
 
