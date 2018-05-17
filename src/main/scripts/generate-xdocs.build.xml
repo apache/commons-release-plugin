@@ -24,12 +24,19 @@
     <property name="commonsMojoTempDir" value="target/commons-generated-xdocs" />
     <property name="level"              value="info" />
 
-
     <!-- ========== Generate VOTE.txt file ================================ -->
 
     <target name="vote-txt" description="Generates VOTE.txt">
 
-        <echo level="${level}" message="----- commons:vote-txt - Parameters - START -----" />
+        <property name="svn.dist.url" value="https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version}" />
+        <property name="git.tag.name" value="${commons.componentid}-${commons.release.version}-${commons.rc.version}" />
+
+    	<echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - START   ]-----" />
+    	<echo level="${level}" message="The SVN RC URL must be '${svn.dist.url}'" />
+    	<echo level="${level}" message="The Git RC tag must be '${git.tag.name}'" />
+    	<echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - END     ]-----" />
+        <echo level="${level}" message="" />
+        <echo level="${level}" message="-----[ commons-release:vote-txt - Parameters - START     ]-----" />
         <echo level="${level}" message="project.name                : ${project.name}" />
         <echo level="${level}" message="project.artifactId          : ${project.artifactId}" />
         <echo level="${level}" message="project.groupId             : ${project.groupId}" />
@@ -40,7 +47,7 @@
         <echo level="${level}" message="commons.componentid         : ${commons.componentid}" />
         <echo level="${level}" message="commons.releaseManagerName  : ${commons.releaseManagerName}" />
         <echo level="${level}" message="commons.releaseManagerKey   : ${commons.releaseManagerKey}" />
-        <echo level="${level}" message="----- commons:vote-txt - Parameters - END   -----" />
+        <echo level="${level}" message="-----[ commons-release:vote-txt - Parameters - END       ]-----" />
 
         <echo level="info" message="*** Generating ${project.name} VOTE.txt ***" />
 
@@ -67,12 +74,19 @@
             </filterchain>
         </loadresource>
 
+    	<!-- Get the SVN revision from the dist repository. -->
         <exec executable="svn" outputproperty="svn.rc.revision">
-          <arg line="info https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version} --show-item revision" />
+          <arg line="info ${svn.dist.url} --show-item revision" />
         </exec>
         <echo level="${level}" message="svn.rc.revision             : ${svn.rc.revision}" />
 
-        <!-- Copy the vote-txt template filtering to replace properties -->
+    	<!-- Get the Git commit hash for the RC tag. -->
+        <exec executable="git" outputproperty="git.tag.commit">
+          <arg line="rev-list -n 1 ${git.tag.name}" />
+        </exec>
+        <echo level="${level}" message="git.tag.commit              : ${git.tag.commit}" />
+
+        <!-- Copy the vote-txt template filtering to replace properties. -->
         <copy file="${commonsMojoTempDir}/vote-txt-template.txt" tofile="VOTE.txt" overwrite="true">
             <filterset>
              <filter token="NAME"           value="${project.name}"/>
@@ -89,6 +103,9 @@
              <filter token="RMKEY"          value="${commons.releaseManagerKey}"/>            	
              <filter token="RCREV"          value="${svn.rc.revision}"/>            	
              <filter token="SHA1LIST"       value="${commons.sha1list}"/>            	
+             <filter token="DISTURL"        value="${svn.dist.url}"/>            	
+             <filter token="TAGNAME"        value="${git.tag.name}"/>            	
+             <filter token="TAGCOMMIT"      value="${git.tag.commit}"/>            	
             </filterset>
         </copy>
 

@@ -21,14 +21,14 @@ Subject: [VOTE] Release @NAME@ @VERSION@ based on @RC@
 We have fixed quite a few bugs and added some significant enhancements since @NAME@ @BC@ was released, so I would like to release @NAME@ @VERSION@.
 
 @NAME@ @VERSION@ @RC@ is available for review here:
-    https://dist.apache.org/repos/dist/dev/commons/@ID@/@ARTIFACTID@-@VERSION@-@RC@ (svn revision @RCREV@)
+    @DISTURL@ (svn revision @RCREV@)
 
 The Subversion tag for this RC is here:
     http://svn.apache.org/repos/asf/commons/proper/@ID@/tags/@ARTIFACTID@-@VERSION@-@RC@/ (svn revision XYZ2)
     N.B. the SVN revision is required because SVN tags are not immutable.
 ***OR***    
-The Git tag for this RC is here:
-    https://git-wip-us.apache.org/repos/asf?p=@ARTIFACTID@.git;a=tag;h=refs/tags/@ARTIFACTID@-@VERSION@-@RC@
+The Git tag @TAGNAME@ commit for this RC is @TAGCOMMIT@ which you can browse here:
+    https://git-wip-us.apache.org/repos/asf?p=commons-@ID@.git;a=tag;h=refs/tags/@TAGNAME@
 
 Maven artifacts are here:
     https://repository.apache.org/content/repositories/orgapachecommons-***NNNN***/org/apache/commons/@ARTIFACTID@/@VERSION@/
