@@ -87,7 +87,7 @@
         <echo level="${level}" message="git.tag.commit              : ${git.tag.commit}" />
 
         <!-- Copy the vote-txt template filtering to replace properties. -->
-        <copy file="${commonsMojoTempDir}/vote-txt-template.txt" tofile="VOTE.txt" overwrite="true">
+        <copy file="${commonsMojoTempDir}/vote-txt-template.txt" tofile="target/VOTE.txt" overwrite="true">
             <filterset>
              <filter token="NAME"           value="${project.name}"/>
              <filter token="ARTIFACTID"     value="${project.artifactId}"/>
