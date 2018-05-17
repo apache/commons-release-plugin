@@ -46,14 +46,17 @@ Use the output from "mvn -version" for each combination you tested.
 
 Details of changes since @BC@ are in the release notes:
     https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/RELEASE-NOTES.txt
-    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/site/changes-report.html
+    @SITEURL@/changes-report.html
 
 Site:
-    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/site
+    @SITEURL@
     (note some *relative* links are broken and the @VERSION@ directories are not yet created - these will be OK once the site is deployed.)
 
-CLIRR OR JaCoCo Report (compared to @BC@):
-    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/site/clirr-report.html
+CLIRR Report (compared to @BC@):
+    @SITEURL@/clirr-report.html
+
+JApiCmp Report (compared to @BC@):
+    @SITEURL@/japicmp.html
     
     ***
     Note that Clirr reports several errors.
@@ -66,7 +69,7 @@ CLIRR OR JaCoCo Report (compared to @BC@):
     ***
     
 RAT Report:
-    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/site/rat-report.html
+    @SITEURL@/rat-report.html
 
 KEYS:
   https://www.apache.org/dist/commons/KEYS
