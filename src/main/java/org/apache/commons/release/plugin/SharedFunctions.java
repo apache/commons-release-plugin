@@ -78,19 +78,9 @@ public final class SharedFunctions {
      * @param toFile the {@link File} to which to copy into.
      * @throws MojoExecutionException if an {@link IOException} occurs.
      */
-    public static void copyFile(Log log, File fromFile,  File toFile) throws MojoExecutionException {
-        FileInputStream in;
-        FileOutputStream out;
+    public static void copyFile(Log log, File fromFile, File toFile) throws MojoExecutionException {
         try {
-            in = new FileInputStream(fromFile);
-            out = new FileOutputStream(toFile);
-            byte[] buf = new byte[BUFFER_BYTE_SIZE];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-            in.close();
-            out.close();
+            FileUtils.copyFile(fromFile, toFile);
         } catch (IOException e) {
             log.error(e.getMessage());
             throw new MojoExecutionException("Unable to copy file: " + e.getMessage(), e);
