@@ -70,8 +70,8 @@ public final class SharedFunctions {
     }
 
     /**
-     * Copies a {@link File} from the <code>fromfile</code> to the <code>tofile</code> and logs the failure
-     * using the maven {@link Log}.
+     * Copies a {@link File} from the <code>fromFile</code> to the <code>toFile</code> and logs the failure
+     * using the Maven {@link Log}.
      *
      * @param log the {@link Log}, the maven logger.
      * @param fromFile the {@link File} from which to copy.
