@@ -41,7 +41,7 @@ public final class SharedFunctions {
      * Making the constructor private because the class only contains static methods.
      */
     private SharedFunctions() {
-        //Uitility Class
+        // Utility Class
     }
 
     /**
