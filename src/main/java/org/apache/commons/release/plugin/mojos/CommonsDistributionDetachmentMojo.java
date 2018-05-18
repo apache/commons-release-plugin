@@ -17,6 +17,7 @@
 package org.apache.commons.release.plugin.mojos;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
@@ -83,6 +85,13 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private Properties artifactSha1s = new Properties();
 
     /**
+     * A {@link Properties} of {@link Artifact} → {@link String} containing the sha256 signatures
+     * for the individual artifacts, where the {@link Artifact} is represented as:
+     * <code>groupId:artifactId:version:type=sha1</code>.
+     */
+    private Properties artifactSha256s = new Properties();
+
+    /**
      * The maven project context injection so that we can get a hold of the variables at hand.
      */
     @Parameter(defaultValue = "${project}", required = true)
@@ -121,6 +130,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         getLog().info("Detaching Assemblies");
         for (Object attachedArtifact : project.getAttachedArtifacts()) {
             putAttachedArtifactInSha1Map((Artifact) attachedArtifact);
+            putAttachedArtifactInSha256Map((Artifact) attachedArtifact);
             if (ARTIFACT_TYPES_TO_DETACH.contains(((Artifact) attachedArtifact).getType())) {
                 detachedArtifacts.add((Artifact) attachedArtifact);
             }
@@ -135,10 +145,11 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         if (!workingDirectory.exists()) {
             SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
-        logAllArtifactsInPropertiesFile();
+        logAllArtifactsInSha1PropertiesFile();
+        logAllArtifactsInSha256PropertiesFile();
         copyRemovedArtifactsToWorkingDirectory();
         getLog().info("");
-        sha1AndMd5SignArtifacts();
+        hashArtifacts();
     }
 
     /**
@@ -154,10 +165,37 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                 .append(artifact.getArtifactId()).append('-')
                 .append(artifact.getVersion()).append('-')
                 .append(artifact.getType());
-            artifactSha1s.put(
-                artifactKey.toString(),
-                DigestUtils.sha1Hex(Files.readAllBytes(artifact.getFile().toPath()))
-            );
+            try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                artifactSha1s.put(artifactKey.toString(), DigestUtils.sha1Hex(fis));
+            }
+        } catch (IOException e) {
+            throw new MojoExecutionException(
+                "Could not find artifact signature for: "
+                    + artifact.getArtifactId()
+                    + "-"
+                    + artifact.getVersion()
+                    + " type: "
+                    + artifact.getType()
+                ,e);
+        }
+    }
+
+    /**
+     * Takes an attached artifact and puts the signature in the map.
+     * @param artifact is a maven {@link Artifact} taken from the project at start time of mojo.
+     * @throws MojoExecutionException if an {@link IOException} occurs when getting the sha1 of the
+     *                                artifact.
+     */
+    private void putAttachedArtifactInSha256Map(Artifact artifact) throws MojoExecutionException {
+        try {
+            StringBuffer artifactKey = new StringBuffer();
+            artifactKey
+                .append(artifact.getArtifactId()).append('-')
+                .append(artifact.getVersion()).append('-')
+                .append(artifact.getType());
+            try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                artifactSha256s.put(artifactKey.toString(), DigestUtils.sha256Hex(fis));
+            }
         } catch (IOException e) {
             throw new MojoExecutionException(
                 "Could not find artifact signature for: "
@@ -175,12 +213,26 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      *
      * @throws MojoExecutionException if we cant write the file due to an {@link IOException}.
      */
-    private void logAllArtifactsInPropertiesFile() throws MojoExecutionException {
-        File sha1PropertiesFile = new File(workingDirectory, "sha1.properties");
-        try (FileOutputStream fileWriter = new FileOutputStream(sha1PropertiesFile)) {
-            artifactSha1s.store(fileWriter, "Release SHA1s");
+    private void logAllArtifactsInSha1PropertiesFile() throws MojoExecutionException {
+        File propertiesFile = new File(workingDirectory, "sha1.properties");
+        try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
+            artifactSha1s.store(fileWriter, "Release SHA-1s");
         } catch (IOException e) {
-            throw new MojoExecutionException("Failure to write SHA1's", e);
+            throw new MojoExecutionException("Failure to write SHA-1's", e);
+        }
+    }
+
+    /**
+     * Writes to ./target/commons-release-plugin/sha256.properties the artifact sha256's.
+     *
+     * @throws MojoExecutionException if we cant write the file due to an {@link IOException}.
+     */
+    private void logAllArtifactsInSha256PropertiesFile() throws MojoExecutionException {
+        File propertiesFile = new File(workingDirectory, "sha256.properties");
+        try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
+            artifactSha256s.store(fileWriter, "Release SHA-256s");
+        } catch (IOException e) {
+            throw new MojoExecutionException("Failure to write SHA-256's", e);
         }
     }
 
@@ -206,26 +258,52 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     }
 
     /**
-     *  A helper method that creates md5 and sha1 signature files for our detached artifacts in the
-     *  <code>target/commons-release-plugin</code> directory for the purpose of being uploade by
+     *  A helper method that creates md5, sha1, and sha256  signature files for our detached artifacts in the
+     *  <code>target/commons-release-plugin</code> directory for the purpose of being uploaded by
      *  the {@link CommonsDistributionStagingMojo}.
      *
      * @throws MojoExecutionException if some form of an {@link IOException} occurs, we want it
-     *                                properly wrapped so that maven can handle it.
+     *                                properly wrapped so that Maven can handle it.
      */
-    private void sha1AndMd5SignArtifacts() throws MojoExecutionException {
+    private void hashArtifacts() throws MojoExecutionException {
         for (Artifact artifact : detachedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
                 try {
-                    String md5 = DigestUtils.md5Hex(Files.readAllBytes(artifact.getFile().toPath()));
-                    getLog().info(artifact.getFile().getName() + " md5: " + md5);
-                    try (PrintWriter md5Writer = new PrintWriter(getMd5FilePath(workingDirectory, artifact.getFile()))){
-                        md5Writer.println(md5);
+                    {
+                        // MD5
+                        final String digest;
+                        try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                            digest = DigestUtils.md5Hex(fis);
+                        }
+                        getLog().info(artifact.getFile().getName() + " md5: " + digest);
+                        try (PrintWriter printWriter = new PrintWriter(
+                                getMd5FilePath(workingDirectory, artifact.getFile()))) {
+                            printWriter.println(digest);
+                        }
                     }
-                    String sha1 = DigestUtils.sha1Hex(Files.readAllBytes(artifact.getFile().toPath()));
-                    getLog().info(artifact.getFile().getName() + " sha1: " + sha1);
-                    try (PrintWriter sha1Writer = new PrintWriter(getSha1FilePath(workingDirectory, artifact.getFile()))) {
-                        sha1Writer.println(sha1);
+                    {
+                        // SHA-1
+                        final String digest;
+                        try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                            digest = DigestUtils.sha1Hex(fis);
+                        }
+                        getLog().info(artifact.getFile().getName() + " sha1: " + digest);
+                        try (PrintWriter printWriter = new PrintWriter(
+                                getSha1FilePath(workingDirectory, artifact.getFile()))) {
+                            printWriter.println(digest);
+                        }
+                    }
+                    {
+                        // SHA-256
+                        final String digest;
+                        try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                            digest = DigestUtils.sha256Hex(fis);
+                        }
+                        getLog().info(artifact.getFile().getName() + " sha256: " + digest);
+                        try (PrintWriter printWriter = new PrintWriter(
+                                getSha256FilePath(workingDirectory, artifact.getFile()))) {
+                            printWriter.println(digest);
+                        }
                     }
                 } catch (IOException e) {
                     throw new MojoExecutionException("Could not sign file: " + artifact.getFile().getName(), e);
@@ -261,6 +339,21 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         buffer.append("/");
         buffer.append(file.getName());
         buffer.append(".sha1");
+        return buffer.toString();
+    }
+
+    /**
+     * A helper method to create a file path for the <code>sha1</code> signature file from a given file.
+     *
+     * @param workingDirectory is the {@link File} for the directory in which to make the <code>.sha1</code> file.
+     * @param file the {@link File} whose name we should use to create the <code>.sha1</code> file.
+     * @return a {@link String} that is the absolute path to the <code>.sha1</code> file.
+     */
+    private String getSha256FilePath(File workingDirectory, File file) {
+        StringBuffer buffer = new StringBuffer(workingDirectory.getAbsolutePath());
+        buffer.append("/");
+        buffer.append(file.getName());
+        buffer.append(".sha256");
         return buffer.toString();
     }
 }
