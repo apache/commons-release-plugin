@@ -23,10 +23,12 @@ We have fixed quite a few bugs and added some significant enhancements since @NA
 @NAME@ @VERSION@ @RC@ is available for review here:
     @DISTURL@ (svn revision @RCREV@)
 
+*** Does your project use Subversion or Git ? ***
+*** Subversion: ***
 The Subversion tag for this RC is here:
     http://svn.apache.org/repos/asf/commons/proper/@ID@/tags/@ARTIFACTID@-@VERSION@-@RC@/ (svn revision XYZ2)
     N.B. the SVN revision is required because SVN tags are not immutable.
-***OR***    
+*** Git: ***    
 The Git tag @TAGNAME@ commit for this RC is @TAGCOMMIT@ which you can browse here:
     https://git-wip-us.apache.org/repos/asf?p=commons-@ID@.git;a=tag;h=refs/tags/@TAGNAME@
 
