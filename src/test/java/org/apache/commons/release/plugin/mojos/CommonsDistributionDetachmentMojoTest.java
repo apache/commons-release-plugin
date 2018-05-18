@@ -69,21 +69,27 @@ public class CommonsDistributionDetachmentMojoTest {
         File detachedTarGzAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedTar.tar.gz.asc");
         File detachedTarMd5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedTar.tar.gz.md5");
         File detachedTarGzSha1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedTar.tar.gz.sha1");
+        File detachedTarGzSha256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedTar.tar.gz.sha256");
         File detachedZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip");
         File detachedZipAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.asc");
         File detachedZipMd5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.md5");
         File detachedZipSha1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.sha1");
+        File detachedZipSha256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedZip.zip.sha256");
         File notDetachedMockAttachedFile = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/mockAttachedFile.html");
         File sha1Properties = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/sha1.properties");
+        File sha256Properties = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/sha256.properties");
         assertTrue(detachedTarGz.exists());
         assertTrue(detachedTarGzAsc.exists());
         assertTrue(detachedTarMd5.exists());
         assertTrue(detachedTarGzSha1.exists());
+        assertTrue(detachedTarGzSha256.exists());
         assertTrue(detachedZip.exists());
         assertTrue(detachedZipAsc.exists());
         assertTrue(detachedZipMd5.exists());
         assertTrue(detachedZipSha1.exists());
+        assertTrue(detachedZipSha256.exists());
         assertTrue(sha1Properties.exists());
+        assertTrue(sha256Properties.exists());
         assertFalse(notDetachedMockAttachedFile.exists());
     }
 
