@@ -21,7 +21,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -175,8 +174,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                     + "-"
                     + artifact.getVersion()
                     + " type: "
-                    + artifact.getType()
-                ,e);
+                    + artifact.getType(),
+                e);
         }
     }
 
@@ -203,8 +202,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                     + "-"
                     + artifact.getVersion()
                     + " type: "
-                    + artifact.getType()
-                ,e);
+                    + artifact.getType(),
+                e);
         }
     }
 
@@ -263,47 +262,39 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      *  the {@link CommonsDistributionStagingMojo}.
      *
      * @throws MojoExecutionException if some form of an {@link IOException} occurs, we want it
-     *                                properly wrapped so that Maven can handle it.
+     *                                properly wrapped so that maven can handle it.
      */
     private void hashArtifacts() throws MojoExecutionException {
         for (Artifact artifact : detachedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
                 try {
-                    {
-                        // MD5
-                        final String digest;
-                        try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                            digest = DigestUtils.md5Hex(fis);
-                        }
-                        getLog().info(artifact.getFile().getName() + " md5: " + digest);
-                        try (PrintWriter printWriter = new PrintWriter(
-                                getMd5FilePath(workingDirectory, artifact.getFile()))) {
-                            printWriter.println(digest);
-                        }
+                    // MD5
+                    String digest;
+                    try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                        digest = DigestUtils.md5Hex(fis);
                     }
-                    {
-                        // SHA-1
-                        final String digest;
-                        try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                            digest = DigestUtils.sha1Hex(fis);
-                        }
-                        getLog().info(artifact.getFile().getName() + " sha1: " + digest);
-                        try (PrintWriter printWriter = new PrintWriter(
-                                getSha1FilePath(workingDirectory, artifact.getFile()))) {
-                            printWriter.println(digest);
-                        }
+                    getLog().info(artifact.getFile().getName() + " md5: " + digest);
+                    try (PrintWriter printWriter = new PrintWriter(
+                            getMd5FilePath(workingDirectory, artifact.getFile()))) {
+                        printWriter.println(digest);
                     }
-                    {
-                        // SHA-256
-                        final String digest;
-                        try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                            digest = DigestUtils.sha256Hex(fis);
-                        }
-                        getLog().info(artifact.getFile().getName() + " sha256: " + digest);
-                        try (PrintWriter printWriter = new PrintWriter(
-                                getSha256FilePath(workingDirectory, artifact.getFile()))) {
-                            printWriter.println(digest);
-                        }
+                    // SHA-1
+                    try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                        digest = DigestUtils.sha1Hex(fis);
+                    }
+                    getLog().info(artifact.getFile().getName() + " sha1: " + digest);
+                    try (PrintWriter printWriter = new PrintWriter(
+                            getSha1FilePath(workingDirectory, artifact.getFile()))) {
+                        printWriter.println(digest);
+                    }
+                    // SHA-256
+                    try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                        digest = DigestUtils.sha256Hex(fis);
+                    }
+                    getLog().info(artifact.getFile().getName() + " sha256: " + digest);
+                    try (PrintWriter printWriter = new PrintWriter(
+                            getSha256FilePath(workingDirectory, artifact.getFile()))) {
+                        printWriter.println(digest);
                     }
                 } catch (IOException e) {
                     throw new MojoExecutionException("Could not sign file: " + artifact.getFile().getName(), e);

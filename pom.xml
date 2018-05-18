@@ -272,14 +272,22 @@
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.plugin.version}</version>
-                <configuration>
-                    <enableRulesSummary>false</enableRulesSummary>
-                    <configLocation>${basedir}/checkstyle.xml</configLocation>
-                    <headerLocation>${basedir}/license-header.txt</headerLocation>
-                    <suppressionsLocation>${basedir}/checkstyle-suppressions.xml</suppressionsLocation>
-                    <suppressionsFileExpression>${basedir}/checkstyle-suppressions.xml</suppressionsFileExpression>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <configLocation>${basedir}/checkstyle.xml</configLocation>
+                            <headerLocation>${basedir}/license-header.txt</headerLocation>
+                            <suppressionsLocation>${basedir}/checkstyle-suppressions.xml</suppressionsLocation>
+                            <suppressionsFileExpression>${basedir}/checkstyle-suppressions.xml</suppressionsFileExpression>
+                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>

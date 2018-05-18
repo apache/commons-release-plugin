@@ -56,8 +56,11 @@
         <!-- Create a temporary directory to load the template files into -->
         <mkdir dir="${commonsMojoTempDir}"/>
 
-    	<!-- Load SHA1 file created by the deploy goal -->
+    	<!-- Load SHA-1 file created by the deploy goal -->
     	<loadfile property="commons.sha1list" srcFile="target/commons-release-plugin/sha1.properties"/>
+    	
+    	<!-- Load SHA-256 file created by the deploy goal -->
+    	<loadfile property="commons.sha256list" srcFile="target/commons-release-plugin/sha256.properties"/>
     	
         <!-- Load the vote-txt template from mojo resources to temp directory -->
         <loadresource property="vote-txt">
@@ -105,6 +108,7 @@
              <filter token="RMKEY"          value="${commons.releaseManagerKey}"/>            	
              <filter token="RCREV"          value="${svn.rc.revision}"/>            	
              <filter token="SHA1LIST"       value="${commons.sha1list}"/>            	
+             <filter token="SHA256LIST"     value="${commons.sha256list}"/>            	
              <filter token="DISTURL"        value="${svn.dist.url}"/>            	
              <filter token="TAGNAME"        value="${git.tag.name}"/>            	
              <filter token="TAGCOMMIT"      value="${git.tag.commit}"/>            	
