@@ -16,17 +16,6 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
-import org.apache.commons.compress.archivers.zip.ParallelScatterZipCreator;
-import org.apache.commons.compress.archivers.zip.ScatterZipOutputStream;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.release.plugin.SharedFunctions;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,6 +24,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import org.apache.commons.compress.archivers.zip.ParallelScatterZipCreator;
+import org.apache.commons.compress.archivers.zip.ScatterZipOutputStream;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Takes the built <code>./target/site</code> directory and compresses it to
@@ -183,12 +183,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
                     file.getCanonicalPath().length());
             ZipEntry zipEntry = new ZipEntry(zipFilePath);
             zos.putNextEntry(zipEntry);
-            byte[] bytes = new byte[SharedFunctions.BUFFER_BYTE_SIZE];
-            int length;
-            while ((length = fis.read(bytes)) >= 0) {
-                zos.write(bytes, 0, length);
-            }
-            zos.closeEntry();
+            IOUtils.copy(fis, zos);
         }
     }
 }
