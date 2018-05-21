@@ -16,8 +16,18 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
+import org.apache.commons.release.plugin.velocity.HeaderHtmlVelocityDelegate;
+import org.apache.commons.release.plugin.velocity.ReadmeHtmlVelocityDelegate;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -35,12 +45,6 @@ import org.apache.maven.scm.provider.ScmProvider;
 import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * This class checks out the dev distribution location, copies the distributions into that directory
@@ -250,24 +254,104 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         File copy;
         for (File file : workingDirectoryFiles) {
             if (file.getName().contains("src")) {
-                copy = new File(scmSourceRoot + "/" + file.getName());
+                copy = new File(scmSourceRoot,  file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
                 filesForMavenScmFileSet.add(copy);
             } else if (file.getName().contains("bin")) {
-                copy = new File(scmBinariesRoot + "/" + file.getName());
+                copy = new File(scmBinariesRoot,  file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
                 filesForMavenScmFileSet.add(copy);
             } else if (StringUtils.containsAny(file.getName(), "scm", "sha1.properties")) {
-                getLog().debug("Not copying scm directory over to the scm directory because it is the scm directory.");
+                getLog().debug("Not copying scm directory over "
+                    + "to the scm directory because it is the scm directory.");
                 //do nothing because we are copying into scm
             } else {
-                copy = new File(distCheckoutDirectory.getAbsolutePath() + "/" + file.getName());
+                copy = new File(distCheckoutDirectory.getAbsolutePath(),  file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
                 filesForMavenScmFileSet.add(copy);
             }
         }
+        filesForMavenScmFileSet.addAll(buildReadmeAndHeaderHtmlFiles());
         filesForMavenScmFileSet.add(copiedReleaseNotes);
         return filesForMavenScmFileSet;
+    }
+
+    /**
+     * Builds up <code>README.html</code> and <code>HEADER.html</code> that reside in following.
+     * <ul>
+     *     <li>distRoot
+         *     <ul>
+         *         <li>binaries/HEADER.html (symlink)</li>
+         *         <li>binaries/README.html (symlink)</li>
+         *         <li>source/HEADER.html (symlink)</li>
+         *         <li>source/README.html (symlink)</li>
+         *         <li>HEADER.html</li>
+         *         <li>README.html</li>
+         *     </ul>
+     *     </li>
+     * </ul>
+     * @return the {@link List} of created files above
+     * @throws MojoExecutionException if an {@link IOException} occurs in the creation of these
+     *                                files fails.
+     */
+    private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
+        List<File> headerAndReadmeFiles = new ArrayList<>();
+        File headerFile = new File(distCheckoutDirectory, "HEADER.html");
+        File readmeFile = new File(distCheckoutDirectory, "README.html");
+        try {
+            Writer headerWriter = new FileWriter(headerFile);
+            Writer readmeWriter = new FileWriter(readmeFile);
+            HeaderHtmlVelocityDelegate headerHtmlVelocityDelegate = HeaderHtmlVelocityDelegate
+                .builder()
+                .build();
+            headerWriter = headerHtmlVelocityDelegate.render(headerWriter);
+            headerWriter.close();
+            headerAndReadmeFiles.add(headerFile);
+            ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate
+                .builder()
+                .withArtifactId(project.getArtifactId())
+                .withVersion(project.getVersion())
+                .withSiteUrl(project.getUrl())
+                .build();
+            readmeWriter = readmeHtmlVelocityDelegate.render(readmeWriter);
+            readmeWriter.close();
+            headerAndReadmeFiles.add(readmeFile);
+            headerAndReadmeFiles.addAll(buildSymbolicLinks(headerFile, readmeFile));
+        } catch (IOException e) {
+            getLog().error("Could not build HEADER and README html files", e);
+            throw new MojoExecutionException("Could not build HEADER and README html files", e);
+        }
+        return headerAndReadmeFiles;
+    }
+
+    /**
+     * SOmething.
+     * @param headerFile something.
+     * @param readmeFile something.
+     * @return something.
+     * @throws IOException Someting.
+     */
+    private List<File> buildSymbolicLinks(File headerFile, File readmeFile) throws IOException {
+        List<File> symbolicLinkFiles = new ArrayList<>();
+        File sourceRoot = new File(buildDistSourceRoot());
+        File binariesRoot = new File(buildDistBinariesRoot());
+        File sourceHeaderFile = new File(sourceRoot, "HEADER.html");
+        File sourceReadmeFile = new File(sourceRoot, "README.html");
+        File binariesHeaderFile = new File(binariesRoot, "HEADER.html");
+        File binariesReadmeFile = new File(binariesRoot, "README.html");
+        Files.createSymbolicLink(sourceHeaderFile.toPath().toAbsolutePath(),
+            sourceRoot.toPath().toAbsolutePath().relativize(headerFile.toPath().toAbsolutePath()));
+        symbolicLinkFiles.add(sourceHeaderFile);
+        Files.createSymbolicLink(sourceReadmeFile.toPath().toAbsolutePath(),
+            sourceRoot.toPath().toAbsolutePath().relativize(readmeFile.toPath().toAbsolutePath()));
+        symbolicLinkFiles.add(sourceReadmeFile);
+        Files.createSymbolicLink(binariesHeaderFile.toPath().toAbsolutePath(),
+            binariesRoot.toPath().toAbsolutePath().relativize(headerFile.toPath().toAbsolutePath()));
+        symbolicLinkFiles.add(binariesHeaderFile);
+        Files.createSymbolicLink(binariesReadmeFile.toPath().toAbsolutePath(),
+            binariesRoot.toPath().toAbsolutePath().relativize(readmeFile.toPath().toAbsolutePath()));
+        symbolicLinkFiles.add(binariesReadmeFile);
+        return symbolicLinkFiles;
     }
 
     /**

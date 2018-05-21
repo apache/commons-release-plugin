@@ -16,19 +16,20 @@
  */
 package org.apache.commons.release.plugin.stubs;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.release.plugin.mojos.CommonsDistributionDetachmentMojoTest;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.testing.stubs.ArtifactStub;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.apache.maven.project.MavenProject;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Stub for {@link MavenProject} for the {@link CommonsDistributionDetachmentMojoTest}. See the testing pom,
- * <code>src/test/resources/detach-distributions/detach-distributions.xml</code> for the declared usage of
+ * Stub for {@link MavenProject} for the {@link CommonsDistributionDetachmentMojoTest}. See the
+ * testing pom,
+ * <code>src/test/resources/detach-distributions/detach-distributions.xml</code> for the declared
+ * usage of
  * this class.
  *
  * @author chtompki
@@ -39,42 +40,94 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
     private List<Artifact> attachedArtifacts;
 
     @Override
+    public String getArtifactId() {
+        return "commons-text";
+    }
+
+    @Override
+    public String getVersion() {
+        return "1.4";
+    }
+
+    @Override
+    public String getUrl() {
+        return "http://commons.apache.org/proper/commons-text/";
+    }
+
+    @Override
     public List<Artifact> getAttachedArtifacts() {
         attachedArtifacts = new ArrayList<>();
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/mockAttachedFile.html"),
-                        "html",
-                    "mockAttachedFile"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedFile.html"),
+                "html",
+                "mockAttachedFile"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/mockAttachedTar.tar.gz"),
-                        "tar.gz",
-                        "mockAttachedTar"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedTar-src.tar.gz"),
+                "tar.gz",
+                "mockAttachedTar"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/mockAttachedTar.tar.gz.asc"),
-                        "tar.gz.asc",
-                        "mockAttachedTar"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedTar-src.tar.gz.asc"),
+                "tar.gz.asc",
+                "mockAttachedTar"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/mockAttachedZip.zip"),
-                        "zip",
-                        "mockAttachedZip"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedTar-bin.tar.gz"),
+                "tar.gz",
+                "mockAttachedTar"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/mockAttachedZip.zip.asc"),
-                        "zip.asc",
-                        "mockAttachedZip"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedTar-bin.tar.gz.asc"),
+                "tar.gz.asc",
+                "mockAttachedTar"
+            )
+        );
+        attachedArtifacts.add(
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedZip-src.zip"),
+                "zip",
+                "mockAttachedZip"
+            )
+        );
+        attachedArtifacts.add(
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedZip-src.zip.asc"),
+                "zip.asc",
+                "mockAttachedZip"
+            )
+        );
+        attachedArtifacts.add(
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedZip-bin.zip"),
+                "zip",
+                "mockAttachedZip"
+            )
+        );
+        attachedArtifacts.add(
+            new DistributionDetachmentArtifactStub(
+                new File(
+                "src/test/resources/mojos/detach-distributions/target/mockAttachedZip-bin.zip.asc"),
+                "zip.asc",
+                "mockAttachedZip"
+            )
         );
         return attachedArtifacts;
     }

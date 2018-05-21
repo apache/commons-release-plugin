@@ -28,5 +28,7 @@
     <suppress checks="MethodName" files=".*[/\\]test[/\\].*" />
     <suppress checks="Javadoc" files=".*[/\\]test[/\\].*" />
 
+
+    <suppress checks="LineLength" files=".*CommonsDistributionDetachmentMojoTest.java" />
     <suppress checks="FinalClassCheck" files=".*Delegate.java" />
 </suppressions>
