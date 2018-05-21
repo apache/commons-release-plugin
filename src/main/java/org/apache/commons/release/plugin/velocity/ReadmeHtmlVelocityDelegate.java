@@ -16,12 +16,13 @@
  */
 package org.apache.commons.release.plugin.velocity;
 
+import java.io.Writer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-
-import java.io.Writer;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
  * This class' purpose is to generate the <code>README.html</code> that moves along with the
@@ -32,7 +33,8 @@ import java.io.Writer;
  */
 public class ReadmeHtmlVelocityDelegate {
     /** The location of the velocity template for this class. */
-    private static final String TEMPLATE = "README.vm";
+    private static final String TEMPLATE = "resources/org/apache/commons/release/plugin"
+                                         + "/velocity/README.vm";
     /** This is supposed to represent the maven artifactId. */
     private String artifactId;
     /** This is supposed to represent the maven version of the release. */
@@ -70,6 +72,11 @@ public class ReadmeHtmlVelocityDelegate {
      * @return a reference to the {@link Writer} passed in.
      */
     public Writer render(Writer writer) {
+        VelocityEngine ve = new VelocityEngine();
+        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        ve.init();
+        Template template = ve.getTemplate(TEMPLATE);
         String[] splitArtifactId = artifactId.split("-");
         String wordCommons = splitArtifactId[0];
         String artifactShortName = splitArtifactId[1];
@@ -77,8 +84,6 @@ public class ReadmeHtmlVelocityDelegate {
                 StringUtils.capitalize(wordCommons)
                         + "-"
                         + artifactShortName.toUpperCase();
-        Velocity.init();
-        Template template = Velocity.getTemplate(TEMPLATE);
         VelocityContext context = new VelocityContext();
         context.internalPut("artifactIdWithFirstLetterscapitalized", artifactIdWithFirstLetterscapitalized);
         context.internalPut("artifactShortName", artifactShortName.toUpperCase());

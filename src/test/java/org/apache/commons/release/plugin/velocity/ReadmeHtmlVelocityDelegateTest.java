@@ -40,6 +40,6 @@ public class ReadmeHtmlVelocityDelegateTest {
         Writer writer = new StringWriter();
         writer = delegate.render(writer);
         String filledOutTemplate = writer.toString();
-        assertTrue(filledOutTemplate.contains(""));
+        assertTrue(filledOutTemplate.contains("<h1>Commons-TEXT v1.4.</h1>"));
     }
 }

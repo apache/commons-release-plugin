@@ -16,11 +16,12 @@
  */
 package org.apache.commons.release.plugin.velocity;
 
+import java.io.Writer;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-
-import java.io.Writer;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
  * This class' purpose is to generate the <code>HEADER.html</code> that moves along with the
@@ -30,15 +31,10 @@ import java.io.Writer;
  * @since 1.3
  */
 public class HeaderHtmlVelocityDelegate {
-
-    /**
-     * The location of the velocity tempate for this class.
-     */
-    private static final String TEMPLATE = "HEADER.vm";
-
-    /**
-     * The private constructor to be used by the {@link HeaderHtmlVelocityDelegateBuilder}.
-     */
+    /** The location of the velocity tempate for this class. */
+    private static final String TEMPLATE = "resources/org/apache/commons/release/plugin"
+                                         + "/velocity/HEADER.vm";
+    /** The private constructor to be used by the {@link HeaderHtmlVelocityDelegateBuilder}. */
     private HeaderHtmlVelocityDelegate() {
         super();
     }
@@ -59,8 +55,11 @@ public class HeaderHtmlVelocityDelegate {
      * @return the {@link Writer} that we've filled out the template into.
      */
     public Writer render(Writer writer) {
-        Velocity.init();
-        Template template = Velocity.getTemplate(TEMPLATE);
+        VelocityEngine ve = new VelocityEngine();
+        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        ve.init();
+        Template template = ve.getTemplate(TEMPLATE);
         VelocityContext context = new VelocityContext();
         template.merge(context, writer);
         return writer;
@@ -69,7 +68,14 @@ public class HeaderHtmlVelocityDelegate {
     /**
      * A builder class for instantiation of the {@link HeaderHtmlVelocityDelegate}.
      */
-    private static class HeaderHtmlVelocityDelegateBuilder {
+    public static class HeaderHtmlVelocityDelegateBuilder {
+
+        /**
+         * Private constructor so that we can have a proper builder pattern.
+         */
+        private HeaderHtmlVelocityDelegateBuilder() {
+            super();
+        }
 
         /**
          * Builds up the {@link ReadmeHtmlVelocityDelegate} from the previously set parameters.
