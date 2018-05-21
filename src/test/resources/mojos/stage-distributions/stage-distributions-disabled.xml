@@ -23,7 +23,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.apache.commons.release.plugin.unit</groupId>
-    <artifactId>stage-distributions-test</artifactId>
+    <artifactId>commons-stagedistributionstest</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Mock Pom For Testing CommonsDistributionStagingMojo</name>

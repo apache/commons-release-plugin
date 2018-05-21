@@ -27,4 +27,6 @@
     <suppress checks="MagicNumber" files=".*[/\\]test[/\\].*" />
     <suppress checks="MethodName" files=".*[/\\]test[/\\].*" />
     <suppress checks="Javadoc" files=".*[/\\]test[/\\].*" />
+
+    <suppress checks="FinalClassCheck" files=".*Delegate.java" />
 </suppressions>
