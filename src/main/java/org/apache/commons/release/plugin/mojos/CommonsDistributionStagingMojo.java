@@ -17,8 +17,9 @@
 package org.apache.commons.release.plugin.mojos;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -299,8 +300,10 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         File headerFile = new File(distCheckoutDirectory, "HEADER.html");
         File readmeFile = new File(distCheckoutDirectory, "README.html");
         try {
-            Writer headerWriter = new FileWriter(headerFile);
-            Writer readmeWriter = new FileWriter(readmeFile);
+            FileOutputStream headerStream = new FileOutputStream(headerFile);
+            Writer headerWriter = new OutputStreamWriter(headerStream, "UTF-8");
+            FileOutputStream readmeStream = new FileOutputStream(readmeFile);
+            Writer readmeWriter = new OutputStreamWriter(readmeStream, "UTF-8");
             HeaderHtmlVelocityDelegate headerHtmlVelocityDelegate = HeaderHtmlVelocityDelegate
                 .builder()
                 .build();
