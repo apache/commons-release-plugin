@@ -48,18 +48,20 @@ public final class SharedFunctions {
      * Cleans and then initializes an empty directory that is given by the <code>workingDirectory</code>
      * parameter.
      *
-     * @param log is the maven log for output logging, particularly in regards to error management.
+     * @param log is the Maven log for output logging, particularly in regards to error management.
      * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete then create.
-     * @throws MojoExecutionException when an {@link IOException} occurrs for the purpose of bubbling the exception
-     *                                up to maven properly.
+     * @throws MojoExecutionException when an {@link IOException} or {@link NullPointerException} is caught for the 
+     *      purpose of bubbling the exception up to Maven properly.
      */
     public static void initDirectory(Log log, File workingDirectory) throws MojoExecutionException {
         if (workingDirectory.exists()) {
             try {
                 FileUtils.deleteDirectory(workingDirectory);
-            } catch (IOException e) {
-                log.error(e.getMessage());
-                throw new MojoExecutionException("Unable to remove directory: " + e.getMessage(), e);
+            } catch (IOException | NullPointerException e) {
+                final String message = String.format("Unable to remove directory %s: %s", workingDirectory,
+                        e.getMessage());
+                log.error(message);
+                throw new MojoExecutionException(message, e);
             }
         }
         if (!workingDirectory.exists()) {
@@ -74,14 +76,15 @@ public final class SharedFunctions {
      * @param log the {@link Log}, the maven logger.
      * @param fromFile the {@link File} from which to copy.
      * @param toFile the {@link File} to which to copy into.
-     * @throws MojoExecutionException if an {@link IOException} occurs.
+     * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
      */
     public static void copyFile(Log log, File fromFile, File toFile) throws MojoExecutionException {
         try {
             FileUtils.copyFile(fromFile, toFile);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new MojoExecutionException("Unable to copy file: " + e.getMessage(), e);
+        } catch (IOException | NullPointerException e) {
+            final String message = String.format("Unable to copy file %s tp %s: %s", fromFile, toFile, e.getMessage());
+            log.error(message);
+            throw new MojoExecutionException(message, e);
         }
     }
 }
