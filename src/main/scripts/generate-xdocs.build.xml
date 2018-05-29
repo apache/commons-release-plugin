@@ -49,6 +49,7 @@
         <echo level="${level}" message="commons.componentid         : ${commons.componentid}" />
         <echo level="${level}" message="commons.releaseManagerName  : ${commons.releaseManagerName}" />
         <echo level="${level}" message="commons.releaseManagerKey   : ${commons.releaseManagerKey}" />
+        <echo level="${level}" message="commons.nexus.repo.id       : ${commons.nexus.repo.id}" />
         <echo level="${level}" message="-----[ commons-release:vote-txt - Parameters - END       ]-----" />
 
         <echo level="info" message="*** Generating ${project.name} VOTE.txt ***" />
@@ -112,7 +113,8 @@
              <filter token="DISTURL"        value="${svn.dist.url}"/>            	
              <filter token="TAGNAME"        value="${git.tag.name}"/>            	
              <filter token="TAGCOMMIT"      value="${git.tag.commit}"/>            	
-             <filter token="SITEURL"        value="${svn.site.url}"/>            	
+             <filter token="SITEURL"        value="${svn.site.url}"/>
+             <filter token="NEXUS_REPO_ID"  value="${commons.nexus.repo.id}"/>
             </filterset>
         </copy>
 

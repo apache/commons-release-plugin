@@ -165,6 +165,15 @@
           <type>java.lang.String</type>
           <description>Release manager key.</description>
         </parameter>
+        <parameter>
+          <name>commons.nexus.repo.id</name>
+          <property>commons.nexus.repo.id</property>
+          <required>true</required>
+          <readonly>false</readonly>
+          <defaultValue>${commons.nexus.repo.id}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The Nexus repository ID on https://repository.apache.org/, usually a four digit number.</description>
+        </parameter>
       </parameters>
     </mojo>
   </mojos>
