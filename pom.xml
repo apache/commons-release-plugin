@@ -99,7 +99,7 @@
     <commons.jacoco.lineRatio>0.1</commons.jacoco.lineRatio>
     <commons.jacoco.complexityRatio>0.1</commons.jacoco.complexityRatio>
     <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
-    <commons.encoding>iso-8859-1</commons.encoding>
+    <commons.encoding>ISO-8859-1</commons.encoding>
     <!-- Provide the Javadoc HTML file encoding -->
     <commons.docEncoding>${commons.encoding}</commons.docEncoding>
     <!-- Define source encoding for filtering; used by general plugins -->
