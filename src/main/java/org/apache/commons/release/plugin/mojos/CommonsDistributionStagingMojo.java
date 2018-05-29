@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +30,7 @@ import org.apache.commons.release.plugin.velocity.ReadmeHtmlVelocityDelegate;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -316,7 +316,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             readmeWriter = readmeHtmlVelocityDelegate.render(readmeWriter);
             readmeWriter.close();
             headerAndReadmeFiles.add(readmeFile);
-            headerAndReadmeFiles.addAll(buildSymbolicLinks(headerFile, readmeFile));
+            headerAndReadmeFiles.addAll(copyHeaderAndReadmeToSubdirectories(headerFile, readmeFile));
         } catch (IOException e) {
             getLog().error("Could not build HEADER and README html files", e);
             throw new MojoExecutionException("Could not build HEADER and README html files", e);
@@ -325,13 +325,17 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     }
 
     /**
-     * SOmething.
-     * @param headerFile something.
-     * @param readmeFile something.
-     * @return something.
-     * @throws IOException Someting.
+     * Copies <code>README.html</code> and <code>HEADER.html</code> to the source and binaries
+     * directories.
+     *
+     * @param headerFile The originally created <code>HEADER.html</code> file.
+     * @param readmeFile The originally created <code>README.html</code> file.
+     * @return a {@link List} of created files.
+     * @throws MojoExecutionException if the {@link SharedFunctions#copyFile(Log, File, File)}
+     *                                fails.
      */
-    private List<File> buildSymbolicLinks(File headerFile, File readmeFile) throws IOException {
+    private List<File> copyHeaderAndReadmeToSubdirectories(File headerFile, File readmeFile)
+            throws MojoExecutionException {
         List<File> symbolicLinkFiles = new ArrayList<>();
         File sourceRoot = new File(buildDistSourceRoot());
         File binariesRoot = new File(buildDistBinariesRoot());
@@ -339,17 +343,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         File sourceReadmeFile = new File(sourceRoot, "README.html");
         File binariesHeaderFile = new File(binariesRoot, "HEADER.html");
         File binariesReadmeFile = new File(binariesRoot, "README.html");
-        Files.createSymbolicLink(sourceHeaderFile.toPath().toAbsolutePath(),
-            sourceRoot.toPath().toAbsolutePath().relativize(headerFile.toPath().toAbsolutePath()));
+        SharedFunctions.copyFile(getLog(), headerFile, sourceHeaderFile);
         symbolicLinkFiles.add(sourceHeaderFile);
-        Files.createSymbolicLink(sourceReadmeFile.toPath().toAbsolutePath(),
-            sourceRoot.toPath().toAbsolutePath().relativize(readmeFile.toPath().toAbsolutePath()));
+        SharedFunctions.copyFile(getLog(), readmeFile, sourceReadmeFile);
         symbolicLinkFiles.add(sourceReadmeFile);
-        Files.createSymbolicLink(binariesHeaderFile.toPath().toAbsolutePath(),
-            binariesRoot.toPath().toAbsolutePath().relativize(headerFile.toPath().toAbsolutePath()));
+        SharedFunctions.copyFile(getLog(), headerFile, binariesHeaderFile);
         symbolicLinkFiles.add(binariesHeaderFile);
-        Files.createSymbolicLink(binariesReadmeFile.toPath().toAbsolutePath(),
-            binariesRoot.toPath().toAbsolutePath().relativize(readmeFile.toPath().toAbsolutePath()));
+        SharedFunctions.copyFile(getLog(), readmeFile, binariesReadmeFile);
         symbolicLinkFiles.add(binariesReadmeFile);
         return symbolicLinkFiles;
     }
