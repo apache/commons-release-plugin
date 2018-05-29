@@ -48,7 +48,7 @@ Use the output from "mvn -version" for each combination you tested.
 ***
 
 Details of changes since @BC@ are in the release notes:
-    https://dist.apache.org/repos/dist/dev/commons/@ID@/@VERSION@-@RC@/RELEASE-NOTES.txt
+    @DISTURL@/RELEASE-NOTES.txt
     @SITEURL@/changes-report.html
 
 Site:
