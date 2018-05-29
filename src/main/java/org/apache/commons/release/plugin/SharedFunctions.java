@@ -50,7 +50,7 @@ public final class SharedFunctions {
      *
      * @param log is the Maven log for output logging, particularly in regards to error management.
      * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete then create.
-     * @throws MojoExecutionException when an {@link IOException} or {@link NullPointerException} is caught for the 
+     * @throws MojoExecutionException when an {@link IOException} or {@link NullPointerException} is caught for the
      *      purpose of bubbling the exception up to Maven properly.
      */
     public static void initDirectory(Log log, File workingDirectory) throws MojoExecutionException {

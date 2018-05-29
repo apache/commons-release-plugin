@@ -298,32 +298,37 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
         List<File> headerAndReadmeFiles = new ArrayList<>();
         File headerFile = new File(distCheckoutDirectory, "HEADER.html");
-        File readmeFile = new File(distCheckoutDirectory, "README.html");
-        try {
-            FileOutputStream headerStream = new FileOutputStream(headerFile);
-            Writer headerWriter = new OutputStreamWriter(headerStream, "UTF-8");
-            FileOutputStream readmeStream = new FileOutputStream(readmeFile);
-            Writer readmeWriter = new OutputStreamWriter(readmeStream, "UTF-8");
-            HeaderHtmlVelocityDelegate headerHtmlVelocityDelegate = HeaderHtmlVelocityDelegate
-                .builder()
-                .build();
-            headerWriter = headerHtmlVelocityDelegate.render(headerWriter);
-            headerWriter.close();
-            headerAndReadmeFiles.add(headerFile);
-            ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate
-                .builder()
-                .withArtifactId(project.getArtifactId())
-                .withVersion(project.getVersion())
-                .withSiteUrl(project.getUrl())
-                .build();
-            readmeWriter = readmeHtmlVelocityDelegate.render(readmeWriter);
-            readmeWriter.close();
-            headerAndReadmeFiles.add(readmeFile);
-            headerAndReadmeFiles.addAll(copyHeaderAndReadmeToSubdirectories(headerFile, readmeFile));
+        //
+        // HEADER file
+        //
+        try (Writer headerWriter = new OutputStreamWriter(new FileOutputStream(headerFile), "UTF-8")) {
+            HeaderHtmlVelocityDelegate.builder().build().render(headerWriter);
         } catch (IOException e) {
-            getLog().error("Could not build HEADER and README html files", e);
-            throw new MojoExecutionException("Could not build HEADER and README html files", e);
+            final String message = "Could not build HEADER html file " + headerFile;
+            getLog().error(message, e);
+            throw new MojoExecutionException(message, e);
         }
+        headerAndReadmeFiles.add(headerFile);
+        //
+        // README file
+        //
+        File readmeFile = new File(distCheckoutDirectory, "README.html");
+        try (Writer readmeWriter = new OutputStreamWriter(new FileOutputStream(readmeFile), "UTF-8")) {
+            // @formatter:off
+            ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
+                    .withArtifactId(project.getArtifactId())
+                    .withVersion(project.getVersion())
+                    .withSiteUrl(project.getUrl())
+                    .build();
+            // @formatter:on
+            readmeHtmlVelocityDelegate.render(readmeWriter);
+        } catch (IOException e) {
+            final String message = "Could not build README html file " + readmeFile;
+            getLog().error(message, e);
+            throw new MojoExecutionException(message, e);
+        }
+        headerAndReadmeFiles.add(readmeFile);
+        headerAndReadmeFiles.addAll(copyHeaderAndReadmeToSubdirectories(headerFile, readmeFile));
         return headerAndReadmeFiles;
     }
 
