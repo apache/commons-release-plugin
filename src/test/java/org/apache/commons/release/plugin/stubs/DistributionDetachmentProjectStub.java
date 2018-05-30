@@ -144,10 +144,12 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
             this.type = type;
         }
 
+        @Override
         public File getFile() {
             return this.artifact;
         }
 
+        @Override
         public String getType() {
             return this.type;
         }
