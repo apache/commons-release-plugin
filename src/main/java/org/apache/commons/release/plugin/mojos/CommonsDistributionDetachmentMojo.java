@@ -144,8 +144,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         if (!workingDirectory.exists()) {
             SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
-        logAllArtifactsInSha1PropertiesFile();
-        logAllArtifactsInSha256PropertiesFile();
+        writeAllArtifactsInSha1PropertiesFile();
+        writeAllArtifactsInSha256PropertiesFile();
         copyRemovedArtifactsToWorkingDirectory();
         getLog().info("");
         hashArtifacts();
@@ -212,7 +212,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      *
      * @throws MojoExecutionException if we cant write the file due to an {@link IOException}.
      */
-    private void logAllArtifactsInSha1PropertiesFile() throws MojoExecutionException {
+    private void writeAllArtifactsInSha1PropertiesFile() throws MojoExecutionException {
         File propertiesFile = new File(workingDirectory, "sha1.properties");
         try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
             artifactSha1s.store(fileWriter, "Release SHA-1s");
@@ -226,7 +226,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      *
      * @throws MojoExecutionException if we can't write the file due to an {@link IOException}.
      */
-    private void logAllArtifactsInSha256PropertiesFile() throws MojoExecutionException {
+    private void writeAllArtifactsInSha256PropertiesFile() throws MojoExecutionException {
         File propertiesFile = new File(workingDirectory, "sha256.properties");
         try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
             artifactSha256s.store(fileWriter, "Release SHA-256s");
