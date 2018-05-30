@@ -36,11 +36,11 @@ public class ReadmeHtmlVelocityDelegate {
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin"
                                          + "/velocity/README.vm";
     /** This is supposed to represent the maven artifactId. */
-    private String artifactId;
+    private final String artifactId;
     /** This is supposed to represent the maven version of the release. */
-    private String version;
+    private final String version;
     /** The url of the site that gets set into the <code>README.html</code>. */
-    private String siteUrl;
+    private final String siteUrl;
 
     /**
      * The private constructor to be used by the {@link ReadmeHtmlVelocityDelegateBuilder}.

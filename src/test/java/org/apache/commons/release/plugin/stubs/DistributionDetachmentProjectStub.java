@@ -134,9 +134,9 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
 
     public class DistributionDetachmentArtifactStub extends ArtifactStub {
 
-        private File artifact;
+        private final File artifact;
 
-        private String type;
+        private final String type;
 
         public DistributionDetachmentArtifactStub(File file, String type, String artifactId) {
             this.setArtifactId(artifactId);

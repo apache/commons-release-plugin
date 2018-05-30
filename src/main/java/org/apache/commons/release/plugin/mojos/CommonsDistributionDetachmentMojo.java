@@ -74,21 +74,21 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * This list is supposed to hold the Maven references to the aforementioned artifacts so that we
      * can upload them to svn after they've been detached from the Maven deployment.
      */
-    private List<Artifact> detachedArtifacts = new ArrayList<>();
+    private final List<Artifact> detachedArtifacts = new ArrayList<>();
 
     /**
      * A {@link Properties} of {@link Artifact} → {@link String} containing the sha1 signatures
      * for the individual artifacts, where the {@link Artifact} is represented as:
      * <code>groupId:artifactId:version:type=sha1</code>.
      */
-    private Properties artifactSha1s = new Properties();
+    private final Properties artifactSha1s = new Properties();
 
     /**
      * A {@link Properties} of {@link Artifact} → {@link String} containing the sha256 signatures
      * for the individual artifacts, where the {@link Artifact} is represented as:
      * <code>groupId:artifactId:version:type=sha1</code>.
      */
-    private Properties artifactSha256s = new Properties();
+    private final Properties artifactSha256s = new Properties();
 
     /**
      * The maven project context injection so that we can get a hold of the variables at hand.
