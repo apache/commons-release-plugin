@@ -61,8 +61,9 @@ import org.apache.maven.scm.repository.ScmRepository;
         aggregator = true)
 public class CommonsDistributionStagingMojo extends AbstractMojo {
 
+    /** The name of file generated from the README.vm velocity template to be checked into the dist svn repo. */
     private static final String README_FILE_NAME = "README.html";
-
+    /** The name of file generated from the HEADER.vm velocity template to be checked into the dist svn repo. */
     private static final String HEADER_FILE_NAME = "HEADER.html";
 
     /**

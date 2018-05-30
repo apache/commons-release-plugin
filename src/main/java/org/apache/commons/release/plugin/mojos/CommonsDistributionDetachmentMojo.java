@@ -271,6 +271,10 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private void hashArtifacts() throws MojoExecutionException {
         for (Artifact artifact : detachedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
+                StringBuffer artifactKey = new StringBuffer();
+                artifactKey.append(artifact.getArtifactId()).append('-')
+                        .append(artifact.getVersion()).append('-')
+                        .append(artifact.getType());
                 try {
                     // MD5
                     String digest;
@@ -283,18 +287,14 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                         printWriter.println(digest);
                     }
                     // SHA-1
-                    try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                        digest = DigestUtils.sha1Hex(fis);
-                    }
+                    digest = artifactSha1s.getProperty(artifactKey.toString());
                     getLog().info(artifact.getFile().getName() + " sha1: " + digest);
                     try (PrintWriter printWriter = new PrintWriter(
                             getSha1FilePath(workingDirectory, artifact.getFile()))) {
                         printWriter.println(digest);
                     }
                     // SHA-256
-                    try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                        digest = DigestUtils.sha256Hex(fis);
-                    }
+                    digest = artifactSha256s.getProperty(artifactKey.toString());
                     getLog().info(artifact.getFile().getName() + " sha256: " + digest);
                     try (PrintWriter printWriter = new PrintWriter(
                             getSha256FilePath(workingDirectory, artifact.getFile()))) {
