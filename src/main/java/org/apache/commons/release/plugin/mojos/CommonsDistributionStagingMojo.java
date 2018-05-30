@@ -91,7 +91,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private File distCheckoutDirectory;
 
     /**
-     * The location of the RELEASE-NOTES.txt file such that multimodule builds can configure it.
+     * The location of the RELEASE-NOTES.txt file such that multi-module builds can configure it.
      */
     @Parameter(defaultValue = "${basedir}/RELEASE-NOTES.txt", property = "commons.releaseNotesLocation")
     private File releaseNotesFile;
@@ -105,7 +105,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private Boolean dryRun;
 
     /**
-     * The url of the subversion repository to which we wish the artifacts to be staged. Typicallly this would need to
+     * The url of the subversion repository to which we wish the artifacts to be staged. Typically this would need to
      * be of the form: <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>. Note. that
      * the prefix to the substring <code>https</code> is a requirement.
      */
@@ -119,7 +119,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private Boolean isDistModule;
 
     /**
-     * The username for the distribution subversion repository. This is typically your apache id.
+     * The username for the distribution subversion repository. This is typically your Apache id.
      */
     @Parameter(property = "user.name")
     private String username;
