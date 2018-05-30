@@ -206,7 +206,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * @return the RELEASE-NOTES.txt file that exists in the <code>target/commons-release-notes/scm</code>
      *         directory for the purpose of adding it to the scm change set in the method
      *         {@link CommonsDistributionStagingMojo#copyDistributionsIntoScmDirectoryStructure(File)}.
-     * @throws MojoExecutionException if an {@link IOException} occurrs as a wrapper so that maven
+     * @throws MojoExecutionException if an {@link IOException} occurs as a wrapper so that maven
      *                                can properly handle the exception.
      */
     private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
@@ -243,7 +243,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      *                           <code>target/commons-release-plugin/scm</code> directory.
      * @return a {@link List} of {@link File}'s in the directory for the purpose of adding them to the maven
      *         {@link ScmFileSet}.
-     * @throws MojoExecutionException if an {@link IOException} occurrs so that Maven can handle it properly.
+     * @throws MojoExecutionException if an {@link IOException} occurs so that Maven can handle it properly.
      */
     private List<File> copyDistributionsIntoScmDirectoryStructure(File copiedReleaseNotes)
             throws MojoExecutionException {
@@ -366,7 +366,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     /**
      * Build the path for the distribution binaries directory.
      *
-     * @return the local absolute path into the checkedout subversion repository that is where
+     * @return the local absolute path into the checked out subversion repository that is where
      *         the binaries distributions are to be copied.
      */
     private String buildDistBinariesRoot() {
@@ -378,7 +378,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     /**
      * Build the path for the distribution source directory.
      *
-     * @return the local absolute path into the checkedout subversion repository that is where
+     * @return the local absolute path into the checked out subversion repository that is where
      *         the source distributions are to be copied.
      */
     private String buildDistSourceRoot() {
