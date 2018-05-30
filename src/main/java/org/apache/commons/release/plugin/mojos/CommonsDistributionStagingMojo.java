@@ -189,8 +189,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                     throw new MojoExecutionException("Adding dist files failed: " + addResult.getCommandOutput());
                 }
             } else {
-                getLog().info("Would have committed to: " + distSvnStagingUrl);
-                getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
+                getLog().info("Dry run: Would have committed to: " + distSvnStagingUrl);
+                getLog().info("Dry run: Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
             }
         } catch (ScmException e) {
             getLog().error("Could not commit files to dist: " + distSvnStagingUrl, e);
