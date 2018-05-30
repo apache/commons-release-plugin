@@ -73,7 +73,7 @@ public class CommonsDistributionStagingMojoTest {
         detachmentMojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", detachmentPom);
         detachmentMojo.execute();
         File releaseNotesBasedir = new File("src/test/resources/mojos/stage-distributions/");
-        mojoForTest.setBasedir(releaseNotesBasedir);
+        mojoForTest.setBaseDir(releaseNotesBasedir);
         mojoForTest.execute();
         File targetScmDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm");
         File releaseNotes = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/RELEASE-NOTES.txt");

@@ -73,7 +73,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * this directory is where the <code>pom.xml</code> resides.
      */
     @Parameter(defaultValue = "${basedir}")
-    private File basedir;
+    private File baseDir;
 
     /**
      * The main working directory for the plugin, namely <code>target/commons-release-plugin</code>, but
@@ -388,13 +388,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     }
 
     /**
-     * This method is the setter for the {@link CommonsDistributionStagingMojo#basedir} field, specifically
+     * This method is the setter for the {@link CommonsDistributionStagingMojo#baseDir} field, specifically
      * for the usage in the unit tests.
      *
-     * @param basedir is the {@link File} to be used as the project's root directory when this mojo
+     * @param baseDir is the {@link File} to be used as the project's root directory when this mojo
      *                is invoked.
      */
-    protected void setBasedir(File basedir) {
-        this.basedir = basedir;
+    protected void setBaseDir(File baseDir) {
+        this.baseDir = baseDir;
     }
 }
