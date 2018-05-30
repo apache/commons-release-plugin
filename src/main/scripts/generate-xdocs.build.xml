@@ -58,10 +58,10 @@
         <mkdir dir="${commonsMojoTempDir}"/>
 
     	<!-- Load SHA-1 file created by the deploy goal -->
-    	<loadfile property="commons.sha1list" srcFile="target/commons-release-plugin/sha1.properties"/>
+    	<loadfile property="commons.sha1list" srcFile="target/commons-release-plugin/sha1.properties" failonerror="false"/>
     	
     	<!-- Load SHA-256 file created by the deploy goal -->
-    	<loadfile property="commons.sha256list" srcFile="target/commons-release-plugin/sha256.properties"/>
+    	<loadfile property="commons.sha256list" srcFile="target/commons-release-plugin/sha256.properties" failonerror="false"/>
     	
         <!-- Load the vote-txt template from mojo resources to temp directory -->
         <loadresource property="vote-txt">
