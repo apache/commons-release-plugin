@@ -105,10 +105,9 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private Boolean dryRun;
 
     /**
-     * The url of the subversion repository to which we wish the artifacts to be staged. Typicallly
-     * this would need to be of the form:
-     * <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</code>. Note. that the prefix to the
-     * substring <code>https</code> is a requirement.
+     * The url of the subversion repository to which we wish the artifacts to be staged. Typicallly this would need to
+     * be of the form: <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>. Note. that
+     * the prefix to the substring <code>https</code> is a requirement.
      */
     @Parameter(defaultValue = "", property = "commons.distSvnStagingUrl")
     private String distSvnStagingUrl;
