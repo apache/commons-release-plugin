@@ -61,6 +61,10 @@ import org.apache.maven.scm.repository.ScmRepository;
         aggregator = true)
 public class CommonsDistributionStagingMojo extends AbstractMojo {
 
+    private static final String README_FILE_NAME = "README.html";
+
+    private static final String HEADER_FILE_NAME = "HEADER.html";
+
     /**
      * The {@link MavenProject} object is essentially the context of the maven build at
      * a given time.
@@ -296,7 +300,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
         List<File> headerAndReadmeFiles = new ArrayList<>();
-        File headerFile = new File(distCheckoutDirectory, "HEADER.html");
+        File headerFile = new File(distCheckoutDirectory, HEADER_FILE_NAME);
         //
         // HEADER file
         //
@@ -311,7 +315,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         //
         // README file
         //
-        File readmeFile = new File(distCheckoutDirectory, "README.html");
+        File readmeFile = new File(distCheckoutDirectory, README_FILE_NAME);
         try (Writer readmeWriter = new OutputStreamWriter(new FileOutputStream(readmeFile), "UTF-8")) {
             // @formatter:off
             ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
@@ -346,10 +350,10 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         List<File> symbolicLinkFiles = new ArrayList<>();
         File sourceRoot = new File(buildDistSourceRoot());
         File binariesRoot = new File(buildDistBinariesRoot());
-        File sourceHeaderFile = new File(sourceRoot, "HEADER.html");
-        File sourceReadmeFile = new File(sourceRoot, "README.html");
-        File binariesHeaderFile = new File(binariesRoot, "HEADER.html");
-        File binariesReadmeFile = new File(binariesRoot, "README.html");
+        File sourceHeaderFile = new File(sourceRoot, HEADER_FILE_NAME);
+        File sourceReadmeFile = new File(sourceRoot, README_FILE_NAME);
+        File binariesHeaderFile = new File(binariesRoot, HEADER_FILE_NAME);
+        File binariesReadmeFile = new File(binariesRoot, README_FILE_NAME);
         SharedFunctions.copyFile(getLog(), headerFile, sourceHeaderFile);
         symbolicLinkFiles.add(sourceHeaderFile);
         SharedFunctions.copyFile(getLog(), readmeFile, sourceReadmeFile);
