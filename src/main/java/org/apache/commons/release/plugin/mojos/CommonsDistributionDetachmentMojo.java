@@ -210,10 +210,11 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     /**
      * Writes to ./target/commons-release-plugin/sha1.properties the artifact sha1's.
      *
-     * @throws MojoExecutionException if we cant write the file due to an {@link IOException}.
+     * @throws MojoExecutionException if we can't write the file due to an {@link IOException}.
      */
     private void writeAllArtifactsInSha1PropertiesFile() throws MojoExecutionException {
         File propertiesFile = new File(workingDirectory, "sha1.properties");
+        getLog().info("Writting " + propertiesFile);
         try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
             artifactSha1s.store(fileWriter, "Release SHA-1s");
         } catch (IOException e) {
@@ -228,6 +229,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      */
     private void writeAllArtifactsInSha256PropertiesFile() throws MojoExecutionException {
         File propertiesFile = new File(workingDirectory, "sha256.properties");
+        getLog().info("Writting " + propertiesFile);
         try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
             artifactSha256s.store(fileWriter, "Release SHA-256s");
         } catch (IOException e) {
@@ -244,10 +246,12 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      */
     private void copyRemovedArtifactsToWorkingDirectory() throws MojoExecutionException {
         StringBuffer copiedArtifactAbsolutePath;
-        getLog().info("Copying detached artifacts to working directory.");
+        final String wdAbsolutePath = workingDirectory.getAbsolutePath();
+        getLog().info(
+                "Copying " + detachedArtifacts.size() + " detached artifacts to working directory " + wdAbsolutePath);
         for (Artifact artifact: detachedArtifacts) {
             File artifactFile = artifact.getFile();
-            copiedArtifactAbsolutePath = new StringBuffer(workingDirectory.getAbsolutePath());
+            copiedArtifactAbsolutePath = new StringBuffer(wdAbsolutePath);
             copiedArtifactAbsolutePath.append("/");
             copiedArtifactAbsolutePath.append(artifactFile.getName());
             File copiedArtifact = new File(copiedArtifactAbsolutePath.toString());
