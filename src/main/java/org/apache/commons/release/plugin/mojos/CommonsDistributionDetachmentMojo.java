@@ -310,12 +310,12 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     /**
      * A helper method to create a file path for the <code>md5</code> signature file from a given file.
      *
-     * @param workingDirectory is the {@link File} for the directory in which to make the <code>.md5</code> file.
+     * @param directory is the {@link File} for the directory in which to make the <code>.md5</code> file.
      * @param file the {@link File} whose name we should use to create the <code>.md5</code> file.
      * @return a {@link String} that is the absolute path to the <code>.md5</code> file.
      */
-    private String getMd5FilePath(File workingDirectory, File file) {
-        StringBuffer buffer = new StringBuffer(workingDirectory.getAbsolutePath());
+    private String getMd5FilePath(File directory, File file) {
+        StringBuffer buffer = new StringBuffer(directory.getAbsolutePath());
         buffer.append("/");
         buffer.append(file.getName());
         buffer.append(".md5");
@@ -325,12 +325,12 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     /**
      * A helper method to create a file path for the <code>sha1</code> signature file from a given file.
      *
-     * @param workingDirectory is the {@link File} for the directory in which to make the <code>.sha1</code> file.
+     * @param directory is the {@link File} for the directory in which to make the <code>.sha1</code> file.
      * @param file the {@link File} whose name we should use to create the <code>.sha1</code> file.
      * @return a {@link String} that is the absolute path to the <code>.sha1</code> file.
      */
-    private String getSha1FilePath(File workingDirectory, File file) {
-        StringBuffer buffer = new StringBuffer(workingDirectory.getAbsolutePath());
+    private String getSha1FilePath(File directory, File file) {
+        StringBuffer buffer = new StringBuffer(directory.getAbsolutePath());
         buffer.append("/");
         buffer.append(file.getName());
         buffer.append(".sha1");
@@ -340,12 +340,12 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     /**
      * A helper method to create a file path for the <code>sha1</code> signature file from a given file.
      *
-     * @param workingDirectory is the {@link File} for the directory in which to make the <code>.sha1</code> file.
+     * @param directory is the {@link File} for the directory in which to make the <code>.sha1</code> file.
      * @param file the {@link File} whose name we should use to create the <code>.sha1</code> file.
      * @return a {@link String} that is the absolute path to the <code>.sha1</code> file.
      */
-    private String getSha256FilePath(File workingDirectory, File file) {
-        StringBuffer buffer = new StringBuffer(workingDirectory.getAbsolutePath());
+    private String getSha256FilePath(File directory, File file) {
+        StringBuffer buffer = new StringBuffer(directory.getAbsolutePath());
         buffer.append("/");
         buffer.append(file.getName());
         buffer.append(".sha256");
