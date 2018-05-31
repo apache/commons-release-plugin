@@ -74,6 +74,8 @@
   </developers>
 
   <properties>
+    <!-- clirr.failOnError=False-->
+    <failOnError>false</failOnError>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <maven.dependency.version>3.5.3</maven.dependency.version>
