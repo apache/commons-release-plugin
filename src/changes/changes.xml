@@ -26,6 +26,7 @@
 
   <body>
     <release version="1.3" date="YYYY-MM-DD" description="TBD">
+      <action issue="COMMONSSITE-113" type="update" dev="chtompki">Put unpacked site in scm dev dist directory for navigating purposes.</action>
       <action issue="COMMONSSITE-108" type="add" dev="chtompki">Adding README.html and HEADER.html to staged release</action>
     </release>
 
