@@ -42,7 +42,10 @@ import org.apache.maven.plugins.annotations.Parameter;
  *
  * @author chtompki
  * @since 1.0
+ * @deprecated - as we no longer wish to compress the site, we are going to put this functionality in the
+ *               {@link CommonsDistributionStagingMojo}.
  */
+@Deprecated
 @Mojo(name = "compress-site",
         defaultPhase = LifecyclePhase.POST_SITE,
         threadSafe = true,

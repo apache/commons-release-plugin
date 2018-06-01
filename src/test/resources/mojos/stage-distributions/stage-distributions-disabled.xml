@@ -45,6 +45,7 @@
                     <project implementation="org.apache.commons.release.plugin.stubs.DistributionDetachmentProjectStub" />
                     <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
                     <distCheckoutDirectory>target/testing-commons-release-plugin/scm</distCheckoutDirectory>
+                    <siteDirectory>${basedir}/target/test-classes/mojos/detach-distributions/target/site</siteDirectory>
                     <releaseNotesFile>src/test/resources/mojos/stage-distributions/RELEASE-NOTES.txt</releaseNotesFile>
                     <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/release-plugin</distSvnStagingUrl>
                     <isDistModule>false</isDistModule>

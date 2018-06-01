@@ -16,14 +16,7 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.commons.release.plugin.velocity.HeaderHtmlVelocityDelegate;
@@ -46,6 +39,15 @@ import org.apache.maven.scm.provider.ScmProvider;
 import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class checks out the dev distribution location, copies the distributions into that directory
@@ -79,6 +81,10 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${basedir}")
     private File baseDir;
+
+    /** The location to which the site gets built during running <code>mvn site</code>. */
+    @Parameter(defaultValue = "${project.build.directory}/site", property = "commons.siteOutputDirectory")
+    private File siteDirectory;
 
     /**
      * The main working directory for the plugin, namely <code>target/commons-release-plugin</code>, but
@@ -276,9 +282,32 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 filesForMavenScmFileSet.add(copy);
             }
         }
+        filesForMavenScmFileSet.addAll(copySiteToScmDirectory());
         filesForMavenScmFileSet.addAll(buildReadmeAndHeaderHtmlFiles());
         filesForMavenScmFileSet.add(copiedReleaseNotes);
         return filesForMavenScmFileSet;
+    }
+
+    /**
+     * Copies <code>${basedir}/target/site</code> to <code>${basedir}/target/commons-release-plugin/scm/site</code>.
+     *
+     * @return the {@link List} of {@link File}'s contained in
+     *         <code>${basedir}/target/commons-release-plugin/scm/site</code>, after the copy is complete.
+     * @throws MojoExecutionException if the site copying fails for some reason.
+     */
+    private List<File> copySiteToScmDirectory() throws MojoExecutionException {
+        if (!siteDirectory.exists()) {
+            getLog().error("\"mvn site\" was not run before this goal, or a siteDirectory did not exist.");
+            throw new MojoExecutionException(
+                    "\"mvn site\" was not run before this goal, or a siteDirectory did not exist."
+            );
+        }
+        try {
+            FileUtils.copyDirectoryToDirectory(siteDirectory, distCheckoutDirectory);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Site copying failed", e);
+        }
+        return new ArrayList<>(FileUtils.listFiles(siteDirectory, null, true));
     }
 
     /**

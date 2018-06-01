@@ -103,6 +103,10 @@ public class CommonsDistributionStagingMojoTest {
         File srcZipMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedZip-src.zip.md5");
         File srcZipSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedZip-src.zip.sha1");
         File srcZipSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedZip-src.zip.sha256");
+        File site = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/site");
+        File siteIndexHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/site/index.html");
+        File siteSubdirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/site/subdirectory");
+        File siteSubdirectoryIndexHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/site/subdirectory/index.html");
         assertTrue(targetScmDirectory.exists());
         assertTrue(releaseNotes.exists());
         assertTrue(readmeHtml.exists());
@@ -131,6 +135,10 @@ public class CommonsDistributionStagingMojoTest {
         assertTrue(srcZipMD5.exists());
         assertTrue(srcZipSHA1.exists());
         assertTrue(srcZipSHA256.exists());
+        assertTrue(site.exists());
+        assertTrue(siteIndexHtml.exists());
+        assertTrue(siteSubdirectory.exists());
+        assertTrue(siteSubdirectoryIndexHtml.exists());
     }
 
     @Test
