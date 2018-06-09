@@ -29,7 +29,7 @@
     <target name="vote-txt" description="Generates VOTE.txt">
 
         <property name="svn.dist.url" value="https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version}" />
-        <property name="git.tag.name" value="${commons.componentid}-${commons.release.version}-${commons.rc.version}" />
+        <property name="git.tag.name" value="commons-${commons.componentid}-${commons.release.version}-${commons.rc.version}" />
         <property name="svn.site.url" value="https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version}/site" />
 
     	<echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - START   ]-----" />
