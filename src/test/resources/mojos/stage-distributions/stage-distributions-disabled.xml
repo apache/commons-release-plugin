@@ -50,6 +50,8 @@
                     <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/release-plugin</distSvnStagingUrl>
                     <isDistModule>false</isDistModule>
                     <dryRun>true</dryRun>
+                    <commonsReleaseVersion>1.0-SNAPSHOT</commonsReleaseVersion>
+                    <commonsRcVersion>RC1</commonsRcVersion>
                 </configuration>
             </plugin>
         </plugins>

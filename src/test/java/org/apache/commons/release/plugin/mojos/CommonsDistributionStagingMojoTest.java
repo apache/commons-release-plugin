@@ -75,38 +75,53 @@ public class CommonsDistributionStagingMojoTest {
         File releaseNotesBasedir = new File("src/test/resources/mojos/stage-distributions/");
         mojoForTest.setBaseDir(releaseNotesBasedir);
         mojoForTest.execute();
-        File targetScmDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm");
-        File releaseNotes = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/RELEASE-NOTES.txt");
-        File readmeHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/README.html");
-        File headerHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/HEADER.html");
-        File binariesReadmeHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/README.html");
-        File binariesHeaderHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/HEADER.html");
-        File binTar = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedTar-bin.tar.gz");
-        File binTarASC = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedTar-bin.tar.gz.asc");
-        File binTarMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedTar-bin.tar.gz.md5");
-        File binTarSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedTar-bin.tar.gz.sha1");
-        File binTarSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedTar-bin.tar.gz.sha256");
-        File binZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedZip-bin.zip");
-        File binZipASC = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedZip-bin.zip.asc");
-        File binZipMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedZip-bin.zip.md5");
-        File binZipSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedZip-bin.zip.sha1");
-        File binZipSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/mockAttachedZip-bin.zip.sha256");
-        File sourcesReadmeHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/README.html");
-        File sourceHeaderHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/binaries/HEADER.html");
-        File srcTar = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedTar-src.tar.gz");
-        File srcTarASC = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedTar-src.tar.gz.asc");
-        File srcTarMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedTar-src.tar.gz.md5");
-        File srcTarSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedTar-src.tar.gz.sha1");
-        File srcTarSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedTar-src.tar.gz.sha256");
-        File srcZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedZip-src.zip");
-        File srcZipASC = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedZip-src.zip.asc");
-        File srcZipMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedZip-src.zip.md5");
-        File srcZipSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedZip-src.zip.sha1");
-        File srcZipSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/source/mockAttachedZip-src.zip.sha256");
-        File site = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/site");
-        File siteIndexHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/site/index.html");
-        File siteSubdirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/site/subdirectory");
-        File siteSubdirectoryIndexHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/site/subdirectory/index.html");
+        assertRequisiteFilesExist();
+    }
+
+    @Test
+    public void testDisabled() throws Exception {
+        File testPom = new File("src/test/resources/mojos/stage-distributions/stage-distributions-disabled.xml");
+        assertNotNull(testPom);
+        assertTrue(testPom.exists());
+        mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
+        mojoForTest.execute();
+        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        assertFalse(testingDirectory.exists());
+    }
+
+    private void assertRequisiteFilesExist() {
+        File targetScmDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1");
+        File releaseNotes = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/RELEASE-NOTES.txt");
+        File readmeHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/README.html");
+        File headerHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/HEADER.html");
+        File binariesReadmeHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/README.html");
+        File binariesHeaderHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/HEADER.html");
+        File binTar = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedTar-bin.tar.gz");
+        File binTarASC = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedTar-bin.tar.gz.asc");
+        File binTarMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedTar-bin.tar.gz.md5");
+        File binTarSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedTar-bin.tar.gz.sha1");
+        File binTarSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedTar-bin.tar.gz.sha256");
+        File binZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedZip-bin.zip");
+        File binZipASC = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedZip-bin.zip.asc");
+        File binZipMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedZip-bin.zip.md5");
+        File binZipSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedZip-bin.zip.sha1");
+        File binZipSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/mockAttachedZip-bin.zip.sha256");
+        File sourcesReadmeHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/README.html");
+        File sourceHeaderHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/HEADER.html");
+        File srcTar = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedTar-src.tar.gz");
+        File srcTarASC = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedTar-src.tar.gz.asc");
+        File srcTarMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedTar-src.tar.gz.md5");
+        File srcTarSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedTar-src.tar.gz.sha1");
+        File srcTarSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedTar-src.tar.gz.sha256");
+        File srcZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedZip-src.zip");
+        File srcZipASC = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedZip-src.zip.asc");
+        File srcZipMD5 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedZip-src.zip.md5");
+        File srcZipSHA1 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedZip-src.zip.sha1");
+        File srcZipSHA256 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/source/mockAttachedZip-src.zip.sha256");
+        File site = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/site");
+        File siteIndexHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/site/index.html");
+        File siteSubdirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/site/subdirectory");
+        File siteSubdirectoryIndexHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/site/subdirectory/index.html");
         assertTrue(targetScmDirectory.exists());
         assertTrue(releaseNotes.exists());
         assertTrue(readmeHtml.exists());
@@ -139,16 +154,5 @@ public class CommonsDistributionStagingMojoTest {
         assertTrue(siteIndexHtml.exists());
         assertTrue(siteSubdirectory.exists());
         assertTrue(siteSubdirectoryIndexHtml.exists());
-    }
-
-    @Test
-    public void testDisabled() throws Exception {
-        File testPom = new File("src/test/resources/mojos/stage-distributions/stage-distributions-disabled.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
-        mojoForTest.execute();
-        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
-        assertFalse(testingDirectory.exists());
     }
 }

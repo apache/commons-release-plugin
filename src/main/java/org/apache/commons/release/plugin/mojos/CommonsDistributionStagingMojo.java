@@ -130,6 +130,18 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private Boolean isDistModule;
 
     /**
+     * The release version of the artifact to be built.
+     */
+    @Parameter(property = "commons.release.version")
+    private String commonsReleaseVersion;
+
+    /**
+     * The RC version of the release. For example the first voted on candidate would be "RC1".
+     */
+    @Parameter(property = "commons.rc.version")
+    private String commonsRcVersion;
+
+    /**
      * The username for the distribution subversion repository. This is typically your Apache id.
      */
     @Parameter(property = "user.name")
@@ -140,6 +152,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     @Parameter(property = "user.password")
     private String password;
+
+    /**
+     * A subdirectory of the dist directory into which we are going to stage the release candidate. We
+     * build this up in the {@link CommonsDistributionStagingMojo#execute()} method. And, for example,
+     * the directory should look like <code>https://https://dist.apache.org/repos/dist/dev/commons/text/1.4-RC1</code>.
+     */
+    private File distVersionRcVersionDirectory;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -165,6 +184,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
             providerRepository.setUser(username);
             providerRepository.setPassword(password);
+            distVersionRcVersionDirectory =
+                    new File(distCheckoutDirectory, commonsReleaseVersion + "-" + commonsRcVersion);
             if (!distCheckoutDirectory.exists()) {
                 SharedFunctions.initDirectory(getLog(), distCheckoutDirectory);
             }
@@ -221,11 +242,9 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
         StringBuffer copiedReleaseNotesAbsolutePath;
+        SharedFunctions.initDirectory(getLog(), distVersionRcVersionDirectory);
         getLog().info("Copying RELEASE-NOTES.txt to working directory.");
-        copiedReleaseNotesAbsolutePath = new StringBuffer(workingDirectory.getAbsolutePath());
-        copiedReleaseNotesAbsolutePath.append("/scm/");
-        copiedReleaseNotesAbsolutePath.append(releaseNotesFile.getName());
-        File copiedReleaseNotes = new File(copiedReleaseNotesAbsolutePath.toString());
+        File copiedReleaseNotes = new File(distVersionRcVersionDirectory, releaseNotesFile.getName());
         SharedFunctions.copyFile(getLog(), releaseNotesFile, copiedReleaseNotes);
         return copiedReleaseNotes;
     }
@@ -258,10 +277,10 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private List<File> copyDistributionsIntoScmDirectoryStructure(File copiedReleaseNotes)
             throws MojoExecutionException {
         List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
-        String scmBinariesRoot = buildDistBinariesRoot();
-        String scmSourceRoot = buildDistSourceRoot();
-        SharedFunctions.initDirectory(getLog(), new File(scmBinariesRoot));
-        SharedFunctions.initDirectory(getLog(), new File(scmSourceRoot));
+        File scmBinariesRoot = new File(distVersionRcVersionDirectory, "binaries");
+        File scmSourceRoot = new File(distVersionRcVersionDirectory, "source");
+        SharedFunctions.initDirectory(getLog(), scmBinariesRoot);
+        SharedFunctions.initDirectory(getLog(), scmSourceRoot);
         List<File> filesForMavenScmFileSet = new ArrayList<>();
         File copy;
         for (File file : workingDirectoryFiles) {
@@ -303,7 +322,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             );
         }
         try {
-            FileUtils.copyDirectoryToDirectory(siteDirectory, distCheckoutDirectory);
+            FileUtils.copyDirectoryToDirectory(siteDirectory, distVersionRcVersionDirectory);
         } catch (IOException e) {
             throw new MojoExecutionException("Site copying failed", e);
         }
@@ -330,7 +349,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
         List<File> headerAndReadmeFiles = new ArrayList<>();
-        File headerFile = new File(distCheckoutDirectory, HEADER_FILE_NAME);
+        File headerFile = new File(distVersionRcVersionDirectory, HEADER_FILE_NAME);
         //
         // HEADER file
         //
@@ -345,7 +364,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         //
         // README file
         //
-        File readmeFile = new File(distCheckoutDirectory, README_FILE_NAME);
+        File readmeFile = new File(distVersionRcVersionDirectory, README_FILE_NAME);
         try (Writer readmeWriter = new OutputStreamWriter(new FileOutputStream(readmeFile), "UTF-8")) {
             // @formatter:off
             ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
@@ -378,8 +397,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private List<File> copyHeaderAndReadmeToSubdirectories(File headerFile, File readmeFile)
             throws MojoExecutionException {
         List<File> symbolicLinkFiles = new ArrayList<>();
-        File sourceRoot = new File(buildDistSourceRoot());
-        File binariesRoot = new File(buildDistBinariesRoot());
+        File sourceRoot = new File(distVersionRcVersionDirectory, "source");
+        File binariesRoot = new File(distVersionRcVersionDirectory, "binaries");
         File sourceHeaderFile = new File(sourceRoot, HEADER_FILE_NAME);
         File sourceReadmeFile = new File(sourceRoot, README_FILE_NAME);
         File binariesHeaderFile = new File(binariesRoot, HEADER_FILE_NAME);
@@ -393,30 +412,6 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         SharedFunctions.copyFile(getLog(), readmeFile, binariesReadmeFile);
         symbolicLinkFiles.add(binariesReadmeFile);
         return symbolicLinkFiles;
-    }
-
-    /**
-     * Build the path for the distribution binaries directory.
-     *
-     * @return the local absolute path into the checked out subversion repository that is where
-     *         the binaries distributions are to be copied.
-     */
-    private String buildDistBinariesRoot() {
-        StringBuffer buffer = new StringBuffer(distCheckoutDirectory.getAbsolutePath());
-        buffer.append("/binaries");
-        return buffer.toString();
-    }
-
-    /**
-     * Build the path for the distribution source directory.
-     *
-     * @return the local absolute path into the checked out subversion repository that is where
-     *         the source distributions are to be copied.
-     */
-    private String buildDistSourceRoot() {
-        StringBuffer buffer = new StringBuffer(distCheckoutDirectory.getAbsolutePath());
-        buffer.append("/source");
-        return buffer.toString();
     }
 
     /**
