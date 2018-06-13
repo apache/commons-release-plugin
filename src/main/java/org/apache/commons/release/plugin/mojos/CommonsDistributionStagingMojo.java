@@ -47,7 +47,10 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class checks out the dev distribution location, copies the distributions into that directory
@@ -194,31 +197,10 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             provider.checkOut(repository, scmFileSet);
             File copiedReleaseNotes = copyReleaseNotesToWorkingDirectory();
             List<File> filesToCommit = copyDistributionsIntoScmDirectoryStructure(copiedReleaseNotes);
+            filesToCommit.addAll(copySiteToScmDirectory());
             if (!dryRun) {
-                ScmFileSet scmFileSetToCommit = new ScmFileSet(distCheckoutDirectory, filesToCommit);
-                AddScmResult addResult = provider.add(
-                        repository,
-                        scmFileSetToCommit,
-                        "Staging release: " + project.getArtifactId() + ", version: " + project.getVersion()
-                );
-                if (addResult.isSuccess()) {
-                    getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
-                    CheckInScmResult checkInResult = provider.checkIn(
-                            repository,
-                            scmFileSetToCommit,
-                            "Staging release: " + project.getArtifactId() + ", version: " + project.getVersion()
-                    );
-                    if (!checkInResult.isSuccess()) {
-                        getLog().error("Committing dist files failed: " + checkInResult.getCommandOutput());
-                        throw new MojoExecutionException(
-                                "Committing dist files failed: " + checkInResult.getCommandOutput()
-                        );
-                    }
-                    getLog().info("Committed revision " + checkInResult.getScmRevision());
-                } else {
-                    getLog().error("Adding dist files failed: " + addResult.getCommandOutput());
-                    throw new MojoExecutionException("Adding dist files failed: " + addResult.getCommandOutput());
-                }
+                commitDirectories(filesToCommit, provider, repository);
+                commitFiles(filesToCommit, provider, repository);
             } else {
                 getLog().info("[Dry run] Would have committed to: " + distSvnStagingUrl);
                 getLog().info(
@@ -227,6 +209,97 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         } catch (ScmException e) {
             getLog().error("Could not commit files to dist: " + distSvnStagingUrl, e);
             throw new MojoExecutionException("Could not commit files to dist: " + distSvnStagingUrl, e);
+        }
+    }
+
+    /**
+     * Commits all the directories to SVN from the fileset.
+     *
+     * @param filesToCommit the {@link List} of {@link File} that we find the directories to which we must commit.
+     * @param provider the maven {@link ScmProvider}.
+     * @param repository the maven {@link ScmRepository}.
+     * @throws ScmException if the maven SCM api fails.
+     * @throws MojoExecutionException if we get a failure that does not throw an exception.
+     */
+    private void commitDirectories(List<File> filesToCommit, ScmProvider provider, ScmRepository repository)
+            throws ScmException, MojoExecutionException {
+        Collections.sort(filesToCommit);
+        Set<File> committedDirectories = new HashSet<>();
+        for (File file : filesToCommit) {
+            if (file.getAbsolutePath().contains(commonsReleaseVersion + "-" + commonsRcVersion)
+                    && !committedDirectories.contains(file.getParentFile())
+                    && !file.getParentFile().getAbsolutePath().equals(distCheckoutDirectory)) {
+                File parentFile = file.getParentFile();
+                commitParentsIfNotCommitted(parentFile, committedDirectories);
+                ScmFileSet scmFileSetToCommit = new ScmFileSet(distCheckoutDirectory, parentFile);
+                AddScmResult addResult = provider.add(
+                        repository,
+                        scmFileSetToCommit
+                );
+                if (addResult.isSuccess()) {
+                    getLog().info("Adding release directories: "
+                            + project.getArtifactId() + ", version: " + project.getVersion());
+                    CheckInScmResult checkInResult = provider.checkIn(
+                            repository,
+                            scmFileSetToCommit,
+                            "Adding release directories: "
+                                    + project.getArtifactId() + ", version: " + project.getVersion()
+                    );
+                    if (!checkInResult.isSuccess()) {
+                        getLog().error("Committing directories  failed: " + checkInResult.getCommandOutput());
+                        throw new MojoExecutionException(
+                                "Committing directories files failed: " + checkInResult.getCommandOutput()
+                        );
+                    }
+                    committedDirectories.add(parentFile);
+                } else {
+                    getLog().error("Adding directory failed: " + addResult.getCommandOutput());
+                    throw new MojoExecutionException("Adding directory failed: "
+                            + addResult.getCommandOutput());
+                }
+            }
+        }
+    }
+
+    private void commitParentsIfNotCommitted(File file, Set<File> committedDirectories) {
+        if (committedDirectories.contains(file.getParentFile())) {
+            return;
+        }
+    }
+
+    /**
+     * Commits files to SVN from the fileset.
+     *
+     * @param filesToCommit the {@link List} of {@link File} we must commit.
+     * @param provider the maven {@link ScmProvider}.
+     * @param repository the maven {@link ScmRepository}.
+     * @throws ScmException if the maven SCM api fails.
+     * @throws MojoExecutionException if we get a failure that does not throw an exception.
+     */
+    private void commitFiles(List<File> filesToCommit, ScmProvider provider, ScmRepository repository)
+            throws ScmException, MojoExecutionException {
+        ScmFileSet scmFileSetToCommit = new ScmFileSet(distCheckoutDirectory, filesToCommit);
+        AddScmResult addResult = provider.add(
+                repository,
+                scmFileSetToCommit
+        );
+        if (addResult.isSuccess()) {
+            getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
+            CheckInScmResult checkInResult = provider.checkIn(
+                    repository,
+                    scmFileSetToCommit,
+                    "Staging release: " + project.getArtifactId() + ", version: " + project.getVersion()
+            );
+            if (!checkInResult.isSuccess()) {
+                getLog().error("Committing dist files failed: " + checkInResult.getCommandOutput());
+                throw new MojoExecutionException(
+                        "Committing dist files failed: " + checkInResult.getCommandOutput()
+                );
+            }
+            getLog().info("Committed revision " + checkInResult.getScmRevision());
+        } else {
+            getLog().error("Adding dist files failed: " + addResult.getCommandOutput());
+            throw new MojoExecutionException("Adding dist files failed: " + addResult.getCommandOutput());
         }
     }
 
@@ -301,7 +374,6 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 filesForMavenScmFileSet.add(copy);
             }
         }
-        filesForMavenScmFileSet.addAll(copySiteToScmDirectory());
         filesForMavenScmFileSet.addAll(buildReadmeAndHeaderHtmlFiles());
         filesForMavenScmFileSet.add(copiedReleaseNotes);
         return filesForMavenScmFileSet;
@@ -326,21 +398,22 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new MojoExecutionException("Site copying failed", e);
         }
-        return new ArrayList<>(FileUtils.listFiles(siteDirectory, null, true));
+        File siteInScm = new File(distVersionRcVersionDirectory, "site");
+        return new ArrayList<>(FileUtils.listFiles(siteInScm, null, true));
     }
 
     /**
      * Builds up <code>README.html</code> and <code>HEADER.html</code> that reside in following.
      * <ul>
      *     <li>distRoot
-         *     <ul>
-         *         <li>binaries/HEADER.html (symlink)</li>
-         *         <li>binaries/README.html (symlink)</li>
-         *         <li>source/HEADER.html (symlink)</li>
-         *         <li>source/README.html (symlink)</li>
-         *         <li>HEADER.html</li>
-         *         <li>README.html</li>
-         *     </ul>
+     *     <ul>
+     *         <li>binaries/HEADER.html (symlink)</li>
+     *         <li>binaries/README.html (symlink)</li>
+     *         <li>source/HEADER.html (symlink)</li>
+     *         <li>source/README.html (symlink)</li>
+     *         <li>HEADER.html</li>
+     *         <li>README.html</li>
+     *     </ul>
      *     </li>
      * </ul>
      * @return the {@link List} of created files above
