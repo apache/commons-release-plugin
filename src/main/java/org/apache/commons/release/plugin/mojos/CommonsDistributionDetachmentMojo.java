@@ -163,6 +163,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             artifactKey
                 .append(artifact.getArtifactId()).append('-')
                 .append(artifact.getVersion()).append('-')
+                .append(artifact.getClassifier()).append('-')
                 .append(artifact.getType());
             try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
                 artifactSha1s.put(artifactKey.toString(), DigestUtils.sha1Hex(fis));
@@ -171,6 +172,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             throw new MojoExecutionException(
                 "Could not find artifact signature for: "
                     + artifact.getArtifactId()
+                    + "-"
+                    + artifact.getClassifier()
                     + "-"
                     + artifact.getVersion()
                     + " type: "
@@ -191,6 +194,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             artifactKey
                 .append(artifact.getArtifactId()).append('-')
                 .append(artifact.getVersion()).append('-')
+                .append(artifact.getClassifier()).append('-')
                 .append(artifact.getType());
             try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
                 artifactSha256s.put(artifactKey.toString(), DigestUtils.sha256Hex(fis));
@@ -199,6 +203,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             throw new MojoExecutionException(
                 "Could not find artifact signature for: "
                     + artifact.getArtifactId()
+                    + "-"
+                    + artifact.getClassifier()
                     + "-"
                     + artifact.getVersion()
                     + " type: "
@@ -274,6 +280,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                 StringBuffer artifactKey = new StringBuffer();
                 artifactKey.append(artifact.getArtifactId()).append('-')
                         .append(artifact.getVersion()).append('-')
+                        .append(artifact.getClassifier()).append('-')
                         .append(artifact.getType());
                 try {
                     // MD5
