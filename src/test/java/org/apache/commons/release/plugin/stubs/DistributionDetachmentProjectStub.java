@@ -59,148 +59,148 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
     public List<Artifact> getAttachedArtifacts() {
         attachedArtifacts = new ArrayList<>();
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-bin.tar.gz"),
-                        "tar.gz",
-                        "commons-text",
-                        "bin",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-bin.tar.gz"),
+                "tar.gz",
+                "commons-text",
+                "bin",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-bin.tar.gz.asc"),
-                        "tar.gz.asc",
-                        "commons-text",
-                        "bin",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-bin.tar.gz.asc"),
+                "tar.gz.asc",
+                "commons-text",
+                "bin",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-bin.zip"),
-                        "zip",
-                        "commons-text",
-                        "bin",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-bin.zip"),
+                "zip",
+                "commons-text",
+                "bin",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-bin.zip.asc"),
-                        "zip.asc",
-                        "commons-text",
-                        "bin",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-bin.zip.asc"),
+                "zip.asc",
+                "commons-text",
+                "bin",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-src.tar.gz"),
-                        "tar.gz",
-                        "commons-text",
-                        "src",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-src.tar.gz"),
+                "tar.gz",
+                "commons-text",
+                "src",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-src.tar.gz.asc"),
-                        "tar.gz.asc",
-                        "commons-text",
-                        "src",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-src.tar.gz.asc"),
+                "tar.gz.asc",
+                "commons-text",
+                "src",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-src.zip"),
-                        "zip",
-                        "commons-text",
-                        "src",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-src.zip"),
+                "zip",
+                "commons-text",
+                "src",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-src.zip.asc"),
-                        "zip.asc",
-                        "commons-text",
-                        "src",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-src.zip.asc"),
+                "zip.asc",
+                "commons-text",
+                "src",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.jar"),
-                        "jar",
-                        "commons-text",
-                        "jar",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.jar"),
+                "jar",
+                "commons-text",
+                "jar",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.jar.asc"),
-                        "jar.asc",
-                        "commons-text",
-                        "jar",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.jar.asc"),
+                "jar.asc",
+                "commons-text",
+                "jar",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.pom"),
-                        "pom",
-                        "commons-text",
-                        "pom",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.pom"),
+                "pom",
+                "commons-text",
+                "pom",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.pom.asc"),
-                        "pom.asc",
-                        "commons-text",
-                        "pom",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.pom.asc"),
+                "pom.asc",
+                "commons-text",
+                "pom",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-javadoc.jar"),
-                        "jar",
-                        "commons-text",
-                        "javadoc",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-javadoc.jar"),
+                "jar",
+                "commons-text",
+                "javadoc",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-javadoc.jar.asc"),
-                        "jar.asc",
-                        "commons-text",
-                        "javadoc",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-javadoc.jar.asc"),
+                "jar.asc",
+                "commons-text",
+                "javadoc",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-sources.jar"),
-                        "jar",
-                        "commons-text",
-                        "sources",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-sources.jar"),
+                "jar",
+                "commons-text",
+                "sources",
+                "1.4"
+            )
         );
         attachedArtifacts.add(
-                new DistributionDetachmentArtifactStub(
-                        new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-sources.jar.asc"),
-                        "jar.asc",
-                        "commons-text",
-                        "sources",
-                        "1.4"
-                )
+            new DistributionDetachmentArtifactStub(
+                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4-sources.jar.asc"),
+                "jar.asc",
+                "commons-text",
+                "sources",
+                "1.4"
+            )
         );
         return attachedArtifacts;
     }
