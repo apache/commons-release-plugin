@@ -326,7 +326,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new MojoExecutionException("Site copying failed", e);
         }
-        return new ArrayList<>(FileUtils.listFiles(siteDirectory, null, true));
+        File copiedSiteDirectory = new File(distVersionRcVersionDirectory, "site");
+        return new ArrayList<>(FileUtils.listFiles(copiedSiteDirectory, null, true));
     }
 
     /**
