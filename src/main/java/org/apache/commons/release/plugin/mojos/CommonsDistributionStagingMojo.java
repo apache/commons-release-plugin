@@ -241,7 +241,6 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      *                                can properly handle the exception.
      */
     private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
-        StringBuffer copiedReleaseNotesAbsolutePath;
         SharedFunctions.initDirectory(getLog(), distVersionRcVersionDirectory);
         getLog().info("Copying RELEASE-NOTES.txt to working directory.");
         File copiedReleaseNotes = new File(distVersionRcVersionDirectory, releaseNotesFile.getName());
