@@ -314,7 +314,6 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      *                                can properly handle the exception.
      */
     private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
-        StringBuffer copiedReleaseNotesAbsolutePath;
         SharedFunctions.initDirectory(getLog(), distVersionRcVersionDirectory);
         getLog().info("Copying RELEASE-NOTES.txt to working directory.");
         File copiedReleaseNotes = new File(distVersionRcVersionDirectory, releaseNotesFile.getName());
@@ -327,18 +326,19 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * the directory structure of the distribution staging repository. Specifically:
      * <ul>
      *     <li>root:</li>
-     *     <li><ul>
+     *     <ul>
+     *         <li>site</li>
      *         <li>site.zip</li>
      *         <li>RELEASE-NOTES.txt</li>
      *         <li>source:</li>
-     *         <li><ul>
+     *         <ul>
      *             <li>-src artifacts....</li>
-     *         </ul></li>
+     *         </ul>
      *         <li>binaries:</li>
-     *         <li><ul>
+     *         <ul>
      *             <li>-bin artifacts....</li>
-     *         </ul></li>
-     *     </ul></li>
+     *         </ul>
+     *     </ul>
      * </ul>
      *
      * @param copiedReleaseNotes is the RELEASE-NOTES.txt file that exists in the

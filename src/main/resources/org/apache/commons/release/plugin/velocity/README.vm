@@ -16,7 +16,7 @@
 -->
 <h1>${artifactIdWithFirstLetterscapitalized} v${version}.</h1>
 
-<p>This is the 1.3 version of commons-text. It is available in both binary and source distributions.</p>
+<p>This is the ${version} version of ${artifactId}. It is available in both binary and source distributions.</p>
 
 
 <p><font color="red" size="+2">Note:</font>

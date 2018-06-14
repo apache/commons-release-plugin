@@ -76,8 +76,8 @@
   <properties>
     <!-- clirr.failOnError=False-->
     <failOnError>false</failOnError>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <maven.dependency.version>3.5.3</maven.dependency.version>
     <commons.componentid>commons-release-plugin</commons.componentid>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
@@ -91,7 +91,7 @@
     </commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
-    <checkstyle.version>6.19</checkstyle.version>
+    <checkstyle.version>8.10.1</checkstyle.version>
     <maven-scm.version>1.10.0</maven-scm.version>
     <commons.jacoco.version>0.8.0</commons.jacoco.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
@@ -135,7 +135,7 @@
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
-      <version>3.5.1</version>
+      <version>3.5.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -165,7 +165,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>
-      <version>1.16.1</version>
+      <version>1.17</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
@@ -199,7 +199,7 @@
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-velocity</artifactId>
-      <version>1.1.8</version>
+      <version>1.2</version>
       <exclusions>
         <exclusion>
           <groupId>org.codehaus.plexus</groupId>
@@ -260,7 +260,7 @@
           <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-tools-ant</artifactId>
-            <version>3.5.1</version>
+            <version>3.5.2</version>
           </dependency>
         </dependencies>
 
