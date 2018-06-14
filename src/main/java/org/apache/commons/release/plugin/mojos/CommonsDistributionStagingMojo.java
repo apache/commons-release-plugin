@@ -196,7 +196,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             List<File> filesToCommit = copyDistributionsIntoScmDirectoryStructureAndAddToSvn(copiedReleaseNotes,
                     provider, repository);
             List<File> filesToAdd = new ArrayList<>();
-            listFilesAndDirectories(distCheckoutDirectory, filesToAdd);
+            listNotHiddenFilesAndDirectories(distCheckoutDirectory, filesToAdd);
             if (!dryRun) {
                 ScmFileSet fileSet = new ScmFileSet(distCheckoutDirectory, filesToAdd);
                 AddScmResult addResult = provider.add(
@@ -235,15 +235,15 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * @param directory {@link File} containing directory to list
      * @param files a {@link List} of {@link File} to which to append the files.
      */
-    private void listFilesAndDirectories(File directory, List<File> files) {
+    private void listNotHiddenFilesAndDirectories(File directory, List<File> files) {
         // Get all the files and directories from a directory.
         File[] fList = directory.listFiles();
         for (File file : fList) {
-            if (file.isFile() && !file.getAbsolutePath().contains(".svn")) {
+            if (file.isFile() && !file.isHidden()) {
                 files.add(file);
-            } else if (file.isDirectory() && !file.getAbsolutePath().contains(".svn")) {
+            } else if (file.isDirectory() && !file.isHidden()) {
                 files.add(file);
-                listFilesAndDirectories(file, files);
+                listNotHiddenFilesAndDirectories(file, files);
             }
         }
     }
