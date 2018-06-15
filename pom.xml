@@ -451,13 +451,6 @@
             </goals>
           </execution>
           <execution>
-            <id>compress-site</id>
-            <phase>site</phase>
-            <goals>
-              <goal>compress-site</goal>
-            </goals>
-          </execution>
-          <execution>
             <id>stage-distributions</id>
             <phase>deploy</phase>
             <goals>
