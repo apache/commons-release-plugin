@@ -271,26 +271,23 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * Copies the list of files at the root of the {@link CommonsDistributionStagingMojo#workingDirectory} into
      * the directory structure of the distribution staging repository. Specifically:
      * <ul>
-     *     <li>root:</li>
-     *     <li>
-     *         <ul>
-     *             <li>site</li>
-     *             <li>site.zip</li>
-     *             <li>RELEASE-NOTES.txt</li>
-     *             <li>source:</li>
-     *             <li>
-     *                 <ul>
-     *                     <li>-src artifacts....</li>
-     *                 </ul>
-     *             </li>
-     *             <li>binaries:</li>
-     *             <li>
-     *                 <ul>
-     *                     <li>-bin artifacts....</li>
-     *                 </ul>
-     *             </li>
-     *         </ul>
-     *     </li>
+     *   <li>root:
+     *     <ul>
+     *         <li>site</li>
+     *         <li>site.zip</li>
+     *         <li>RELEASE-NOTES.txt</li>
+     *         <li>source:
+     *           <ul>
+     *             <li>-src artifacts....</li>
+     *           </ul>
+     *         </li>
+     *         <li>binaries:
+     *           <ul>
+     *             <li>-bin artifacts....</li>
+     *           </ul>
+     *         </li>
+     *     </ul>
+     *   </li>
      * </ul>
      *
      * @param copiedReleaseNotes is the RELEASE-NOTES.txt file that exists in the
