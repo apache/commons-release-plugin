@@ -193,7 +193,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             getLog().info("Checking out dist from: " + distSvnStagingUrl);
             provider.checkOut(repository, scmFileSet);
             File copiedReleaseNotes = copyReleaseNotesToWorkingDirectory();
-            List<File> filesToCommit = copyDistributionsIntoScmDirectoryStructureAndAddToSvn(copiedReleaseNotes,
+            copyDistributionsIntoScmDirectoryStructureAndAddToSvn(copiedReleaseNotes,
                     provider, repository);
             List<File> filesToAdd = new ArrayList<>();
             listNotHiddenFilesAndDirectories(distCheckoutDirectory, filesToAdd);
@@ -271,20 +271,23 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * Copies the list of files at the root of the {@link CommonsDistributionStagingMojo#workingDirectory} into
      * the directory structure of the distribution staging repository. Specifically:
      * <ul>
-     *     <li>root:</li>
+     *   <li>root:
      *     <ul>
      *         <li>site</li>
      *         <li>site.zip</li>
      *         <li>RELEASE-NOTES.txt</li>
-     *         <li>source:</li>
-     *         <ul>
+     *         <li>source:
+     *           <ul>
      *             <li>-src artifacts....</li>
-     *         </ul>
-     *         <li>binaries:</li>
-     *         <ul>
+     *           </ul>
+     *         </li>
+     *         <li>binaries:
+     *           <ul>
      *             <li>-bin artifacts....</li>
-     *         </ul>
+     *           </ul>
+     *         </li>
      *     </ul>
+     *   </li>
      * </ul>
      *
      * @param copiedReleaseNotes is the RELEASE-NOTES.txt file that exists in the

@@ -24,7 +24,6 @@ o COMMONSSITE-108:  Adding README.html and HEADER.html to staged release
 
 CHANGES
 =======
-o COMMONSSITE-117: Remove md5 signatures from release artifacts.
 o COMMONSSITE-113: Put unpacked site in scm dev dist directory for navigating purposes.
 o Update platform requirement from Java 7 to Java 8.
 

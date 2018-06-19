@@ -25,7 +25,8 @@
   </properties>
 
   <body>
-    <release version="1.3" date="YYYY-MM-DD" description="TBD">
+    <release version="1.3" date="2018-06-15" description="Version 1.3">
+      <action issue="COMMONSSITE-117" type="update" dev="chtompki">Remove md5 signatures from release artifacts.</action>
       <action issue="COMMONSSITE-113" type="update" dev="chtompki">Put unpacked site in scm dev dist directory for navigating purposes.</action>
       <action issue="COMMONSSITE-112" type="add" dev="ggregory">Add a vote.txt file.</action>
       <action issue="COMMONSSITE-108" type="add" dev="chtompki">Adding README.html and HEADER.html to staged release</action>

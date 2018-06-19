@@ -159,14 +159,9 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      */
     private void putAttachedArtifactInSha1Map(Artifact artifact) throws MojoExecutionException {
         try {
-            StringBuffer artifactKey = new StringBuffer();
-            artifactKey
-                .append(artifact.getArtifactId()).append('-')
-                .append(artifact.getVersion()).append('-')
-                .append(artifact.getClassifier()).append('-')
-                .append(artifact.getType());
+            String artifactKey = getArtifactKey(artifact);
             try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                artifactSha1s.put(artifactKey.toString(), DigestUtils.sha1Hex(fis));
+                artifactSha1s.put(artifactKey, DigestUtils.sha1Hex(fis));
             }
         } catch (IOException e) {
             throw new MojoExecutionException(
@@ -190,14 +185,9 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      */
     private void putAttachedArtifactInSha256Map(Artifact artifact) throws MojoExecutionException {
         try {
-            StringBuffer artifactKey = new StringBuffer();
-            artifactKey
-                .append(artifact.getArtifactId()).append('-')
-                .append(artifact.getVersion()).append('-')
-                .append(artifact.getClassifier()).append('-')
-                .append(artifact.getType());
+            String artifactKey = getArtifactKey(artifact);
             try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                artifactSha256s.put(artifactKey.toString(), DigestUtils.sha256Hex(fis));
+                artifactSha256s.put(artifactKey, DigestUtils.sha256Hex(fis));
             }
         } catch (IOException e) {
             throw new MojoExecutionException(
@@ -277,22 +267,9 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private void hashArtifacts() throws MojoExecutionException {
         for (Artifact artifact : detachedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
-                StringBuffer artifactKey = new StringBuffer();
-                artifactKey.append(artifact.getArtifactId()).append('-')
-                        .append(artifact.getVersion()).append('-')
-                        .append(artifact.getClassifier()).append('-')
-                        .append(artifact.getType());
+                String artifactKey = getArtifactKey(artifact);
                 try {
-                    // MD5
                     String digest;
-                    try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                        digest = DigestUtils.md5Hex(fis);
-                    }
-                    getLog().info(artifact.getFile().getName() + " md5: " + digest);
-                    try (PrintWriter printWriter = new PrintWriter(
-                            getMd5FilePath(workingDirectory, artifact.getFile()))) {
-                        printWriter.println(digest);
-                    }
                     // SHA-1
                     digest = artifactSha1s.getProperty(artifactKey.toString());
                     getLog().info(artifact.getFile().getName() + " sha1: " + digest);
@@ -357,5 +334,23 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         buffer.append(file.getName());
         buffer.append(".sha256");
         return buffer.toString();
+    }
+
+    /**
+     * Generates the unique artifact key for storage in our sha1 map and sha256 map. For example,
+     * commons-test-1.4-src.tar.gz should have it's name as the key.
+     *
+     * @param artifact the {@link Artifact} that we wish to generate a key for.
+     * @return the generated key
+     */
+    private String getArtifactKey(Artifact artifact) {
+        StringBuffer artifactKey = new StringBuffer();
+        artifactKey.append(artifact.getArtifactId()).append('-')
+                .append(artifact.getVersion()).append('-');
+        if (artifact.hasClassifier()) {
+            artifactKey.append(artifact.getClassifier()).append('-');
+        }
+        artifactKey.append(artifact.getType());
+        return artifactKey.toString();
     }
 }
