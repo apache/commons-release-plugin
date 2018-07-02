@@ -204,7 +204,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                         fileSet
                 );
                 if (!addResult.isSuccess()) {
-                    throw new MojoExecutionException("Failed to add files to scm");
+                    throw new MojoExecutionException("Failed to add files to scm: " + addResult.getProviderMessage()
+                            + " [" + addResult.getCommandOutput() + "]");
                 }
                 getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
                 CheckInScmResult checkInResult = provider.checkIn(
