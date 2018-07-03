@@ -33,6 +33,7 @@ import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.command.add.AddScmResult;
 import org.apache.maven.scm.command.checkin.CheckInScmResult;
+import org.apache.maven.scm.command.checkout.CheckOutScmResult;
 import org.apache.maven.scm.manager.BasicScmManager;
 import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.ScmProvider;
@@ -191,7 +192,11 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             }
             ScmFileSet scmFileSet = new ScmFileSet(distCheckoutDirectory);
             getLog().info("Checking out dist from: " + distSvnStagingUrl);
-            provider.checkOut(repository, scmFileSet);
+            final CheckOutScmResult checkOutResult = provider.checkOut(repository, scmFileSet);
+            if (!checkOutResult.isSuccess()) {
+                throw new MojoExecutionException("Failed to checkout files from SCM: "
+                        + checkOutResult.getProviderMessage() + " [" + checkOutResult.getCommandOutput() + "]");
+            }
             File copiedReleaseNotes = copyReleaseNotesToWorkingDirectory();
             copyDistributionsIntoScmDirectoryStructureAndAddToSvn(copiedReleaseNotes,
                     provider, repository);
@@ -204,7 +209,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                         fileSet
                 );
                 if (!addResult.isSuccess()) {
-                    throw new MojoExecutionException("Failed to add files to scm: " + addResult.getProviderMessage()
+                    throw new MojoExecutionException("Failed to add files to SCM: " + addResult.getProviderMessage()
                             + " [" + addResult.getCommandOutput() + "]");
                 }
                 getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());

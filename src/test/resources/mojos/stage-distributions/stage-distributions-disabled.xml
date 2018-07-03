@@ -47,7 +47,7 @@
                     <distCheckoutDirectory>target/testing-commons-release-plugin/scm</distCheckoutDirectory>
                     <siteDirectory>${basedir}/target/test-classes/mojos/detach-distributions/target/site</siteDirectory>
                     <releaseNotesFile>src/test/resources/mojos/stage-distributions/RELEASE-NOTES.txt</releaseNotesFile>
-                    <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/release-plugin</distSvnStagingUrl>
+                    <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin</distSvnStagingUrl>
                     <isDistModule>false</isDistModule>
                     <dryRun>true</dryRun>
                     <commonsReleaseVersion>1.0-SNAPSHOT</commonsReleaseVersion>
