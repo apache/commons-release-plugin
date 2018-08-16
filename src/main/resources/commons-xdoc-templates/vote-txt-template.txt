@@ -37,8 +37,8 @@ Maven artifacts are here:
 
 These are the Maven artifacts and their hashes in Nexus:
 
-@SHA1LIST@
 @SHA256LIST@
+@SHA512LIST@
 
 (no need for .asc hashes!)
 
