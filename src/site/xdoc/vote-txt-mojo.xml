@@ -22,7 +22,7 @@
   <body>
     <section name="commons:vote-txt">
       <p><strong>Full name</strong>:</p>
-      <p>org.apache.commons:commons-release-plugin:1.3:vote-txt</p>
+      <p>org.apache.commons:commons-release-plugin:1.4:vote-txt</p>
       <p><strong>Description</strong>:</p>
       <div>Apache Commons Release Mojo: Generate VOTE.txt</div>
       <p><strong>Attributes</strong>:</p>
