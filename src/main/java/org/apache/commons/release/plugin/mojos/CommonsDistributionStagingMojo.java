@@ -352,12 +352,12 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                     "\"mvn site\" was not run before this goal, or a siteDirectory did not exist."
             );
         }
+        File siteInScm = new File(distVersionRcVersionDirectory, "site");
         try {
-            FileUtils.copyDirectoryToDirectory(siteDirectory, distVersionRcVersionDirectory);
+            FileUtils.copyDirectory(siteDirectory, siteInScm);
         } catch (IOException e) {
             throw new MojoExecutionException("Site copying failed", e);
         }
-        File siteInScm = new File(distVersionRcVersionDirectory, "site");
         return new ArrayList<>(FileUtils.listFiles(siteInScm, null, true));
     }
 
