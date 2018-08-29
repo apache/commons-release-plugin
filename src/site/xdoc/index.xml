@@ -80,7 +80,7 @@
 <plugin>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-release-plugin</artifactId>
-  <version>1.1</version>
+  <version>1.4</version>
   <configuration>
     <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</distSvnStagingUrl>
     <isDistModule>true</isDistModule>
@@ -91,13 +91,6 @@
       <phase>verify</phase>
       <goals>
         <goal>detach-distributions</goal>
-      </goals>
-    </execution>
-    <execution>
-      <id>compress-site</id>
-      <phase>site</phase>
-      <goals>
-        <goal>compress-site</goal>
       </goals>
     </execution>
     <execution>
