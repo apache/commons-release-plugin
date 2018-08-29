@@ -241,13 +241,12 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      *                                properly wrapped so that Maven can handle it.
      */
     private void copyRemovedArtifactsToWorkingDirectory() throws MojoExecutionException {
-        StringBuffer copiedArtifactAbsolutePath;
         final String wdAbsolutePath = workingDirectory.getAbsolutePath();
         getLog().info(
                 "Copying " + detachedArtifacts.size() + " detached artifacts to working directory " + wdAbsolutePath);
         for (Artifact artifact: detachedArtifacts) {
             File artifactFile = artifact.getFile();
-            copiedArtifactAbsolutePath = new StringBuffer(wdAbsolutePath);
+            StringBuilder copiedArtifactAbsolutePath = new StringBuilder(wdAbsolutePath);
             copiedArtifactAbsolutePath.append("/");
             copiedArtifactAbsolutePath.append(artifactFile.getName());
             File copiedArtifact = new File(copiedArtifactAbsolutePath.toString());
@@ -299,7 +298,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @return a {@link String} that is the absolute path to the <code>.sha256</code> file.
      */
     private String getSha256FilePath(File directory, File file) {
-        StringBuffer buffer = new StringBuffer(directory.getAbsolutePath());
+        StringBuilder buffer = new StringBuilder(directory.getAbsolutePath());
         buffer.append("/");
         buffer.append(file.getName());
         buffer.append(".sha256");
@@ -314,7 +313,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @return a {@link String} that is the absolute path to the <code>.sha512</code> file.
      */
     private String getSha512FilePath(File directory, File file) {
-        StringBuffer buffer = new StringBuffer(directory.getAbsolutePath());
+        StringBuilder buffer = new StringBuilder(directory.getAbsolutePath());
         buffer.append("/");
         buffer.append(file.getName());
         buffer.append(".sha512");
@@ -329,7 +328,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @return the generated key
      */
     private String getArtifactKey(Artifact artifact) {
-        StringBuffer artifactKey = new StringBuffer();
+        StringBuilder artifactKey = new StringBuilder();
         artifactKey.append(artifact.getArtifactId()).append('-')
                 .append(artifact.getVersion()).append('-');
         if (artifact.hasClassifier()) {
