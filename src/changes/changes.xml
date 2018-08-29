@@ -25,7 +25,7 @@
   </properties>
 
   <body>
-    <release version="1.4" date="2018-MM-DD" description="Version 1.4">
+    <release version="1.4" date="2018-08-29" description="Version 1.4">
       <action type="update" dev="ggregory">Better error message when files cannot be checked in to the SCM.</action>
       <action type="fix" dev="ggregory">Check the result of checking out files from the SCM.</action>
       <action issue="COMMONSSITE-120" type="update" dev="ggregory">[release-plugin] Use SHA-256 and SHA-512, not MD5, not SHA-1.</action>

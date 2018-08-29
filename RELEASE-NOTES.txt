@@ -4,7 +4,7 @@
 
 INTRODUCTION
 ============
-This document contains the release notes for the 1.4 version of Apache commons-release-plgin.
+This document contains the release notes for the 1.4 version of Apache commons-release-plugin.
 The commons-release-plugin is meant to be a mechanism for automating The Apache Commons Project's
 release process.
 
