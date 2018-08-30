@@ -124,12 +124,17 @@ mvn -Duser.name=<yourApacheId> [-Duser.password=<yourApacheIdsPassword] [-Dcommo
 ]]></source>
                     </li>
                 </ol>
+            To avoid specifying distribution credentials at the command
+            line, consider using the <code>distServer</code> plugin configuration parameter (property <code>commons.distServer</code>)
+            to specify a server definition in Maven <code>settings.xml</code> which defines your (encrypted, right?) authentication info.
+            </p>
+
+            <p>
             If the component is new, then, before running this maven command, you would want to create
             the requisite subversion directory <code>https://dist.apache.org/repos/dist/dev/commons/foo</code>. Notice,
             that the way to perform a dry run of the release you need to include
             <code>-Dcommons.release.dryRun=true -Ptest-deploy</code>.
             </p>
         </section>
-
     </body>
 </document>
