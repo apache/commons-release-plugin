@@ -117,6 +117,7 @@
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
     <commons.releaseManagerKey>B6E73D84EA4FCC47166087253FAAD2CD5ECBB314</commons.releaseManagerKey>
+    <maven.plugin.version>3.5.1</maven.plugin.version>
   </properties>
 
   <dependencies>
@@ -257,13 +258,18 @@
             </excludes>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>${maven.plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.5.1</version>
         <!-- Add the Ant plugin tools to the plugin -->
         <dependencies>
           <dependency>
@@ -463,6 +469,10 @@
   </build>
   <reporting>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
       <!-- exclude surefire report -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

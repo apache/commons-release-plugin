@@ -26,6 +26,7 @@
             <item name="Overview"                 href="/index.html" />
             <item name="Download"                 href="/download_commons-release-plugin.cgi"/>
             <item name="Release History"          href="/release-history.html"/>
+            <item name="Plugin Documentation"     href="/plugin-info.html" />
             <item name="Javadoc (Latest release)" href="javadocs/api-release/index.html"/>
             <item name="Help"                     href="/development.html">
                 <item name="Issue Tracking"       href="/issue-tracking.html"/>
