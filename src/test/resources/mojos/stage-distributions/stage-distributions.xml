@@ -43,6 +43,7 @@
                 <artifactId>commons-release-plugin</artifactId>
                 <configuration>
                     <project implementation="org.apache.commons.release.plugin.stubs.DistributionDetachmentProjectStub" />
+                    <settings implementation="org.apache.maven.settings.Settings" />
                     <workingDirectory>target/testing-commons-release-plugin</workingDirectory>
                     <distCheckoutDirectory>target/testing-commons-release-plugin/scm</distCheckoutDirectory>
                     <siteDirectory>${basedir}/target/test-classes/mojos/detach-distributions/target/site</siteDirectory>
