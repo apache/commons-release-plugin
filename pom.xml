@@ -93,7 +93,7 @@
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
     <checkstyle.version>8.10.1</checkstyle.version>
     <maven-scm.version>1.10.0</maven-scm.version>
-    <commons.jacoco.version>0.8.0</commons.jacoco.version>
+    <commons.jacoco.version>0.8.2</commons.jacoco.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
     <commons.jacoco.methodRatio>0.1</commons.jacoco.methodRatio>
