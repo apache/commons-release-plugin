@@ -79,13 +79,6 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     /**
      * A {@link Properties} of {@link Artifact} → {@link String} containing the sha256 signatures
      * for the individual artifacts, where the {@link Artifact} is represented as:
-     * <code>groupId:artifactId:version:type=sha256</code>.
-     */
-    private final Properties artifactSha256s = new Properties();
-
-    /**
-     * A {@link Properties} of {@link Artifact} → {@link String} containing the sha256 signatures
-     * for the individual artifacts, where the {@link Artifact} is represented as:
      * <code>groupId:artifactId:version:type=sha512</code>.
      */
     private final Properties artifactSha512s = new Properties();
@@ -128,7 +121,6 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         }
         getLog().info("Detaching Assemblies");
         for (Object attachedArtifact : project.getAttachedArtifacts()) {
-            putAttachedArtifactInSha256Map((Artifact) attachedArtifact);
             putAttachedArtifactInSha512Map((Artifact) attachedArtifact);
             if (ARTIFACT_TYPES_TO_DETACH.contains(((Artifact) attachedArtifact).getType())) {
                 detachedArtifacts.add((Artifact) attachedArtifact);
@@ -144,37 +136,10 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         if (!workingDirectory.exists()) {
             SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
-        writeAllArtifactsInSha256PropertiesFile();
         writeAllArtifactsInSha512PropertiesFile();
         copyRemovedArtifactsToWorkingDirectory();
         getLog().info("");
         hashArtifacts();
-    }
-
-    /**
-     * Takes an attached artifact and puts the signature in the map.
-     * @param artifact is a Maven {@link Artifact} taken from the project at start time of mojo.
-     * @throws MojoExecutionException if an {@link IOException} occurs when getting the sha256 of the
-     *                                artifact.
-     */
-    private void putAttachedArtifactInSha256Map(Artifact artifact) throws MojoExecutionException {
-        try {
-            String artifactKey = getArtifactKey(artifact);
-            try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                artifactSha256s.put(artifactKey, DigestUtils.sha256Hex(fis));
-            }
-        } catch (IOException e) {
-            throw new MojoExecutionException(
-                "Could not find artifact signature for: "
-                    + artifact.getArtifactId()
-                    + "-"
-                    + artifact.getClassifier()
-                    + "-"
-                    + artifact.getVersion()
-                    + " type: "
-                    + artifact.getType(),
-                e);
-        }
     }
 
     /**
@@ -200,21 +165,6 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                     + " type: "
                     + artifact.getType(),
                 e);
-        }
-    }
-
-    /**
-     * Writes to ./target/commons-release-plugin/sha256.properties the artifact sha256's.
-     *
-     * @throws MojoExecutionException if we can't write the file due to an {@link IOException}.
-     */
-    private void writeAllArtifactsInSha256PropertiesFile() throws MojoExecutionException {
-        File propertiesFile = new File(workingDirectory, "sha256.properties");
-        getLog().info("Writting " + propertiesFile);
-        try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
-            artifactSha256s.store(fileWriter, "Release SHA-256s");
-        } catch (IOException e) {
-            throw new MojoExecutionException("Failure to write SHA-256's", e);
         }
     }
 
@@ -269,13 +219,6 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                 String artifactKey = getArtifactKey(artifact);
                 try {
                     String digest;
-                    // SHA-256
-                    digest = artifactSha256s.getProperty(artifactKey.toString());
-                    getLog().info(artifact.getFile().getName() + " sha256: " + digest);
-                    try (PrintWriter printWriter = new PrintWriter(
-                            getSha256FilePath(workingDirectory, artifact.getFile()))) {
-                        printWriter.println(digest);
-                    }
                     // SHA-512
                     digest = artifactSha512s.getProperty(artifactKey.toString());
                     getLog().info(artifact.getFile().getName() + " sha512: " + digest);
@@ -288,21 +231,6 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                 }
             }
         }
-    }
-
-    /**
-     * A helper method to create a file path for the <code>sha256</code> signature file from a given file.
-     *
-     * @param directory is the {@link File} for the directory in which to make the <code>.sha256</code> file.
-     * @param file the {@link File} whose name we should use to create the <code>.sha256</code> file.
-     * @return a {@link String} that is the absolute path to the <code>.sha256</code> file.
-     */
-    private String getSha256FilePath(File directory, File file) {
-        StringBuilder buffer = new StringBuilder(directory.getAbsolutePath());
-        buffer.append("/");
-        buffer.append(file.getName());
-        buffer.append(".sha256");
-        return buffer.toString();
     }
 
     /**
