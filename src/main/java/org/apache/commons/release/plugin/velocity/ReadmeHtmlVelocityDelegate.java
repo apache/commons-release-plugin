@@ -78,8 +78,13 @@ public class ReadmeHtmlVelocityDelegate {
         ve.init();
         Template template = ve.getTemplate(TEMPLATE);
         String[] splitArtifactId = artifactId.split("-");
-        String wordCommons = splitArtifactId[0];
-        String artifactShortName = splitArtifactId[1];
+        String wordCommons = "commons";
+        String artifactShortName = "";
+        if (splitArtifactId.length > 1) {
+            artifactShortName = splitArtifactId[1];
+        } else if (splitArtifactId.length == 1) {
+            artifactShortName = splitArtifactId[0];
+        }
         String artifactIdWithFirstLetterscapitalized =
                 StringUtils.capitalize(wordCommons)
                         + "-"
