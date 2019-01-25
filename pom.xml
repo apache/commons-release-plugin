@@ -71,6 +71,13 @@
       <email>ggregory@apache.org</email>
       <timezone>-6</timezone>
     </developer>
+    <developer>
+      <name>Matt Benson</name>
+      <id>mbenson</id>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
   </developers>
 
   <properties>

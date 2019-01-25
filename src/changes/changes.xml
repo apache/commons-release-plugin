@@ -25,6 +25,10 @@
   </properties>
 
   <body>
+    <release version="1.5" date="2018-01-26" description="Version 1.5">
+      <action issue="COMMONSSITE-122" type="fix" dev="mbenson">stage-distributions mojo assumes site directory has basename 'site'</action>
+    </release>
+
     <release version="1.4" date="2018-08-29" description="Version 1.4">
       <action type="update" dev="ggregory">Better error message when files cannot be checked in to the SCM.</action>
       <action type="fix" dev="ggregory">Check the result of checking out files from the SCM.</action>
