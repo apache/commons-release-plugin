@@ -26,6 +26,8 @@
 
   <body>
     <release version="1.5" date="2018-01-26" description="Version 1.5">
+      <action issue="COMMONSSITE-123" type="add" dev="mbenson">introduce configuration parameter to perfom distribution checkin using Maven settings server credentials
+      </action>
       <action issue="COMMONSSITE-122" type="fix" dev="mbenson">stage-distributions mojo assumes site directory has basename 'site'</action>
     </release>
 
