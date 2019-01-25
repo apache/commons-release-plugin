@@ -65,7 +65,7 @@
 <source><![CDATA[
     <properties>
         <commons.componentid>chain</commons.componentid>
-        <commons.release.version>1.4</commons.release.version>
+        <commons.release.version>1.5</commons.release.version>
     </properties> 
 ]]></source>
                 </p>

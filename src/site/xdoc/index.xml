@@ -80,7 +80,7 @@
 <plugin>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-release-plugin</artifactId>
-  <version>1.4</version>
+  <version>1.5</version>
   <configuration>
     <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</distSvnStagingUrl>
     <isDistModule>true</isDistModule>
