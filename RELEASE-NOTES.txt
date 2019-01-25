@@ -1,10 +1,10 @@
                          Apache Commons Release Plugin
-                                  Version 1.4
+                                  Version 1.5
                                  Release Notes
 
 INTRODUCTION
 ============
-This document contains the release notes for the 1.4 version of Apache commons-release-plugin.
+This document contains the release notes for the 1.5 version of Apache commons-release-plugin.
 The commons-release-plugin is meant to be a mechanism for automating The Apache Commons Project's
 release process.
 
@@ -15,7 +15,27 @@ together for the purpose of removing the manual steps required to produce an Apa
 
 Changes in this version include:
 
-Fixed Bugs
+NEW FEATURES
+============
+o COMMONSSITE-123:  introduce configuration parameter to perfom distribution checkin using Maven settings server credentials
+
+FIXED BUGS
+==========
+o ReadmeHtmlVelocityDelegate, bcel's artifactId != commons-bcel, but is just bcel
+o COMMONSSITE-122:  stage-distributions mojo assumes site directory has basename 'site'
+
+CHANGES
+=======
+o Drop sha-256 and leave sha-512 only
+o commons.jacoco.version: 0.8.0 -> 0.8.2; java 11 compatibility
+
+=============================================================================
+
+                         Apache Commons Release Plugin
+                                  Version 1.4
+                                 Release Notes
+
+FIXED BUGS
 ==========
 o Check the result of checking out files from the SCM.
 
