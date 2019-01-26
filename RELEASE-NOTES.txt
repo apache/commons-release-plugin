@@ -27,6 +27,7 @@ o COMMONSSITE-122:  stage-distributions mojo assumes site directory has basename
 
 CHANGES
 =======
+o vote-txt, use github as opposed to git-wip
 o Drop sha-256 and leave sha-512 only
 o commons.jacoco.version: 0.8.0 -> 0.8.2; java 11 compatibility
 
