@@ -25,7 +25,8 @@
   </properties>
 
   <body>
-    <release version="1.5" date="2019-01-25" description="Version 1.5">
+    <release version="1.5" date="2019-01-26" description="Version 1.5">
+      <action type="fix" dev="chtompki">ReadmeHtmlVelocityDelegate, accommodate for artifactIds ending in numbers</action>
       <action type="fix" dev="chtompki">ReadmeHtmlVelocityDelegate, bcel's artifactId != commons-bcel, but is just bcel</action>
       <action type="update" dev="ggregory">Drop sha-256 and leave sha-512 only</action>
       <action type="update" dev="ggregory">commons.jacoco.version: 0.8.0 -> 0.8.2; java 11 compatibility</action>

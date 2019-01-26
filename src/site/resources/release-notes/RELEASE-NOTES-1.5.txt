@@ -21,6 +21,7 @@ o COMMONSSITE-123:  introduce configuration parameter to perfom distribution che
 
 FIXED BUGS
 ==========
+o ReadmeHtmlVelocityDelegate, accommodate for artifactIds ending in numbers
 o ReadmeHtmlVelocityDelegate, bcel's artifactId != commons-bcel, but is just bcel
 o COMMONSSITE-122:  stage-distributions mojo assumes site directory has basename 'site'
 

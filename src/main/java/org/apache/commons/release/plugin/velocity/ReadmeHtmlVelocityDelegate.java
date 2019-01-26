@@ -85,6 +85,10 @@ public class ReadmeHtmlVelocityDelegate {
         } else if (splitArtifactId.length == 1) {
             artifactShortName = splitArtifactId[0];
         }
+        // ".+\\d$" matches a non-empty string that terminates in a digit {0-9}.
+        if (artifactShortName.matches(".+\\d$")) {
+            artifactShortName = artifactShortName.substring(0, artifactShortName.length() - 1);
+        }
         String artifactIdWithFirstLetterscapitalized =
                 StringUtils.capitalize(wordCommons)
                         + "-"
