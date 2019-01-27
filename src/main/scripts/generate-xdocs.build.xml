@@ -57,9 +57,6 @@
         <!-- Create a temporary directory to load the template files into -->
         <mkdir dir="${commonsMojoTempDir}"/>
 
-    	<!-- Load SHA-256 file created by the deploy goal -->
-    	<loadfile property="commons.sha256list" srcFile="target/commons-release-plugin/sha256.properties" failonerror="false"/>
-    	
     	<!-- Load SHA-512 file created by the deploy goal -->
     	<loadfile property="commons.sha512list" srcFile="target/commons-release-plugin/sha512.properties" failonerror="false"/>
     	
@@ -108,7 +105,6 @@
              <filter token="RMNAME"         value="${commons.releaseManagerName}"/>            	
              <filter token="RMKEY"          value="${commons.releaseManagerKey}"/>            	
              <filter token="RCREV"          value="${svn.rc.revision}"/>            	
-             <filter token="SHA256LIST"     value="${commons.sha256list}"/>            	
              <filter token="SHA512LIST"     value="${commons.sha512list}"/>            	
              <filter token="DISTURL"        value="${svn.dist.url}"/>            	
              <filter token="TAGNAME"        value="${git.tag.name}"/>            	
