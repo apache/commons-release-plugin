@@ -61,13 +61,12 @@
                     directory.
                 </li>
                 <li>
-                    <b>commons-release:compress-site</b> - Generate <code>site.zip</code> file
-                    in the <code>target/commons-release-plugin</code> directory.
-                </li>
-                <li>
                     <b>commons-release:stage-distributions</b> - Take all staged files in the
                     <code>target/commons-release-plugin</code> directory, and the <code>RELEASE-NOTES.txt</code> from
                     the root of the project, and commit them to a specified staging subversion repository.
+                </li>
+                <li>
+                  <a href="vote-txt.html">org.apache.commons:commons-release-plugin:1.5:vote-txt</a>
                 </li>
             </ul>
             </p>
