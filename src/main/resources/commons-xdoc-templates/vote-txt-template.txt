@@ -30,7 +30,7 @@ The Subversion tag for this RC is here:
     N.B. the SVN revision is required because SVN tags are not immutable.
 *** Git: ***    
 The Git tag @TAGNAME@ commit for this RC is @TAGCOMMIT@ which you can browse here:
-    https://git-wip-us.apache.org/repos/asf?p=commons-@ID@.git;a=tag;h=refs/tags/@TAGNAME@
+    https://github.com/apache/commons-@ID@/releases/tag/@TAGNAME@
 
 Maven artifacts are here:
     https://repository.apache.org/content/repositories/orgapachecommons-@NEXUS_REPO_ID@/org/apache/commons/@ARTIFACTID@/@VERSION@/

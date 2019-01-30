@@ -42,4 +42,32 @@ public class ReadmeHtmlVelocityDelegateTest {
         String filledOutTemplate = writer.toString();
         assertTrue(filledOutTemplate.contains("<h1>Commons-TEXT v1.4.</h1>"));
     }
+
+    @Test
+    public void testSuccessfulRunLang3() {
+        ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
+                .withArtifactId("commons-lang3")
+                .withVersion("3.8.1")
+                .withSiteUrl("http://commons.apache.org/text")
+                .build();
+        Writer writer = new StringWriter();
+        writer = delegate.render(writer);
+        String filledOutTemplate = writer.toString();
+        assertTrue(filledOutTemplate.contains("<h1>Commons-LANG v3.8.1.</h1>"));
+    }
+
+
+
+    @Test
+    public void testSuccessfulRunBcel() {
+        ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
+                .withArtifactId("bcel")
+                .withVersion("1.5")
+                .withSiteUrl("http://commons.apache.org/text")
+                .build();
+        Writer writer = new StringWriter();
+        writer = delegate.render(writer);
+        String filledOutTemplate = writer.toString();
+        assertTrue(filledOutTemplate.contains("<h1>Commons-BCEL v1.5.</h1>"));
+    }
 }
