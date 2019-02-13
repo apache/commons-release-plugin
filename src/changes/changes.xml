@@ -25,6 +25,10 @@
   </properties>
 
   <body>
+    <release version="1.6" date="2019-MM-DD" description="Version 1.6">
+      <action type="update" dev="ggregory">Update Apache Commons Codec from 1.11 to 1.12.</action>
+    </release>
+
     <release version="1.5" date="2019-01-26" description="Version 1.5">
       <action type="update" dev="chtompki">vote-txt, use github as opposed to git-wip</action>
       <action type="fix" dev="chtompki">ReadmeHtmlVelocityDelegate, accommodate for artifactIds ending in numbers</action>
