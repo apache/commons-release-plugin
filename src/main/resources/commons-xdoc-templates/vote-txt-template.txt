@@ -31,7 +31,7 @@ The Subversion tag for this RC is here:
 *** Git: ***    
 The Git tag @TAGNAME@ commit for this RC is @TAGCOMMIT@ which you can browse here:
     https://gitbox.apache.org/repos/asf?p=commons-@ID@.git;a=commit;h=@TAGCOMMIT@
-You may checkout this tag like this:
+You may checkout this tag using:
   git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git
   cd commons-@ID@
   git checkout tags/@TAGNAME@
