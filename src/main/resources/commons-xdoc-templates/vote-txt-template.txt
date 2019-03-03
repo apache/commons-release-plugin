@@ -90,3 +90,42 @@ Thank you,
 
 @RMNAME@, 
 Release Manager (using key @RMKEY@)
+
+For following is intended as a helper and refresher for reviewers.
+
+Validating a release candidate
+==============================
+
+These guidelines are NOT complete.
+
+Requirements: Git, Java, Maven.
+
+You can validate a release from a release candidate (RC) tag as follows.
+
+1) Clone and checkout the RC:
+
+git clone https://gitbox.apache.org/repos/asf/@ID@.git -b @TAGNAME@
+cd @TAGNAME@
+
+2) Check Apache licenses:
+
+mvn apache-rat:check
+
+3) Build the package:
+
+mvn -V clean package
+
+You can record the Maven and Java version produced by -V in your VOTE reply.
+
+4) Build the site for a single module project:
+
+mvn site
+Check the site reports in:
+target\site\index.html
+
+4) Build the site for a multi-module project:
+
+mvn site
+mvn site:stage
+Check the site reports in:
+target\site\index.html
