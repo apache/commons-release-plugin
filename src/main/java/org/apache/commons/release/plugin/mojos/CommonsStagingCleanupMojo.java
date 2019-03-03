@@ -1,6 +1,7 @@
 package org.apache.commons.release.plugin.mojos;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -8,10 +9,26 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.scm.ScmException;
+import org.apache.maven.scm.ScmFileSet;
+import org.apache.maven.scm.command.checkout.CheckOutScmResult;
+import org.apache.maven.scm.manager.BasicScmManager;
+import org.apache.maven.scm.manager.NoSuchScmProviderException;
+import org.apache.maven.scm.manager.ScmManager;
+import org.apache.maven.scm.provider.ScmProvider;
+import org.apache.maven.scm.provider.ScmProviderRepository;
+import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
+import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
+import org.apache.maven.scm.repository.ScmRepository;
+import org.apache.maven.scm.repository.ScmRepositoryException;
+import org.apache.maven.settings.Server;
 import org.apache.maven.settings.Settings;
+import org.apache.maven.settings.crypto.DefaultSettingsDecryptionRequest;
 import org.apache.maven.settings.crypto.SettingsDecrypter;
+import org.apache.maven.settings.crypto.SettingsDecryptionResult;
 
 import java.io.File;
+import java.util.Optional;
 
 /**
  * This class checks out the dev distribution location, checkes whether anything exists in the
@@ -106,6 +123,31 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
         if (!workingDirectory.exists()) {
             getLog().info("Current project contains no distributions. Not executing.");
             return;
+        }
+        try {
+            ScmManager scmManager = new BasicScmManager();
+            scmManager.setScmProvider("svn", new SvnExeScmProvider());
+            ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
+            ScmProvider provider = scmManager.getProviderByRepository(repository);
+            SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
+            SharedFunctions.setAuthentication(
+                    providerRepository,
+                    distServer,
+                    settings,
+                    settingsDecrypter,
+                    username,
+                    password
+            );
+            getLog().info("Checking out dist from: " + distSvnStagingUrl);
+            ScmFileSet scmFileSet = new ScmFileSet(distCleanupDirectory);
+            final CheckOutScmResult checkOutResult = provider.checkOut(repository, scmFileSet);
+            if (!checkOutResult.isSuccess()) {
+                throw new MojoExecutionException("Failed to checkout files from SCM: "
+                        + checkOutResult.getProviderMessage() + " [" + checkOutResult.getCommandOutput() + "]");
+            }
+
+        } catch (ScmException e) {
+            throw new MojoFailureException(e.getMessage());
         }
 
     }

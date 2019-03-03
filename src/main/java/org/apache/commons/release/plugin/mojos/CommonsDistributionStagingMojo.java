@@ -210,7 +210,14 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
             ScmProvider provider = scmManager.getProviderByRepository(repository);
             SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
-            setAuthentication(providerRepository);
+            SharedFunctions.setAuthentication(
+                    providerRepository,
+                    distServer,
+                    settings,
+                    settingsDecrypter,
+                    username,
+                    password
+            );
             distVersionRcVersionDirectory =
                     new File(distCheckoutDirectory, commonsReleaseVersion + "-" + commonsRcVersion);
             if (!distCheckoutDirectory.exists()) {
@@ -481,18 +488,5 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     protected void setBaseDir(File baseDir) {
         this.baseDir = baseDir;
-    }
-
-    /**
-     * Set authentication information on the specified {@link ScmProviderRepository}.
-     * @param providerRepository target
-     */
-    private void setAuthentication(ScmProviderRepository providerRepository) {
-        Optional<Server> server =
-            Optional.ofNullable(distServer).map(settings::getServer).map(DefaultSettingsDecryptionRequest::new)
-                .map(settingsDecrypter::decrypt).map(SettingsDecryptionResult::getServer);
-
-        providerRepository.setUser(server.map(Server::getUsername).orElse(username));
-        providerRepository.setPassword(server.map(Server::getPassword).orElse(password));
     }
 }

@@ -18,9 +18,16 @@ package org.apache.commons.release.plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.scm.provider.ScmProviderRepository;
+import org.apache.maven.settings.Server;
+import org.apache.maven.settings.Settings;
+import org.apache.maven.settings.crypto.DefaultSettingsDecryptionRequest;
+import org.apache.maven.settings.crypto.SettingsDecrypter;
+import org.apache.maven.settings.crypto.SettingsDecryptionResult;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
@@ -86,5 +93,23 @@ public final class SharedFunctions {
             log.error(message);
             throw new MojoExecutionException(message, e);
         }
+    }
+
+    /**
+     * Set authentication information on the specified {@link ScmProviderRepository}.
+     * @param providerRepository target
+     */
+    public static void setAuthentication(ScmProviderRepository providerRepository,
+                                   String distServer,
+                                   Settings settings,
+                                   SettingsDecrypter settingsDecrypter,
+                                   String username,
+                                   String password) {
+        Optional<Server> server =
+                Optional.ofNullable(distServer).map(settings::getServer).map(DefaultSettingsDecryptionRequest::new)
+                        .map(settingsDecrypter::decrypt).map(SettingsDecryptionResult::getServer);
+
+        providerRepository.setUser(server.map(Server::getUsername).orElse(username));
+        providerRepository.setPassword(server.map(Server::getPassword).orElse(password));
     }
 }
