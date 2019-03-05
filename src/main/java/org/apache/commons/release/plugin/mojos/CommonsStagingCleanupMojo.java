@@ -9,26 +9,24 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
+import org.apache.maven.scm.command.checkin.CheckInScmResult;
 import org.apache.maven.scm.command.checkout.CheckOutScmResult;
+import org.apache.maven.scm.command.remove.RemoveScmResult;
 import org.apache.maven.scm.manager.BasicScmManager;
-import org.apache.maven.scm.manager.NoSuchScmProviderException;
 import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.ScmProvider;
-import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
-import org.apache.maven.scm.repository.ScmRepositoryException;
-import org.apache.maven.settings.Server;
 import org.apache.maven.settings.Settings;
-import org.apache.maven.settings.crypto.DefaultSettingsDecryptionRequest;
 import org.apache.maven.settings.crypto.SettingsDecrypter;
-import org.apache.maven.settings.crypto.SettingsDecryptionResult;
 
 import java.io.File;
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class checks out the dev distribution location, checkes whether anything exists in the
@@ -42,6 +40,13 @@ import java.util.Optional;
         threadSafe = true,
         aggregator = true)
 public class CommonsStagingCleanupMojo extends AbstractMojo {
+
+    /**
+     * The {@link MavenProject} object is essentially the context of the maven build at
+     * a given time.
+     */
+    @Parameter(defaultValue = "${project}", required = true)
+    private MavenProject project;
 
     /**
      * The main working directory for the plugin, namely <code>target/commons-release-plugin</code>, but
@@ -78,7 +83,9 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
      * A parameter to generally avoid running unless it is specifically turned on by the consuming module.
      */
     @Parameter(defaultValue = "false", property = "commons.release.isDistModule")
-    private Boolean isDistModule;/**
+    private Boolean isDistModule;
+
+    /**
      * The ID of the server (specified in settings.xml) which should be used for dist authentication.
      * This will be used in preference to {@link #username}/{@link #password}.
      */
@@ -121,8 +128,7 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
             return;
         }
         if (!workingDirectory.exists()) {
-            getLog().info("Current project contains no distributions. Not executing.");
-            return;
+            SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
         try {
             ScmManager scmManager = new BasicScmManager();
@@ -145,7 +151,19 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
                 throw new MojoExecutionException("Failed to checkout files from SCM: "
                         + checkOutResult.getProviderMessage() + " [" + checkOutResult.getCommandOutput() + "]");
             }
-
+            List<File> filesToRemove = Arrays.asList(distCleanupDirectory.listFiles());
+            ScmFileSet fileSet = new ScmFileSet(distCleanupDirectory, filesToRemove);
+            RemoveScmResult removeScmResult = provider.remove(repository, fileSet, "Cleaning up staging area");
+            if (!removeScmResult.isSuccess()) {
+                throw new MojoFailureException("Failed to add files to SCM: " + removeScmResult.getProviderMessage()
+                        + " [" + removeScmResult.getCommandOutput() + "]");
+            }
+            getLog().info("Cleaning distribution area for: " + project.getArtifactId());
+            CheckInScmResult checkInResult = provider.checkIn(
+                    repository,
+                    fileSet,
+                    "Cleaning distribution area for: " + project.getArtifactId()
+            );
         } catch (ScmException e) {
             throw new MojoFailureException(e.getMessage());
         }

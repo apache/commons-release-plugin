@@ -97,7 +97,12 @@ public final class SharedFunctions {
 
     /**
      * Set authentication information on the specified {@link ScmProviderRepository}.
-     * @param providerRepository target
+     * @param providerRepository target.
+     * @param distServer temp.
+     * @param settings temp.
+     * @param settingsDecrypter temp.
+     * @param username temp.
+     * @param password temp.
      */
     public static void setAuthentication(ScmProviderRepository providerRepository,
                                    String distServer,
