@@ -85,7 +85,7 @@ You can learn more about contributing via GitHub in our [contribution guidelines
 
 License
 -------
-Code is under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
+Code is under the [Apache License v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
 Donations
 ---------
