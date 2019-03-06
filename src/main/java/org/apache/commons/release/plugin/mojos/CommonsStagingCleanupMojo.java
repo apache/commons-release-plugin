@@ -152,18 +152,31 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
                         + checkOutResult.getProviderMessage() + " [" + checkOutResult.getCommandOutput() + "]");
             }
             List<File> filesToRemove = Arrays.asList(distCleanupDirectory.listFiles());
-            ScmFileSet fileSet = new ScmFileSet(distCleanupDirectory, filesToRemove);
-            RemoveScmResult removeScmResult = provider.remove(repository, fileSet, "Cleaning up staging area");
-            if (!removeScmResult.isSuccess()) {
-                throw new MojoFailureException("Failed to add files to SCM: " + removeScmResult.getProviderMessage()
-                        + " [" + removeScmResult.getCommandOutput() + "]");
+            if (filesToRemove.size() == 1) {
+                getLog().info("No files to delete");
+                return;
             }
-            getLog().info("Cleaning distribution area for: " + project.getArtifactId());
-            CheckInScmResult checkInResult = provider.checkIn(
-                    repository,
-                    fileSet,
-                    "Cleaning distribution area for: " + project.getArtifactId()
-            );
+            if (!dryRun) {
+                ScmFileSet fileSet = new ScmFileSet(distCleanupDirectory, filesToRemove);
+                RemoveScmResult removeScmResult = provider.remove(repository, fileSet, "Cleaning up staging area");
+                if (!removeScmResult.isSuccess()) {
+                    throw new MojoFailureException("Failed to remove files from SCM: "
+                            + removeScmResult.getProviderMessage()
+                            + " [" + removeScmResult.getCommandOutput() + "]");
+                }
+                getLog().info("Cleaning distribution area for: " + project.getArtifactId());
+                CheckInScmResult checkInResult = provider.checkIn(
+                        repository,
+                        fileSet,
+                        "Cleaning distribution area for: " + project.getArtifactId()
+                );
+                if (!checkInResult.isSuccess()) {
+                    throw new MojoFailureException("Failed to commit files: " + removeScmResult.getProviderMessage()
+                            + " [" + removeScmResult.getCommandOutput() + "]");
+                }
+            } else {
+                getLog().info("Would have attempted to delete files from: " + distSvnStagingUrl);
+            }
         } catch (ScmException e) {
             throw new MojoFailureException(e.getMessage());
         }
