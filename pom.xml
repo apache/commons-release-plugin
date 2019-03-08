@@ -25,7 +25,7 @@
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.6-SNAPSHOT</version>
+  <version>1.6</version>
   <name>Apache Commons Release Plugin</name>
 
   <description>
@@ -117,9 +117,9 @@
 
     <!-- Including commons release plugin older version -->
     <commons.release.isDistModule>true</commons.release.isDistModule>
-    <commons.bc.version>1.4</commons.bc.version>
-    <commons.release.version>1.5</commons.release.version>
-    <commons.rc.version>RC2</commons.rc.version>
+    <commons.bc.version>1.5</commons.bc.version>
+    <commons.release.version>1.6</commons.release.version>
+    <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
     <commons.releaseManagerKey>B6E73D84EA4FCC47166087253FAAD2CD5ECBB314</commons.releaseManagerKey>
