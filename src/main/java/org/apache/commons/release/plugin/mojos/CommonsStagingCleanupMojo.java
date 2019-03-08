@@ -52,7 +52,7 @@ import java.util.List;
  * @since 1.6
  */
 @Mojo(name = "clean-staging",
-        defaultPhase = LifecyclePhase.COMPILE,
+        defaultPhase = LifecyclePhase.POST_CLEAN,
         threadSafe = true,
         aggregator = true)
 public class CommonsStagingCleanupMojo extends AbstractMojo {

@@ -456,6 +456,13 @@
         </configuration>
         <executions>
           <execution>
+            <id>clean-staging</id>
+            <phase>post-clean</phase>
+            <goals>
+              <goal>clean-staging</goal>
+            </goals>
+          </execution>
+          <execution>
             <id>detatch-distributions</id>
             <phase>verify</phase>
             <goals>

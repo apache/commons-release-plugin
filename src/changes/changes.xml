@@ -25,7 +25,7 @@
   </properties>
 
   <body>
-    <release version="1.6" date="2019-MM-DD" description="Version 1.6">
+    <release version="1.6" date="2019-03-08" description="Version 1.6">
       <action issue="COMMONSSITE-128" type="add" dev="chtompki">Release plugin cleans up staging area before staging</action>
       <action type="update" dev="ggregory">Update Apache Commons Codec from 1.11 to 1.12.</action>
     </release>
