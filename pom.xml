@@ -446,38 +446,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-release-plugin</artifactId>
-        <version>${commons.release-plugin.version}</version>
-        <configuration>
-          <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin
-          </distSvnStagingUrl>
-        </configuration>
-        <executions>
-          <execution>
-            <id>clean-staging</id>
-            <phase>post-clean</phase>
-            <goals>
-              <goal>clean-staging</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>detatch-distributions</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>detach-distributions</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>stage-distributions</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>stage-distributions</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
   <reporting>
@@ -677,6 +645,38 @@
       <id>release</id>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-release-plugin</artifactId>
+            <version>${commons.release-plugin.version}</version>
+            <configuration>
+              <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin
+              </distSvnStagingUrl>
+            </configuration>
+            <executions>
+              <execution>
+                <id>clean-staging</id>
+                <phase>clean</phase>
+                <goals>
+                  <goal>clean-staging</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>detatch-distributions</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>detach-distributions</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>stage-distributions</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>stage-distributions</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
           <!-- We want to sign the artifact, the POM, and all attached artifacts -->
           <plugin>
             <artifactId>maven-gpg-plugin</artifactId>
