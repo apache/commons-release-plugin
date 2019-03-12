@@ -25,7 +25,7 @@
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.6-SNAPSHOT</version>
+  <version>1.6</version>
   <name>Apache Commons Release Plugin</name>
 
   <description>
@@ -117,9 +117,9 @@
 
     <!-- Including commons release plugin older version -->
     <commons.release.isDistModule>true</commons.release.isDistModule>
-    <commons.bc.version>1.4</commons.bc.version>
-    <commons.release.version>1.5</commons.release.version>
-    <commons.rc.version>RC2</commons.rc.version>
+    <commons.bc.version>1.5</commons.bc.version>
+    <commons.release.version>1.6</commons.release.version>
+    <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
     <commons.releaseManagerKey>B6E73D84EA4FCC47166087253FAAD2CD5ECBB314</commons.releaseManagerKey>
@@ -446,31 +446,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-release-plugin</artifactId>
-        <version>${commons.release-plugin.version}</version>
-        <configuration>
-          <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin
-          </distSvnStagingUrl>
-        </configuration>
-        <executions>
-          <execution>
-            <id>detatch-distributions</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>detach-distributions</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>stage-distributions</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>stage-distributions</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
   <reporting>
@@ -670,6 +645,38 @@
       <id>release</id>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-release-plugin</artifactId>
+            <version>${commons.release-plugin.version}</version>
+            <configuration>
+              <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin
+              </distSvnStagingUrl>
+            </configuration>
+            <executions>
+              <execution>
+                <id>clean-staging</id>
+                <phase>clean</phase>
+                <goals>
+                  <goal>clean-staging</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>detatch-distributions</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>detach-distributions</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>stage-distributions</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>stage-distributions</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
           <!-- We want to sign the artifact, the POM, and all attached artifacts -->
           <plugin>
             <artifactId>maven-gpg-plugin</artifactId>
