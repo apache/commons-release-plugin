@@ -97,7 +97,7 @@
     </commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
-    <checkstyle.version>8.10.1</checkstyle.version>
+    <checkstyle.version>8.18</checkstyle.version>
     <maven-scm.version>1.10.0</maven-scm.version>
     <commons.jacoco.version>0.8.2</commons.jacoco.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
