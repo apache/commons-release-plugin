@@ -104,7 +104,7 @@ You can validate a release from a release candidate (RC) tag as follows.
 
 1) Clone and checkout the RC:
 
-git clone https://gitbox.apache.org/repos/asf/@ID@.git -b @TAGNAME@
+git clone https://gitbox.apache.org/repos/asf/@ID@.git -b @TAGNAME@ @TAGNAME@
 cd @TAGNAME@
 
 2) Check Apache licenses:
