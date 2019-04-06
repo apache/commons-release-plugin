@@ -32,7 +32,7 @@ The Subversion tag for this RC is here:
 The Git tag @TAGNAME@ commit for this RC is @TAGCOMMIT@ which you can browse here:
     https://gitbox.apache.org/repos/asf?p=commons-@ID@.git;a=commit;h=@TAGCOMMIT@
 You may checkout this tag using:
-    git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@
+    git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
 
 Maven artifacts are here:
     https://repository.apache.org/content/repositories/orgapachecommons-@NEXUS_REPO_ID@/org/apache/commons/@ARTIFACTID@/@VERSION@/
@@ -104,7 +104,7 @@ You can validate a release from a release candidate (RC) tag as follows.
 
 1) Clone and checkout the RC:
 
-git clone https://gitbox.apache.org/repos/asf/@ID@.git -b @TAGNAME@ @TAGNAME@
+git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
 cd @TAGNAME@
 
 2) Check Apache licenses:
