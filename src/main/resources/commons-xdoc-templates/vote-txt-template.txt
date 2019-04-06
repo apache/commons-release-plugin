@@ -116,16 +116,21 @@ mvn apache-rat:check
 mvn -V clean package
 
 You can record the Maven and Java version produced by -V in your VOTE reply.
+To gather OS information from a command line:
+Windows: ver
+Linux: uname -a
 
 4) Build the site for a single module project:
 
 mvn site
 Check the site reports in:
-target\site\index.html
+- Windows: target\site\index.html
+- Linux: target/site/index.html
 
 4) Build the site for a multi-module project:
 
 mvn site
 mvn site:stage
 Check the site reports in:
-target\site\index.html
+- Windows: target\site\index.html
+- Linux: target/site/index.html

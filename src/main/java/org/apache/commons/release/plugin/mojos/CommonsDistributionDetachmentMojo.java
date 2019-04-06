@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections4.properties.SortedProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.maven.artifact.Artifact;
@@ -77,11 +77,11 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private final List<Artifact> detachedArtifacts = new ArrayList<>();
 
     /**
-     * A {@link Properties} of {@link Artifact} → {@link String} containing the sha256 signatures
+     * A {@link SortedProperties} of {@link Artifact} → {@link String} containing the sha256 signatures
      * for the individual artifacts, where the {@link Artifact} is represented as:
      * <code>groupId:artifactId:version:type=sha512</code>.
      */
-    private final Properties artifactSha512s = new Properties();
+    private final SortedProperties artifactSha512s = new SortedProperties();
 
     /**
      * The maven project context injection so that we can get a hold of the variables at hand.
