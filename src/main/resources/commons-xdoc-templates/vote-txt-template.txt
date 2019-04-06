@@ -37,7 +37,7 @@ You may checkout this tag using:
 Maven artifacts are here:
     https://repository.apache.org/content/repositories/orgapachecommons-@NEXUS_REPO_ID@/org/apache/commons/@ARTIFACTID@/@VERSION@/
 
-These are the Maven artifacts and their hashes in Nexus:
+These are the artifacts and their hashes:
 
 @SHA512LIST@
 
