@@ -26,8 +26,12 @@
 
   <body>
     <release version="1.7" date="YYYY-MM-DD" description="Version 1.7 - TBD">
-      <action type="update" dev="chtompki">checkstyle.version: 8.10.1 -> 8.18</action>
-      <action type="update" dev="ggregory">VOTE.txt: "Sample git clone command should checkout in a folder named after the tag.</action>
+      <action type="update" dev="chtompki">checkstyle.version 8.10.1 -> 8.18</action>
+      <action type="update" dev="ggregory">VOTE.txt: "Sample git clone command should checkout in a folder named after the tag</action>
+      <action type="update" dev="ggregory">maven.dependency.version 3.5.3 -> 3.6.0</action>
+      <action type="update" dev="ggregory">org.apache.maven.scm 1.10.0 -> 1.11.2</action>
+      <action type="update" dev="ggregory">maven-pmd-plugin 3.9.0 -> 3.11.0</action>
+      <action type="update" dev="ggregory">commons-build-plugin 1.8 -> 1.10</action>
     </release>
 
     <release version="1.6" date="2019-03-08" description="Version 1.6">
