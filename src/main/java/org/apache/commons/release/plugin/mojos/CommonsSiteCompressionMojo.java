@@ -157,7 +157,8 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      *                 {@link CommonsSiteCompressionMojo#getAllSiteFiles(File, List)}.
      * @throws IOException when the copying of the files goes incorrectly.
      */
-    private void writeZipFile(final File outputDirectory, final File directoryToZip, final List<File> fileList) throws IOException {
+    private void writeZipFile(final File outputDirectory, final File directoryToZip, final List<File> fileList)
+            throws IOException {
         try (FileOutputStream fos = new FileOutputStream(outputDirectory.getAbsolutePath() + "/site.zip");
                 ZipOutputStream zos = new ZipOutputStream(fos)) {
             for (final File file : fileList) {
@@ -182,7 +183,8 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
         try (FileInputStream fis = new FileInputStream(file)) {
             // we want the zipEntry's path to be a relative path that is relative
             // to the directory being zipped, so chop off the rest of the path
-            final String zipFilePath = file.getCanonicalPath().substring(directoryToZip.getCanonicalPath().length() + 1,
+            final String zipFilePath = file.getCanonicalPath().substring(
+                    directoryToZip.getCanonicalPath().length() + 1,
                     file.getCanonicalPath().length());
             final ZipEntry zipEntry = new ZipEntry(zipFilePath);
             zos.putNextEntry(zipEntry);

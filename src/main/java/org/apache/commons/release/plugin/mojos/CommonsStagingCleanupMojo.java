@@ -151,7 +151,8 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
             scmManager.setScmProvider("svn", new SvnExeScmProvider());
             final ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
             final ScmProvider provider = scmManager.getProviderByRepository(repository);
-            final SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
+            final SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository
+                    .getProviderRepository();
             SharedFunctions.setAuthentication(
                     providerRepository,
                     distServer,
@@ -174,7 +175,8 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
             }
             if (!dryRun) {
                 final ScmFileSet fileSet = new ScmFileSet(distCleanupDirectory, filesToRemove);
-                final RemoveScmResult removeScmResult = provider.remove(repository, fileSet, "Cleaning up staging area");
+                final RemoveScmResult removeScmResult = provider.remove(repository, fileSet,
+                        "Cleaning up staging area");
                 if (!removeScmResult.isSuccess()) {
                     throw new MojoFailureException("Failed to remove files from SCM: "
                             + removeScmResult.getProviderMessage()

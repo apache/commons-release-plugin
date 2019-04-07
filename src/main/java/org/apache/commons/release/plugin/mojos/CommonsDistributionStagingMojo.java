@@ -204,7 +204,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             scmManager.setScmProvider("svn", new SvnExeScmProvider());
             final ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
             final ScmProvider provider = scmManager.getProviderByRepository(repository);
-            final SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
+            final SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository
+                    .getProviderRepository();
             SharedFunctions.setAuthentication(
                     providerRepository,
                     distServer,

@@ -256,13 +256,6 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @return the generated key
      */
     private String getArtifactKey(final Artifact artifact) {
-        final StringBuilder artifactKey = new StringBuilder();
-        artifactKey.append(artifact.getArtifactId()).append('-')
-                .append(artifact.getVersion()).append('-');
-        if (artifact.hasClassifier()) {
-            artifactKey.append(artifact.getClassifier()).append('-');
-        }
-        artifactKey.append(artifact.getType());
-        return artifactKey.toString();
+        return artifact.getFile().getName();
     }
 }
