@@ -44,10 +44,12 @@ public class CommonsSiteCompressionMojoTest {
     public MojoRule rule = new MojoRule() {
         @Override
         protected void before() throws Throwable {
+            // noop
         }
 
         @Override
         protected void after() {
+            // noop
         }
     };
 

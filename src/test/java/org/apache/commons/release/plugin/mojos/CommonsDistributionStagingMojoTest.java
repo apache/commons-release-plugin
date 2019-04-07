@@ -42,10 +42,12 @@ public class CommonsDistributionStagingMojoTest {
     public MojoRule rule = new MojoRule() {
         @Override
         protected void before() throws Throwable {
+            // noop
         }
 
         @Override
         protected void after() {
+            // noop
         }
     };
 
@@ -125,6 +127,7 @@ public class CommonsDistributionStagingMojoTest {
         assertTrue(binTarSha512.exists());
         assertTrue(binZip.exists());
         assertTrue(binZipASC.exists());
+        assertTrue(binZipSha512.exists());
         assertTrue(sourcesReadmeHtml.exists());
         assertTrue(sourceHeaderHtml.exists());
         assertTrue(srcTar.exists());
