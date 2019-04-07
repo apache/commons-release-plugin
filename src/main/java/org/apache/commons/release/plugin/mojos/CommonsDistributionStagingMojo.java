@@ -200,11 +200,11 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         }
         getLog().info("Preparing to stage distributions");
         try {
-            ScmManager scmManager = new BasicScmManager();
+            final ScmManager scmManager = new BasicScmManager();
             scmManager.setScmProvider("svn", new SvnExeScmProvider());
-            ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
-            ScmProvider provider = scmManager.getProviderByRepository(repository);
-            SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
+            final ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
+            final ScmProvider provider = scmManager.getProviderByRepository(repository);
+            final SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
             SharedFunctions.setAuthentication(
                     providerRepository,
                     distServer,
@@ -218,21 +218,21 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             if (!distCheckoutDirectory.exists()) {
                 SharedFunctions.initDirectory(getLog(), distCheckoutDirectory);
             }
-            ScmFileSet scmFileSet = new ScmFileSet(distCheckoutDirectory);
+            final ScmFileSet scmFileSet = new ScmFileSet(distCheckoutDirectory);
             getLog().info("Checking out dist from: " + distSvnStagingUrl);
             final CheckOutScmResult checkOutResult = provider.checkOut(repository, scmFileSet);
             if (!checkOutResult.isSuccess()) {
                 throw new MojoExecutionException("Failed to checkout files from SCM: "
                         + checkOutResult.getProviderMessage() + " [" + checkOutResult.getCommandOutput() + "]");
             }
-            File copiedReleaseNotes = copyReleaseNotesToWorkingDirectory();
+            final File copiedReleaseNotes = copyReleaseNotesToWorkingDirectory();
             copyDistributionsIntoScmDirectoryStructureAndAddToSvn(copiedReleaseNotes,
                     provider, repository);
-            List<File> filesToAdd = new ArrayList<>();
+            final List<File> filesToAdd = new ArrayList<>();
             listNotHiddenFilesAndDirectories(distCheckoutDirectory, filesToAdd);
             if (!dryRun) {
-                ScmFileSet fileSet = new ScmFileSet(distCheckoutDirectory, filesToAdd);
-                AddScmResult addResult = provider.add(
+                final ScmFileSet fileSet = new ScmFileSet(distCheckoutDirectory, filesToAdd);
+                final AddScmResult addResult = provider.add(
                         repository,
                         fileSet
                 );
@@ -241,7 +241,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                             + " [" + addResult.getCommandOutput() + "]");
                 }
                 getLog().info("Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
-                CheckInScmResult checkInResult = provider.checkIn(
+                final CheckInScmResult checkInResult = provider.checkIn(
                         repository,
                         fileSet,
                         "Staging release: " + project.getArtifactId() + ", version: " + project.getVersion()
@@ -258,7 +258,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 getLog().info(
                         "[Dry run] Staging release: " + project.getArtifactId() + ", version: " + project.getVersion());
             }
-        } catch (ScmException e) {
+        } catch (final ScmException e) {
             getLog().error("Could not commit files to dist: " + distSvnStagingUrl, e);
             throw new MojoExecutionException("Could not commit files to dist: " + distSvnStagingUrl, e);
         }
@@ -269,10 +269,10 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * @param directory {@link File} containing directory to list
      * @param files a {@link List} of {@link File} to which to append the files.
      */
-    private void listNotHiddenFilesAndDirectories(File directory, List<File> files) {
+    private void listNotHiddenFilesAndDirectories(final File directory, final List<File> files) {
         // Get all the files and directories from a directory.
-        File[] fList = directory.listFiles();
-        for (File file : fList) {
+        final File[] fList = directory.listFiles();
+        for (final File file : fList) {
             if (file.isFile() && !file.isHidden()) {
                 files.add(file);
             } else if (file.isDirectory() && !file.isHidden()) {
@@ -296,7 +296,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
         SharedFunctions.initDirectory(getLog(), distVersionRcVersionDirectory);
         getLog().info("Copying RELEASE-NOTES.txt to working directory.");
-        File copiedReleaseNotes = new File(distVersionRcVersionDirectory, releaseNotesFile.getName());
+        final File copiedReleaseNotes = new File(distVersionRcVersionDirectory, releaseNotesFile.getName());
         SharedFunctions.copyFile(getLog(), releaseNotesFile, copiedReleaseNotes);
         return copiedReleaseNotes;
     }
@@ -332,18 +332,18 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      *         {@link ScmFileSet}.
      * @throws MojoExecutionException if an {@link IOException} occurs so that Maven can handle it properly.
      */
-    private List<File> copyDistributionsIntoScmDirectoryStructureAndAddToSvn(File copiedReleaseNotes,
-                                                                             ScmProvider provider,
-                                                                             ScmRepository repository)
+    private List<File> copyDistributionsIntoScmDirectoryStructureAndAddToSvn(final File copiedReleaseNotes,
+                                                                             final ScmProvider provider,
+                                                                             final ScmRepository repository)
             throws MojoExecutionException {
-        List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
-        List<File> filesForMavenScmFileSet = new ArrayList<>();
-        File scmBinariesRoot = new File(distVersionRcVersionDirectory, "binaries");
-        File scmSourceRoot = new File(distVersionRcVersionDirectory, "source");
+        final List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
+        final List<File> filesForMavenScmFileSet = new ArrayList<>();
+        final File scmBinariesRoot = new File(distVersionRcVersionDirectory, "binaries");
+        final File scmSourceRoot = new File(distVersionRcVersionDirectory, "source");
         SharedFunctions.initDirectory(getLog(), scmBinariesRoot);
         SharedFunctions.initDirectory(getLog(), scmSourceRoot);
         File copy;
-        for (File file : workingDirectoryFiles) {
+        for (final File file : workingDirectoryFiles) {
             if (file.getName().contains("src")) {
                 copy = new File(scmSourceRoot,  file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
@@ -380,10 +380,10 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                     "\"mvn site\" was not run before this goal, or a siteDirectory did not exist."
             );
         }
-        File siteInScm = new File(distVersionRcVersionDirectory, "site");
+        final File siteInScm = new File(distVersionRcVersionDirectory, "site");
         try {
             FileUtils.copyDirectory(siteDirectory, siteInScm);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new MojoExecutionException("Site copying failed", e);
         }
         return new ArrayList<>(FileUtils.listFiles(siteInScm, null, true));
@@ -408,14 +408,14 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      *                                files fails.
      */
     private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
-        List<File> headerAndReadmeFiles = new ArrayList<>();
-        File headerFile = new File(distVersionRcVersionDirectory, HEADER_FILE_NAME);
+        final List<File> headerAndReadmeFiles = new ArrayList<>();
+        final File headerFile = new File(distVersionRcVersionDirectory, HEADER_FILE_NAME);
         //
         // HEADER file
         //
         try (Writer headerWriter = new OutputStreamWriter(new FileOutputStream(headerFile), "UTF-8")) {
             HeaderHtmlVelocityDelegate.builder().build().render(headerWriter);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             final String message = "Could not build HEADER html file " + headerFile;
             getLog().error(message, e);
             throw new MojoExecutionException(message, e);
@@ -424,17 +424,17 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         //
         // README file
         //
-        File readmeFile = new File(distVersionRcVersionDirectory, README_FILE_NAME);
+        final File readmeFile = new File(distVersionRcVersionDirectory, README_FILE_NAME);
         try (Writer readmeWriter = new OutputStreamWriter(new FileOutputStream(readmeFile), "UTF-8")) {
             // @formatter:off
-            ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
+            final ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
                     .withArtifactId(project.getArtifactId())
                     .withVersion(project.getVersion())
                     .withSiteUrl(project.getUrl())
                     .build();
             // @formatter:on
             readmeHtmlVelocityDelegate.render(readmeWriter);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             final String message = "Could not build README html file " + readmeFile;
             getLog().error(message, e);
             throw new MojoExecutionException(message, e);
@@ -454,15 +454,15 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * @throws MojoExecutionException if the {@link SharedFunctions#copyFile(Log, File, File)}
      *                                fails.
      */
-    private List<File> copyHeaderAndReadmeToSubdirectories(File headerFile, File readmeFile)
+    private List<File> copyHeaderAndReadmeToSubdirectories(final File headerFile, final File readmeFile)
             throws MojoExecutionException {
-        List<File> symbolicLinkFiles = new ArrayList<>();
-        File sourceRoot = new File(distVersionRcVersionDirectory, "source");
-        File binariesRoot = new File(distVersionRcVersionDirectory, "binaries");
-        File sourceHeaderFile = new File(sourceRoot, HEADER_FILE_NAME);
-        File sourceReadmeFile = new File(sourceRoot, README_FILE_NAME);
-        File binariesHeaderFile = new File(binariesRoot, HEADER_FILE_NAME);
-        File binariesReadmeFile = new File(binariesRoot, README_FILE_NAME);
+        final List<File> symbolicLinkFiles = new ArrayList<>();
+        final File sourceRoot = new File(distVersionRcVersionDirectory, "source");
+        final File binariesRoot = new File(distVersionRcVersionDirectory, "binaries");
+        final File sourceHeaderFile = new File(sourceRoot, HEADER_FILE_NAME);
+        final File sourceReadmeFile = new File(sourceRoot, README_FILE_NAME);
+        final File binariesHeaderFile = new File(binariesRoot, HEADER_FILE_NAME);
+        final File binariesReadmeFile = new File(binariesRoot, README_FILE_NAME);
         SharedFunctions.copyFile(getLog(), headerFile, sourceHeaderFile);
         symbolicLinkFiles.add(sourceHeaderFile);
         SharedFunctions.copyFile(getLog(), readmeFile, sourceReadmeFile);
@@ -481,7 +481,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * @param baseDir is the {@link File} to be used as the project's root directory when this mojo
      *                is invoked.
      */
-    protected void setBaseDir(File baseDir) {
+    protected void setBaseDir(final File baseDir) {
         this.baseDir = baseDir;
     }
 }

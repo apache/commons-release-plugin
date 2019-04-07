@@ -147,11 +147,11 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
             SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
         try {
-            ScmManager scmManager = new BasicScmManager();
+            final ScmManager scmManager = new BasicScmManager();
             scmManager.setScmProvider("svn", new SvnExeScmProvider());
-            ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
-            ScmProvider provider = scmManager.getProviderByRepository(repository);
-            SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
+            final ScmRepository repository = scmManager.makeScmRepository(distSvnStagingUrl);
+            final ScmProvider provider = scmManager.getProviderByRepository(repository);
+            final SvnScmProviderRepository providerRepository = (SvnScmProviderRepository) repository.getProviderRepository();
             SharedFunctions.setAuthentication(
                     providerRepository,
                     distServer,
@@ -161,27 +161,27 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
                     password
             );
             getLog().info("Checking out dist from: " + distSvnStagingUrl);
-            ScmFileSet scmFileSet = new ScmFileSet(distCleanupDirectory);
+            final ScmFileSet scmFileSet = new ScmFileSet(distCleanupDirectory);
             final CheckOutScmResult checkOutResult = provider.checkOut(repository, scmFileSet);
             if (!checkOutResult.isSuccess()) {
                 throw new MojoExecutionException("Failed to checkout files from SCM: "
                         + checkOutResult.getProviderMessage() + " [" + checkOutResult.getCommandOutput() + "]");
             }
-            List<File> filesToRemove = Arrays.asList(distCleanupDirectory.listFiles());
+            final List<File> filesToRemove = Arrays.asList(distCleanupDirectory.listFiles());
             if (filesToRemove.size() == 1) {
                 getLog().info("No files to delete");
                 return;
             }
             if (!dryRun) {
-                ScmFileSet fileSet = new ScmFileSet(distCleanupDirectory, filesToRemove);
-                RemoveScmResult removeScmResult = provider.remove(repository, fileSet, "Cleaning up staging area");
+                final ScmFileSet fileSet = new ScmFileSet(distCleanupDirectory, filesToRemove);
+                final RemoveScmResult removeScmResult = provider.remove(repository, fileSet, "Cleaning up staging area");
                 if (!removeScmResult.isSuccess()) {
                     throw new MojoFailureException("Failed to remove files from SCM: "
                             + removeScmResult.getProviderMessage()
                             + " [" + removeScmResult.getCommandOutput() + "]");
                 }
                 getLog().info("Cleaning distribution area for: " + project.getArtifactId());
-                CheckInScmResult checkInResult = provider.checkIn(
+                final CheckInScmResult checkInResult = provider.checkIn(
                         repository,
                         fileSet,
                         "Cleaning distribution area for: " + project.getArtifactId()
@@ -193,7 +193,7 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
             } else {
                 getLog().info("Would have attempted to delete files from: " + distSvnStagingUrl);
             }
-        } catch (ScmException e) {
+        } catch (final ScmException e) {
             throw new MojoFailureException(e.getMessage());
         }
 

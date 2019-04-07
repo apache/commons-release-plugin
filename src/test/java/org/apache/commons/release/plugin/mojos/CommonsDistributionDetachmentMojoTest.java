@@ -52,7 +52,7 @@ public class CommonsDistributionDetachmentMojoTest {
 
     @Before
     public void setUp() throws Exception {
-        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         if (testingDirectory.exists()) {
             FileUtils.deleteDirectory(testingDirectory);
         }
@@ -60,25 +60,25 @@ public class CommonsDistributionDetachmentMojoTest {
 
     @Test
     public void testSuccess() throws Exception {
-        File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml");
+        final File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml");
         assertNotNull(testPom);
         assertTrue(testPom.exists());
         mojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", testPom);
         mojo.execute();
-        File detachedSrcTarGz = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.tar.gz");
-        File detachedSrcTarGzAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.tar.gz.asc");
-        File detachedSrcTarGzSha512 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.tar.gz.sha512");
-        File detachedSrcZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.zip");
-        File detachedSrcZipAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.zip.asc");
-        File detachedSrcZipSha512 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.zip.sha512");
-        File detachedBinTarGz = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.tar.gz");
-        File detachedBinTarGzAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.tar.gz.asc");
-        File detachedBinTarGzSha512 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.tar.gz.sha512");
-        File detachedBinZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.zip");
-        File detachedBinZipAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.zip.asc");
-        File detachedBinZipSha512 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.zip.sha512");
-        File notDetachedMockAttachedFile = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4.jar");
-        File sha512Properties = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/sha512.properties");
+        final File detachedSrcTarGz = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.tar.gz");
+        final File detachedSrcTarGzAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.tar.gz.asc");
+        final File detachedSrcTarGzSha512 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.tar.gz.sha512");
+        final File detachedSrcZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.zip");
+        final File detachedSrcZipAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.zip.asc");
+        final File detachedSrcZipSha512 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.zip.sha512");
+        final File detachedBinTarGz = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.tar.gz");
+        final File detachedBinTarGzAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.tar.gz.asc");
+        final File detachedBinTarGzSha512 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.tar.gz.sha512");
+        final File detachedBinZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.zip");
+        final File detachedBinZipAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.zip.asc");
+        final File detachedBinZipSha512 = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-bin.zip.sha512");
+        final File notDetachedMockAttachedFile = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4.jar");
+        final File sha512Properties = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/sha512.properties");
         assertTrue(detachedSrcTarGz.exists());
         assertTrue(detachedSrcTarGzAsc.exists());
         assertTrue(detachedSrcTarGzSha512.exists());
@@ -97,12 +97,12 @@ public class CommonsDistributionDetachmentMojoTest {
 
     @Test
     public void testDisabled() throws Exception {
-        File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions-disabled.xml");
+        final File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions-disabled.xml");
         assertNotNull(testPom);
         assertTrue(testPom.exists());
         mojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", testPom);
         mojo.execute();
-        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         assertFalse(testingDirectory.exists());
     }
 }

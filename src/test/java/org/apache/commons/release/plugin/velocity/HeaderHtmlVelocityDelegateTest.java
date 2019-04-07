@@ -29,7 +29,7 @@ public class HeaderHtmlVelocityDelegateTest {
 
     @Test
     public void testSuccess() {
-        HeaderHtmlVelocityDelegate subject = HeaderHtmlVelocityDelegate.builder().build();
+        final HeaderHtmlVelocityDelegate subject = HeaderHtmlVelocityDelegate.builder().build();
         Writer writer = new StringWriter();
         writer = subject.render(writer);
         assertTrue(writer.toString().contains("<h2>Apache Commons Project Distributions</h2>"));

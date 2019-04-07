@@ -120,7 +120,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
             filesToCompress = new ArrayList<>();
             getAllSiteFiles(siteDirectory, filesToCompress);
             writeZipFile(workingDirectory, siteDirectory, filesToCompress);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             getLog().error("Failed to create ./target/commons-release-plugin/site.zip: " + e.getMessage(), e);
             throw new MojoExecutionException(
                     "Failed to create ./target/commons-release-plugin/site.zip: " + e.getMessage(),
@@ -136,9 +136,9 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      * @param siteDirectory the {@link File} that represents the <code>target/site</code> directory.
      * @param filesToCompress the {@link List} to which to add all the files.
      */
-    private void getAllSiteFiles(File siteDirectory, List<File> filesToCompress) {
-        File[] files = siteDirectory.listFiles();
-        for (File file : files) {
+    private void getAllSiteFiles(final File siteDirectory, final List<File> filesToCompress) {
+        final File[] files = siteDirectory.listFiles();
+        for (final File file : files) {
             filesToCompress.add(file);
             if (file.isDirectory()) {
                 getAllSiteFiles(file, filesToCompress);
@@ -157,10 +157,10 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      *                 {@link CommonsSiteCompressionMojo#getAllSiteFiles(File, List)}.
      * @throws IOException when the copying of the files goes incorrectly.
      */
-    private void writeZipFile(File outputDirectory, File directoryToZip, List<File> fileList) throws IOException {
+    private void writeZipFile(final File outputDirectory, final File directoryToZip, final List<File> fileList) throws IOException {
         try (FileOutputStream fos = new FileOutputStream(outputDirectory.getAbsolutePath() + "/site.zip");
                 ZipOutputStream zos = new ZipOutputStream(fos)) {
-            for (File file : fileList) {
+            for (final File file : fileList) {
                 if (!file.isDirectory()) { // we only zip files, not directories
                     addToZip(directoryToZip, file, zos);
                 }
@@ -178,13 +178,13 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      * @param zos the {@link ZipOutputStream} to which to add our <code>file</code>.
      * @throws IOException if adding the <code>file</code> doesn't work out properly.
      */
-    private void addToZip(File directoryToZip, File file, ZipOutputStream zos) throws IOException {
+    private void addToZip(final File directoryToZip, final File file, final ZipOutputStream zos) throws IOException {
         try (FileInputStream fis = new FileInputStream(file)) {
             // we want the zipEntry's path to be a relative path that is relative
             // to the directory being zipped, so chop off the rest of the path
-            String zipFilePath = file.getCanonicalPath().substring(directoryToZip.getCanonicalPath().length() + 1,
+            final String zipFilePath = file.getCanonicalPath().substring(directoryToZip.getCanonicalPath().length() + 1,
                     file.getCanonicalPath().length());
-            ZipEntry zipEntry = new ZipEntry(zipFilePath);
+            final ZipEntry zipEntry = new ZipEntry(zipFilePath);
             zos.putNextEntry(zipEntry);
             IOUtils.copy(fis, zos);
         }

@@ -49,7 +49,7 @@ public class ReadmeHtmlVelocityDelegate {
      * @param version sets the {@link ReadmeHtmlVelocityDelegate#version}.
      * @param siteUrl sets the {@link ReadmeHtmlVelocityDelegate#siteUrl}.
      */
-    private ReadmeHtmlVelocityDelegate(String artifactId, String version, String siteUrl) {
+    private ReadmeHtmlVelocityDelegate(final String artifactId, final String version, final String siteUrl) {
         this.artifactId = artifactId;
         this.version = version;
         this.siteUrl = siteUrl;
@@ -71,14 +71,14 @@ public class ReadmeHtmlVelocityDelegate {
      * @param writer is the {@link Writer} to which we wish to render the <code>README.vm</code> template.
      * @return a reference to the {@link Writer} passed in.
      */
-    public Writer render(Writer writer) {
-        VelocityEngine ve = new VelocityEngine();
+    public Writer render(final Writer writer) {
+        final VelocityEngine ve = new VelocityEngine();
         ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         ve.init();
-        Template template = ve.getTemplate(TEMPLATE);
-        String[] splitArtifactId = artifactId.split("-");
-        String wordCommons = "commons";
+        final Template template = ve.getTemplate(TEMPLATE);
+        final String[] splitArtifactId = artifactId.split("-");
+        final String wordCommons = "commons";
         String artifactShortName = "";
         if (splitArtifactId.length > 1) {
             artifactShortName = splitArtifactId[1];
@@ -89,11 +89,11 @@ public class ReadmeHtmlVelocityDelegate {
         if (artifactShortName.matches(".+\\d$")) {
             artifactShortName = artifactShortName.substring(0, artifactShortName.length() - 1);
         }
-        String artifactIdWithFirstLetterscapitalized =
+        final String artifactIdWithFirstLetterscapitalized =
                 StringUtils.capitalize(wordCommons)
                         + "-"
                         + artifactShortName.toUpperCase();
-        VelocityContext context = new VelocityContext();
+        final VelocityContext context = new VelocityContext();
         context.internalPut("artifactIdWithFirstLetterscapitalized", artifactIdWithFirstLetterscapitalized);
         context.internalPut("artifactShortName", artifactShortName.toUpperCase());
         context.internalPut("artifactId", artifactId);
@@ -127,7 +127,7 @@ public class ReadmeHtmlVelocityDelegate {
          * @param artifactId the {@link String} representing the maven artifactId.
          * @return the builder to continue building.
          */
-        public ReadmeHtmlVelocityDelegateBuilder withArtifactId(String artifactId) {
+        public ReadmeHtmlVelocityDelegateBuilder withArtifactId(final String artifactId) {
             this.artifactId = artifactId;
             return this;
         }
@@ -137,7 +137,7 @@ public class ReadmeHtmlVelocityDelegate {
          * @param version the maven version.
          * @return the builder to continue building.
          */
-        public ReadmeHtmlVelocityDelegateBuilder withVersion(String version) {
+        public ReadmeHtmlVelocityDelegateBuilder withVersion(final String version) {
             this.version = version;
             return this;
         }
@@ -147,7 +147,7 @@ public class ReadmeHtmlVelocityDelegate {
          * @param siteUrl the site url to be used in the <code>README.html</code>
          * @return the builder to continue building.
          */
-        public ReadmeHtmlVelocityDelegateBuilder withSiteUrl(String siteUrl) {
+        public ReadmeHtmlVelocityDelegateBuilder withSiteUrl(final String siteUrl) {
             this.siteUrl = siteUrl;
             return this;
         }

@@ -52,7 +52,7 @@ public class CommonsStagingCleanupMojoTest {
 
     @Before
     public void setUp() throws Exception {
-        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         if (testingDirectory.exists()) {
             FileUtils.deleteDirectory(testingDirectory);
         }
@@ -60,14 +60,14 @@ public class CommonsStagingCleanupMojoTest {
 
     @Test
     public void testCompressSiteSuccess() throws Exception {
-        File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         testingDirectory.mkdir();
-        File testPom = new File("src/test/resources/mojos/staging-cleanup/staging-cleanup.xml");
+        final File testPom = new File("src/test/resources/mojos/staging-cleanup/staging-cleanup.xml");
         assertNotNull(testPom);
         assertTrue(testPom.exists());
         mojo = (CommonsStagingCleanupMojo) rule.lookupMojo("clean-staging", testPom);
         mojo.execute();
-        File cleanupDir = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm-cleanup");
+        final File cleanupDir = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm-cleanup");
         assertTrue(cleanupDir.exists());
     }
 }

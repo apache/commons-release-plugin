@@ -54,13 +54,13 @@ public class HeaderHtmlVelocityDelegate {
      * @param writer any {@link Writer} that we wish to have the filled velocity template written to.
      * @return the {@link Writer} that we've filled out the template into.
      */
-    public Writer render(Writer writer) {
-        VelocityEngine ve = new VelocityEngine();
+    public Writer render(final Writer writer) {
+        final VelocityEngine ve = new VelocityEngine();
         ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         ve.init();
-        Template template = ve.getTemplate(TEMPLATE);
-        VelocityContext context = new VelocityContext();
+        final Template template = ve.getTemplate(TEMPLATE);
+        final VelocityContext context = new VelocityContext();
         template.merge(context, writer);
         return writer;
     }

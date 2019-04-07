@@ -62,7 +62,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      */
     private static final Set<String> ARTIFACT_TYPES_TO_DETACH;
     static {
-        Set<String> hashSet = new HashSet<>();
+        final Set<String> hashSet = new HashSet<>();
         hashSet.add("zip");
         hashSet.add("tar.gz");
         hashSet.add("zip.asc");
@@ -120,7 +120,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             return;
         }
         getLog().info("Detaching Assemblies");
-        for (Object attachedArtifact : project.getAttachedArtifacts()) {
+        for (final Object attachedArtifact : project.getAttachedArtifacts()) {
             putAttachedArtifactInSha512Map((Artifact) attachedArtifact);
             if (ARTIFACT_TYPES_TO_DETACH.contains(((Artifact) attachedArtifact).getType())) {
                 detachedArtifacts.add((Artifact) attachedArtifact);
@@ -130,7 +130,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             getLog().info("Current project contains no distributions. Not executing.");
             return;
         }
-        for (Artifact artifactToRemove : detachedArtifacts) {
+        for (final Artifact artifactToRemove : detachedArtifacts) {
             project.getAttachedArtifacts().remove(artifactToRemove);
         }
         if (!workingDirectory.exists()) {
@@ -148,13 +148,13 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @throws MojoExecutionException if an {@link IOException} occurs when getting the sha512 of the
      *                                artifact.
      */
-    private void putAttachedArtifactInSha512Map(Artifact artifact) throws MojoExecutionException {
+    private void putAttachedArtifactInSha512Map(final Artifact artifact) throws MojoExecutionException {
         try {
-            String artifactKey = getArtifactKey(artifact);
+            final String artifactKey = getArtifactKey(artifact);
             try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
                 artifactSha512s.put(artifactKey, DigestUtils.sha512Hex(fis));
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new MojoExecutionException(
                 "Could not find artifact signature for: "
                     + artifact.getArtifactId()
@@ -174,11 +174,11 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @throws MojoExecutionException if we can't write the file due to an {@link IOException}.
      */
     private void writeAllArtifactsInSha512PropertiesFile() throws MojoExecutionException {
-        File propertiesFile = new File(workingDirectory, "sha512.properties");
+        final File propertiesFile = new File(workingDirectory, "sha512.properties");
         getLog().info("Writting " + propertiesFile);
         try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
             artifactSha512s.store(fileWriter, "Release SHA-512s");
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new MojoExecutionException("Failure to write SHA-512's", e);
         }
     }
@@ -194,12 +194,12 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         final String wdAbsolutePath = workingDirectory.getAbsolutePath();
         getLog().info(
                 "Copying " + detachedArtifacts.size() + " detached artifacts to working directory " + wdAbsolutePath);
-        for (Artifact artifact: detachedArtifacts) {
-            File artifactFile = artifact.getFile();
-            StringBuilder copiedArtifactAbsolutePath = new StringBuilder(wdAbsolutePath);
+        for (final Artifact artifact: detachedArtifacts) {
+            final File artifactFile = artifact.getFile();
+            final StringBuilder copiedArtifactAbsolutePath = new StringBuilder(wdAbsolutePath);
             copiedArtifactAbsolutePath.append("/");
             copiedArtifactAbsolutePath.append(artifactFile.getName());
-            File copiedArtifact = new File(copiedArtifactAbsolutePath.toString());
+            final File copiedArtifact = new File(copiedArtifactAbsolutePath.toString());
             getLog().info("Copying: " + artifactFile.getName());
             SharedFunctions.copyFile(getLog(), artifactFile, copiedArtifact);
         }
@@ -214,9 +214,9 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      *                                properly wrapped so that Maven can handle it.
      */
     private void hashArtifacts() throws MojoExecutionException {
-        for (Artifact artifact : detachedArtifacts) {
+        for (final Artifact artifact : detachedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
-                String artifactKey = getArtifactKey(artifact);
+                final String artifactKey = getArtifactKey(artifact);
                 try {
                     String digest;
                     // SHA-512
@@ -226,7 +226,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                             getSha512FilePath(workingDirectory, artifact.getFile()))) {
                         printWriter.println(digest);
                     }
-                } catch (IOException e) {
+                } catch (final IOException e) {
                     throw new MojoExecutionException("Could not sign file: " + artifact.getFile().getName(), e);
                 }
             }
@@ -240,8 +240,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @param file the {@link File} whose name we should use to create the <code>.sha512</code> file.
      * @return a {@link String} that is the absolute path to the <code>.sha512</code> file.
      */
-    private String getSha512FilePath(File directory, File file) {
-        StringBuilder buffer = new StringBuilder(directory.getAbsolutePath());
+    private String getSha512FilePath(final File directory, final File file) {
+        final StringBuilder buffer = new StringBuilder(directory.getAbsolutePath());
         buffer.append("/");
         buffer.append(file.getName());
         buffer.append(".sha512");
@@ -255,8 +255,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * @param artifact the {@link Artifact} that we wish to generate a key for.
      * @return the generated key
      */
-    private String getArtifactKey(Artifact artifact) {
-        StringBuilder artifactKey = new StringBuilder();
+    private String getArtifactKey(final Artifact artifact) {
+        final StringBuilder artifactKey = new StringBuilder();
         artifactKey.append(artifact.getArtifactId()).append('-')
                 .append(artifact.getVersion()).append('-');
         if (artifact.hasClassifier()) {

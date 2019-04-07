@@ -60,7 +60,7 @@ public final class SharedFunctions {
      * @throws MojoExecutionException when an {@link IOException} or {@link NullPointerException} is caught for the
      *      purpose of bubbling the exception up to Maven properly.
      */
-    public static void initDirectory(Log log, File workingDirectory) throws MojoExecutionException {
+    public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
         if (workingDirectory.exists()) {
             try {
                 FileUtils.deleteDirectory(workingDirectory);
@@ -85,7 +85,7 @@ public final class SharedFunctions {
      * @param toFile the {@link File} to which to copy into.
      * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
      */
-    public static void copyFile(Log log, File fromFile, File toFile) throws MojoExecutionException {
+    public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
         try {
             FileUtils.copyFile(fromFile, toFile);
         } catch (IOException | NullPointerException e) {
@@ -104,13 +104,13 @@ public final class SharedFunctions {
      * @param username temp.
      * @param password temp.
      */
-    public static void setAuthentication(ScmProviderRepository providerRepository,
-                                   String distServer,
-                                   Settings settings,
-                                   SettingsDecrypter settingsDecrypter,
-                                   String username,
-                                   String password) {
-        Optional<Server> server =
+    public static void setAuthentication(final ScmProviderRepository providerRepository,
+                                   final String distServer,
+                                   final Settings settings,
+                                   final SettingsDecrypter settingsDecrypter,
+                                   final String username,
+                                   final String password) {
+        final Optional<Server> server =
                 Optional.ofNullable(distServer).map(settings::getServer).map(DefaultSettingsDecryptionRequest::new)
                         .map(settingsDecrypter::decrypt).map(SettingsDecryptionResult::getServer);
 
