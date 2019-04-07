@@ -18,8 +18,10 @@ package org.apache.commons.release.plugin.velocity;
 
 import static junit.framework.TestCase.assertTrue;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+
 import org.junit.Test;
 
 /**
@@ -28,11 +30,11 @@ import org.junit.Test;
 public class HeaderHtmlVelocityDelegateTest {
 
     @Test
-    public void testSuccess() {
+    public void testSuccess() throws IOException {
         final HeaderHtmlVelocityDelegate subject = HeaderHtmlVelocityDelegate.builder().build();
-        Writer writer = new StringWriter();
-        writer = subject.render(writer);
-        assertTrue(writer.toString().contains("<h2>Apache Commons Project Distributions</h2>"));
+        try (Writer writer = subject.render(new StringWriter())) {
+            assertTrue(writer.toString().contains("<h2>Apache Commons Project Distributions</h2>"));
+        }
     }
 
 }
