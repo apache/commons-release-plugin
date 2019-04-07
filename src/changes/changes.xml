@@ -33,6 +33,7 @@
       <action type="update" dev="ggregory">org.apache.maven.scm 1.10.0 -> 1.11.2</action>
       <action type="update" dev="ggregory">maven-pmd-plugin 3.9.0 -> 3.11.0</action>
       <action type="update" dev="ggregory">commons-build-plugin 1.8 -> 1.10</action>
+      <action type="update" dev="ggregory">commons.jacoco.version 0.8.2 -> 0.8.3</action>
     </release>
 
     <release version="1.6" date="2019-03-08" description="Version 1.6">

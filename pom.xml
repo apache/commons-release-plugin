@@ -99,7 +99,7 @@
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
     <checkstyle.version>8.18</checkstyle.version>
     <maven-scm.version>1.11.2</maven-scm.version>
-    <commons.jacoco.version>0.8.2</commons.jacoco.version>
+    <commons.jacoco.version>0.8.3</commons.jacoco.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
     <commons.jacoco.methodRatio>0.1</commons.jacoco.methodRatio>
@@ -117,8 +117,8 @@
 
     <!-- Including commons release plugin older version -->
     <commons.release.isDistModule>true</commons.release.isDistModule>
-    <commons.bc.version>1.5</commons.bc.version>
-    <commons.release.version>1.6</commons.release.version>
+    <commons.bc.version>1.6</commons.bc.version>
+    <commons.release.version>1.7</commons.release.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
