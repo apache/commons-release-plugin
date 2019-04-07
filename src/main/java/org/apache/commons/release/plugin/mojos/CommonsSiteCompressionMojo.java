@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.commons.compress.archivers.zip.ParallelScatterZipCreator;
-import org.apache.commons.compress.archivers.zip.ScatterZipOutputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -79,16 +77,6 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "false", property = "commons.release.isDistModule")
     private Boolean isDistModule;
-
-    /**
-     * A variable for the process of creating the site.zip file.
-     */
-    private ScatterZipOutputStream dirs;
-
-    /**
-     * A second variable for the process of creating the site.zip file.
-     */
-    private ParallelScatterZipCreator scatterZipCreator;
 
     /**
      * The list of files to compress into the site.zip file.
