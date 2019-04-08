@@ -25,6 +25,9 @@ limitations under the License.
             <table>
                 <tr><th>Version</th><th>Release date</th><th>Required Java Version</th><th>Javadoc</th><th>Release notes</th></tr>
                 <tr>
+                    <td>1.7</td><td>M-D-2019</td><td>8.0</td><td><a href="javadocs/api-1.7/index.html">api-1.7</a></td><td><a href="release-notes/RELEASE-NOTES-1.7.txt">release notes for 1.7</a></td>
+                </tr>
+                <tr>
                     <td>1.6</td><td>3-8-2019</td><td>8.0</td><td><a href="javadocs/api-1.6/index.html">api-1.6</a></td><td><a href="release-notes/RELEASE-NOTES-1.6.txt">release notes for 1.6</a></td>
                 </tr>
                 <tr>
