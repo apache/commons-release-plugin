@@ -35,6 +35,7 @@
       <action type="update" dev="ggregory">commons-build-plugin 1.8 -> 1.10</action>
       <action type="update" dev="ggregory">commons.jacoco.version 0.8.2 -> 0.8.3</action>
       <action type="update" dev="ggregory">velocity-engine-core 2.0 -> 2.1</action>
+      <action type="update" dev="ggregory">maven.dependency.version 3.6.0 -> 3.6.1</action>
     </release>
 
     <release version="1.6" date="2019-03-08" description="Version 1.6">

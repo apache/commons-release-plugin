@@ -85,7 +85,7 @@
     <failOnError>false</failOnError>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.dependency.version>3.6.0</maven.dependency.version>
+    <maven.dependency.version>3.6.1</maven.dependency.version>
     <commons.componentid>commons-release-plugin</commons.componentid>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
     <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
