@@ -25,7 +25,7 @@
   </properties>
 
   <body>
-    <release version="1.7" date="YYYY-MM-DD" description="Version 1.7 - TBD">
+    <release version="1.7" date="YYYY-MM-DD" description="Version 1.7">
       <action type="update" dev="chtompki">checkstyle.version 8.10.1 -> 8.18</action>
       <action type="update" dev="ggregory">VOTE.txt: Sample git clone command should checkout in a folder named after the tag</action>
       <action type="update" dev="ggregory">VOTE.txt: Sort the file names being hashed</action>
