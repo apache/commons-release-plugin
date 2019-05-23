@@ -38,6 +38,7 @@
       <action type="update" dev="ggregory">maven.dependency.version 3.6.0 -> 3.6.1</action>
       <action type="update" dev="ggregory">checkstyle.version 8.18 -> 8.19</action>
       <action type="update" dev="ggregory">maven-pmd-plugin 3.11.0 -> 3.12.0</action>
+      <action type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.19 -> 8.20</action>
     </release>
 
     <release version="1.6" date="2019-03-08" description="Version 1.6">
