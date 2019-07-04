@@ -36,7 +36,7 @@ public class ReadmeHtmlVelocityDelegateTest {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
                 .withArtifactId("commons-text")
                 .withVersion("1.4")
-                .withSiteUrl("http://commons.apache.org/text")
+                .withSiteUrl("https://commons.apache.org/text")
                 .build();
         try (Writer writer = delegate.render(new StringWriter())) {
             final String filledOutTemplate = writer.toString();
@@ -49,7 +49,7 @@ public class ReadmeHtmlVelocityDelegateTest {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
                 .withArtifactId("commons-lang3")
                 .withVersion("3.8.1")
-                .withSiteUrl("http://commons.apache.org/text")
+                .withSiteUrl("https://commons.apache.org/text")
                 .build();
         try (Writer writer = delegate.render(new StringWriter())) {
             final String filledOutTemplate = writer.toString();
@@ -64,7 +64,7 @@ public class ReadmeHtmlVelocityDelegateTest {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
                 .withArtifactId("bcel")
                 .withVersion("1.5")
-                .withSiteUrl("http://commons.apache.org/text")
+                .withSiteUrl("https://commons.apache.org/text")
                 .build();
         try (Writer writer = delegate.render(new StringWriter())) {
             final String filledOutTemplate = writer.toString();

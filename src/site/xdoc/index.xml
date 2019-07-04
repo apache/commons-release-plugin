@@ -32,7 +32,7 @@
 
             <p>
             This is a <a href="http://maven.apache.org/">Maven 3.x</a> Plugin which is
-            used by <a href="http://commons.apache.org/">Apache Commons</a> releases. See
+            used by <a href="https://commons.apache.org/">Apache Commons</a> releases. See
             the <a href="development.html">Development</a> page for information to
             help maintain this plugin.
             </p>
@@ -113,7 +113,7 @@
             <p>
             After the above configuration performing the release would occur by (<i>note.</i> more
             in depth details can be found at
-            <a href="http://commons.apache.org/releases/prepare.html">Preparations For A Release</a>):
+            <a href="https://commons.apache.org/releases/prepare.html">Preparations For A Release</a>):
                 <ol>
                     <li>creating our release branch,</li>
                     <li>checking compatibility,</li>

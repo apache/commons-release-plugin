@@ -32,7 +32,7 @@
     Apache Maven Mojo for Apache Commons Release tasks.
   </description>
 
-  <url>http://commons.apache.org/proper/commons-release-plugin/</url>
+  <url>https://commons.apache.org/proper/commons-release-plugin/</url>
 
   <issueManagement>
     <system>jira</system>

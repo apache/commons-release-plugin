@@ -30,7 +30,7 @@
 
 <p>Thank you for using <a href="${siteUrl}">${artifactShortName}</a>.</p>
 
-<p>From the Apache Commons Project<br><a href="http://commons.apache.org/">http://commons.apache.org/</a></p>
+<p>From the Apache Commons Project<br><a href="https://commons.apache.org/">https://commons.apache.org/</a></p>
 
 <h2><a name="mirrors">Download from your
     <a href="http://www.apache.org/dyn/closer.cgi/commons/">nearest mirror site!</a></a></h2>

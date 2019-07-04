@@ -56,13 +56,13 @@ o COMMONSSITE-99:   Prepare Standard Build integrations, travis, jacoco, checkst
 o COMMONSSITE-97:   Documentation for commons-release-plugin.
 
 
-Historical list of changes: http://commons.apache.org/release-plugin/changes-report.html
+Historical list of changes: https://commons.apache.org/release-plugin/changes-report.html
 
 For complete information on the Apache commons-release-plugin, including instructions on how
 to submit bug reports, patches, or suggestions for improvement, see the Apache commons-release-plugin's
 website:
 
-http://commons.apache.org/release-plugin/
+https://commons.apache.org/release-plugin/
 
 Have fun!
 -Apache Commons Release Plugin team

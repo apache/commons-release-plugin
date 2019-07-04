@@ -58,7 +58,7 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
 
     @Override
     public String getUrl() {
-        return "http://commons.apache.org/proper/commons-text/";
+        return "https://commons.apache.org/proper/commons-text/";
     }
 
     @Override
