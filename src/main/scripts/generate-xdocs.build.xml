@@ -30,7 +30,7 @@
 
         <property name="svn.dist.url" value="https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version}" />
         <property name="git.tag.name" value="commons-${commons.componentid}-${commons.release.version}-${commons.rc.version}" />
-        <property name="svn.site.url" value="https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version}/site/index.html" />
+        <property name="svn.site.url" value="https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version}/site" />
 
     	<echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - START   ]-----" />
     	<echo level="${level}" message="The SVN RC URL must be '${svn.dist.url}'" />

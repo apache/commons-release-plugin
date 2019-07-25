@@ -47,7 +47,7 @@ Details of changes since @BC@ are in the release notes:
     @SITEURL@/changes-report.html
 
 Site:
-    @SITEURL@
+    @SITEURL@/index.html
     (note some *relative* links are broken and the @VERSION@ directories are not yet created - these will be OK once the site is deployed.)
 
 CLIRR Report (compared to @BC@):
