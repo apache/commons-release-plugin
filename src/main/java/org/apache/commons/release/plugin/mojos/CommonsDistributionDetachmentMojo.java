@@ -77,7 +77,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private final List<Artifact> detachedArtifacts = new ArrayList<>();
 
     /**
-     * A {@link SortedProperties} of {@link Artifact} → {@link String} containing the sha256 signatures
+     * A {@link SortedProperties} of {@link Artifact} → {@link String} containing the sha512 signatures
      * for the individual artifacts, where the {@link Artifact} is represented as:
      * <code>groupId:artifactId:version:type=sha512</code>.
      */
@@ -206,7 +206,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     }
 
     /**
-     *  A helper method that creates sha256  and sha512 signature files for our detached artifacts in the
+     *  A helper method that creates sha512 signature files for our detached artifacts in the
      *  <code>target/commons-release-plugin</code> directory for the purpose of being uploaded by
      *  the {@link CommonsDistributionStagingMojo}.
      *
@@ -217,6 +217,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         for (final Artifact artifact : detachedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
                 final String artifactKey = getArtifactKey(artifact);
+                // Don't hash ASC files.
                 try {
                     String digest;
                     // SHA-512
@@ -249,7 +250,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     }
 
     /**
-     * Generates the unique artifact key for storage in our sha256 map and sha512 map. For example,
+     * Generates the unique artifact key for storage in our sha512 map. For example,
      * commons-test-1.4-src.tar.gz should have it's name as the key.
      *
      * @param artifact the {@link Artifact} that we wish to generate a key for.
