@@ -217,7 +217,6 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         for (final Artifact artifact : detachedArtifacts) {
             if (!artifact.getFile().getName().contains("asc")) {
                 final String artifactKey = getArtifactKey(artifact);
-                // Don't hash ASC files.
                 try {
                     String digest;
                     // SHA-512
