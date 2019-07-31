@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -215,7 +216,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      */
     private void hashArtifacts() throws MojoExecutionException {
         for (final Artifact artifact : detachedArtifacts) {
-            if (!artifact.getFile().getName().contains("asc")) {
+            if (!artifact.getFile().getName().toLowerCase(Locale.ROOT).contains("asc")) {
                 final String artifactKey = getArtifactKey(artifact);
                 try {
                     String digest;
