@@ -43,4 +43,8 @@
     <Class name="~.*\.*CommonsSiteCompressionMojo.*" />
     <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE,OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE,UUF_UNUSED_FIELD" />
   </Match>
+  <Match>
+    <Class name="~.*\.*CommonsStagingCleanupMojo.*" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE,OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE,UUF_UNUSED_FIELD" />
+  </Match>
 </FindBugsFilter>
