@@ -33,7 +33,7 @@
   </Match>
   <Match>
     <Class name="~.*\.*CommonsDistributionDetachmentMojo.*" />
-    <Bug pattern="DM_DEFAULT_ENCODING" />
+    <Bug pattern="DM_DEFAULT_ENCODING,OBL_UNSATISFIED_OBLIGATION" />
   </Match>
   <Match>
     <Class name="~.*\.*CommonsDistributionStagingMojo.*" />
