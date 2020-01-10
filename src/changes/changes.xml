@@ -25,6 +25,11 @@
   </properties>
 
   <body>
+    <release version="1.8" date="2020-MM-DD" description="Version 1.89">
+      <action type="update" dev="ggregory">Update Apache Commons Codec from 1.13 to 1.14.</action>
+      <action type="update" dev="ggregory">Update JUnit from 4.12 to 4.13.</action>
+    </release>
+
     <release version="1.7" date="2019-08-30" description="Version 1.7">
       <action type="update" dev="chtompki">checkstyle.version from 8.10.1 to 8.18</action>
       <action type="update" dev="ggregory">VOTE.txt: Sample git clone command should checkout in a folder named after the tag</action>
