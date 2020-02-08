@@ -29,6 +29,7 @@
       <action type="update" dev="ggregory">Update Apache Commons Codec from 1.13 to 1.14.</action>
       <action type="update" dev="ggregory">Update JUnit from 4.12 to 4.13.</action>
       <action type="update" dev="ggregory">Update Maven dependencies from 3.6.1 to 3.6.3.</action>
+      <action type="update" dev="ggregory">Update Apache Commons Compress from 1.19 to 1.20.</action>
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
