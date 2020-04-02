@@ -30,6 +30,7 @@
                 <include>fb-excludes.xml</include>
                 <include>LICENSE</include>
                 <include>LICENSE.txt</include>
+                <include>NOTICE</include>
                 <include>NOTICE.txt</include>
                 <include>pom.xml</include>
                 <include>README.md</include>
