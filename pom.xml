@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>48</version>
+    <version>51</version>
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
@@ -96,10 +96,10 @@
       https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}
     </commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
-    <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
-    <checkstyle.version>8.20</checkstyle.version>
+    <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
+    <checkstyle.version>8.34</checkstyle.version>
     <maven-scm.version>1.11.2</maven-scm.version>
-    <commons.jacoco.version>0.8.3</commons.jacoco.version>
+    <commons.jacoco.version>0.8.5</commons.jacoco.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
     <commons.jacoco.methodRatio>0.1</commons.jacoco.methodRatio>
@@ -117,8 +117,8 @@
 
     <!-- Including commons release plugin older version -->
     <commons.release.isDistModule>true</commons.release.isDistModule>
-    <commons.bc.version>1.6</commons.bc.version>
-    <commons.release.version>1.7</commons.release.version>
+    <commons.bc.version>1.7</commons.bc.version>
+    <commons.release.version>1.8</commons.release.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
@@ -294,7 +294,7 @@
       <plugin>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-build-plugin</artifactId>
-        <version>1.10</version>
+        <version>1.11</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -531,7 +531,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.12.0</version>
+        <version>3.13.0</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
