@@ -30,7 +30,8 @@
 
     <suppress checks="LineLength" files=".*CommonsDistributionDetachmentMojoTest.java" />
     <suppress checks="LineLength" files=".*CommonsDistributionStagingMojoTest.java" />
-    <suppress checks="LineLength" files="target/maven-archiver/*.properties" />
-    <suppress checks="LineLength" files="target/testing-commons-release-plugin/*.properties" />    
+    <suppress checks="LineLength" files="target/testing-commons-release-plugin/*.properties" />
     <suppress checks="FinalClassCheck" files=".*Delegate.java" />
+    <!-- Don't complain when generated on Windows -->
+    <suppress checks="NewlineAtEndOfFile" files="target\\maven-archiver\\pom.properties" />
 </suppressions>
