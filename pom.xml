@@ -99,6 +99,8 @@
     <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
     <checkstyle.version>8.34</checkstyle.version>
     <maven-scm.version>1.11.2</maven-scm.version>
+    <commons.spotbugs.version>4.0.4</commons.spotbugs.version>
+    <commons.spotbugs.impl.version>4.0.6</commons.spotbugs.impl.version>    
     <commons.jacoco.version>0.8.5</commons.jacoco.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
@@ -269,10 +271,24 @@
           <artifactId>maven-plugin-plugin</artifactId>
           <version>${maven.plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${commons.spotbugs.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs</artifactId>
+              <version>${commons.spotbugs.impl.version}</version>
+           </dependency>
+          </dependencies>        
+          <configuration>
+            <excludeFilterFile>${basedir}/fb-excludes.xml</excludeFilterFile>
+          </configuration>
+        </plugin>        
       </plugins>
     </pluginManagement>
     <plugins>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
@@ -284,13 +300,10 @@
             <version>${maven.plugin.version}</version>
           </dependency>
         </dependencies>
-
         <configuration>
           <goalPrefix>commons-release</goalPrefix>
         </configuration>
-
       </plugin>
-
       <plugin>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-build-plugin</artifactId>
@@ -353,15 +366,6 @@
             <descriptor>src/assembly/src.xml</descriptor>
           </descriptors>
           <tarLongFileMode>gnu</tarLongFileMode>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <!-- Use version from parent pom as that is adjusted according to the Java version used to run Maven -->
-        <version>${commons.findbugs.version}</version>
-        <configuration>
-          <excludeFilterFile>${basedir}/fb-excludes.xml</excludeFilterFile>
         </configuration>
       </plugin>
       <plugin>
@@ -462,7 +466,6 @@
           <reportSet/>
         </reportSets>
       </plugin>
-
       <!-- exclude jdepend report -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -512,16 +515,10 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m" ' -->
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <!-- Use version from parent pom as that is adjusted according to the Java version used to run Maven -->
-        <version>${commons.findbugs.version}</version>
-        <configuration>
-          <excludeFilterFile>${basedir}/fb-excludes.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+      </plugin>              
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
@@ -594,6 +591,10 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${commons.jacoco.version}</version>
       </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+      </plugin>              
     </plugins>
   </reporting>
 
