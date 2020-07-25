@@ -31,6 +31,7 @@
       <action type="update" dev="ggregory">Update Maven dependencies from 3.6.1 to 3.6.3.</action>
       <action type="update" dev="ggregory">Update Apache Commons Compress from 1.19 to 1.20.</action>
       <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.7.</action>
+      <action type="update" dev="ggregory">Replace FindBugs with SpotBugs.</action>
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
