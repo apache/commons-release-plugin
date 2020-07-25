@@ -236,7 +236,7 @@
   </dependencies>
 
   <build>
-    <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc
+    <defaultGoal>clean verify apache-rat:check checkstyle:check spotbugs:check javadoc:javadoc
     </defaultGoal>
     <resources>
       <resource>
