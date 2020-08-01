@@ -66,7 +66,7 @@
                     the root of the project, and commit them to a specified staging subversion repository.
                 </li>
                 <li>
-                  <a href="vote-txt.html">org.apache.commons:commons-release-plugin:1.7:vote-txt</a>
+                  <a href="vote-txt.html">org.apache.commons:commons-release-plugin:1.7:vote-txt</a> -Dcommons.nexus.repo.id=nnnn [-Dgit.tag.name] # where nnn is the number following orgapachecommons- in the Nexus 'Repository' column
                 </li>
             </ul>
             </p>
