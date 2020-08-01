@@ -37,7 +37,7 @@ These are the artifacts and their hashes:
 
 (no need for .asc hashes!)
 
-I have tested this with ***'mvn clean install site'*** using: 
+I have tested this with ***'mvn clean install site'*** using:
 ***
 Use the output from "mvn -version" for each combination you tested.
 ***
@@ -55,7 +55,7 @@ CLIRR Report (compared to @BC@):
 
 JApiCmp Report (compared to @BC@):
     @SITEURL@/japicmp.html
-    
+
     ***
     Note that Clirr reports several errors.
     These are considered OK for the reasons stated below.
@@ -65,7 +65,7 @@ JApiCmp Report (compared to @BC@):
     - methods added to interface: OK because that does not affect binary compatibility.
     - etc.
     ***
-    
+
 RAT Report:
     @SITEURL@/rat-report.html
 
@@ -73,7 +73,7 @@ KEYS:
   https://www.apache.org/dist/commons/KEYS
 
 Please review the release candidate and vote.
-This vote will close no sooner that 72 hours from now.
+This vote will close no sooner than 72 hours from now.
 
   [ ] +1 Release these artifacts
   [ ] +0 OK, but...
@@ -82,7 +82,7 @@ This vote will close no sooner that 72 hours from now.
 
 Thank you,
 
-@RMNAME@, 
+@RMNAME@,
 Release Manager (using key @RMKEY@)
 
 For following is intended as a helper and refresher for reviewers.
