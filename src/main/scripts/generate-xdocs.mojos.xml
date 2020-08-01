@@ -154,7 +154,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.releaseManagerName}</defaultValue>
           <type>java.lang.String</type>
-          <description>Release manager name.</description>
+          <description>Release manager name. This should be defined in your Maven settings.xml file, not the POM.</description>
         </parameter>
         <parameter>
           <name>commons.releaseManagerKey</name>
@@ -163,7 +163,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.releaseManagerKey}</defaultValue>
           <type>java.lang.String</type>
-          <description>Release manager key.</description>
+          <description>Release manager key. This should be defined in your Maven settings.xml file, not the POM.</description>
         </parameter>
         <parameter>
           <name>commons.nexus.repo.id</name>
