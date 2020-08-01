@@ -172,7 +172,9 @@
           <readonly>false</readonly>
           <defaultValue>${commons.nexus.repo.id}</defaultValue>
           <type>java.lang.String</type>
-          <description>The Nexus repository ID on https://repository.apache.org/, usually a four digit number.</description>
+          <description>The Nexus repository ID on https://repository.apache.org/, usually a four digit number.
+          This is the value after https://repository.apache.org/content/repositories/orgapachecommons-
+          </description>
         </parameter>
       </parameters>
     </mojo>
