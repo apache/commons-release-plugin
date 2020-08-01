@@ -176,7 +176,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      */
     private void writeAllArtifactsInSha512PropertiesFile() throws MojoExecutionException {
         final File propertiesFile = new File(workingDirectory, "sha512.properties");
-        getLog().info("Writting " + propertiesFile);
+        getLog().info("Writing " + propertiesFile);
         try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
             artifactSha512s.store(fileWriter, "Release SHA-512s");
         } catch (final IOException e) {
