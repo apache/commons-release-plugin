@@ -118,6 +118,32 @@
     </properties>
 ]]></source>
             <p>
+            Ensure your Release Manager details are defined in your Maven <code>~/.m2/settings.xml</code> file
+            (These are used by the vote-txt goal)
+            Properties have to be defined in a profile. For example:
+            </p>
+<source><![CDATA[
+<settings>
+  ...
+  <profiles>
+    ...
+    <profile>
+      <id>active-profile</id>
+      <properties>
+        <commons.releaseManagerName>Your Name</commons.releaseManagerName>
+        <commons.releaseManagerKey>Your Signing Key Hex ID</commons.releaseManagerKey>
+      </properties>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <!-- define active profile name -->
+    <activeProfile>active-profile</activeProfile>
+  </activeProfiles>
+  ...
+</settings>
+]]></source>
+            <p>
             After the above configuration performing the release would occur by (<i>note.</i> more
             in depth details can be found at
             <a href="https://commons.apache.org/releases/prepare.html">Preparations For A Release</a>):
