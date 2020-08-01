@@ -25,7 +25,8 @@
   </properties>
 
   <body>
-    <release version="1.8" date="2020-MM-DD" description="Version 1.89">
+    <release version="1.8" date="2020-MM-DD" description="Version 1.8">
+      <action type="update" dev="sebb">Don't create hash for .asc files.</action>
       <action type="update" dev="ggregory">Replace FindBugs with SpotBugs.</action>
       <action type="update" dev="ggregory">Update Apache Commons Codec from 1.13 to 1.14.</action>
       <action type="update" dev="ggregory">Update JUnit from 4.12 to 4.13.</action>

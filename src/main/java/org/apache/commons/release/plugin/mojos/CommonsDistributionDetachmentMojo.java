@@ -152,8 +152,10 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private void putAttachedArtifactInSha512Map(final Artifact artifact) throws MojoExecutionException {
         try {
             final String artifactKey = getArtifactKey(artifact);
-            try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
-                artifactSha512s.put(artifactKey, DigestUtils.sha512Hex(fis));
+            if (!artifactKey.endsWith(".asc")) { // .asc files don't need hashes
+                try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                    artifactSha512s.put(artifactKey, DigestUtils.sha512Hex(fis));
+                }
             }
         } catch (final IOException e) {
             throw new MojoExecutionException(
