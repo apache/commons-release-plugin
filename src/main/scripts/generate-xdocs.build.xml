@@ -32,6 +32,17 @@
         <property name="git.tag.name" value="commons-${commons.componentid}-${commons.release.version}-${commons.rc.version}" />
         <property name="svn.site.url" value="https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version}/site" />
 
+        <!-- Convert groupId to path name -->
+        <loadresource property="tmp.groupPath">
+          <propertyresource name="project.groupId"/>
+          <filterchain>
+            <tokenfilter>
+              <filetokenizer/>
+              <replacestring from="." to="/"/>
+            </tokenfilter>
+          </filterchain>
+        </loadresource>
+
     	<echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - START   ]-----" />
     	<echo level="${level}" message="The SVN RC URL must be '${svn.dist.url}'" />
     	<echo level="${level}" message="The Git RC tag must be '${git.tag.name}'" />
@@ -42,6 +53,7 @@
         <echo level="${level}" message="project.name                : ${project.name}" />
         <echo level="${level}" message="project.artifactId          : ${project.artifactId}" />
         <echo level="${level}" message="project.groupId             : ${project.groupId}" />
+        <echo level="${level}" message="tmp.groupPath               : ${tmp.groupPath}" />
         <echo level="${level}" message="commons.jira.id             : ${commons.jira.id}" />
         <echo level="${level}" message="commons.release.version     : ${commons.release.version}" />
         <echo level="${level}" message="commons.rc.version          : ${commons.rc.version}" />
@@ -96,6 +108,7 @@
              <filter token="ARTIFACTID"     value="${project.artifactId}"/>
              <filter token="ARTIFACTCOREID" value="${tmp.artifactId}"/>
              <filter token="GROUPID"        value="${project.groupId}"/>
+             <filter token="GROUPPATH"      value="${tmp.groupPath}"/>
              <filter token="JIRA_ID"        value="${commons.jira.id}"/>
              <filter token="VERSION"        value="${commons.release.version}"/>
              <filter token="RC"             value="${commons.rc.version}"/>

@@ -29,7 +29,7 @@ You may checkout this tag using:
     git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
 
 Maven artifacts are here:
-    https://repository.apache.org/content/repositories/orgapachecommons-@NEXUS_REPO_ID@/org/apache/commons/@ARTIFACTID@/@VERSION@/
+    https://repository.apache.org/content/repositories/orgapachecommons-@NEXUS_REPO_ID@/@GROUPPATH@/@ARTIFACTID@/@VERSION@/
 
 These are the artifacts and their hashes:
 
