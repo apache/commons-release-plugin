@@ -75,15 +75,13 @@
         <section name="Using the plugin">
             <p>
             Configure the plugin as the last plugin in the<code>&lt;build&gt;</code> section of the <code>pom.xml</code>
+            </p>
+            <p>N.B. This is now done in the Commons Parent POM, so is not needed in the component POM.</p>
 <source><![CDATA[
 <plugin>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-release-plugin</artifactId>
   <version>1.7</version>
-  <configuration>
-    <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</distSvnStagingUrl>
-    <isDistModule>true</isDistModule>
-  </configuration>
   <executions>
     <execution>
       <id>clean-staging</id>
@@ -109,7 +107,16 @@
   </executions>
 </plugin>
 ]]></source>
+            <p>
+            The following properties need to be defined in the component POM if not already defined
             </p>
+<source><![CDATA[
+    <properties>
+          <!-- Previous version of the component (used for reporting binary compatibility check)-->
+          <commons.bc.version>m.n</commons.bc.version>
+          <commons.release.isDistModule>true</commons.release.isDistModule>
+    </properties>
+]]></source>
             <p>
             After the above configuration performing the release would occur by (<i>note.</i> more
             in depth details can be found at
