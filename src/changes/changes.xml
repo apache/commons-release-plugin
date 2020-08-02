@@ -26,6 +26,7 @@
 
   <body>
     <release version="1.8" date="2020-MM-DD" description="Version 1.8">
+      <action type="update" dev="sebb">Fail if commons.nexus.repo.id is not defined.</action>
       <action type="update" dev="sebb">Allow for old-style group ids in vote-txt.</action>
       <action type="update" dev="sebb">Don't create hash for .asc files.</action>
       <action type="update" dev="ggregory">Replace FindBugs with SpotBugs.</action>
