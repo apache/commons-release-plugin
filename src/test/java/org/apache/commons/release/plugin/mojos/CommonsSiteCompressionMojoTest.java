@@ -36,6 +36,7 @@ import static org.junit.Assert.assertNotNull;
  * @author chtompki
  * @since 1.0
  */
+@SuppressWarnings("deprecation") // testing a deprecated class
 public class CommonsSiteCompressionMojoTest {
 
     private static final String COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH = "target/testing-commons-release-plugin";
