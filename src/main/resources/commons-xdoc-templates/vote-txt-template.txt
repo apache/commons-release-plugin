@@ -49,14 +49,14 @@ Site:
     @SITEURL@/index.html
     (note some *relative* links are broken and the @VERSION@ directories are not yet created - these will be OK once the site is deployed.)
 
-CLIRR Report (compared to @BC@):
+*** CLIRR Report (compared to @BC@):
     @SITEURL@/clirr-report.html
 
-JApiCmp Report (compared to @BC@):
+*** JApiCmp Report (compared to @BC@):
     @SITEURL@/japicmp.html
 
     ***
-    Note that Clirr reports several errors.
+    Note that the above report notes several errors.
     These are considered OK for the reasons stated below.
     These exceptions are also noted in the Changes and Release Notes.
 
