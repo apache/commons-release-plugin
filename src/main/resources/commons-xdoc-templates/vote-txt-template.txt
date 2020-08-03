@@ -35,7 +35,6 @@ These are the artifacts and their hashes:
 
 @SHA512LIST@
 
-(no need for .asc hashes!)
 
 I have tested this with ***'mvn clean install site'*** using:
 ***
