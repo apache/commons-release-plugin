@@ -40,6 +40,7 @@
       <action type="update" dev="ggregory">Update velocity-engine-core from 2.1 to 2.2 #4.</action>
       <action type="update" dev="ggregory">Update commons-codec from 1.14 to 1.15.</action>
       <action type="update" dev="ggregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
+      <action type="update" dev="ggregory">Update checkstyle from 8.36 to 8.36.1 #14.</action>      
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
