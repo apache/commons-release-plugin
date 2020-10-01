@@ -26,6 +26,8 @@
 
   <body>
     <release version="1.8" date="2020-MM-DD" description="Version 1.8">
+      <action type="update" dev="kinow">Bump actions/setup-java from v1.4.0 to v1.4.3 #11 #19.</action>
+      <action type="update" dev="kinow">Bump spotbugs from 4.1.1 to 4.1.3 #10 #20.</action>
       <action type="update" dev="sebb">Fail if commons.nexus.repo.id is not defined.</action>
       <action type="update" dev="sebb">Allow for old-style group ids in vote-txt.</action>
       <action type="update" dev="sebb">Don't create hash for .asc files.</action>
@@ -34,13 +36,13 @@
       <action type="update" dev="ggregory">Update JUnit from 4.12 to 4.13.</action>
       <action type="update" dev="ggregory">Update Maven dependencies from 3.6.1 to 3.6.3.</action>
       <action type="update" dev="ggregory">Update Apache Commons Compress from 1.19 to 1.20.</action>
-      <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.8.</action>
+      <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.8 #13.</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.34 to 8.35 #5.</action>
       <action type="update" dev="ggregory">Update actions/checkout from v2.3.1 to v2.3.3 #8, #16.</action>
       <action type="update" dev="ggregory">Update velocity-engine-core from 2.1 to 2.2 #4.</action>
       <action type="update" dev="ggregory">Update commons-codec from 1.14 to 1.15.</action>
       <action type="update" dev="ggregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
-      <action type="update" dev="ggregory">Update checkstyle from 8.36 to 8.36.1 #14.</action>      
+      <action type="update" dev="ggregory">Update checkstyle from 8.35 to 8.36.1 #12 #14.</action>
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
