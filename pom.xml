@@ -306,7 +306,7 @@
       <plugin>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-build-plugin</artifactId>
-        <version>1.11</version>
+        <version>1.12</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
