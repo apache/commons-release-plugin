@@ -96,6 +96,7 @@ public class CommonsDistributionStagingMojoTest {
         final File releaseNotes = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/RELEASE-NOTES.txt");
         final File readmeHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/README.html");
         final File headerHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/HEADER.html");
+        final File signatureValidatorScript = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/signature-validator.sh");
         final File binariesReadmeHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/README.html");
         final File binariesHeaderHtml = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/HEADER.html");
         final File binTar = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1/binaries/commons-text-1.4-bin.tar.gz");
@@ -120,6 +121,7 @@ public class CommonsDistributionStagingMojoTest {
         assertTrue(releaseNotes.exists());
         assertTrue(readmeHtml.exists());
         assertTrue(headerHtml.exists());
+        assertTrue(signatureValidatorScript.exists());
         assertTrue(binariesReadmeHtml.exists());
         assertTrue(binariesHeaderHtml.exists());
         assertTrue(binTar.exists());
