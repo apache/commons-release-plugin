@@ -71,6 +71,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private static final String README_FILE_NAME = "README.html";
     /** The name of file generated from the HEADER.vm velocity template to be checked into the dist svn repo. */
     private static final String HEADER_FILE_NAME = "HEADER.html";
+    /** The name of the signature validation shell script to be checked into the dist svn repo. */
+    private static final String SIGNATURE_VALIDATOR_FILE_NAME = "signature-validator.sh";
 
     /**
      * The {@link MavenProject} object is essentially the context of the maven build at
@@ -363,8 +365,30 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             }
         }
         filesForMavenScmFileSet.addAll(buildReadmeAndHeaderHtmlFiles());
+        filesForMavenScmFileSet.addAll(copySignatureValidatorScriptToScmDirectory());
         filesForMavenScmFileSet.addAll(copySiteToScmDirectory());
         return filesForMavenScmFileSet;
+    }
+
+    /**
+     * Copies our <code>signature-validator.sh</code> into
+     * <code>${basedir}/target/commons-release-plugin/scm/signature-validator.sh</code>.
+     *
+     * @return the {@link List} of {@link File} containing just the signature-validator.sh
+     * @throws MojoExecutionException
+     */
+    private List<File> copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
+        final File signatureValidatorFileInScm = new File(distVersionRcVersionDirectory, "signature-validator.sh");
+        try {
+            final File signatureValidatorFileInJar =
+                    new File(this.getClass().getResource("/resources/signature-validator.sh").getFile());
+            FileUtils.copyFile(signatureValidatorFileInJar, signatureValidatorFileInScm);
+        } catch (final Exception e) {
+            throw new MojoExecutionException("Failed to copy signature-validator.sh", e);
+        }
+        final List<File> signatureFileInList = new ArrayList<>();
+        signatureFileInList.add(signatureValidatorFileInScm);
+        return signatureFileInList;
     }
 
     /**
@@ -441,6 +465,9 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             throw new MojoExecutionException(message, e);
         }
         headerAndReadmeFiles.add(readmeFile);
+        //
+        // signature-validator.sh file copy
+        //
         headerAndReadmeFiles.addAll(copyHeaderAndReadmeToSubdirectories(headerFile, readmeFile));
         return headerAndReadmeFiles;
     }
