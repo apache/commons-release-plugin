@@ -97,7 +97,7 @@
     </commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
-    <checkstyle.version>8.36.2</checkstyle.version>
+    <checkstyle.version>8.37</checkstyle.version>
     <maven-scm.version>1.11.2</maven-scm.version>
     <commons.spotbugs.version>4.1.3</commons.spotbugs.version>
     <commons.spotbugs.impl.version>4.1.3</commons.spotbugs.impl.version>    
