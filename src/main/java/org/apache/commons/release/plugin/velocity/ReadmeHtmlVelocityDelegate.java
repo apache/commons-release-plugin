@@ -119,7 +119,6 @@ public class ReadmeHtmlVelocityDelegate {
          * method.
          */
         private ReadmeHtmlVelocityDelegateBuilder() {
-            super();
         }
 
         /**

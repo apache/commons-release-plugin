@@ -36,7 +36,6 @@ public class HeaderHtmlVelocityDelegate {
                                          + "/velocity/HEADER.vm";
     /** The private constructor to be used by the {@link HeaderHtmlVelocityDelegateBuilder}. */
     private HeaderHtmlVelocityDelegate() {
-        super();
     }
 
     /**
@@ -74,7 +73,6 @@ public class HeaderHtmlVelocityDelegate {
          * Private constructor so that we can have a proper builder pattern.
          */
         private HeaderHtmlVelocityDelegateBuilder() {
-            super();
         }
 
         /**
