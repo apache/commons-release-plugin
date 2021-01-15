@@ -64,7 +64,7 @@ public final class SharedFunctions {
         if (workingDirectory.exists()) {
             try {
                 FileUtils.deleteDirectory(workingDirectory);
-            } catch (IOException | NullPointerException e) {
+            } catch (final IOException | NullPointerException e) {
                 final String message = String.format("Unable to remove directory %s: %s", workingDirectory,
                         e.getMessage());
                 log.error(message);
@@ -88,7 +88,7 @@ public final class SharedFunctions {
     public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
         try {
             FileUtils.copyFile(fromFile, toFile);
-        } catch (IOException | NullPointerException e) {
+        } catch (final IOException | NullPointerException e) {
             final String message = String.format("Unable to copy file %s tp %s: %s", fromFile, toFile, e.getMessage());
             log.error(message);
             throw new MojoExecutionException(message, e);

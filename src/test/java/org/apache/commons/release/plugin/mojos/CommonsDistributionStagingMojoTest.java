@@ -39,7 +39,7 @@ public class CommonsDistributionStagingMojoTest {
     private static final String COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH = "target/testing-commons-release-plugin";
 
     @Rule
-    public MojoRule rule = new MojoRule() {
+    public final MojoRule rule = new MojoRule() {
         @Override
         protected void before() throws Throwable {
             // noop
