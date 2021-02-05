@@ -31,7 +31,7 @@
       <action type="update" dev="kinow">Bump commons-build-plugin from 1.11 to 1.12 #25.</action>
       <action issue="COMMONSSITE-138" type="add" dev="chtompki">Create signature validation script for releases</action>
       <action type="update" dev="kinow">Bump actions/setup-java from v1.4.0 to v1.4.3 #11 #19.</action>
-      <action type="update" dev="kinow">Bump spotbugs from 4.1.1 to 4.2.0 #10 #24 #30.</action>
+      <action type="update" dev="kinow">Bump spotbugs from 4.1.1 to 4.2.1 #10 #24 #30 #37.</action>
       <action type="update" dev="kinow">Bump spotbugs-maven-plugin from 4.1.1 to 4.1.4 #20 #26.</action>
       <action type="update" dev="sebb">Fail if commons.nexus.repo.id is not defined.</action>
       <action type="update" dev="sebb">Allow for old-style group ids in vote-txt.</action>
