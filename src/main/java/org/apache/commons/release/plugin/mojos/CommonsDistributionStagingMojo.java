@@ -385,7 +385,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         final File signatureValidatorFileInScm = new File(distVersionRcVersionDirectory, SIGNATURE_VALIDATOR_FILE_NAME);
         final String resourceName = "/resources/" + SIGNATURE_VALIDATOR_FILE_NAME;
         // The source can be in a local file or inside a jar file.
-        try (InputStream inputStream = getClass().getResource(resourceName).openStream();
+        try (InputStream inputStream = getClass().getResourceAsStream(resourceName);
             OutputStream outputStream = new FileOutputStream(signatureValidatorFileInScm)) {
             IOUtils.copy(inputStream, outputStream);
         } catch (final Exception e) {
