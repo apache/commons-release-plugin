@@ -69,11 +69,12 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /** The name of file generated from the README.vm velocity template to be checked into the dist svn repo. */
     private static final String README_FILE_NAME = "README.html";
+
     /** The name of file generated from the HEADER.vm velocity template to be checked into the dist svn repo. */
     private static final String HEADER_FILE_NAME = "HEADER.html";
+
     /** The name of the signature validation shell script to be checked into the dist svn repo. */
     private static final String SIGNATURE_VALIDATOR_FILE_NAME = "signature-validator.sh";
-
     /**
      * The {@link MavenProject} object is essentially the context of the maven build at
      * a given time.
@@ -378,13 +379,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * @throws MojoExecutionException
      */
     private List<File> copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
-        final File signatureValidatorFileInScm = new File(distVersionRcVersionDirectory, "signature-validator.sh");
+        final File signatureValidatorFileInScm = new File(distVersionRcVersionDirectory, SIGNATURE_VALIDATOR_FILE_NAME);
         try {
-            final File signatureValidatorFileInJar =
-                    new File(this.getClass().getResource("/resources/signature-validator.sh").getFile());
+            final File signatureValidatorFileInJar = new File(
+                this.getClass().getResource("/resources/" + SIGNATURE_VALIDATOR_FILE_NAME).getFile());
             FileUtils.copyFile(signatureValidatorFileInJar, signatureValidatorFileInScm);
         } catch (final Exception e) {
-            throw new MojoExecutionException("Failed to copy signature-validator.sh", e);
+            throw new MojoExecutionException("Failed to copy " + SIGNATURE_VALIDATOR_FILE_NAME, e);
         }
         final List<File> signatureFileInList = new ArrayList<>();
         signatureFileInList.add(signatureValidatorFileInScm);
