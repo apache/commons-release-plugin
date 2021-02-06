@@ -16,7 +16,19 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.commons.release.plugin.velocity.HeaderHtmlVelocityDelegate;
@@ -43,15 +55,6 @@ import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
 import org.apache.maven.settings.Settings;
 import org.apache.maven.settings.crypto.SettingsDecrypter;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * This class checks out the dev distribution location, copies the distributions into that directory
@@ -381,11 +384,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private List<File> copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
         final File signatureValidatorFileInScm = new File(distVersionRcVersionDirectory, SIGNATURE_VALIDATOR_FILE_NAME);
         final String resourceName = "/resources/" + SIGNATURE_VALIDATOR_FILE_NAME;
-        try {
-            final File signatureValidatorFileInJar = new File(this.getClass().getResource(resourceName).getFile());
-            FileUtils.copyFile(signatureValidatorFileInJar, signatureValidatorFileInScm);
+        // The source can be in a local file or inside a jar file.
+        try (InputStream inputStream = getClass().getResource(resourceName).openStream();
+            OutputStream outputStream = new FileOutputStream(signatureValidatorFileInScm)) {
+            IOUtils.copy(inputStream, outputStream);
         } catch (final Exception e) {
-            throw new MojoExecutionException("Failed to copy " + resourceName, e);
+            throw new MojoExecutionException(
+                String.format("Failed to copy '%s' to '%s'", resourceName, signatureValidatorFileInScm), e);
         }
         final List<File> signatureFileInList = new ArrayList<>();
         signatureFileInList.add(signatureValidatorFileInScm);
