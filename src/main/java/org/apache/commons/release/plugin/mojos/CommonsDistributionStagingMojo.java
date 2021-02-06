@@ -380,12 +380,12 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     private List<File> copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
         final File signatureValidatorFileInScm = new File(distVersionRcVersionDirectory, SIGNATURE_VALIDATOR_FILE_NAME);
+        final String resourceName = "/resources/" + SIGNATURE_VALIDATOR_FILE_NAME;
         try {
-            final File signatureValidatorFileInJar = new File(
-                this.getClass().getResource("/resources/" + SIGNATURE_VALIDATOR_FILE_NAME).getFile());
+            final File signatureValidatorFileInJar = new File(this.getClass().getResource(resourceName).getFile());
             FileUtils.copyFile(signatureValidatorFileInJar, signatureValidatorFileInScm);
         } catch (final Exception e) {
-            throw new MojoExecutionException("Failed to copy " + SIGNATURE_VALIDATOR_FILE_NAME, e);
+            throw new MojoExecutionException("Failed to copy " + resourceName, e);
         }
         final List<File> signatureFileInList = new ArrayList<>();
         signatureFileInList.add(signatureValidatorFileInScm);
