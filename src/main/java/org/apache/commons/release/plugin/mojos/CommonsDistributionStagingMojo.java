@@ -19,16 +19,16 @@ package org.apache.commons.release.plugin.mojos;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.file.PathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.commons.release.plugin.velocity.HeaderHtmlVelocityDelegate;
@@ -77,7 +77,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private static final String HEADER_FILE_NAME = "HEADER.html";
 
     /** The name of the signature validation shell script to be checked into the dist svn repo. */
-    private static final String SIGNATURE_VALIDATOR_FILE_NAME = "signature-validator.sh";
+    private static final String SIGNATURE_VALIDATOR_NAME = "signature-validator.sh";
     /**
      * The {@link MavenProject} object is essentially the context of the maven build at
      * a given time.
@@ -187,7 +187,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * build this up in the {@link CommonsDistributionStagingMojo#execute()} method. And, for example,
      * the directory should look like <code>https://https://dist.apache.org/repos/dist/dev/commons/text/1.4-RC1</code>.
      */
-    private File distVersionRcVersionDirectory;
+    private File distRcVersionDirectory;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -220,7 +220,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                     username,
                     password
             );
-            distVersionRcVersionDirectory =
+            distRcVersionDirectory =
                     new File(distCheckoutDirectory, commonsReleaseVersion + "-" + commonsRcVersion);
             if (!distCheckoutDirectory.exists()) {
                 SharedFunctions.initDirectory(getLog(), distCheckoutDirectory);
@@ -301,9 +301,9 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      *                                can properly handle the exception.
      */
     private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
-        SharedFunctions.initDirectory(getLog(), distVersionRcVersionDirectory);
+        SharedFunctions.initDirectory(getLog(), distRcVersionDirectory);
         getLog().info("Copying RELEASE-NOTES.txt to working directory.");
-        final File copiedReleaseNotes = new File(distVersionRcVersionDirectory, releaseNotesFile.getName());
+        final File copiedReleaseNotes = new File(distRcVersionDirectory, releaseNotesFile.getName());
         SharedFunctions.copyFile(getLog(), releaseNotesFile, copiedReleaseNotes);
         return copiedReleaseNotes;
     }
@@ -345,8 +345,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             throws MojoExecutionException {
         final List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
         final List<File> filesForMavenScmFileSet = new ArrayList<>();
-        final File scmBinariesRoot = new File(distVersionRcVersionDirectory, "binaries");
-        final File scmSourceRoot = new File(distVersionRcVersionDirectory, "source");
+        final File scmBinariesRoot = new File(distRcVersionDirectory, "binaries");
+        final File scmSourceRoot = new File(distRcVersionDirectory, "source");
         SharedFunctions.initDirectory(getLog(), scmBinariesRoot);
         SharedFunctions.initDirectory(getLog(), scmSourceRoot);
         File copy;
@@ -369,32 +369,28 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
             }
         }
         filesForMavenScmFileSet.addAll(buildReadmeAndHeaderHtmlFiles());
-        filesForMavenScmFileSet.addAll(copySignatureValidatorScriptToScmDirectory());
+        filesForMavenScmFileSet.add(copySignatureValidatorScriptToScmDirectory());
         filesForMavenScmFileSet.addAll(copySiteToScmDirectory());
         return filesForMavenScmFileSet;
     }
 
     /**
-     * Copies our <code>signature-validator.sh</code> into
+     * Copies our <code>signature-validator.sh</code> script into
      * <code>${basedir}/target/commons-release-plugin/scm/signature-validator.sh</code>.
      *
-     * @return the {@link List} of {@link File} containing just the signature-validator.sh
+     * @return the {@link File} for the signature-validator.sh
      * @throws MojoExecutionException
      */
-    private List<File> copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
-        final File signatureValidatorFileInScm = new File(distVersionRcVersionDirectory, SIGNATURE_VALIDATOR_FILE_NAME);
-        final String resourceName = "/resources/" + SIGNATURE_VALIDATOR_FILE_NAME;
+    private File copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
+        final Path scmTargetPath = Paths.get(distRcVersionDirectory.toString(), SIGNATURE_VALIDATOR_NAME);
+        final String name = "/resources/" + SIGNATURE_VALIDATOR_NAME;
         // The source can be in a local file or inside a jar file.
-        try (InputStream inputStream = getClass().getResourceAsStream(resourceName);
-            OutputStream outputStream = new FileOutputStream(signatureValidatorFileInScm)) {
-            IOUtils.copy(inputStream, outputStream);
+        try {
+            PathUtils.copyFile(getClass().getResource(name), scmTargetPath);
         } catch (final Exception e) {
-            throw new MojoExecutionException(
-                String.format("Failed to copy '%s' to '%s'", resourceName, signatureValidatorFileInScm), e);
+            throw new MojoExecutionException(String.format("Failed to copy '%s' to '%s'", name, scmTargetPath), e);
         }
-        final List<File> signatureFileInList = new ArrayList<>();
-        signatureFileInList.add(signatureValidatorFileInScm);
-        return signatureFileInList;
+        return scmTargetPath.toFile();
     }
 
     /**
@@ -411,7 +407,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                     "\"mvn site\" was not run before this goal, or a siteDirectory did not exist."
             );
         }
-        final File siteInScm = new File(distVersionRcVersionDirectory, "site");
+        final File siteInScm = new File(distRcVersionDirectory, "site");
         try {
             FileUtils.copyDirectory(siteDirectory, siteInScm);
         } catch (final IOException e) {
@@ -440,7 +436,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
         final List<File> headerAndReadmeFiles = new ArrayList<>();
-        final File headerFile = new File(distVersionRcVersionDirectory, HEADER_FILE_NAME);
+        final File headerFile = new File(distRcVersionDirectory, HEADER_FILE_NAME);
         //
         // HEADER file
         //
@@ -455,7 +451,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         //
         // README file
         //
-        final File readmeFile = new File(distVersionRcVersionDirectory, README_FILE_NAME);
+        final File readmeFile = new File(distRcVersionDirectory, README_FILE_NAME);
         try (Writer readmeWriter = new OutputStreamWriter(new FileOutputStream(readmeFile), "UTF-8")) {
             // @formatter:off
             final ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
@@ -491,8 +487,8 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     private List<File> copyHeaderAndReadmeToSubdirectories(final File headerFile, final File readmeFile)
             throws MojoExecutionException {
         final List<File> symbolicLinkFiles = new ArrayList<>();
-        final File sourceRoot = new File(distVersionRcVersionDirectory, "source");
-        final File binariesRoot = new File(distVersionRcVersionDirectory, "binaries");
+        final File sourceRoot = new File(distRcVersionDirectory, "source");
+        final File binariesRoot = new File(distRcVersionDirectory, "binaries");
         final File sourceHeaderFile = new File(sourceRoot, HEADER_FILE_NAME);
         final File sourceReadmeFile = new File(sourceRoot, README_FILE_NAME);
         final File binariesHeaderFile = new File(binariesRoot, HEADER_FILE_NAME);
