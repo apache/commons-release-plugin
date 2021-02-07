@@ -221,7 +221,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             if (!artifact.getFile().getName().toLowerCase(Locale.ROOT).contains("asc")) {
                 final String artifactKey = getArtifactKey(artifact);
                 try {
-                    String digest;
+                    final String digest;
                     // SHA-512
                     digest = artifactSha512s.getProperty(artifactKey.toString());
                     getLog().info(artifact.getFile().getName() + " sha512: " + digest);

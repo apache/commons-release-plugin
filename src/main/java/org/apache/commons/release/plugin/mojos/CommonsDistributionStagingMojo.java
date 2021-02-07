@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -440,7 +441,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         //
         // HEADER file
         //
-        try (Writer headerWriter = new OutputStreamWriter(new FileOutputStream(headerFile), "UTF-8")) {
+        try (Writer headerWriter = new OutputStreamWriter(new FileOutputStream(headerFile), StandardCharsets.UTF_8)) {
             HeaderHtmlVelocityDelegate.builder().build().render(headerWriter);
         } catch (final IOException e) {
             final String message = "Could not build HEADER html file " + headerFile;
@@ -452,7 +453,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
         // README file
         //
         final File readmeFile = new File(distRcVersionDirectory, README_FILE_NAME);
-        try (Writer readmeWriter = new OutputStreamWriter(new FileOutputStream(readmeFile), "UTF-8")) {
+        try (Writer readmeWriter = new OutputStreamWriter(new FileOutputStream(readmeFile), StandardCharsets.UTF_8)) {
             // @formatter:off
             final ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
                     .withArtifactId(project.getArtifactId())
