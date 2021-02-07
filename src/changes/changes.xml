@@ -48,6 +48,7 @@
       <action type="update" dev="ggregory">Update commons-codec from 1.14 to 1.15.</action>
       <action type="update" dev="ggregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.35 to 8.36.1 #12 #14.</action>
+      <action type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvements #34.</action>
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
