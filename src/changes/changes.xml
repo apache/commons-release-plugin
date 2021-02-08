@@ -49,6 +49,7 @@
       <action type="update" dev="ggregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.35 to 8.36.1 #12 #14.</action>
       <action type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvements #34.</action>
+      <action type="update" dev="kinow" due-to="dependabot">Bump actions/cache from v2 to v2.1.4 #38.</action>
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
