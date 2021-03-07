@@ -380,7 +380,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * <code>${basedir}/target/commons-release-plugin/scm/signature-validator.sh</code>.
      *
      * @return the {@link File} for the signature-validator.sh
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException if an error occurs while the resource is being copied
      */
     private File copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
         final Path scmTargetPath = Paths.get(distRcVersionDirectory.toString(), SIGNATURE_VALIDATOR_NAME);
