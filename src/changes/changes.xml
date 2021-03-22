@@ -32,7 +32,7 @@
       <action issue="COMMONSSITE-138" type="add" dev="chtompki, ggregory">Create signature validation script for releases.</action>
       <action type="update" dev="kinow">Bump actions/setup-java from v1.4.0 to v1.4.3 #11 #19.</action>
       <action type="update" dev="kinow">Bump spotbugs from 4.1.1 to 4.2.2 #10 #24 #30 #37 #41.</action>
-      <action type="update" dev="kinow">Bump spotbugs-maven-plugin from 4.1.1 to 4.2.0 #20 #26 #33.</action>
+      <action type="update" dev="kinow">Bump spotbugs-maven-plugin from 4.1.1 to 4.2.2 #20 #26 #33 #45.</action>
       <action type="update" dev="sebb">Fail if commons.nexus.repo.id is not defined.</action>
       <action type="update" dev="sebb">Allow for old-style group ids in vote-txt.</action>
       <action type="update" dev="sebb">Don't create hash for .asc files.</action>
