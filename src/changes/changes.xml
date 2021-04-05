@@ -40,6 +40,7 @@
       <action type="update" dev="ggregory">Update Apache Commons Codec from 1.13 to 1.14.</action>
       <action type="update" dev="ggregory">Update JUnit from 4.12 to 4.13.2, #23 #39.</action>
       <action type="update" dev="ggregory">Update Maven dependencies from 3.6.1 to 3.6.3.</action>
+      <action type="update" dev="kinow" due-to="dependabot">Bump maven.dependency.version from 3.6.3 to 3.8.1 #47.</action>
       <action type="update" dev="ggregory">Update Apache Commons Compress from 1.19 to 1.20.</action>
       <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.8 #13.</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.34 to 8.41.1 #5 #27 #31 #35 #40 #46.</action>
