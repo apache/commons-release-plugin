@@ -125,7 +125,7 @@
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
     <commons.releaseManagerKey>B6E73D84EA4FCC47166087253FAAD2CD5ECBB314</commons.releaseManagerKey>
-    <maven.plugin.version>3.6.0</maven.plugin.version>
+    <maven.plugin.version>3.6.1</maven.plugin.version>
   </properties>
 
   <dependencies>
