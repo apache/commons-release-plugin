@@ -85,7 +85,7 @@
     <failOnError>false</failOnError>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.dependency.version>3.6.3</maven.dependency.version>
+    <maven.dependency.version>3.8.1</maven.dependency.version>
     <commons.componentid>commons-release-plugin</commons.componentid>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
     <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
@@ -97,11 +97,11 @@
     </commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
-    <checkstyle.version>8.41</checkstyle.version>
+    <checkstyle.version>8.42</checkstyle.version>
     <maven-scm.version>1.11.2</maven-scm.version>
-    <commons.spotbugs.version>4.2.0</commons.spotbugs.version>
-    <commons.spotbugs.impl.version>4.2.2</commons.spotbugs.impl.version>    
-    <commons.jacoco.version>0.8.6</commons.jacoco.version>
+    <commons.spotbugs.version>4.2.3</commons.spotbugs.version>
+    <commons.spotbugs.impl.version>4.2.3</commons.spotbugs.impl.version>    
+    <commons.jacoco.version>0.8.7</commons.jacoco.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
     <commons.jacoco.methodRatio>0.1</commons.jacoco.methodRatio>
@@ -125,7 +125,7 @@
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
     <commons.releaseManagerKey>B6E73D84EA4FCC47166087253FAAD2CD5ECBB314</commons.releaseManagerKey>
-    <maven.plugin.version>3.6.0</maven.plugin.version>
+    <maven.plugin.version>3.6.1</maven.plugin.version>
   </properties>
 
   <dependencies>

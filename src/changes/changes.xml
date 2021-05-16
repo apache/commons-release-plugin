@@ -30,9 +30,9 @@
       <action type="update" dev="kinow">Bump maven-pmd-plugin from 3.13.0 to 3.14.0 #29.</action>
       <action type="update" dev="kinow">Bump commons-build-plugin from 1.11 to 1.12 #25.</action>
       <action issue="COMMONSSITE-138" type="add" dev="chtompki, ggregory">Create signature validation script for releases.</action>
-      <action type="update" dev="kinow">Bump actions/setup-java from v1.4.0 to v1.4.3 #11 #19.</action>
-      <action type="update" dev="kinow">Bump spotbugs from 4.1.1 to 4.2.2 #10 #24 #30 #37 #41.</action>
-      <action type="update" dev="kinow">Bump spotbugs-maven-plugin from 4.1.1 to 4.2.0 #20 #26 #33.</action>
+      <action type="update" dev="kinow">Bump actions/setup-java from v1.4.0 to v2 #11 #19 #49.</action>
+      <action type="update" dev="kinow">Bump spotbugs from 4.1.1 to 4.2.3 #10 #24 #30 #37 #41 #51.</action>
+      <action type="update" dev="kinow">Bump spotbugs-maven-plugin from 4.1.1 to 4.2.3 #20 #26 #33 #45 #52.</action>
       <action type="update" dev="sebb">Fail if commons.nexus.repo.id is not defined.</action>
       <action type="update" dev="sebb">Allow for old-style group ids in vote-txt.</action>
       <action type="update" dev="sebb">Don't create hash for .asc files.</action>
@@ -40,16 +40,19 @@
       <action type="update" dev="ggregory">Update Apache Commons Codec from 1.13 to 1.14.</action>
       <action type="update" dev="ggregory">Update JUnit from 4.12 to 4.13.2, #23 #39.</action>
       <action type="update" dev="ggregory">Update Maven dependencies from 3.6.1 to 3.6.3.</action>
+      <action type="update" dev="kinow" due-to="dependabot">Bump maven.dependency.version from 3.6.3 to 3.8.1 #47.</action>
       <action type="update" dev="ggregory">Update Apache Commons Compress from 1.19 to 1.20.</action>
       <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.8 #13.</action>
-      <action type="update" dev="ggregory">Update checkstyle from 8.34 to 8.41 #5 #27 #31 #35 #40.</action>
+      <action type="update" dev="ggregory">Update checkstyle from 8.34 to 8.42 #5 #27 #31 #35 #40 #46 #53.</action>
       <action type="update" dev="ggregory">Update actions/checkout from v2.3.1 to v2.3.4 #8, #16, #28.</action>
       <action type="update" dev="ggregory">Update velocity-engine-core from 2.1 to 2.3 #4 #43.</action>
       <action type="update" dev="ggregory">Update commons-codec from 1.14 to 1.15.</action>
       <action type="update" dev="ggregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.35 to 8.36.1 #12 #14.</action>
       <action type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvements #34.</action>
-      <action type="update" dev="kinow" due-to="dependabot">Bump actions/cache from v2 to v2.1.4 #38.</action>
+      <action type="update" dev="kinow" due-to="dependabot">Bump actions/cache from v2 to v2.1.5 #38 #50.</action>
+      <action type="update" dev="kinow" due-to="dependabot">Bump maven.plugin.version from 3.6.0 to 3.6.1 #54.</action>
+      <action type="update" dev="kinow" due-to="dependabot">Bump jacoco-maven-plugin from 0.8.6 to 0.8.7 #55.</action>
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
