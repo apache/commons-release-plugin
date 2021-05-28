@@ -17,9 +17,10 @@
 package org.apache.commons.release.plugin.mojos;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -147,8 +148,9 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      */
     private void writeZipFile(final File outputDirectory, final File directoryToZip, final List<File> fileList)
             throws IOException {
-        try (FileOutputStream fos = new FileOutputStream(outputDirectory.getAbsolutePath() + "/site.zip");
-                ZipOutputStream zos = new ZipOutputStream(fos)) {
+        try (OutputStream fos = Files.newOutputStream(new File(outputDirectory.getAbsolutePath() + "/site.zip")
+                .toPath());
+             ZipOutputStream zos = new ZipOutputStream(fos)) {
             for (final File file : fileList) {
                 if (!file.isDirectory()) { // we only zip files, not directories
                     addToZip(directoryToZip, file, zos);
@@ -168,7 +170,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      * @throws IOException if adding the <code>file</code> doesn't work out properly.
      */
     private void addToZip(final File directoryToZip, final File file, final ZipOutputStream zos) throws IOException {
-        try (FileInputStream fis = new FileInputStream(file)) {
+        try (InputStream fis = Files.newInputStream(file.toPath())) {
             // we want the zipEntry's path to be a relative path that is relative
             // to the directory being zipped, so chop off the rest of the path
             final String zipFilePath = file.getCanonicalPath().substring(

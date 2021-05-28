@@ -17,10 +17,11 @@
 package org.apache.commons.release.plugin.mojos;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -153,7 +154,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         try {
             final String artifactKey = getArtifactKey(artifact);
             if (!artifactKey.endsWith(".asc")) { // .asc files don't need hashes
-                try (FileInputStream fis = new FileInputStream(artifact.getFile())) {
+                try (InputStream fis = Files.newInputStream(artifact.getFile().toPath())) {
                     artifactSha512s.put(artifactKey, DigestUtils.sha512Hex(fis));
                 }
             }
@@ -179,7 +180,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private void writeAllArtifactsInSha512PropertiesFile() throws MojoExecutionException {
         final File propertiesFile = new File(workingDirectory, "sha512.properties");
         getLog().info("Writing " + propertiesFile);
-        try (FileOutputStream fileWriter = new FileOutputStream(propertiesFile)) {
+        try (OutputStream fileWriter = Files.newOutputStream(propertiesFile.toPath())) {
             artifactSha512s.store(fileWriter, "Release SHA-512s");
         } catch (final IOException e) {
             throw new MojoExecutionException("Failure to write SHA-512's", e);
