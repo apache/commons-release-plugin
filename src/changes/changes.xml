@@ -27,6 +27,13 @@
   <body>
     <release version="1.8" date="2020-MM-DD" description="Version 1.8">
       <action issue="COMMONSSITE-138" type="add" dev="chtompki, ggregory">Create signature validation script for releases.</action>
+      <!-- FIXES -->
+      <action type="fix" dev="sebb">Fail if commons.nexus.repo.id is not defined.</action>
+      <action type="fix" dev="sebb">Allow for old-style group ids in vote-txt.</action>
+      <action type="fix" dev="sebb">Don't create hash for .asc files.</action>
+      <action type="fix" dev="ggregory" due-to="Arturo Bernal, Bruno P. Kinoshita">Replace construction of FileInputStream and FileOutputStream objects with Files NIO APIs. #44.</action>
+      <action type="fix" dev="ggregory">Replace FindBugs with SpotBugs.</action>
+      <action type="fix" dev="ggregory" due-to="Arturo Bernal">Minor Improvements #34.</action>
       <!-- UPDATES -->
       <action type="update" dev="kinow">Bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 #36.</action>
       <action type="update" dev="kinow">Bump maven-pmd-plugin from 3.13.0 to 3.14.0 #29.</action>
@@ -34,10 +41,6 @@
       <action type="update" dev="kinow">Bump actions/setup-java from v1.4.0 to v2 #11 #19 #49.</action>
       <action type="update" dev="kinow">Bump spotbugs from 4.1.1 to 4.2.3 #10 #24 #30 #37 #41 #51.</action>
       <action type="update" dev="kinow">Bump spotbugs-maven-plugin from 4.1.1 to 4.2.3 #20 #26 #33 #45 #52.</action>
-      <action type="update" dev="sebb">Fail if commons.nexus.repo.id is not defined.</action>
-      <action type="update" dev="sebb">Allow for old-style group ids in vote-txt.</action>
-      <action type="update" dev="sebb">Don't create hash for .asc files.</action>
-      <action type="update" dev="ggregory">Replace FindBugs with SpotBugs.</action>
       <action type="update" dev="ggregory">Update Apache Commons Codec from 1.13 to 1.14.</action>
       <action type="update" dev="ggregory">Update JUnit from 4.12 to 4.13.2, #23 #39.</action>
       <action type="update" dev="ggregory">Update Maven dependencies from 3.6.1 to 3.6.3.</action>
@@ -50,7 +53,6 @@
       <action type="update" dev="ggregory">Update commons-codec from 1.14 to 1.15.</action>
       <action type="update" dev="ggregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.35 to 8.36.1 #12 #14.</action>
-      <action type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvements #34.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump actions/cache from v2 to v2.1.6 #38 #50 #56.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven.plugin.version from 3.6.0 to 3.6.1 #54.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump jacoco-maven-plugin from 0.8.6 to 0.8.7 #55.</action>
