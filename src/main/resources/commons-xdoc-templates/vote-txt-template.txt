@@ -39,6 +39,8 @@ These are the artifacts and their hashes:
 I have tested this with ***'mvn clean install site'*** using:
 ***
 Use the output from "mvn -version" for each combination you tested.
+Windows: ver
+Linux: uname -a
 ***
 
 Details of changes since @BC@ are in the release notes:
