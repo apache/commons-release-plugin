@@ -46,7 +46,7 @@
       <action type="update" dev="ggregory">Update Maven dependencies from 3.6.1 to 3.6.3.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven.dependency.version from 3.6.3 to 3.8.1 #47.</action>
       <action type="update" dev="ggregory">Update Apache Commons Compress from 1.19 to 1.20.</action>
-      <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.10.0 #13.</action>
+      <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.11.0 #13 #63.</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.34 to 8.44 #5 #27 #31 #35 #40 #46 #53 #58.</action>
       <action type="update" dev="ggregory">Update actions/checkout from v2.3.1 to v2.3.4 #8, #16, #28.</action>
       <action type="update" dev="ggregory">Update velocity-engine-core from 2.1 to 2.3 #4 #43.</action>
