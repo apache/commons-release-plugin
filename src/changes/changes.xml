@@ -36,7 +36,7 @@
       <action type="fix" dev="ggregory" due-to="Arturo Bernal">Minor Improvements #34.</action>
       <!-- UPDATES -->
       <action type="update" dev="kinow">Bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 #36.</action>
-      <action type="update" dev="kinow">Bump maven-pmd-plugin from 3.13.0 to 3.14.0 #29.</action>
+      <action type="update" dev="kinow">Bump maven-pmd-plugin from 3.13.0 to 3.15.0 #29 #72.</action>
       <action type="update" dev="kinow">Bump commons-build-plugin from 1.11 to 1.12 #25.</action>
       <action type="update" dev="kinow">Bump actions/setup-java from v1.4.0 to v2 #11 #19 #49.</action>
       <action type="update" dev="kinow">Bump spotbugs from 4.1.1 to 4.4.0 #10 #24 #30 #37 #41 #51 #59 #68.</action>
