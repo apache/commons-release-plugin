@@ -133,7 +133,8 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             return;
         }
         for (final Artifact artifactToRemove : detachedArtifacts) {
-            // Maven 3.8.3 throws an exception here because MavenProject.getAttachedArtifacts() returns an IMMUTABLE collection.
+            // Maven 3.8.3 throws an exception here because MavenProject.getAttachedArtifacts()
+            // returns an IMMUTABLE collection.
             project.getAttachedArtifacts().remove(artifactToRemove);
         }
         if (!workingDirectory.exists()) {
