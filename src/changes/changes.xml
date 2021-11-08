@@ -45,7 +45,7 @@
       <action type="update" dev="kinow" due-to="Gary Gregory, Dependabot">Bump maven.dependency.version from 3.6.1 to 3.8.3 #47 #76.</action>
       <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.11.0 #13 #63.</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.34 to 9.1 #5 #12 #14 #27 #31 #35 #40 #46 #53 #58 #64 #65 #69 #77 #84.</action>
-      <action type="update" dev="ggregory">Update actions/checkout from v2.3.1 to v2.3.5 #8, #16, #28, #78.</action>
+      <action type="update" dev="ggregory">Update actions/checkout from v2.3.1 to v2.4.0 #8, #16, #28, #78, #83.</action>
       <action type="update" dev="ggregory">Update velocity-engine-core from 2.1 to 2.3 #4 #43.</action>
       <action type="update" dev="ggregory">Update commons-codec from 1.13 to 1.15.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump actions/cache from v2 to v2.1.6 #38 #50 #56.</action>
