@@ -134,12 +134,13 @@ public final class SharedFunctions {
      *      purpose of bubbling the exception up to Maven properly.
      */
     public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
+        final String format = "Unable to remove directory %s: %s";
+        requireNonNull(workingDirectory, () -> String.format(format, workingDirectory));
         if (workingDirectory.exists()) {
             try {
                 FileUtils.deleteDirectory(workingDirectory);
-            } catch (final IOException | NullPointerException e) {
-                final String message = String.format("Unable to remove directory %s: %s", workingDirectory,
-                        e.getMessage());
+            } catch (final IOException e) {
+                final String message = String.format(format, workingDirectory, e.getMessage());
                 log.error(message);
                 throw new MojoExecutionException(message, e);
             }
