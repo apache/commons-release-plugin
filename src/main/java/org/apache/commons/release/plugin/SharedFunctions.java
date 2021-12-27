@@ -19,6 +19,7 @@ package org.apache.commons.release.plugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
@@ -49,6 +50,78 @@ public final class SharedFunctions {
      */
     private SharedFunctions() {
         // Utility Class
+    }
+
+    /**
+     * Checks that the specified object reference is not {@code null}. This method is designed primarily for doing parameter validation in methods and
+     * constructors, as demonstrated below: <blockquote>
+     *
+     * <pre>
+     * public Foo(Bar bar) {
+     *     this.bar = SharedFunctions.requireNonNull(bar);
+     * }
+     * </pre>
+     *
+     * </blockquote>
+     *
+     * @param obj the object reference to check for nullity
+     * @param <T> the type of the reference
+     * @return {@code obj} if not {@code null}
+     * @throws MojoExecutionException if {@code obj} is {@code null}
+     */
+    public static <T> T requireNonNull(final T obj) throws MojoExecutionException {
+        if (obj == null) {
+            throw new MojoExecutionException(new NullPointerException());
+        }
+        return obj;
+    }
+
+    /**
+     * Checks that the specified object reference is not {@code null} and throws a customized {@link MojoExecutionException} if it is. This method is designed
+     * primarily for doing parameter validation in methods and constructors with multiple parameters, as demonstrated below: <blockquote>
+     *
+     * <pre>
+     * public Foo(Bar bar, Baz baz) {
+     *     this.bar = SharedFunctions.requireNonNull(bar, "bar must not be null");
+     *     this.baz = SharedFunctions.requireNonNull(baz, "baz must not be null");
+     * }
+     * </pre>
+     *
+     * </blockquote>
+     *
+     * @param obj the object reference to check for nullity
+     * @param message detail message to be used in the event that a {@code
+     *                NullPointerException} is thrown
+     * @param <T> the type of the reference
+     * @return {@code obj} if not {@code null}
+     * @throws MojoExecutionException if {@code obj} is {@code null}
+     */
+    public static <T> T requireNonNull(final T obj, final String message) throws MojoExecutionException {
+        if (obj == null) {
+            throw new MojoExecutionException(new NullPointerException(message));
+        }
+        return obj;
+    }
+
+    /**
+     * Checks that the specified object reference is not {@code null} and throws a customized {@link MojoExecutionException} if it is.
+     * <p>
+     * Unlike the method {@link #requireNonNull(Object, String)}, this method allows creation of the message to be deferred until after the null check is made.
+     * While this may confer a performance advantage in the non-null case, when deciding to call this method care should be taken that the costs of creating the
+     * message supplier are less than the cost of just creating the string message directly.
+     * </p>
+     *
+     * @param obj the object reference to check for nullity
+     * @param messageSupplier supplier of the detail message to be used in the event that a {@code NullPointerException} is thrown
+     * @param <T> the type of the reference
+     * @return {@code obj} if not {@code null}
+     * @throws MojoExecutionException if {@code obj} is {@code null}
+     */
+    public static <T> T requireNonNull(final T obj, final Supplier<String> messageSupplier) throws MojoExecutionException {
+        if (obj == null) {
+            throw new MojoExecutionException(new NullPointerException(messageSupplier.get()));
+        }
+        return obj;
     }
 
     /**
@@ -86,10 +159,13 @@ public final class SharedFunctions {
      * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
      */
     public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
+        final String format = "Unable to copy file %s tp %s: %s";
+        requireNonNull(fromFile, () -> String.format(format, fromFile, toFile));
+        requireNonNull(toFile, () -> String.format(format, fromFile, toFile));
         try {
             FileUtils.copyFile(fromFile, toFile);
-        } catch (final IOException | NullPointerException e) {
-            final String message = String.format("Unable to copy file %s tp %s: %s", fromFile, toFile, e.getMessage());
+        } catch (final IOException e) {
+            final String message = String.format(format, fromFile, toFile, e.getMessage());
             log.error(message);
             throw new MojoExecutionException(message, e);
         }
