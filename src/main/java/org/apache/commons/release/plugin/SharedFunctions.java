@@ -46,10 +46,51 @@ public final class SharedFunctions {
     public static final int BUFFER_BYTE_SIZE = 1024;
 
     /**
-     * Making the constructor private because the class only contains static methods.
+     * Copies a {@link File} from the <code>fromFile</code> to the <code>toFile</code> and logs the failure
+     * using the Maven {@link Log}.
+     *
+     * @param log the {@link Log}, the maven logger.
+     * @param fromFile the {@link File} from which to copy.
+     * @param toFile the {@link File} to which to copy into.
+     * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
      */
-    private SharedFunctions() {
-        // Utility Class
+    public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
+        final String format = "Unable to copy file %s tp %s: %s";
+        requireNonNull(fromFile, () -> String.format(format, fromFile, toFile));
+        requireNonNull(toFile, () -> String.format(format, fromFile, toFile));
+        try {
+            FileUtils.copyFile(fromFile, toFile);
+        } catch (final IOException e) {
+            final String message = String.format(format, fromFile, toFile, e.getMessage());
+            log.error(message);
+            throw new MojoExecutionException(message, e);
+        }
+    }
+
+    /**
+     * Cleans and then initializes an empty directory that is given by the <code>workingDirectory</code>
+     * parameter.
+     *
+     * @param log is the Maven log for output logging, particularly in regards to error management.
+     * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete then create.
+     * @throws MojoExecutionException when an {@link IOException} or {@link NullPointerException} is caught for the
+     *      purpose of bubbling the exception up to Maven properly.
+     */
+    public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
+        final String format = "Unable to remove directory %s: %s";
+        requireNonNull(workingDirectory, () -> String.format(format, workingDirectory));
+        if (workingDirectory.exists()) {
+            try {
+                FileUtils.deleteDirectory(workingDirectory);
+            } catch (final IOException e) {
+                final String message = String.format(format, workingDirectory, e.getMessage());
+                log.error(message);
+                throw new MojoExecutionException(message, e);
+            }
+        }
+        if (!workingDirectory.exists()) {
+            workingDirectory.mkdirs();
+        }
     }
 
     /**
@@ -125,54 +166,6 @@ public final class SharedFunctions {
     }
 
     /**
-     * Cleans and then initializes an empty directory that is given by the <code>workingDirectory</code>
-     * parameter.
-     *
-     * @param log is the Maven log for output logging, particularly in regards to error management.
-     * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete then create.
-     * @throws MojoExecutionException when an {@link IOException} or {@link NullPointerException} is caught for the
-     *      purpose of bubbling the exception up to Maven properly.
-     */
-    public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
-        final String format = "Unable to remove directory %s: %s";
-        requireNonNull(workingDirectory, () -> String.format(format, workingDirectory));
-        if (workingDirectory.exists()) {
-            try {
-                FileUtils.deleteDirectory(workingDirectory);
-            } catch (final IOException e) {
-                final String message = String.format(format, workingDirectory, e.getMessage());
-                log.error(message);
-                throw new MojoExecutionException(message, e);
-            }
-        }
-        if (!workingDirectory.exists()) {
-            workingDirectory.mkdirs();
-        }
-    }
-
-    /**
-     * Copies a {@link File} from the <code>fromFile</code> to the <code>toFile</code> and logs the failure
-     * using the Maven {@link Log}.
-     *
-     * @param log the {@link Log}, the maven logger.
-     * @param fromFile the {@link File} from which to copy.
-     * @param toFile the {@link File} to which to copy into.
-     * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
-     */
-    public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
-        final String format = "Unable to copy file %s tp %s: %s";
-        requireNonNull(fromFile, () -> String.format(format, fromFile, toFile));
-        requireNonNull(toFile, () -> String.format(format, fromFile, toFile));
-        try {
-            FileUtils.copyFile(fromFile, toFile);
-        } catch (final IOException e) {
-            final String message = String.format(format, fromFile, toFile, e.getMessage());
-            log.error(message);
-            throw new MojoExecutionException(message, e);
-        }
-    }
-
-    /**
      * Set authentication information on the specified {@link ScmProviderRepository}.
      * @param providerRepository target.
      * @param distServer temp.
@@ -193,5 +186,12 @@ public final class SharedFunctions {
 
         providerRepository.setUser(server.map(Server::getUsername).orElse(username));
         providerRepository.setPassword(server.map(Server::getPassword).orElse(password));
+    }
+
+    /**
+     * Making the constructor private because the class only contains static methods.
+     */
+    private SharedFunctions() {
+        // Utility Class
     }
 }
