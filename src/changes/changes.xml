@@ -49,7 +49,7 @@
       <action type="update" dev="ggregory">Update velocity-engine-core from 2.1 to 2.3 #4 #43.</action>
       <action type="update" dev="ggregory">Update commons-codec from 1.13 to 1.15.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump actions/cache from v2 to v2.1.7 #38, #50, #56, #87.</action>
-      <action type="update" dev="kinow" due-to="Dependabot">Bump maven.plugin.version from 3.6.0 to 3.6.2 #54, #89.</action>
+      <action type="update" dev="kinow" due-to="Dependabot">Bump maven.plugin.version from 3.6.0 to 3.6.4 #54, #89, #97.</action>
       <action type="update" dev="kinow" due-to="Gary Gregory, Dependabot">Bump jacoco-maven-plugin from 0.8.5 to 0.8.7 (Fixes Java 15 builds) #55.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump plexus-velocity from 1.2 to 1.3 #60.</action>
       <action type="update" dev="kinow" due-to="Gary Gregory, Dependabot">Bump commons-compress from 1.19 to 1.21 #62.</action>
