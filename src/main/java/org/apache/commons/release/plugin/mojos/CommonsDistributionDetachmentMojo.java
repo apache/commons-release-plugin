@@ -113,8 +113,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         if (!isDistModule) {
-            getLog().info(
-                    "This module is marked as a non distribution or assembly module, and the plugin will not run.");
+            getLog().info("This module is marked as a non distribution or assembly module, and the plugin will not run.");
             return;
         }
         if (StringUtils.isEmpty(distSvnStagingUrl)) {
@@ -132,11 +131,27 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             getLog().info("Current project contains no distributions. Not executing.");
             return;
         }
+        //
+        // PROBLEM CODE for Maven >= 3.8.3
+        // https://issues.apache.org/jira/browse/MNG-7316
         for (final Artifact artifactToRemove : detachedArtifacts) {
             // Maven 3.8.3 throws an exception here because MavenProject.getAttachedArtifacts()
             // returns an IMMUTABLE collection.
             project.getAttachedArtifacts().remove(artifactToRemove);
         }
+        //
+        // HACK START to replace the above.
+        // https://issues.apache.org/jira/browse/MNG-7316
+//        final ArrayList<Artifact> arrayList = new ArrayList<>(project.getAttachedArtifacts());
+//        arrayList.removeAll(detachedArtifacts);
+//        try {
+//            // MavenProject#setAttachedArtifacts(List) is protected
+//            MethodUtils.invokeMethod(project, true, "setAttachedArtifacts", arrayList);
+//        } catch (ReflectiveOperationException e) {
+//            throw new MojoExecutionException(e);
+//        }
+        // HACK END
+        //
         if (!workingDirectory.exists()) {
             SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
