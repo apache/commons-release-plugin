@@ -211,7 +211,7 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
         return attachedArtifacts;
     }
 
-    public class DistributionDetachmentArtifactStub extends ArtifactStub {
+    public static class DistributionDetachmentArtifactStub extends ArtifactStub {
 
         private final File artifact;
 
