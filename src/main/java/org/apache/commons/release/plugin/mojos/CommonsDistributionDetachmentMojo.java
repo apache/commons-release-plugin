@@ -32,6 +32,7 @@ import java.util.Set;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections4.properties.SortedProperties;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
@@ -134,24 +135,24 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         //
         // PROBLEM CODE for Maven >= 3.8.3
         // https://issues.apache.org/jira/browse/MNG-7316
-        for (final Artifact artifactToRemove : detachedArtifacts) {
-            // Maven 3.8.3 throws an exception here because MavenProject.getAttachedArtifacts()
-            // returns an IMMUTABLE collection.
-            project.getAttachedArtifacts().remove(artifactToRemove);
+        try {
+            // (1) Try the normal way
+            for (final Artifact artifactToRemove : detachedArtifacts) {
+                // Maven 3.8.3 throws an exception here because MavenProject.getAttachedArtifacts()
+                // returns an IMMUTABLE collection.
+                project.getAttachedArtifacts().remove(artifactToRemove);
+            }
+        } catch (UnsupportedOperationException e) {
+            // (2) HACK workaround for https://issues.apache.org/jira/browse/MNG-7316
+            final ArrayList<Artifact> arrayList = new ArrayList<>(project.getAttachedArtifacts());
+            arrayList.removeAll(detachedArtifacts);
+            try {
+                // MavenProject#setAttachedArtifacts(List) is protected
+                MethodUtils.invokeMethod(project, true, "setAttachedArtifacts", arrayList);
+            } catch (ReflectiveOperationException roe) {
+                throw new MojoExecutionException(roe);
+            }
         }
-        //
-        // HACK START to replace the above.
-        // https://issues.apache.org/jira/browse/MNG-7316
-//        final ArrayList<Artifact> arrayList = new ArrayList<>(project.getAttachedArtifacts());
-//        arrayList.removeAll(detachedArtifacts);
-//        try {
-//            // MavenProject#setAttachedArtifacts(List) is protected
-//            MethodUtils.invokeMethod(project, true, "setAttachedArtifacts", arrayList);
-//        } catch (ReflectiveOperationException e) {
-//            throw new MojoExecutionException(e);
-//        }
-        // HACK END
-        //
         if (!workingDirectory.exists()) {
             SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
