@@ -137,11 +137,9 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         // https://issues.apache.org/jira/browse/MNG-7316
         try {
             // (1) Try the normal way
-            for (final Artifact artifactToRemove : detachedArtifacts) {
-                // Maven 3.8.3 throws an exception here because MavenProject.getAttachedArtifacts()
-                // returns an IMMUTABLE collection.
-                project.getAttachedArtifacts().remove(artifactToRemove);
-            }
+            // Maven 3.8.3 throws an exception here because MavenProject.getAttachedArtifacts()
+            // returns an IMMUTABLE collection.
+            project.getAttachedArtifacts().removeAll(detachedArtifacts);
         } catch (UnsupportedOperationException e) {
             // (2) HACK workaround for https://issues.apache.org/jira/browse/MNG-7316
             final ArrayList<Artifact> arrayList = new ArrayList<>(project.getAttachedArtifacts());
