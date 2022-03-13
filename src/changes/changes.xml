@@ -43,7 +43,7 @@
       <action type="update" dev="kinow" due-to="Gary Gregory">Bump spotbugs from 4.1.1 to 4.6.0 #10 #24 #30 #37 #41 #51 #59 #68 #71 #80 #93 #98.</action>
       <action type="update" dev="kinow">Bump spotbugs-maven-plugin from 4.1.1 to 4.5.3.0 #20 #26 #33 #45 #52 #61 #74 #79 #81 #88 #94 #99.</action>
       <action type="update" dev="ggregory">Update JUnit from 4.12 to 4.13.2, #23 #39.</action>
-      <action type="update" dev="kinow" due-to="Gary Gregory, Dependabot">Bump maven.dependency.version from 3.6.1 to 3.8.4 #47 #76 #86.</action>
+      <action type="update" dev="kinow" due-to="Gary Gregory, Dependabot">Bump maven.dependency.version from 3.6.1 to 3.8.5 #47 #76 #86.</action>
       <action type="update" dev="ggregory">Update commons-io:commons-io from 2.6 to 2.11.0 #13 #63.</action>
       <action type="update" dev="ggregory">Update checkstyle from 8.34 to 9.3 #5, #12, #14, #27, #31, #35, #40, #46, #53, #58, #64, #65, #69, #77, #84, #91, #95, #101.</action>
       <action type="update" dev="ggregory">Update actions/checkout from v2.3.1 to v3 #8, #16, #28, #78, #83, #103.</action>
