@@ -34,6 +34,7 @@
       <action type="fix" dev="ggregory" due-to="Arturo Bernal, Bruno P. Kinoshita">Replace construction of FileInputStream and FileOutputStream objects with Files NIO APIs. #44.</action>
       <action type="fix" dev="ggregory">Replace FindBugs with SpotBugs.</action>
       <action type="fix" dev="ggregory" due-to="Arturo Bernal">Minor Improvements #34.</action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">Workaround UnsupportedOperationException in CommonsDistributionDetachmentMojo.execute due to https://issues.apache.org/jira/browse/MNG-7316.</action>
       <!-- UPDATES -->
       <action type="update" dev="kinow">Bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 #36.</action>
       <action type="update" dev="kinow">Bump maven-pmd-plugin from 3.13.0 to 3.15.0 #29 #72.</action>
