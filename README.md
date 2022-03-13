@@ -43,9 +43,9 @@
 Apache Commons Release Plugin
 ===================
 
-[![Travis-CI Status](https://travis-ci.org/apache/commons-commons-release-plugin.svg)](https://travis-ci.org/apache/commons-commons-release-plugin)
-[![GitHub Actions Status](https://github.com/apache/commons-commons-release-plugin/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-commons-release-plugin/actions)
-[![Coverage Status](https://coveralls.io/repos/apache/commons-commons-release-plugin/badge.svg)](https://coveralls.io/r/apache/commons-commons-release-plugin)
+[![Travis-CI Status](https://travis-ci.org/apache/commons-release-plugin.svg)](https://travis-ci.org/apache/commons-release-plugin)
+[![GitHub Actions Status](https://github.com/apache/commons-release-plugin/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-release-plugin/actions)
+[![Coverage Status](https://coveralls.io/repos/apache/commons-release-plugin/badge.svg)](https://coveralls.io/r/apache/commons-release-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/)
 [![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-release-plugin/1.8.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-release-plugin/1.8.0)
 
@@ -54,13 +54,13 @@ Apache Maven Mojo for Apache Commons Release tasks.
 Documentation
 -------------
 
-More information can be found on the [Apache Commons Release Plugin homepage](https://commons.apache.org/proper/commons-commons-release-plugin).
-The [Javadoc](https://commons.apache.org/proper/commons-commons-release-plugin/apidocs) can be browsed.
+More information can be found on the [Apache Commons Release Plugin homepage](https://commons.apache.org/proper/commons-release-plugin).
+The [Javadoc](https://commons.apache.org/proper/commons-release-plugin/apidocs) can be browsed.
 Questions related to the usage of Apache Commons Release Plugin should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
 -----------------------------------
-You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-commons-release-plugin/download_commons-release-plugin.cgi).
+You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-release-plugin/download_release-plugin.cgi).
 
 Alternatively you can pull it from the central Maven repositories:
 

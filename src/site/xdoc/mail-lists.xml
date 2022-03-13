@@ -54,7 +54,7 @@ limitations under the License.
         the convention in Commons is to prefix the subject line of messages with the component's name,
         for example:
         <ul>
-          <li>[commons-release-plugin] Problem with the ...</li>
+          <li>[release-plugin] Problem with the ...</li>
         </ul>
       </p>
       <p>
@@ -79,7 +79,7 @@ limitations under the License.
     <section name="Apache Commons Release Plugin Mailing Lists">
       <p>
         <strong>Please prefix the subject line of any messages for <a href="index.html">Apache Commons Release Plugin</a>
-        with <i>[commons-release-plugin]</i></strong> - <i>thanks!</i>
+        with <i>[release-plugin]</i></strong> - <i>thanks!</i>
         <br />
         <br />
       </p>
@@ -104,7 +104,7 @@ limitations under the License.
           </td>
           <td><a href="mailto:user-subscribe@commons.apache.org">Subscribe</a></td>
           <td><a href="mailto:user-unsubscribe@commons.apache.org">Unsubscribe</a></td>
-          <td><a href="mailto:user@commons.apache.org?subject=[commons-release-plugin]">Post</a></td>
+          <td><a href="mailto:user@commons.apache.org?subject=[release-plugin]">Post</a></td>
           <td><a href="https://mail-archives.apache.org/mod_mbox/commons-user/">mail-archives.apache.org</a><br />
               <a href="https://lists.apache.org/list.html?user@commons.apache.org">lists.apache.org</a>
           </td>
@@ -124,7 +124,7 @@ limitations under the License.
           </td>
           <td><a href="mailto:dev-subscribe@commons.apache.org">Subscribe</a></td>
           <td><a href="mailto:dev-unsubscribe@commons.apache.org">Unsubscribe</a></td>
-          <td><a href="mailto:dev@commons.apache.org?subject=[commons-release-plugin]">Post</a></td>
+          <td><a href="mailto:dev@commons.apache.org?subject=[release-plugin]">Post</a></td>
           <td><a href="https://mail-archives.apache.org/mod_mbox/commons-dev/">mail-archives.apache.org</a><br />
               <a href="https://lists.apache.org/list.html?dev@commons.apache.org">lists.apache.org</a>
           </td>
