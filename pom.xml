@@ -25,7 +25,7 @@
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.8.0</version>
+  <version>1.8.0-SNAPSHOT</version>
   <name>Apache Commons Release Plugin</name>
 
   <description>
@@ -97,7 +97,7 @@
     <!-- 3.8.2 fails with some class not found error -->
     <!-- 3.8.3 fails because MavenProject.getAttachedArtifacts() returns an IMMUTABLE collection and we want to change it! -->
     <maven.dependency.version>3.8.5</maven.dependency.version>
-    <commons.componentid>commons-release-plugin</commons.componentid>
+    <commons.componentid>release-plugin</commons.componentid>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
     <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
     <commons.release.version>${project.version}</commons.release.version>
