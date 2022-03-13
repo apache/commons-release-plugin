@@ -1,11 +1,11 @@
 Apache Commons Release Plugin
-Version 1.8.0
+Version 1.8.0-SNAPSHOT
 Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 1.8.0 version of Apache Commons Text.
+This document contains the release notes for the 1.8.0-SNAPSHOT version of Apache Commons Text.
 Commons Text is a set of utility functions and reusable components for the purpose of processing
 and manipulating text that should be of use in a Java environment.
 
@@ -26,6 +26,7 @@ o                   Don't create hash for .asc files.
 o                   Replace construction of FileInputStream and FileOutputStream objects with Files NIO APIs. #44. Thanks to Arturo Bernal, Bruno P. Kinoshita.
 o                   Replace FindBugs with SpotBugs.
 o                   Minor Improvements #34. Thanks to Arturo Bernal.
+o                   Workaround UnsupportedOperationException in CommonsDistributionDetachmentMojo.execute due to https://issues.apache.org/jira/browse/MNG-7316. Thanks to Gary Gregory.
 
 Changes:
 o                   Bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 #36.
@@ -51,6 +52,18 @@ o                   Bump maven-scm.version from 1.11.2 to 1.12.2 #66, #73, #96. 
 o                   Bump junit-vintage-engine from 5.7.2 to 5.8.2 #70, #75, #90. Thanks to Dependabot.
 o                   Bump taglist-maven-plugin from 2.4 to 3.0.0 #100. Thanks to Dependabot.
 
+
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
+
+For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Release Plugin website:
+
+https://commons.apache.org/proper/commons-release-plugin/
+
+Download page: https://commons.apache.org/proper/commons-release-plugin//download_text.cgi
+
+Have fun!
+-Apache Commons Team
 
 Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
 
