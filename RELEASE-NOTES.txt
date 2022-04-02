@@ -5,14 +5,8 @@ Release Notes
 
 INTRODUCTION:
 
-This document contains the release notes for the 1.8.0 version of Apache Commons Text.
-Commons Text is a set of utility functions and reusable components for the purpose of processing
-and manipulating text that should be of use in a Java environment.
-
-
-Apache Maven Mojo for Apache Commons Release tasks.
-
-Version 1.8
+This document contains the release notes for the 1.8.0 version of Apache Commons Release Plugin: 
+An Apache Maven Mojo for Apache Commons Release tasks.
 
 Changes in this version include:
 
@@ -52,18 +46,6 @@ o                   Bump maven-scm.version from 1.11.2 to 1.12.2 #66, #73, #96. 
 o                   Bump junit-vintage-engine from 5.7.2 to 5.8.2 #70, #75, #90. Thanks to Dependabot.
 o                   Bump taglist-maven-plugin from 2.4 to 3.0.0 #100. Thanks to Dependabot.
 
-
-Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
-
-For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Release Plugin website:
-
-https://commons.apache.org/proper/commons-release-plugin/
-
-Download page: https://commons.apache.org/proper/commons-release-plugin//download_text.cgi
-
-Have fun!
--Apache Commons Team
 
 Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
 
