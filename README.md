@@ -43,11 +43,11 @@
 Apache Commons Release Plugin
 ===================
 
-[![Travis-CI Status](https://travis-ci.org/apache/commons-release-plugin.svg)](https://travis-ci.org/apache/commons-release-plugin)
 [![GitHub Actions Status](https://github.com/apache/commons-release-plugin/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-release-plugin/actions)
 [![Coverage Status](https://coveralls.io/repos/apache/commons-release-plugin/badge.svg)](https://coveralls.io/r/apache/commons-release-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/)
 [![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-release-plugin/1.8.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-release-plugin/1.8.0)
+[![CodeQL](https://github.com/apache/commons-release-plugin/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-release-plugin/actions?query=workflow%3ACodeQL)
 
 Apache Maven Mojo for Apache Commons Release tasks.
 
