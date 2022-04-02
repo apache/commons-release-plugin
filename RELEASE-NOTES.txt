@@ -54,7 +54,7 @@ patches, or suggestions for improvement, see the Apache Apache Commons Release P
 
 https://commons.apache.org/proper/commons-release-plugin/
 
-Download page: https://commons.apache.org/proper/commons-release-plugin//download_text.cgi
+Download page: https://commons.apache.org/proper/commons-release-plugin/download_commons-release-plugin.cgi
 
 Have fun!
 -Apache Commons Team
