@@ -117,28 +117,28 @@ limitations under the License.
       <subsection name="Binaries">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/release-plugin/binaries/commons-release-plugin-1.8.0-bin.tar.gz">commons-release-plugin-1.8.0-bin.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/release-plugin/binaries/commons-release-plugin-1.8.0-bin.tar.gz.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/release-plugin/binaries/commons-release-plugin-1.8.0-bin.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/commons-release-plugin/binaries/commons-release-plugin-1.8.0-bin.tar.gz">commons-release-plugin-1.8.0-bin.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/commons-release-plugin/binaries/commons-release-plugin-1.8.0-bin.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/commons-release-plugin/binaries/commons-release-plugin-1.8.0-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/release-plugin/binaries/commons-release-plugin-1.8.0-bin.zip">commons-release-plugin-1.8.0-bin.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/release-plugin/binaries/commons-release-plugin-1.8.0-bin.zip.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/release-plugin/binaries/commons-release-plugin-1.8.0-bin.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/commons-release-plugin/binaries/commons-release-plugin-1.8.0-bin.zip">commons-release-plugin-1.8.0-bin.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/commons-release-plugin/binaries/commons-release-plugin-1.8.0-bin.zip.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/commons-release-plugin/binaries/commons-release-plugin-1.8.0-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/release-plugin/source/commons-release-plugin-1.8.0-src.tar.gz">commons-release-plugin-1.8.0-src.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/release-plugin/source/commons-release-plugin-1.8.0-src.tar.gz.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/release-plugin/source/commons-release-plugin-1.8.0-src.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/commons-release-plugin/source/commons-release-plugin-1.8.0-src.tar.gz">commons-release-plugin-1.8.0-src.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/commons-release-plugin/source/commons-release-plugin-1.8.0-src.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/commons-release-plugin/source/commons-release-plugin-1.8.0-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/release-plugin/source/commons-release-plugin-1.8.0-src.zip">commons-release-plugin-1.8.0-src.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/release-plugin/source/commons-release-plugin-1.8.0-src.zip.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/release-plugin/source/commons-release-plugin-1.8.0-src.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/commons-release-plugin/source/commons-release-plugin-1.8.0-src.zip">commons-release-plugin-1.8.0-src.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/commons-release-plugin/source/commons-release-plugin-1.8.0-src.zip.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/commons-release-plugin/source/commons-release-plugin-1.8.0-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -148,8 +148,8 @@ limitations under the License.
           Older releases can be obtained from the archives.
         </p>
         <ul>
-          <li class="download"><a href="[preferred]/commons/release-plugin/">browse download area</a></li>
-          <li><a href="https://archive.apache.org/dist/commons/release-plugin/">archives...</a></li>
+          <li class="download"><a href="[preferred]/commons/commons-release-plugin/">browse download area</a></li>
+          <li><a href="https://archive.apache.org/dist/commons/commons-release-plugin/">archives...</a></li>
         </ul>
     </section>
   </body>
