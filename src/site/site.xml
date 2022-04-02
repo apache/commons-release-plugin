@@ -24,7 +24,7 @@
     <body>
         <menu name="Release Plugin">
             <item name="Overview"                 href="/index.html" />
-            <item name="Download"                 href="/download_commons-release-plugin.cgi"/>
+            <item name="Download"                 href="/download_release-plugin.cgi"/>
             <item name="Release History"          href="/changes-report.html"/>
             <item name="Plugin Documentation"     href="/plugin-info.html" />
             <item name="Javadoc (Latest release)" href="javadocs/api-release/index.html"/>
