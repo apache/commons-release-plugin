@@ -98,6 +98,7 @@
     <!-- 3.8.3 fails because MavenProject.getAttachedArtifacts() returns an IMMUTABLE collection and we want to change it! -->
     <maven.dependency.version>3.8.5</maven.dependency.version>
     <commons.componentid>release-plugin</commons.componentid>
+    <commons.dist.subdir>commons-release-plugin</commons.dist.subdir>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
     <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
     <commons.release.version>${project.version}</commons.release.version>
@@ -137,6 +138,7 @@
     <commons.releaseManagerName>Gary Gregory</commons.releaseManagerName>
     <commons.releaseManagerKey>86fdc7e2a11262cb</commons.releaseManagerKey>
     <maven.plugin.version>3.6.4</maven.plugin.version>
+    <commons.build-plugin.version>1.12</commons.build-plugin.version>
   </properties>
 
   <dependencies>
@@ -270,7 +272,7 @@
           <configuration>
             <excludes>
               <exclude>site-content/**</exclude>
-              <exclude>src/site/resources/download_commons-release-plugin.cgi</exclude>
+              <exclude>src/site/resources/download_release-plugin.cgi</exclude>
               <exclude>src/test/resources/mojos/detach-distributions/target/commons-text-1.4*.asc</exclude>
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
             </excludes>
@@ -330,7 +332,7 @@
       <plugin>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-build-plugin</artifactId>
-        <version>1.12</version>
+        <version>${commons.build-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
