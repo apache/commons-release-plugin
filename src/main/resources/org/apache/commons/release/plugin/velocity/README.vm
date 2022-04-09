@@ -48,7 +48,7 @@
     there will be an accompanying <samp><em>file</em>.asc</samp> signature
     file in the same directory as the file (binaries/ or source/).  The
     signing keys can be found in the distribution directory at &lt;<a
-            HREF="http://www.apache.org/dist/commons/KEYS"><samp>http://www.apache.org/dist/commons/KEYS</samp></a>&gt;.</p>
+            HREF="http://downloads.apache.org/commons/KEYS"><samp>http://downloads.apache.org/commons/KEYS</samp></a>&gt;.</p>
 
 <p><b>Always download the KEYS file directly from the Apache site, never from a mirror site.</b></p>
 

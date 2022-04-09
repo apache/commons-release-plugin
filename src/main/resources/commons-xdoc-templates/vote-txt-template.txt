@@ -71,7 +71,7 @@ RAT Report:
     @SITEURL@/rat-report.html
 
 KEYS:
-  https://www.apache.org/dist/commons/KEYS
+  https://downloads.apache.org/commons/KEYS
 
 Please review the release candidate and vote.
 This vote will close no sooner than 72 hours from now.
