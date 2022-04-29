@@ -30,6 +30,8 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.5.3.0 to 4.6.0.0 #106.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3 to 3.0.2.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump actions/setup-java from 2 to 3 #108.</action>
+      <action type="update" dev="kinow" due-to="Dependabot">Bump commons-parent from 52 to 53 #111.</action>
+      <action type="update" dev="kinow" due-to="Dependabot">Bump github/codeql-action from 1 to 2 #109.</action>
     </release>
     <release version="1.8.0" date="2022-03-13" description="Version 1.8">
       <action issue="COMMONSSITE-138" type="add" dev="chtompki, ggregory">Create signature validation script for releases.</action>
@@ -64,7 +66,6 @@
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven-scm.version from 1.11.2 to 1.12.2 #66, #73, #96.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump junit-vintage-engine from 5.7.2 to 5.8.2 #70, #75, #90.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump taglist-maven-plugin from 2.4 to 3.0.0 #100.</action>
-      <action type="update" dev="kinow" due-to="Dependabot">Bump commons-parent from 52 to 53 #111.</action>
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
