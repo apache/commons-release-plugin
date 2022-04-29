@@ -64,6 +64,7 @@
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven-scm.version from 1.11.2 to 1.12.2 #66, #73, #96.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump junit-vintage-engine from 5.7.2 to 5.8.2 #70, #75, #90.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump taglist-maven-plugin from 2.4 to 3.0.0 #100.</action>
+      <action type="update" dev="kinow" due-to="Dependabot">Bump commons-parent from 52 to 53 #111.</action>
     </release>
 
     <release version="1.7" date="2019-08-30" description="Version 1.7">
