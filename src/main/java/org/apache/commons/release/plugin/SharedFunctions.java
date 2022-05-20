@@ -56,8 +56,8 @@ public final class SharedFunctions {
      */
     public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
         final String format = "Unable to copy file %s to %s: %s";
-        requireNonNull(fromFile, () -> String.format(format, fromFile, toFile));
-        requireNonNull(toFile, () -> String.format(format, fromFile, toFile));
+        requireNonNull(fromFile, () -> String.format(format, fromFile, toFile, "Missing fromFile argument"));
+        requireNonNull(toFile, () -> String.format(format, fromFile, toFile, "Missing toFile argument"));
         try {
             FileUtils.copyFile(fromFile, toFile);
         } catch (final IOException e) {
@@ -78,7 +78,7 @@ public final class SharedFunctions {
      */
     public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
         final String format = "Unable to remove directory %s: %s";
-        requireNonNull(workingDirectory, () -> String.format(format, workingDirectory));
+        requireNonNull(workingDirectory, () -> String.format(format, workingDirectory, "Missing workingDirectory argument"));
         if (workingDirectory.exists()) {
             try {
                 FileUtils.deleteDirectory(workingDirectory);
