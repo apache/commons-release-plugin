@@ -55,7 +55,7 @@ public final class SharedFunctions {
      * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
      */
     public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
-        final String format = "Unable to copy file %s tp %s: %s";
+        final String format = "Unable to copy file %s to %s: %s";
         requireNonNull(fromFile, () -> String.format(format, fromFile, toFile));
         requireNonNull(toFile, () -> String.format(format, fromFile, toFile));
         try {
