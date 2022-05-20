@@ -31,7 +31,7 @@
         <section name="Release Plugin">
 
             <p>
-            This is a <a href="http://maven.apache.org/">Maven 3.x</a> Plugin which is
+            This is a <a href="https://maven.apache.org/">Maven 3.x</a> Plugin which is
             used by <a href="https://commons.apache.org/">Apache Commons</a> releases. See
             the <a href="development.html">Development</a> page for information to
             help maintain this plugin.
