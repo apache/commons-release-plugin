@@ -27,7 +27,7 @@
   <body>
     <release version="1.8.1" date="2020-MM-DD" description="Version 1.8">
       <!-- UPDATES -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3 to 3.0.3.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3 to 3.0.4.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump actions/setup-java from 2 to 3 #108.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.0.0 #106, #115.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump commons-parent from 52 to 53 #111.</action>
