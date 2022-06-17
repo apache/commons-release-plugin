@@ -96,7 +96,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- 3.8.2 fails with some class not found error -->
     <!-- 3.8.3 fails because MavenProject.getAttachedArtifacts() returns an IMMUTABLE collection and we want to change it! -->
-    <maven.dependency.version>3.8.5</maven.dependency.version>
+    <maven.dependency.version>3.8.6</maven.dependency.version>
     <commons.componentid>release-plugin</commons.componentid>
     <commons.dist.subdir>commons-release-plugin</commons.dist.subdir>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
