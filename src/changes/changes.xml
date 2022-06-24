@@ -37,6 +37,7 @@
       <action type="update" dev="kinow" due-to="Dependabot">Bump plexus-velocity from 1.3 to 2.0 #116.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-scm.version from 1.12.2 to 1.13.0 #117.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven.dependency.version from 3.8.5 to 3.8.6 #120.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.16.0 to 3.17.0 #119.</action>
     </release>
     <release version="1.8.0" date="2022-03-13" description="Version 1.8">
       <action issue="COMMONSSITE-138" type="add" dev="chtompki, ggregory">Create signature validation script for releases.</action>
