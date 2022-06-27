@@ -112,7 +112,7 @@
     <checkstyle.version>9.3</checkstyle.version>
     <maven-scm.version>1.13.0</maven-scm.version>
     <commons.spotbugs.version>4.7.0.0</commons.spotbugs.version>
-    <commons.spotbugs.impl.version>4.7.0</commons.spotbugs.impl.version>    
+    <commons.spotbugs.impl.version>4.7.1</commons.spotbugs.impl.version>    
     <commons.jacoco.version>0.8.8</commons.jacoco.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
