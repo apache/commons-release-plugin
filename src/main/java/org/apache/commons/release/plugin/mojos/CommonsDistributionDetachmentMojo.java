@@ -122,10 +122,10 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
             return;
         }
         getLog().info("Detaching Assemblies");
-        for (final Object attachedArtifact : project.getAttachedArtifacts()) {
-            putAttachedArtifactInSha512Map((Artifact) attachedArtifact);
-            if (ARTIFACT_TYPES_TO_DETACH.contains(((Artifact) attachedArtifact).getType())) {
-                detachedArtifacts.add((Artifact) attachedArtifact);
+        for (final Artifact attachedArtifact : project.getAttachedArtifacts()) {
+            putAttachedArtifactInSha512Map(attachedArtifact);
+            if (ARTIFACT_TYPES_TO_DETACH.contains(attachedArtifact.getType())) {
+                detachedArtifacts.add(attachedArtifact);
             }
         }
         if (detachedArtifacts.isEmpty()) {
