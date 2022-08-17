@@ -40,12 +40,6 @@ import org.codehaus.plexus.util.FileUtils;
 public final class SharedFunctions {
 
     /**
-     * I want a buffer that is an array with 1024 elements of bytes. We declare
-     * the constant here for the sake of making the code more readable.
-     */
-    public static final int BUFFER_BYTE_SIZE = 1024;
-
-    /**
      * Copies a {@link File} from the <code>fromFile</code> to the <code>toFile</code> and logs the failure
      * using the Maven {@link Log}.
      *
@@ -55,9 +49,9 @@ public final class SharedFunctions {
      * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
      */
     public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
-        final String format = "Unable to copy file %s tp %s: %s";
-        requireNonNull(fromFile, () -> String.format(format, fromFile, toFile));
-        requireNonNull(toFile, () -> String.format(format, fromFile, toFile));
+        final String format = "Unable to copy file %s to %s: %s";
+        requireNonNull(fromFile, () -> String.format(format, fromFile, toFile, "Missing fromFile argument"));
+        requireNonNull(toFile, () -> String.format(format, fromFile, toFile, "Missing toFile argument"));
         try {
             FileUtils.copyFile(fromFile, toFile);
         } catch (final IOException e) {
@@ -71,14 +65,14 @@ public final class SharedFunctions {
      * Cleans and then initializes an empty directory that is given by the <code>workingDirectory</code>
      * parameter.
      *
-     * @param log is the Maven log for output logging, particularly in regards to error management.
+     * @param log is the Maven log for output logging, particularly in regard to error management.
      * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete then create.
      * @throws MojoExecutionException when an {@link IOException} or {@link NullPointerException} is caught for the
      *      purpose of bubbling the exception up to Maven properly.
      */
     public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
         final String format = "Unable to remove directory %s: %s";
-        requireNonNull(workingDirectory, () -> String.format(format, workingDirectory));
+        requireNonNull(workingDirectory, () -> String.format(format, workingDirectory, "Missing workingDirectory argument"));
         if (workingDirectory.exists()) {
             try {
                 FileUtils.deleteDirectory(workingDirectory);
@@ -94,60 +88,9 @@ public final class SharedFunctions {
     }
 
     /**
-     * Checks that the specified object reference is not {@code null}. This method is designed primarily for doing parameter validation in methods and
-     * constructors, as demonstrated below: <blockquote>
-     *
-     * <pre>
-     * public Foo(Bar bar) {
-     *     this.bar = SharedFunctions.requireNonNull(bar);
-     * }
-     * </pre>
-     *
-     * </blockquote>
-     *
-     * @param obj the object reference to check for nullity
-     * @param <T> the type of the reference
-     * @return {@code obj} if not {@code null}
-     * @throws MojoExecutionException if {@code obj} is {@code null}
-     */
-    public static <T> T requireNonNull(final T obj) throws MojoExecutionException {
-        if (obj == null) {
-            throw new MojoExecutionException(new NullPointerException());
-        }
-        return obj;
-    }
-
-    /**
-     * Checks that the specified object reference is not {@code null} and throws a customized {@link MojoExecutionException} if it is. This method is designed
-     * primarily for doing parameter validation in methods and constructors with multiple parameters, as demonstrated below: <blockquote>
-     *
-     * <pre>
-     * public Foo(Bar bar, Baz baz) {
-     *     this.bar = SharedFunctions.requireNonNull(bar, "bar must not be null");
-     *     this.baz = SharedFunctions.requireNonNull(baz, "baz must not be null");
-     * }
-     * </pre>
-     *
-     * </blockquote>
-     *
-     * @param obj the object reference to check for nullity
-     * @param message detail message to be used in the event that a {@code
-     *                NullPointerException} is thrown
-     * @param <T> the type of the reference
-     * @return {@code obj} if not {@code null}
-     * @throws MojoExecutionException if {@code obj} is {@code null}
-     */
-    public static <T> T requireNonNull(final T obj, final String message) throws MojoExecutionException {
-        if (obj == null) {
-            throw new MojoExecutionException(new NullPointerException(message));
-        }
-        return obj;
-    }
-
-    /**
      * Checks that the specified object reference is not {@code null} and throws a customized {@link MojoExecutionException} if it is.
      * <p>
-     * Unlike the method {@link #requireNonNull(Object, String)}, this method allows creation of the message to be deferred until after the null check is made.
+     * This method allows creation of the message to be deferred until after the null check is made.
      * While this may confer a performance advantage in the non-null case, when deciding to call this method care should be taken that the costs of creating the
      * message supplier are less than the cost of just creating the string message directly.
      * </p>

@@ -65,7 +65,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     private File siteDirectory;
 
     /**
-     * The url of the subversion repository to which we wish the artifacts to be staged. Typicallly
+     * The url of the subversion repository to which we wish the artifacts to be staged. Typically,
      * this would need to be of the form:
      * <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</code>. Note. that the prefix to the
      * substring <code>https</code> is a requirement.

@@ -41,11 +41,11 @@
                 This goal uses the following:
                 <ul>
                     <li>The goal is mapped to the ant script/target using the <code>vote-txt</code> mojo defintion in the
-                        <a href="http://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.mojos.xml">generate-xdocs.mojos.xml</a> mapping document</li>
+                        <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.mojos.xml">generate-xdocs.mojos.xml</a> mapping document</li>
                     <li>Executes the <code>vote-txt</code> target in
-                        <a href="http://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.build.xml">generate-xdocs.build.xml</a>
+                        <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.build.xml">generate-xdocs.build.xml</a>
                         ant script</li>
-                    <li>Uses the <a href="http://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/resources/commons-xdoc-templates/vote-txt-template.md">vote-txt-template.md</a>
+                    <li>Uses the <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/resources/commons-xdoc-templates/vote-txt-template.md">vote-txt-template.md</a>
                         template</li>
                     <li>Uses the <a href="vote-txt-mojo.html">goal's (i.e. mojo's) parameters</a> to filter values in the template</li>
                 </ul>

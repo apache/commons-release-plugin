@@ -240,7 +240,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
                 try {
                     final String digest;
                     // SHA-512
-                    digest = artifactSha512s.getProperty(artifactKey.toString());
+                    digest = artifactSha512s.getProperty(artifactKey);
                     getLog().info(artifact.getFile().getName() + " sha512: " + digest);
                     try (PrintWriter printWriter = new PrintWriter(
                             getSha512FilePath(workingDirectory, artifact.getFile()))) {
@@ -270,7 +270,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
 
     /**
      * Generates the unique artifact key for storage in our sha512 map. For example,
-     * commons-test-1.4-src.tar.gz should have it's name as the key.
+     * commons-test-1.4-src.tar.gz should have its name as the key.
      *
      * @param artifact the {@link Artifact} that we wish to generate a key for.
      * @return the generated key

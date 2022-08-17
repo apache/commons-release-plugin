@@ -78,8 +78,8 @@ limitations under the License.
         mirror.  If all mirrors are failing, there are <i>backup</i>
         mirrors (at the end of the mirrors list) that should be
         available.
-        <br></br>
-        [if-any logo]<a href="[link]"><img align="right" src="[logo]" border="0"></img></a>[end]
+        <br />
+        [if-any logo]<a href="[link]"><img align="right" src="[logo]" border="0" /></a>[end]
       </p>
 
       <form action="[location]" method="get" id="SelectMirror">

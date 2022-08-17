@@ -33,12 +33,12 @@
 <p>From the Apache Commons Project<br><a href="https://commons.apache.org/">https://commons.apache.org/</a></p>
 
 <h2><a name="mirrors">Download from your
-    <a href="http://www.apache.org/dyn/closer.cgi/commons/">nearest mirror site!</a></a></h2>
+    <a href="https://www.apache.org/dyn/closer.cgi/commons/">nearest mirror site!</a></a></h2>
 
 <p>
     Do not download from www.apache.org.  Please use a mirror site
     to help us save apache.org bandwidth.
-    <a href="http://www.apache.org/dyn/closer.cgi/commons/">Go
+    <a href="https://www.apache.org/dyn/closer.cgi/commons/">Go
         here to find your nearest mirror.</a>
 </p>
 
@@ -48,7 +48,7 @@
     there will be an accompanying <samp><em>file</em>.asc</samp> signature
     file in the same directory as the file (binaries/ or source/).  The
     signing keys can be found in the distribution directory at &lt;<a
-            HREF="http://downloads.apache.org/commons/KEYS"><samp>http://downloads.apache.org/commons/KEYS</samp></a>&gt;.</p>
+            HREF="https://downloads.apache.org/commons/KEYS"><samp>https://downloads.apache.org/commons/KEYS</samp></a>&gt;.</p>
 
 <p><b>Always download the KEYS file directly from the Apache site, never from a mirror site.</b></p>
 

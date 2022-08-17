@@ -45,8 +45,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class checks out the dev distribution location, checkes whether anything exists in the
- * distribution location, and if it is non-empty it deletes all of the resources there.
+ * This class checks out the dev distribution location, checks whether anything exists in the
+ * distribution location, and if it is non-empty it deletes all the resources there.
  *
  * @author chtompki
  * @since 1.6
@@ -72,15 +72,15 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
     private File workingDirectory;
 
     /**
-     * The location to which to checkout the dist subversion repository under our working directory, which
-     * was given above. We then do an SVN delete on all of the directories in this repository.
+     * The location to which to check out the dist subversion repository under our working directory, which
+     * was given above. We then do an SVN delete on all the directories in this repository.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm-cleanup",
             property = "commons.distCleanupDirectory")
     private File distCleanupDirectory;
 
     /**
-     * A boolean that determines whether or not we actually commit the files up to the subversion repository.
+     * A boolean that determines whether we actually commit the files up to the subversion repository.
      * If this is set to <code>true</code>, we do all but make the commits. We do checkout the repository in question
      * though.
      */
@@ -88,7 +88,7 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
     private Boolean dryRun;
 
     /**
-     * The url of the subversion repository to which we wish the artifacts to be staged. Typically this would need to
+     * The url of the subversion repository to which we wish the artifacts to be staged. Typically, this would need to
      * be of the form: <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>. Note. that
      * the prefix to the substring <code>https</code> is a requirement.
      */
