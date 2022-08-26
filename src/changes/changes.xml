@@ -40,6 +40,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.16.0 to 3.17.0 #119.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump junit-vintage-engine from 5.8.2 to 5.9.0 #125.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.7.1.0 to 4.7.1.1 #124.</action>
+      <action type="update" dev="kinow" due-to="Dependabot">Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #130.</action>
     </release>
     <release version="1.8.0" date="2022-03-13" description="Version 1.8">
       <action issue="COMMONSSITE-138" type="add" dev="chtompki, ggregory">Create signature validation script for releases.</action>
