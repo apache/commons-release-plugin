@@ -270,7 +270,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
 
     /**
      * Generates the unique artifact key for storage in our sha512 map. For example,
-     * commons-test-1.4-src.tar.gz should have it's name as the key.
+     * commons-test-1.4-src.tar.gz should have its name as the key.
      *
      * @param artifact the {@link Artifact} that we wish to generate a key for.
      * @return the generated key

@@ -40,7 +40,7 @@
                 <p>
                 This goal uses the following:
                 <ul>
-                    <li>The goal is mapped to the ant script/target using the <code>vote-txt</code> mojo defintion in the
+                    <li>The goal is mapped to the ant script/target using the <code>vote-txt</code> mojo definition in the
                         <a href="http://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.mojos.xml">generate-xdocs.mojos.xml</a> mapping document</li>
                     <li>Executes the <code>vote-txt</code> target in
                         <a href="http://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.build.xml">generate-xdocs.build.xml</a>

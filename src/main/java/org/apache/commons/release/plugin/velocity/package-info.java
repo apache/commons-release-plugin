@@ -17,12 +17,11 @@
 /**
  * Contains classes that take our velocity templates and render's them to a {@link java.io.Writer}
  * class.
- *
- * The main reason for velocity tempates are to fill out the
+ * <p>
+ * The main reason for velocity templates are to fill out the following files that get deployed alongside:
  * <ul>
  *     <li><code>HEADER.html</code></li>
  *     <li><code>README.html</code></li>
  * </ul>
- * That get deployed along side
  */
 package org.apache.commons.release.plugin.velocity;
