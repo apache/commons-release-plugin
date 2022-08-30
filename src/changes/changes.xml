@@ -26,6 +26,8 @@
 
   <body>
     <release version="1.8.1" date="2020-MM-DD" description="Version 1.8">
+      <!-- FIXES -->
+      <action type="update" dev="ggregory" due-to="Marc Wrobel">Fix minor typos #131.</action>
       <!-- UPDATES -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3 to 3.0.8 #123, #126, #128.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump actions/setup-java from 2 to 3 #108.</action>
