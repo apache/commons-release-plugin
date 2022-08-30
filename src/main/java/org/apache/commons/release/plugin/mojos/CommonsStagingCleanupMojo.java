@@ -45,8 +45,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class checks out the dev distribution location, checkes whether anything exists in the
- * distribution location, and if it is non-empty it deletes all of the resources there.
+ * This class checks out the dev distribution location, checks whether anything exists in the
+ * distribution location, and if it is non-empty it deletes all the resources there.
  *
  * @author chtompki
  * @since 1.6
@@ -73,7 +73,7 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
 
     /**
      * The location to which to checkout the dist subversion repository under our working directory, which
-     * was given above. We then do an SVN delete on all of the directories in this repository.
+     * was given above. We then do an SVN delete on all the directories in this repository.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm-cleanup",
             property = "commons.distCleanupDirectory")

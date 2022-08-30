@@ -32,7 +32,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  */
 public class HeaderHtmlVelocityDelegate {
 
-    /** The location of the velocity tempate for this class. */
+    /** The location of the velocity template for this class. */
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin/velocity/HEADER.vm";
 
     /** The private constructor to be used by the {@link HeaderHtmlVelocityDelegateBuilder}. */

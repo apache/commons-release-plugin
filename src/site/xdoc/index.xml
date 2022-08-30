@@ -42,7 +42,7 @@
             for detaching distribution artifacts (i.e. all <code>tar.gz</code> artifacts and
             signatures as well as all <code>.zip</code> artifacts and signatures), creating
             a <code>site.zip</code> file, and staging all of those artifacts in a subversion
-            repository (for the most part a sub directory of
+            repository (for the most part a subdirectory of
             <a href="https://dist.apache.org/repos/dist/dev/commons/">https://dist.apache.org/repos/dist/dev/commons/</a>.
             It can, however, stage to any subversion repository.
             </p>

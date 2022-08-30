@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 /**
- * This package contains all of the maven mojos for the commons-release-plugin. Currently
+ * This package contains all the maven mojos for the commons-release-plugin. Currently
  * this only has the following mojos:
  * <ul>
  *     <li>{@link org.apache.commons.release.plugin.mojos.CommonsDistributionDetachmentMojo},</li>

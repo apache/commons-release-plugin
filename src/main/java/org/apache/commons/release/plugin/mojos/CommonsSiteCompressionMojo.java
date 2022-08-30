@@ -65,7 +65,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     private File siteDirectory;
 
     /**
-     * The url of the subversion repository to which we wish the artifacts to be staged. Typicallly
+     * The url of the subversion repository to which we wish the artifacts to be staged. Typically
      * this would need to be of the form:
      * <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo</code>. Note. that the prefix to the
      * substring <code>https</code> is a requirement.
@@ -119,7 +119,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     }
 
     /**
-     * By default this method iterates across the <code>target/site</code> directory and adds all of the files
+     * By default this method iterates across the <code>target/site</code> directory and adds all the files
      * to the {@link CommonsSiteCompressionMojo#filesToCompress} {@link List}.
      *
      * @param siteDirectory the {@link File} that represents the <code>target/site</code> directory.
@@ -136,7 +136,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     }
 
     /**
-     * A helper method for writing all of the files in our <code>fileList</code> to a <code>site.zip</code> file
+     * A helper method for writing all the files in our <code>fileList</code> to a <code>site.zip</code> file
      * in the <code>workingDirectory</code>.
      *
      * @param outputDirectory is a {@link File} representing the place to put the site.zip file.
