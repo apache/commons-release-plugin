@@ -62,7 +62,6 @@ import org.apache.maven.settings.crypto.SettingsDecrypter;
  * structure under the <code>target/commons-release-plugin/scm</code> directory. Then commits the
  * distributions back up to SVN. Also, we include the built and zipped site as well as the RELEASE-NOTES.txt.
  *
- * @author chtompki
  * @since 1.0
  */
 @Mojo(name = "stage-distributions",

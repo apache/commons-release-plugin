@@ -27,7 +27,6 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * This class' purpose is to generate the <code>HEADER.html</code> that moves along with the
  * release for the sake of downloading the release from the distribution area.
  *
- * @author chtompki
  * @since 1.3
  */
 public class HeaderHtmlVelocityDelegate {

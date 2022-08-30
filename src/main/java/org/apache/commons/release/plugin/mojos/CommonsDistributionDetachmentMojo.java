@@ -47,7 +47,6 @@ import org.apache.maven.project.MavenProject;
  * which for the Apache Commons Project do not get uploaded to Nexus, and putting those artifacts
  * in the dev distribution location for Apache projects.
  *
- * @author chtompki
  * @since 1.0
  */
 @Mojo(name = "detach-distributions",

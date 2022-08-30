@@ -34,7 +34,6 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  * Shared static functions for all of our Mojos.
  *
- * @author chtompki
  * @since 1.0
  */
 public final class SharedFunctions {

@@ -23,7 +23,6 @@
  *     <li>{@link org.apache.commons.release.plugin.mojos.CommonsSiteCompressionMojo}</li>
  * </ul>
  *
- * @author chtompki
  * @since 1.0
  */
 package org.apache.commons.release.plugin.mojos;

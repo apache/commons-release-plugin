@@ -48,7 +48,6 @@ import java.util.List;
  * This class checks out the dev distribution location, checks whether anything exists in the
  * distribution location, and if it is non-empty it deletes all the resources there.
  *
- * @author chtompki
  * @since 1.6
  */
 @Mojo(name = "clean-staging",

@@ -39,7 +39,6 @@ import org.apache.maven.plugins.annotations.Parameter;
  * Takes the built <code>./target/site</code> directory and compresses it to
  * <code>./target/commons-release-plugin/site.zip</code>.
  *
- * @author chtompki
  * @since 1.0
  * @deprecated - as we no longer wish to compress the site, we are going to put this functionality in the
  *               {@link CommonsDistributionStagingMojo}.
