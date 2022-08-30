@@ -26,8 +26,6 @@ import static junit.framework.TestCase.assertTrue;
 
 /**
  * Unit tests for {@link ReadmeHtmlVelocityDelegate}.
- *
- * @author chtompki
  */
 public class ReadmeHtmlVelocityDelegateTest {
 

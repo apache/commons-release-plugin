@@ -34,7 +34,6 @@ import org.apache.maven.project.MavenProject;
  * usage of
  * this class.
  *
- * @author chtompki
  * @since 1.0
  */
 public class DistributionDetachmentProjectStub extends MavenProjectStub {

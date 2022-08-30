@@ -30,8 +30,6 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit tests for {@link CommonsDistributionDetachmentMojo}.
- *
- * @author chtompki
  */
 public class CommonsDistributionDetachmentMojoTest {
 

@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Unit tests for {@link CommonsDistributionStagingMojo}.
  *
- * @author chtompki
  * @since 1.0.
  */
 public class CommonsDistributionStagingMojoTest {

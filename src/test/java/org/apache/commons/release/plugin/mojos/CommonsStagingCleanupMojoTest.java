@@ -30,7 +30,6 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Unit tests for {@link CommonsSiteCompressionMojo}.
  *
- * @author chtompki
  * @since 1.0
  */
 public class CommonsStagingCleanupMojoTest {

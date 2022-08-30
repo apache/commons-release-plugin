@@ -21,7 +21,6 @@
  * property. The maven unit testing framework then wires this stubbed object into the appropriate mojo
  * for testing purposes.
  *
- * @author chtompki
  * @since 1.0
  */
 package org.apache.commons.release.plugin.stubs;
