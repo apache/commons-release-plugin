@@ -111,6 +111,7 @@
     <checkstyle.plugin.version>3.2.0</checkstyle.plugin.version>
     <checkstyle.version>9.3</checkstyle.version>
     <maven-scm.version>1.13.0</maven-scm.version>
+    <commons.junit.version>5.9.1</commons.junit.version>
     <commons.spotbugs.version>4.7.2.0</commons.spotbugs.version>
     <commons.spotbugs.impl.version>4.7.2</commons.spotbugs.impl.version>    
     <commons.jacoco.version>0.8.8</commons.jacoco.version>
@@ -213,7 +214,6 @@
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
-      <version>5.9.1</version>
       <scope>test</scope>
     </dependency>
     <!--  A bit of jar-hell requires this to come last. -->
