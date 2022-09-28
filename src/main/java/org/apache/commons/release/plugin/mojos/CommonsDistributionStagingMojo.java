@@ -185,7 +185,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
     /**
      * A subdirectory of the dist directory into which we are going to stage the release candidate. We
      * build this up in the {@link CommonsDistributionStagingMojo#execute()} method. And, for example,
-     * the directory should look like <code>https://https://dist.apache.org/repos/dist/dev/commons/text/1.4-RC1</code>.
+     * the directory should look like <code>https://dist.apache.org/repos/dist/dev/commons/text/1.4-RC1</code>.
      */
     private File distRcVersionDirectory;
 
