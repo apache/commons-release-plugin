@@ -29,7 +29,7 @@
       <!-- FIXES -->
       <action type="update" dev="ggregory" due-to="Marc Wrobel">Fix minor typos #131.</action>
       <!-- UPDATES -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3 to 3.0.8 #123, #126, #128.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3 to 3.0.9 #123, #126, #128, #139.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/checkout from 3 to 3.0.2.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump actions/setup-java from 2 to 3 #108.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump github/codeql-action from 1 to 2 #109.</action>
