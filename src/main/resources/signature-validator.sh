@@ -106,7 +106,7 @@ function validate_signatures() {
     if [[ ${element} =~ ^.*tar.gz.*$ || ${element} =~ ^.*zip.*$ ]];
     then
       ARTIFACT_SHA512=$(openssl sha512 ${VALIDATION_DIR}/$element | cut -d '=' -f2 | cut -d ' ' -f2)
-      FILE_SHA512=$(cut -d$'\r' -f1 ${VALIDATION_DIR}/$element.sha512)
+      FILE_SHA512=$(cut -d$'\r' -f1 ${VALIDATION_DIR}/$element.sha512 | cut -d ' ' -f1)
       if test "${ARTIFACT_SHA512}" != "${FILE_SHA512}"
       then
         echo "$element failed sha512 check"
