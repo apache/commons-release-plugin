@@ -5,9 +5,9 @@
     The ASF licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
     the License.  You may obtain a copy of the License at
-   
+
          http://www.apache.org/licenses/LICENSE-2.0
-   
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,11 +45,11 @@
           </filterchain>
         </loadresource>
 
-    	<echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - START   ]-----" />
-    	<echo level="${level}" message="The SVN RC URL must be '${svn.dist.url}'" />
-    	<echo level="${level}" message="The Git RC tag must be '${git.tag.name}'" />
-    	<echo level="${level}" message="The SVN site URL must be '${svn.site.url}'" />
-    	<echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - END     ]-----" />
+        <echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - START   ]-----" />
+        <echo level="${level}" message="The SVN RC URL must be '${svn.dist.url}'" />
+        <echo level="${level}" message="The Git RC tag must be '${git.tag.name}'" />
+        <echo level="${level}" message="The SVN site URL must be '${svn.site.url}'" />
+        <echo level="${level}" message="-----[ commons-release:vote-txt - Expectations - END     ]-----" />
         <echo level="${level}" message="" />
         <echo level="${level}" message="-----[ commons-release:vote-txt - Parameters - START     ]-----" />
         <echo level="${level}" message="project.name                : ${project.name}" />
@@ -59,7 +59,7 @@
         <echo level="${level}" message="commons.jira.id             : ${commons.jira.id}" />
         <echo level="${level}" message="commons.release.version     : ${commons.release.version}" />
         <echo level="${level}" message="commons.rc.version          : ${commons.rc.version}" />
-        <echo level="${level}" message="commons.bc.version          : ${commons.bc.version}" />    	
+        <echo level="${level}" message="commons.bc.version          : ${commons.bc.version}" />
         <echo level="${level}" message="commons.componentid         : ${commons.componentid}" />
         <echo level="${level}" message="commons.releaseManagerName  : ${commons.releaseManagerName}" />
         <echo level="${level}" message="commons.releaseManagerKey   : ${commons.releaseManagerKey}" />
@@ -71,9 +71,9 @@
         <!-- Create a temporary directory to load the template files into -->
         <mkdir dir="${commonsMojoTempDir}"/>
 
-    	<!-- Load SHA-512 file created by the deploy goal -->
-    	<loadfile property="commons.sha512list" srcFile="target/commons-release-plugin/sha512.properties" failonerror="false"/>
-    	
+        <!-- Load SHA-512 file created by the deploy goal -->
+        <loadfile property="commons.sha512list" srcFile="target/commons-release-plugin/sha512.properties" failonerror="false"/>
+
         <!-- Load the vote-txt template from mojo resources to temp directory -->
         <loadresource property="vote-txt">
             <javaresource name="${commonsMojoXdocDir}/vote-txt-template.txt"/>
@@ -91,13 +91,13 @@
             </filterchain>
         </loadresource>
 
-    	<!-- Get the SVN revision from the dist repository. -->
+        <!-- Get the SVN revision from the dist repository. -->
         <exec executable="svn" outputproperty="svn.rc.revision">
           <arg line="info ${svn.dist.url} --show-item revision" />
         </exec>
         <echo level="${level}" message="svn.rc.revision             : ${svn.rc.revision}" />
 
-    	<!-- Get the Git commit hash for the RC tag. -->
+        <!-- Get the Git commit hash for the RC tag. -->
         <exec executable="git" outputproperty="git.tag.commit">
           <arg line="rev-list -n 1 ${git.tag.name}" />
         </exec>
@@ -116,14 +116,14 @@
              <filter token="RC"             value="${commons.rc.version}"/>
              <filter token="BC"             value="${commons.bc.version}"/>
              <filter token="DESCRIPTION"    value="${project.description}"/>
-             <filter token="ID"             value="${commons.componentid}"/>            	
-             <filter token="RMNAME"         value="${commons.releaseManagerName}"/>            	
-             <filter token="RMKEY"          value="${commons.releaseManagerKey}"/>            	
-             <filter token="RCREV"          value="${svn.rc.revision}"/>            	
-             <filter token="SHA512LIST"     value="${commons.sha512list}"/>            	
-             <filter token="DISTURL"        value="${svn.dist.url}"/>            	
-             <filter token="TAGNAME"        value="${git.tag.name}"/>            	
-             <filter token="TAGCOMMIT"      value="${git.tag.commit}"/>            	
+             <filter token="ID"             value="${commons.componentid}"/>
+             <filter token="RMNAME"         value="${commons.releaseManagerName}"/>
+             <filter token="RMKEY"          value="${commons.releaseManagerKey}"/>
+             <filter token="RCREV"          value="${svn.rc.revision}"/>
+             <filter token="SHA512LIST"     value="${commons.sha512list}"/>
+             <filter token="DISTURL"        value="${svn.dist.url}"/>
+             <filter token="TAGNAME"        value="${git.tag.name}"/>
+             <filter token="TAGCOMMIT"      value="${git.tag.commit}"/>
              <filter token="SITEURL"        value="${svn.site.url}"/>
              <filter token="NEXUS_REPO_ID"  value="${commons.nexus.repo.id}"/>
             </filterset>
