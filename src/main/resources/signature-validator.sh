@@ -51,43 +51,43 @@ SOURCE_DIR=${BASEDIR}/source
 BASE_NEXUS_URL="$1"
 
 function clean_and_build_validation_dir() {
-	mkdir -p ${VALIDATION_DIR}
+  mkdir -p ${VALIDATION_DIR}
 }
 
 function copy_in_checked_out_artifacts() {
-	cp ${BASEDIR}/binaries/commons* ${VALIDATION_DIR}
-	cp ${BASEDIR}/source/commons* ${VALIDATION_DIR}
+  cp ${BASEDIR}/binaries/commons* ${VALIDATION_DIR}
+  cp ${BASEDIR}/source/commons* ${VALIDATION_DIR}
 }
 
 function download_nexus_artifacts_to_validation_directory() {
-	# Curls html page and does text modification to put artifacts in semicolon delimited list
-	# ...(ugly but works, debug by removing pipes one at a time)
-	echo "INFO: Downloading artifacts from nexus"
-	NEXUS_ARTIFACTS=$(curl ${BASE_NEXUS_URL} \
-	                       | grep "${BASE_NEXUS_URL}" \
-	                       | cut -d '>' -f3 \
-	                       | sed "s|</a|;|g" \
-	                       | sed ':a;N;$!ba;s/\n/ /g' \
-	                       | sed 's/ //g'
-	                )
+  # Curls html page and does text modification to put artifacts in semicolon delimited list
+  # ...(ugly but works, debug by removing pipes one at a time)
+  echo "INFO: Downloading artifacts from nexus"
+  NEXUS_ARTIFACTS=$(curl ${BASE_NEXUS_URL} \
+                         | grep "${BASE_NEXUS_URL}" \
+                         | cut -d '>' -f3 \
+                         | sed "s|</a|;|g" \
+                         | sed ':a;N;$!ba;s/\n/ /g' \
+                         | sed 's/ //g'
+                  )
 
-	IFS=';' read -r -a array <<< "${NEXUS_ARTIFACTS}"
+  IFS=';' read -r -a array <<< "${NEXUS_ARTIFACTS}"
 
-	for element in "${array[@]}"
-	do
-		ARTIFACT_NAME=$(echo $element | cut -d '/' -f7)
-		echo $ARTIFACT_NAME
-		URL="${BASE_NEXUS_URL}${element}"
-		curl $URL -o ${VALIDATION_DIR}/$ARTIFACT_NAME
-	done
+  for element in "${array[@]}"
+  do
+    ARTIFACT_NAME=$(echo $element | cut -d '/' -f7)
+    echo $ARTIFACT_NAME
+    URL="${BASE_NEXUS_URL}${element}"
+    curl $URL -o ${VALIDATION_DIR}/$ARTIFACT_NAME
+  done
 }
 
 function validate_signatures() {
-	echo "INFO: Validating Signatures in ${VALIDATION_DIR}"
-	ALL_ARTIFACTS=$(ls -Al ${VALIDATION_DIR} \
-	                                  | awk -F':[0-9]* ' '/:/{print $2}' \
-	                                  | sed ':a;N;$!ba;s/\n/;/g'
-	                         )
+  echo "INFO: Validating Signatures in ${VALIDATION_DIR}"
+  ALL_ARTIFACTS=$(ls -Al ${VALIDATION_DIR} \
+                                    | awk -F':[0-9]* ' '/:/{print $2}' \
+                                    | sed ':a;N;$!ba;s/\n/;/g'
+                           )
 
   ARTIFACTS_FOR_VALIDATION=()
 
@@ -101,7 +101,7 @@ function validate_signatures() {
     fi
   done
 
-	for element in "${ARTIFACTS_FOR_VALIDATION[@]}"
+  for element in "${ARTIFACTS_FOR_VALIDATION[@]}"
   do
     if [[ ${element} =~ ^.*tar.gz.*$ || ${element} =~ ^.*zip.*$ ]];
     then
