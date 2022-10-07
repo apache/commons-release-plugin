@@ -19,10 +19,10 @@
 <!--
   Mojo metadata for "Commons Build: Standard XDOC Pages Generation".
 -->
-<pluginMetadata     
+<pluginMetadata
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/PLUGIN-METADATA/1.1.0"
-    xsi:schemaLocation="http://maven.apache.org/PLUGIN-METADATA/1.1.0 http://maven.apache.org/xsd/plugin-metadata-1.1.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/PLUGIN-METADATA/1.1.0 https://maven.apache.org/components/plugin-tools/maven-script/maven-plugin-tools-model/plugin-metadata-1.1.0.xsd">
   <mojos>
     <mojo>
       <goal>vote-txt</goal>
