@@ -42,7 +42,7 @@
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven.dependency.version from 3.8.5 to 3.8.6 #120.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.16.0 to 3.19.0 #119, #129, #135.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump junit-vintage-engine from 5.8.2 to 5.9.1 #125, #136.</action>
-      <action type="update" dev="kinow" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.7.1.0 to 4.7.1.1 #124.</action>
+      <action type="update" dev="kinow" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.7.1.0 to 4.7.2.1 #124, #142.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #130.</action>
     </release>
     <release version="1.8.0" date="2022-03-13" description="Version 1.8">
