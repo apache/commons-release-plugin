@@ -40,7 +40,7 @@
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven.dependency.version from 3.8.5 to 3.8.6 #120.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.16.0 to 3.19.0 #119, #129, #135.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump junit-vintage-engine from 5.8.2 to 5.9.1 #125, #136.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.2.1 #106, #115, #122, #124, #133, #142.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.3.0 #106, #115, #122, #124, #133, #142, #150.</action>
       <action type="update" dev="kinow" due-to="Gary Gregory, Dependabot">Bump spotbugs from 4.6.0 to 4.7.3 #114, #134, #145.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #130.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump commons-compress from 1.21 to 1.22 #148.</action>
