@@ -97,10 +97,14 @@ Requirements: Git, Java, Maven.
 
 You can validate a release from a release candidate (RC) tag as follows.
 
-1) Clone and checkout the RC tag
+1a) Clone and checkout the RC tag
 
 git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
 cd @TAGNAME@
+
+1b) Download and unpack the source archive from:
+
+@DISTURL@/source
 
 2) Check Apache licenses
 
@@ -147,5 +151,9 @@ mvn site:stage
 Check the site reports in:
 - Windows: target\site\index.html
 - Linux: target/site/index.html
+
+Note that the project reports are created for each module.
+Modules can be accessed using the 'Project Modules' link under
+the 'Project Information' menu (see <path-to-site>/modules.html).
 
 -the end-
