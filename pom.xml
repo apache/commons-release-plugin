@@ -108,7 +108,7 @@
       https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}
     </commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
-    <checkstyle.plugin.version>3.2.0</checkstyle.plugin.version>
+    <checkstyle.plugin.version>3.2.1</checkstyle.plugin.version>
     <checkstyle.version>9.3</checkstyle.version>
     <maven-scm.version>1.13.0</maven-scm.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
