@@ -325,7 +325,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${commons.javadoc.version}</version>
         <configuration>
           <!-- keep only errors and warnings -->
           <show>private</show>
