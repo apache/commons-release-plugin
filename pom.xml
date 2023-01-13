@@ -108,8 +108,6 @@
       https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}
     </commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
-    <checkstyle.plugin.version>3.2.1</checkstyle.plugin.version>
-    <checkstyle.version>9.3</checkstyle.version>
     <maven-scm.version>1.13.0</maven-scm.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.1</commons.jacoco.instructionRatio>
@@ -345,7 +343,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.plugin.version}</version>
         <configuration>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <headerLocation>${basedir}/license-header.txt</headerLocation>
@@ -362,13 +359,6 @@
             </goals>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>com.puppycrawl.tools</groupId>
-            <artifactId>checkstyle</artifactId>
-            <version>${checkstyle.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -510,7 +500,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.plugin.version}</version>
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
