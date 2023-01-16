@@ -132,7 +132,7 @@
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Gary Gregory</commons.releaseManagerName>
     <commons.releaseManagerKey>86fdc7e2a11262cb</commons.releaseManagerKey>
-    <maven.plugin.version>3.7.0</maven.plugin.version>
+    <maven.plugin.version>3.7.1</maven.plugin.version>
     <commons.build-plugin.version>1.12</commons.build-plugin.version>
   </properties>
 
