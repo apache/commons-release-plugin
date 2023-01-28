@@ -151,7 +151,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
                 .toPath());
              ZipOutputStream zos = new ZipOutputStream(fos)) {
             for (final File file : fileList) {
-                if (!file.isDirectory()) { // we only zip files, not directories
+                if (!file.isDirectory()) { // we only ZIP files, not directories
                     addToZip(directoryToZip, file, zos);
                 }
             }
@@ -159,7 +159,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     }
 
     /**
-     * Given the <code>directoryToZip</code> we add the <code>file</code> to the zip archive represented by
+     * Given the <code>directoryToZip</code> we add the <code>file</code> to the ZIP archive represented by
      * <code>zos</code>.
      *
      * @param directoryToZip a {@link File} representing the directory from which the file exists that we are
