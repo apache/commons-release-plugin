@@ -80,7 +80,7 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
 
     /**
      * A boolean that determines whether or not we actually commit the files up to the subversion repository.
-     * If this is set to <code>true</code>, we do all but make the commits. We do checkout the repository in question
+     * If this is set to {@code true}, we do all but make the commits. We do checkout the repository in question
      * though.
      */
     @Parameter(property = "commons.release.dryRun", defaultValue = "false")
