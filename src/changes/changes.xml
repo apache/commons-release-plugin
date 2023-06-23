@@ -32,10 +32,10 @@
       <action type="fix" dev="chtompki">Fix the signature validation script</action>
       <action type="fix" dev="ggregory" due-to="Marc Wrobel">Fix minor typos #131.</action>
       <!-- UPDATES -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3 to 3.0.10 #123, #126, #128, #139, #140.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump actions/checkout from 3 to 3.1.0 #141.</action>
-      <action type="update" dev="kinow" due-to="Dependabot">Bump actions/setup-java from 2 to 3.5.1. #108.</action>
-      <action type="update" dev="kinow" due-to="Dependabot">Bump github/codeql-action from 1 to 2 #109.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump actions/checkout.</action>
+      <action type="update" dev="kinow" due-to="Dependabot">Bump actions/setup-java.</action>
+      <action type="update" dev="kinow" due-to="Dependabot">Bump github/codeql-action.</action>
       <action type="update" dev="kinow" due-to="Dependabot, Gary Gregory">Bump commons-parent from 52 to 58 #111, #137, #153, #162.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump jacoco-maven-plugin from 0.8.7 to 0.8.8 #112.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump plexus-velocity from 1.3 to 2.0 #116.</action>
