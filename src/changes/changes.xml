@@ -31,6 +31,7 @@
       <!-- FIXES -->
       <action type="fix" dev="chtompki">Fix the signature validation script</action>
       <action type="fix" dev="ggregory" due-to="Marc Wrobel">Fix minor typos #131.</action>
+      <action type="fix" dev="ggregory" due-to="step-security-bot, Gary Gregory">[StepSecurity] ci: Harden GitHub Actions #187.</action>
       <!-- UPDATES -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump actions/checkout.</action>
