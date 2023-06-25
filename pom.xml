@@ -95,7 +95,6 @@
   </developers>
 
   <properties>
-    <!-- clirr.failOnError=False-->
     <failOnError>false</failOnError>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -103,15 +102,13 @@
     <!-- 3.8.3 fails because MavenProject.getAttachedArtifacts() returns an IMMUTABLE collection and we want to change it! -->
     <maven.dependency.version>3.9.1</maven.dependency.version>
     <commons.componentid>release-plugin</commons.componentid>
-    <commons.dist.subdir>commons-release-plugin</commons.dist.subdir>
+    <commons.dist.subdir>release-plugin</commons.dist.subdir>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
     <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
-    <commons.release.version>${project.version}</commons.release.version>
-    <commons.site.path>commons-release-plugin</commons.site.path>
+    <commons.site.path>release-plugin</commons.site.path>
     <commons.manifestfile/>
-    <commons.scmPubUrl>
-      https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}
-    </commons.scmPubUrl>
+    <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}</commons.distSvnStagingUrl>
+    <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <maven-scm.version>2.0.0</maven-scm.version>
     <commons.jacoco.classRatio>0.1</commons.jacoco.classRatio>
@@ -129,14 +126,14 @@
     <!-- This is used by reporting plugins -->
     <project.reporting.outputEncoding>${commons.encoding}</project.reporting.outputEncoding>
 
-    <!-- Including commons release plugin older version -->
     <commons.release.isDistModule>true</commons.release.isDistModule>
+    <commons.release.version>1.8.1</commons.release.version>
     <commons.bc.version>1.7</commons.bc.version>
-    <commons.release.version>1.8.0</commons.release.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Gary Gregory</commons.releaseManagerName>
     <commons.releaseManagerKey>86fdc7e2a11262cb</commons.releaseManagerKey>
+    <!-- Including commons release plugin older version -->
     <maven.plugin.version>3.8.2</maven.plugin.version>
     <commons.build-plugin.version>1.12</commons.build-plugin.version>
   </properties>
@@ -656,8 +653,7 @@
             <artifactId>commons-release-plugin</artifactId>
             <version>${commons.release-plugin.version}</version>
             <configuration>
-              <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/commons-release-plugin
-              </distSvnStagingUrl>
+              <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}</distSvnStagingUrl>
             </configuration>
             <executions>
               <execution>

@@ -1,4 +1,61 @@
 Apache Commons Release Plugin
+Version 1.8.1
+Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 1.8.1 version of Apache Commons Release Plugin: 
+An Apache Maven Mojo for Apache Commons Release tasks.
+
+Apache Maven Mojo for Apache Commons Release tasks.
+
+Version 1.8.1
+
+Changes in this version include:
+
+
+Fixed Bugs:
+o                   Fix the signature validation script
+o                   Fix minor typos #131. Thanks to Marc Wrobel.
+o                   [StepSecurity] ci: Harden GitHub Actions #187. Thanks to step-security-bot, Gary Gregory.
+
+Changes:
+o                   Bump actions/cache. Thanks to Gary Gregory.
+o                   Bump actions/checkout. Thanks to Gary Gregory, Dependabot.
+o                   Bump actions/setup-java. Thanks to Dependabot.
+o                   Bump github/codeql-action. Thanks to Dependabot.
+o                   Bump commons-parent from 52 to 58 #111, #137, #153, #162. Thanks to Dependabot, Gary Gregory.
+o                   Bump jacoco-maven-plugin from 0.8.7 to 0.8.8 #112. Thanks to Dependabot.
+o                   Bump plexus-velocity from 1.3 to 2.0 #116. Thanks to Dependabot.
+o                   Bump maven-scm.version from 1.12.2 to 2.0.0 #117, #180. Thanks to Dependabot.
+o                   Bump maven.dependency.version from 3.8.5 to 3.9.1 #120, #161, #172, #179. Thanks to Dependabot.
+o                   Bump maven-pmd-plugin from 3.16.0 to 3.19.0 #119, #129, #135. Thanks to Dependabot.
+o                   Bump junit-vintage-engine from 5.8.2 to 5.9.1 #125, #136. Thanks to Dependabot.
+o                   Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.3.0 #106, #115, #122, #124, #133, #142, #150. Thanks to Dependabot.
+o                   Bump spotbugs from 4.6.0 to 4.7.3 #114, #134, #145. Thanks to Gary Gregory, Dependabot.
+o                   Bump maven-checkstyle-plugin from 3.1.2 to 3.2.1 #130, #166. Thanks to Dependabot.
+o                   Bump commons-compress from 1.21 to 1.23.0 #148, #181. Thanks to Dependabot.
+o                   Bump maven.plugin.version from 3.6.4 to 3.8.2 #149, #168, #174, #185. Thanks to Dependabot.
+o                   Bump commons-io from 2.11.0 to 2.13.0. Thanks to Gary Gregory.
+o                   Bump commons-codec:commons-codec from 1.15 to 1.16.0. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin/changes-report.html
+
+For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
+
+https://commons.apache.org/proper/commons-release-plugin/
+
+Download page: https://commons.apache.org/proper/commons-release-plugin/download_release-plugin.cgi
+
+Have fun!
+-Apache Commons Team
+
+=============================================================================
+
+Apache Commons Release Plugin
 Version 1.8.0
 Release Notes
 
@@ -47,14 +104,14 @@ o                   Bump junit-vintage-engine from 5.7.2 to 5.8.2 #70, #75, #90.
 o                   Bump taglist-maven-plugin from 2.4 to 3.0.0 #100. Thanks to Dependabot.
 
 
-Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin/changes-report.html
 
 For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
 
 https://commons.apache.org/proper/commons-release-plugin/
 
-Download page: https://commons.apache.org/proper/commons-release-plugin/download_commons-release-plugin.cgi
+Download page: https://commons.apache.org/proper/commons-release-plugin/download_release-plugin.cgi
 
 Have fun!
 -Apache Commons Team

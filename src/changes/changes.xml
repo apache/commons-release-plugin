@@ -27,7 +27,7 @@
   </properties>
 
   <body>
-    <release version="1.8.1" date="2020-MM-DD" description="Version 1.8">
+    <release version="1.8.1" date="2023-06-25" description="Version 1.8.1">
       <!-- FIXES -->
       <action type="fix" dev="chtompki">Fix the signature validation script</action>
       <action type="fix" dev="ggregory" due-to="Marc Wrobel">Fix minor typos #131.</action>
@@ -50,7 +50,7 @@
       <action type="update" dev="kinow" due-to="Dependabot">Bump commons-compress from 1.21 to 1.23.0 #148, #181.</action>
       <action type="update" dev="kinow" due-to="Dependabot">Bump maven.plugin.version from 3.6.4 to 3.8.2 #149, #168, #174, #185.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-io from 2.11.0 to 2.13.0.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-codec:commons-codec from 1.15 to 1.16.0.</action
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-codec:commons-codec from 1.15 to 1.16.0.</action>
     </release>
     <release version="1.8.0" date="2022-03-13" description="Version 1.8">
       <action issue="COMMONSSITE-138" type="add" dev="chtompki, ggregory">Create signature validation script for releases.</action>
