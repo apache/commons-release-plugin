@@ -48,6 +48,11 @@
     <url>https://gitbox.apache.org/repos/asf?p=commons-release-plugin.git</url>
   </scm>
 
+  <ciManagement>
+    <system>GitHub</system>
+    <url>https://github.com/apache/commons-release-plugin/actions</url>
+  </ciManagement>
+
   <distributionManagement>
     <site>
       <id>commons.site</id>
