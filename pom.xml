@@ -127,8 +127,8 @@
     <project.reporting.outputEncoding>${commons.encoding}</project.reporting.outputEncoding>
 
     <commons.release.isDistModule>true</commons.release.isDistModule>
-    <commons.release.version>1.8.1</commons.release.version>
-    <commons.bc.version>1.7</commons.bc.version>
+    <commons.release.version>1.8.2</commons.release.version>
+    <commons.bc.version>1.8.1</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.releaseManagerName>Gary Gregory</commons.releaseManagerName>
