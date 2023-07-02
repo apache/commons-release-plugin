@@ -27,6 +27,8 @@
   </properties>
 
   <body>
+    <release version="1.8.2" date="20YY-MM-DD" description="Version 1.8.2">
+    </release>
     <release version="1.8.1" date="2023-06-25" description="Version 1.8.1">
       <!-- FIXES -->
       <action type="fix" dev="chtompki">Fix the signature validation script</action>
