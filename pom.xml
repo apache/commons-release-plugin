@@ -134,7 +134,7 @@
     <commons.releaseManagerName>Gary Gregory</commons.releaseManagerName>
     <commons.releaseManagerKey>86fdc7e2a11262cb</commons.releaseManagerKey>
     <!-- Including commons release plugin older version -->
-    <maven.plugin.version>3.8.2</maven.plugin.version>
+    <maven.plugin.version>3.9.0</maven.plugin.version>
     <commons.build-plugin.version>1.12</commons.build-plugin.version>
   </properties>
 
