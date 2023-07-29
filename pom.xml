@@ -136,6 +136,8 @@
     <!-- Including commons release plugin older version -->
     <maven.plugin.version>3.9.0</maven.plugin.version>
     <commons.build-plugin.version>1.12</commons.build-plugin.version>
+    <!-- Until Maven plugins used here don't fail the Moditect plugin -->
+    <moditect.skip>true</moditect.skip>
   </properties>
 
   <dependencies>
