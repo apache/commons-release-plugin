@@ -16,13 +16,13 @@
  */
 package org.apache.commons.release.plugin.velocity;
 
-import org.junit.Test;
+import static junit.framework.TestCase.assertTrue;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import static junit.framework.TestCase.assertTrue;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link ReadmeHtmlVelocityDelegate}.

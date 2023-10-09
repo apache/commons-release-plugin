@@ -16,6 +16,10 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.maven.plugin.AbstractMojo;
@@ -39,10 +43,6 @@ import org.apache.maven.scm.provider.svn.svnexe.SvnExeScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
 import org.apache.maven.settings.Settings;
 import org.apache.maven.settings.crypto.SettingsDecrypter;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * This class checks out the dev distribution location, checks whether anything exists in the

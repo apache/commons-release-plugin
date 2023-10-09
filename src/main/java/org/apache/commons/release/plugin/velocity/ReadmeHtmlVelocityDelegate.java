@@ -17,6 +17,7 @@
 package org.apache.commons.release.plugin.velocity;
 
 import java.io.Writer;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;

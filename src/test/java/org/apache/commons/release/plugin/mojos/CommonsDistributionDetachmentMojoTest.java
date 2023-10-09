@@ -16,17 +16,17 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+
 import org.apache.maven.plugin.testing.MojoRule;
 import org.codehaus.plexus.util.FileUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.io.File;
-
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit tests for {@link CommonsDistributionDetachmentMojo}.
