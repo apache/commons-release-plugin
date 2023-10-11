@@ -105,7 +105,7 @@
     <commons.dist.subdir>release-plugin</commons.dist.subdir>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
     <commons.jira.pid>12310466&amp;amp;component=12312401</commons.jira.pid>
-    <commons.site.path>release-plugin</commons.site.path>
+    <commons.site.path>commons-release-plugin</commons.site.path>
     <commons.manifestfile/>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}</commons.distSvnStagingUrl>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/${commons.site.path}</commons.scmPubUrl>
@@ -627,7 +627,7 @@
                 </goals>
                 <phase>pre-site</phase>
                 <configuration>
-                  <tasks>
+                  <target>
                     <exec executable="svn">
                       <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}"/>
                     </exec>
@@ -642,7 +642,7 @@
                     <exec executable="svn">
                       <arg line="update --set-depth infinity ${dirs}"/>
                     </exec>
-                  </tasks>
+                  </target>
                 </configuration>
               </execution>
             </executions>
