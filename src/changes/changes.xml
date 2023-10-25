@@ -34,7 +34,7 @@
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven.plugin-tools:maven-plugin-tools-ant from 3.9.0 to 3.10.1.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent 58 to 64. #209.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress 1.23.0 to 1.24.0.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-io:commons-io from 2.13.0 to 2.14.0.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-io:commons-io from 2.13.0 to 2.15.0.</action>
     </release>
     <release version="1.8.1" date="2023-06-25" description="Version 1.8.1">
       <!-- FIXES -->
