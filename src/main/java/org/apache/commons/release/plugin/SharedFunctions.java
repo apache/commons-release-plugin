@@ -165,7 +165,8 @@ public final class SharedFunctions {
     }
 
     /**
-     * Set authentication information on the specified {@link ScmProviderRepository}.
+     * Sets authentication information on the specified {@link ScmProviderRepository}.
+     *
      * @param providerRepository target.
      * @param distServer temp.
      * @param settings temp.
