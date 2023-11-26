@@ -55,8 +55,6 @@ public class ReadmeHtmlVelocityDelegateTest {
         }
     }
 
-
-
     @Test
     public void testSuccessfulRunBcel() throws IOException {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
