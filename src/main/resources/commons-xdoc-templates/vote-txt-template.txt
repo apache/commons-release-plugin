@@ -18,7 +18,7 @@
 To: dev@commons.apache.org
 Subject: [VOTE] Release @NAME@ @VERSION@ based on @RC@
 
-We have fixed quite a few bugs and added some significant enhancements since @NAME@ @BC@ was released, so I would like to release @NAME@ @VERSION@.
+We have fixed a few bugs and added some enhancements since @NAME@ @BC@ was released, so I would like to release @NAME@ @VERSION@.
 
 @NAME@ @VERSION@ @RC@ is available for review here:
     @DISTURL@ (svn revision @RCREV@)
