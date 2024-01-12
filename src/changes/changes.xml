@@ -15,9 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-
 <!-- Description: http://maven.apache.org/plugins/maven-changes-plugin/changes.html -->
-
 <document xmlns="http://maven.apache.org/changes/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
@@ -25,7 +23,6 @@
     <title>Apache Commons Release Plugin Changes</title>
     <author email="dev@commons.apache.org">Apache Commons Developers</author>
   </properties>
-
   <body>
     <release version="1.8.2" date="20YY-MM-DD" description="Version 1.8.2">
       <!-- UPDATES -->
@@ -35,7 +32,7 @@
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent 58 to 65. #209.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress 1.23.0 to 1.25.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-io:commons-io from 2.13.0 to 2.15.1.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.plugin.version from 3.10.1 to 3.10.2 #221.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.plugin.version from 3.10.1 to 3.11.0.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.maven.plugins:maven-pmd-plugin from 3.20.0 to 3.21.2 #220.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.dependency.version from 3.9.5 to 3.9.6 #218.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-build-plugin from 1.12 to 1.13 #219.</action>
