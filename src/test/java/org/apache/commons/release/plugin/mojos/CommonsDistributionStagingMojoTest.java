@@ -30,7 +30,6 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link CommonsDistributionStagingMojo}.
- *
  */
 public class CommonsDistributionStagingMojoTest {
 

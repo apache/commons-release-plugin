@@ -29,7 +29,6 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link CommonsSiteCompressionMojo}.
- *
  */
 public class CommonsStagingCleanupMojoTest {
 
