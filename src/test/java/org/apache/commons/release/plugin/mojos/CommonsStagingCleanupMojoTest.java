@@ -30,7 +30,6 @@ import org.junit.Test;
 /**
  * Unit tests for {@link CommonsSiteCompressionMojo}.
  *
- * @since 1.0
  */
 public class CommonsStagingCleanupMojoTest {
 

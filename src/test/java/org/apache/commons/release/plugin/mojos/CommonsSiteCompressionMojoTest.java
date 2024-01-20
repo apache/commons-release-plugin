@@ -33,7 +33,6 @@ import org.junit.Test;
 /**
  * Unit tests for {@link CommonsSiteCompressionMojo}.
  *
- * @since 1.0
  */
 @SuppressWarnings("deprecation") // testing a deprecated class
 public class CommonsSiteCompressionMojoTest {

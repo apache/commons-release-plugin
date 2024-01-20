@@ -31,7 +31,6 @@ import org.junit.Test;
 /**
  * Unit tests for {@link CommonsDistributionStagingMojo}.
  *
- * @since 1.0.
  */
 public class CommonsDistributionStagingMojoTest {
 
