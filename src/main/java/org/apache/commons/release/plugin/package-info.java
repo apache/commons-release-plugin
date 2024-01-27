@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
  * Base package for the commons-release-plugin. It should contain only classes
  * that are used across all sub-packages. For now the only class in this package

@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
  * This package is meant to contain stubbed objects for the maven testing
  * paradigm. These stubs can in turn be used in the poms in the <code>src/test/resources</code>
