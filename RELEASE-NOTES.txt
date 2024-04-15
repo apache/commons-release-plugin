@@ -1,9 +1,5 @@
-Apache Commons Release Plugin
-Version 1.8.1
-Release Notes
-
-
-INTRODUCTION:
+Apache Commons Release Plugin Version 1.8.1 Release Notes
+---------------------------------------------------------
 
 This document contains the release notes for the 1.8.1 version of Apache Commons Release Plugin: 
 An Apache Maven Mojo for Apache Commons Release tasks.
@@ -12,15 +8,16 @@ Apache Maven Mojo for Apache Commons Release tasks.
 
 Version 1.8.1
 
-Changes in this version include:
+Fixed Bugs
+----------
 
-
-Fixed Bugs:
 o                   Fix the signature validation script
 o                   Fix minor typos #131. Thanks to Marc Wrobel.
 o                   [StepSecurity] ci: Harden GitHub Actions #187. Thanks to step-security-bot, Gary Gregory.
 
-Changes:
+Changes
+-------
+
 o                   Bump actions/cache. Thanks to Gary Gregory.
 o                   Bump actions/checkout. Thanks to Gary Gregory, Dependabot.
 o                   Bump actions/setup-java. Thanks to Dependabot.
@@ -53,24 +50,24 @@ Download page: https://commons.apache.org/proper/commons-release-plugin/download
 Have fun!
 -Apache Commons Team
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-Apache Commons Release Plugin
-Version 1.8.0
-Release Notes
-
-
-INTRODUCTION:
+Apache Commons Release Plugin Version 1.8.0 Release Notes
+---------------------------------------------------------
 
 This document contains the release notes for the 1.8.0 version of Apache Commons Release Plugin: 
 An Apache Maven Mojo for Apache Commons Release tasks.
 
 Changes in this version include:
 
-New features:
+New features
+------------
+
 o COMMONSSITE-138:  Create signature validation script for releases.
 
-Fixed Bugs:
+Fixed Bugs
+----------
+
 o                   Fail if commons.nexus.repo.id is not defined.
 o                   Allow for old-style group ids in vote-txt.
 o                   Don't create hash for .asc files.
@@ -79,7 +76,9 @@ o                   Replace FindBugs with SpotBugs.
 o                   Minor Improvements #34. Thanks to Arturo Bernal.
 o                   Workaround UnsupportedOperationException in CommonsDistributionDetachmentMojo.execute due to https://issues.apache.org/jira/browse/MNG-7316. Thanks to Gary Gregory.
 
-Changes:
+Changes
+-------
+
 o                   Bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 #36.
 o                   Bump maven-pmd-plugin from 3.13.0 to 3.15.0 #29 #72.
 o                   Bump commons-build-plugin from 1.11 to 1.12 #25.
@@ -116,14 +115,11 @@ Download page: https://commons.apache.org/proper/commons-release-plugin/download
 Have fun!
 -Apache Commons Team
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                         Apache Commons Release Plugin
-                                  Version 1.7
-                                 Release Notes
+Apache Commons Release Plugin Version 1.7 Release Notes
+-------------------------------------------------------
 
-INTRODUCTION
-============
 This document contains the release notes for the 1.7 version of Apache commons-release-plugin.
 The commons-release-plugin is meant to be a mechanism for automating The Apache Commons Project's
 release process.
@@ -133,10 +129,9 @@ Release process. These mojos are intended to be used as a collection of steps to
 together for the purpose of removing the manual steps required to produce an Apache Commons Release.
 
 
-Changes in this version include:
+Changes
+-------
 
-CHANGES
-=======
 o checkstyle.version from 8.10.1 to 8.18
 o VOTE.txt: Sample git clone command should checkout in a folder named after the tag
 o VOTE.txt: Sort the file names being hashed
@@ -153,14 +148,11 @@ o com.puppycrawl.tools:checkstyle from 8.19 to 8.20
 o Update Apache Commons Collections from 4.3 to 4.4
 o Update Apache Commons Compress from 1.18 to 1.19
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                         Apache Commons Release Plugin
-                                  Version 1.6
-                                 Release Notes
+Apache Commons Release Plugin Version 1.6 Release Notes
+-------------------------------------------------------
 
-INTRODUCTION
-============
 This document contains the release notes for the 1.6 version of Apache commons-release-plugin.
 The commons-release-plugin is meant to be a mechanism for automating The Apache Commons Project's
 release process.
@@ -169,26 +161,21 @@ The Apache Commons Release Plugin is a collection of Java based Maven mojos for 
 Release process. These mojos are intended to be used as a collection of steps to be strung
 together for the purpose of removing the manual steps required to produce an Apache Commons Release.
 
+New Features
+------------
 
-Changes in this version include:
-
-NEW FEATURES
-============
 o COMMONSSITE-128:  Release plugin cleans up staging area before staging
 
 
-CHANGES
-=======
+Changes
+-------
+
 o Update Apache Commons Codec from 1.11 to 1.12.
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                         Apache Commons Release Plugin
-                                  Version 1.5
-                                 Release Notes
+Apache Commons Release Plugin Version 1.5 Release Notes
 
-INTRODUCTION
-============
 This document contains the release notes for the 1.5 version of Apache commons-release-plugin.
 The commons-release-plugin is meant to be a mechanism for automating The Apache Commons Project's
 release process.
@@ -198,101 +185,100 @@ Release process. These mojos are intended to be used as a collection of steps to
 together for the purpose of removing the manual steps required to produce an Apache Commons Release.
 
 
-Changes in this version include:
+New Features
+------------
 
-NEW FEATURES
-============
 o COMMONSSITE-123:  introduce configuration parameter to perform distribution checkin using Maven settings server credentials
 
-FIXED BUGS
-==========
+Fixed Bugs
+----------
+
 o ReadmeHtmlVelocityDelegate, accommodate for artifactIds ending in numbers
 o ReadmeHtmlVelocityDelegate, bcel's artifactId != commons-bcel, but is just bcel
 o COMMONSSITE-122:  stage-distributions mojo assumes site directory has basename 'site'
 
-CHANGES
-=======
+Changes
+-------
+
 o vote-txt, use github as opposed to git-wip
 o Drop sha-256 and leave sha-512 only
 o commons.jacoco.version: 0.8.0 -> 0.8.2; java 11 compatibility
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                         Apache Commons Release Plugin
-                                  Version 1.4
-                                 Release Notes
+Apache Commons Release Plugin Version 1.4 Release Notes
+-------------------------------------------------------
 
-FIXED BUGS
-==========
+Fixed Bugs
+----------
+
 o Check the result of checking out files from the SCM.
 
-CHANGES
-=======
+Changes
+-------
+
 o Better error message when files cannot be checked in to the SCM.
 o COMMONSSITE-120: [release-plugin] Use SHA-256 and SHA-512, not MD5, not SHA-1.
 o Update Apache Commons Compress from 1.17 to 1.18.
 
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                         Apache Commons Release Plugin
-                                  Version 1.3
-                                 Release Notes
+Apache Commons Release Plugin Version 1.3 Release Notes
+-------------------------------------------------------
 
-NEW FEATURES
-============
+New Features
+------------
+
 o COMMONSSITE-112:  Add a vote.txt file.
 o COMMONSSITE-108:  Adding README.html and HEADER.html to staged release
 
 
-CHANGES
-=======
+Changes
+-------
+
 o COMMONSSITE-117: Remove md5 signatures from release artifacts.
 o COMMONSSITE-113: Put unpacked site in scm dev dist directory for navigating purposes.
 o Update platform requirement from Java 7 to Java 8.
 
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                         Apache Commons Release Plugin
-                                  Version 1.2
-                                 Release Notes
+Apache Commons Release Plugin Version 1.2 Release Notes
+-------------------------------------------------------
 
-FIXED BUGS
-==========
+Fixed Bugs
+----------
 
 o COMMONSSITE-107: Adding ./target/commons-release-plugin/scm/RELEASE-NOTES.txt
                    to svn as opposed to ./RELEASE-NOTES.txt
 
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                         Apache Commons Release Plugin
-                                  Version 1.1
-                                 Release Notes
+Apache Commons Release Plugin Version 1.1 Release Notes
+-------------------------------------------------------
 
-NEW FEATURES
-============
+New Features
+------------
 
 o COMMONSSITE-98:  Making the project more multi-module compatible
 
-FIXED BUGS
-==========
+Fixed Bugs
+----------
 
 o COMMONSSITE-104: Sha1 signature files now reflect actual signatures.
 o COMMONSSITE-102: Commons Release Plugin doesn't work with Commons Release Plugin
 o COMMONSSITE-101: Make -Dcommons.release.dryRun=true our commit toggle
 
 
+-----------------------------------------------------------------------------
 
-=============================================================================
+Apache Commons Release Plugin Version 1.0 Release Notes
+-------------------------------------------------------
 
-                         Apache Commons Release Plugin
-                                  Version 1.0
-                                 Release Notes
-
-NEW FEATURES
-============
+New Features
+------------
 
 o COMMONSSITE-96:   Create commons-release-component project skeleton.
 o COMMONSSITE-99:   Prepare Standard Build integrations, travis, jacoco, checkstyle, etc.
@@ -310,3 +296,4 @@ https://commons.apache.org/release-plugin/
 Have fun!
 -Apache Commons Release Plugin team
 
+-----------------------------------------------------------------------------
