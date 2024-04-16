@@ -129,6 +129,7 @@
 
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.release.version>1.8.2</commons.release.version>
+    <commons.release.next>1.8.3</commons.release.next>
     <commons.bc.version>1.8.1</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
@@ -140,7 +141,7 @@
     -->
     <!-- Including commons release plugin older version -->
     <maven.plugin.version>3.12.0</maven.plugin.version>
-    <commons.build-plugin.version>1.13</commons.build-plugin.version>
+    <commons.build-plugin.version>1.14.0</commons.build-plugin.version>
     <!-- Until Maven plugins used here don't fail the Moditect plugin -->
     <moditect.skip>true</moditect.skip>
   </properties>
@@ -149,7 +150,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
-      <version>4.4</version>
+      <version>4.5.0-M1</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>

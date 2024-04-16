@@ -24,7 +24,7 @@
     <author email="dev@commons.apache.org">Apache Commons Developers</author>
   </properties>
   <body>
-    <release version="1.8.2" date="20YY-MM-DD" description="Version 1.8.2">
+    <release version="1.8.2" date="2024-04-15" description="Version 1.8.2">
       <!-- UPDATES -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-* from 3.9.1 to 3.9.5.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven.scm:maven-scm-* from 2.0.0 to 2.0.1.</action>
@@ -35,9 +35,10 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.plugin.version from 3.10.1 to 3.12.0 #258.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.maven.plugins:maven-pmd-plugin from 3.20.0 to 3.21.2 #220.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.dependency.version from 3.9.5 to 3.9.6 #218.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-build-plugin from 1.12 to 1.13 #219.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-build-plugin from 1.12 to 1.14.0 #219.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.plexus:plexus-velocity from 2.0 to 2.1.0 #225.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-codec:commons-codec from 1.16.0 to 1.16.1 #237.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-collections4 from 4.4 to 4.5.0-M1.</action>
     </release>
     <release version="1.8.1" date="2023-06-25" description="Version 1.8.1">
       <!-- FIXES -->

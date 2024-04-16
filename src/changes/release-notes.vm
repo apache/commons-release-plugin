@@ -17,6 +17,7 @@
 ##
 
 ${project.name} Version ${version} Release Notes
+---------------------------------------------------------
 
 This document contains the release notes for the ${version} version of Apache Commons Release Plugin: 
 An Apache Maven Mojo for Apache Commons Release tasks.
