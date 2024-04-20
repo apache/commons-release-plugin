@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.8.3" date="YYYY-MM-DD" description="Version 1.8.3">
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-scm.version from 2.0.1 to 2.1.0 #263.</action>
     </release>
     <release version="1.8.2" date="2024-04-15" description="Version 1.8.2">
       <!-- UPDATES -->
