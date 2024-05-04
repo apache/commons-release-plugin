@@ -530,13 +530,6 @@
         <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>              
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>clirr-maven-plugin</artifactId>
-        <configuration>
-          <minSeverity>info</minSeverity>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>3.22.0</version>
         <configuration>
