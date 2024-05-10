@@ -36,7 +36,7 @@
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent 58 to 69 #257.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress 1.23.0 to 1.26.1.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-io:commons-io from 2.13.0 to 2.16.1 #253, #260.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.plugin.version from 3.10.1 to 3.12.0 #258.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.plugin.version from 3.10.1 to 3.13.0 #258, #271.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.maven.plugins:maven-pmd-plugin from 3.20.0 to 3.21.2 #220.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.dependency.version from 3.9.5 to 3.9.6 #218.</action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-build-plugin from 1.12 to 1.14.0 #219.</action>
