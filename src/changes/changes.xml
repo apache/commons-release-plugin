@@ -28,6 +28,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-scm.version from 2.0.1 to 2.1.0 #263.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-codec:commons-codec from 1.16.1 to 1.17.0.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 69 to 70 #278.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress 1.26.1 to 1.26.2.</action>
     </release>
     <release version="1.8.2" date="2024-04-15" description="Version 1.8.2">
       <!-- UPDATES -->
