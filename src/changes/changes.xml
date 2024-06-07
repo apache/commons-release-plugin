@@ -30,6 +30,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 69 to 70 #278.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress 1.26.1 to 1.26.2.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.dependency.version from 3.9.6 to 3.9.7 #281.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.plugin.version from 3.13.0 to 3.13.1 #282.</action> 
     </release>
     <release version="1.8.2" date="2024-04-15" description="Version 1.8.2">
       <!-- UPDATES -->
