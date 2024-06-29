@@ -44,7 +44,6 @@ Apache Commons Release Plugin
 ===================
 
 [![Java CI](https://github.com/apache/commons-release-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-release-plugin/actions/workflows/maven.yml)
-[![Coverage Status](https://codecov.io/gh/apache/commons-release-plugin/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-release-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/?gav=true)
 [![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-release-plugin/1.8.2.svg)](https://javadoc.io/doc/org.apache.commons/commons-release-plugin/1.8.2)
 [![CodeQL](https://github.com/apache/commons-release-plugin/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-release-plugin/actions/workflows/codeql-analysis.yml)
