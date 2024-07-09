@@ -86,7 +86,7 @@ Thank you,
 @RMNAME@,
 Release Manager (using key @RMKEY@)
 
-For following is intended as a helper and refresher for reviewers.
+The following is intended as a helper and refresher for reviewers.
 
 Validating a release candidate
 ==============================
