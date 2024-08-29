@@ -28,13 +28,13 @@
       <!-- UPDATES -->
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-scm.version from 2.0.1 to 2.1.0 #263.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-codec:commons-codec from 1.16.1 to 1.17.1 #295.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 69 to 73 #278, #285, #307.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 69 to 74 #278, #285, #307, #311.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress 1.26.1 to 1.27.1 #300, #308.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.dependency.version from 3.9.6 to 3.9.9 #281, #290, #306.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.plugin.version from 3.13.0 to 3.14.0 #282, #305.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven.plugin.version from 3.13.0 to 3.15.0 #282, #305, #310.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.maven.plugins:maven-pmd-plugin from 3.22.0 to 3.23.0 #284.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-collections4 from 4.5.0-M1 to 4.5.0-M2 #289.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.mojo:taglist-maven-plugin from 3.0.0 to 3.1.0 #291.</action> 
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.mojo:taglist-maven-plugin from 3.0.0 to 3.1.0 #291.</action>
     </release>
     <release version="1.8.2" date="2024-04-15" description="Version 1.8.2">
       <!-- UPDATES -->
