@@ -37,6 +37,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.mojo:taglist-maven-plugin from 3.0.0 to 3.1.0 #291.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-io:commons-io from 2.16.1 to 2.17.0 #315.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.velocity:velocity-engine-core from 2.3 to 2.4 #318.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.plexus:plexus-velocity from 2.1.0 to 2.2.0 #325.</action>
     </release>
     <release version="1.8.2" date="2024-04-15" description="Version 1.8.2">
       <!-- UPDATES -->
