@@ -44,7 +44,7 @@ Apache Commons Release Plugin
 ===================
 
 [![Java CI](https://github.com/apache/commons-release-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-release-plugin/actions/workflows/maven.yml)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-release-plugin/?gav=true)
+[![Maven Central](https://img.shields.io/maven-central/v/org.apache.commons/commons-release-plugin?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.commons/commons-release-plugin)
 [![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-release-plugin/1.8.2.svg)](https://javadoc.io/doc/org.apache.commons/commons-release-plugin/1.8.2)
 [![CodeQL](https://github.com/apache/commons-release-plugin/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-release-plugin/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-release-plugin/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-release-plugin)
