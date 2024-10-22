@@ -26,7 +26,7 @@
   <body>
     <release version="1.8.3" date="YYYY-MM-DD" description="Version 1.8.3">
       <!-- UPDATES -->
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 69 to 77 #278, #285, #307, #311, #316, #321, #324.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 69 to 78 #278, #285, #307, #311, #316, #321, #324, #333.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-scm.version from 2.0.1 to 2.1.0 #263.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-codec:commons-codec from 1.16.1 to 1.17.1 #295.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress 1.26.1 to 1.27.1 #300, #308.</action>
