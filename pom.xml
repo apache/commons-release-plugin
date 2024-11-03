@@ -128,9 +128,9 @@
     <project.build.outputTimestamp>2024-04-19T14:42:04Z</project.build.outputTimestamp>
 
     <commons.release.isDistModule>true</commons.release.isDistModule>
+    <commons.bc.version>1.8.2</commons.bc.version>
     <commons.release.version>1.8.3</commons.release.version>
     <commons.release.next>1.8.4</commons.release.next>
-    <commons.bc.version>1.8.2</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <!--

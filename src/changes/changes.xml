@@ -24,7 +24,7 @@
     <author email="dev@commons.apache.org">Apache Commons Developers</author>
   </properties>
   <body>
-    <release version="1.8.3" date="YYYY-MM-DD" description="Version 1.8.3">
+    <release version="1.8.3" date="2024-11-03" description="Version 1.8.3">
       <!-- UPDATES -->
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 69 to 78 #278, #285, #307, #311, #316, #321, #324, #333.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-scm.version from 2.0.1 to 2.1.0 #263.</action>

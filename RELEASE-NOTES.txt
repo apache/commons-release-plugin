@@ -1,4 +1,45 @@
 
+Apache Commons Release Plugin Version 1.8.3 Release Notes
+---------------------------------------------------------
+
+This document contains the release notes for the 1.8.3 version of Apache Commons Release Plugin: 
+An Apache Maven Mojo for Apache Commons Release tasks.
+
+Apache Maven Mojo for Apache Commons Release tasks.
+
+Version 1.8.3
+
+Changes
+-------
+
+*                   Bump org.apache.commons:commons-parent from 69 to 78 #278, #285, #307, #311, #316, #321, #324, #333. Thanks to Dependabot.
+*                   Bump maven-scm.version from 2.0.1 to 2.1.0 #263. Thanks to Dependabot.
+*                   Bump commons-codec:commons-codec from 1.16.1 to 1.17.1 #295. Thanks to Dependabot.
+*                   Bump org.apache.commons:commons-compress 1.26.1 to 1.27.1 #300, #308. Thanks to Gary Gregory.
+*                   Bump maven.dependency.version from 3.9.6 to 3.9.9 #281, #290, #306. Thanks to Dependabot.
+*                   Bump maven.plugin.version from 3.13.0 to 3.15.1 #282, #305, #310, #340. Thanks to Dependabot.
+*                   Bump org.apache.maven.plugins:maven-pmd-plugin from 3.22.0 to 3.23.0 #284. Thanks to Dependabot.
+*                   Bump org.apache.commons:commons-collections4 from 4.5.0-M1 to 4.5.0-M2 #289. Thanks to Dependabot.
+*                   Bump org.codehaus.mojo:taglist-maven-plugin from 3.0.0 to 3.2.1 #291, #331. Thanks to Dependabot.
+*                   Bump commons-io:commons-io from 2.16.1 to 2.17.0 #315. Thanks to Dependabot.
+*                   Bump org.apache.velocity:velocity-engine-core from 2.3 to 2.4.1 #318, #332. Thanks to Dependabot.
+*                   Bump org.codehaus.plexus:plexus-velocity from 2.1.0 to 2.2.0 #325. Thanks to Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
+
+For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
+
+https://commons.apache.org/proper/commons-release-plugin/
+
+Download page: https://commons.apache.org/proper/commons-release-plugin//download_release-plugin.cgi
+
+Have fun!
+-Apache Commons Team
+
+-----------------------------------------------------------------------------
+
 Apache Commons Release Plugin Version 1.8.2 Release Notes
 ---------------------------------------------------------
 
