@@ -25,7 +25,7 @@
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.8.3</version>
+  <version>1.8.4-SNAPSHOT</version>
   <name>Apache Commons Release Plugin</name>
 
   <description>
@@ -125,7 +125,7 @@
     <project.build.sourceEncoding>${commons.encoding}</project.build.sourceEncoding>
     <!-- This is used by reporting plugins -->
     <project.reporting.outputEncoding>${commons.encoding}</project.reporting.outputEncoding>
-    <project.build.outputTimestamp>2024-11-03T20:02:30Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2024-11-09T12:49:32Z</project.build.outputTimestamp>
 
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.bc.version>1.8.2</commons.bc.version>
