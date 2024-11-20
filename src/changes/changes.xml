@@ -39,7 +39,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.maven.plugins:maven-pmd-plugin from 3.22.0 to 3.23.0 #284.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-collections4 from 4.5.0-M1 to 4.5.0-M2 #289.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.mojo:taglist-maven-plugin from 3.0.0 to 3.2.1 #291, #331.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-io:commons-io from 2.16.1 to 2.17.0 #315.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-io:commons-io from 2.16.1 to 2.18.0 #315, #343.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.velocity:velocity-engine-core from 2.3 to 2.4.1 #318, #332.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.plexus:plexus-velocity from 2.1.0 to 2.2.0 #325.</action>
     </release>
