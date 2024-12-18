@@ -27,6 +27,7 @@
     <release version="1.8.4" date="YYYY-MM-DD" description="Version 1.8.4">
       <!-- UPDATES -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-build-plugin from 1.14.0 to 1.14.1 #341.</action> 
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-collections4 from 4.5.0-M2 to 4.5.0-M3.</action>
     </release>
     <release version="1.8.3" date="2024-11-03" description="Version 1.8.3">
       <!-- UPDATES -->
