@@ -45,7 +45,7 @@ Linux: uname -a
 
 Details of changes since @BC@ are in the release notes:
     @DISTURL@/RELEASE-NOTES.txt
-    @SITEURL@/changes-report.html
+    @SITEURL@/changes.html
 
 Site:
     @SITEURL@/index.html
