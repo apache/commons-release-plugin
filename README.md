@@ -45,7 +45,7 @@ Apache Commons Release Plugin
 
 [![Java CI](https://github.com/apache/commons-release-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-release-plugin/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.commons/commons-release-plugin?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.commons/commons-release-plugin)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-release-plugin/1.8.3.svg)](https://javadoc.io/doc/org.apache.commons/commons-release-plugin/1.8.3)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-release-plugin/1.9.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-release-plugin/1.9.0)
 [![CodeQL](https://github.com/apache/commons-release-plugin/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-release-plugin/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-release-plugin/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-release-plugin)
 
@@ -68,7 +68,7 @@ Alternatively, you can pull it from the central Maven repositories:
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-release-plugin</artifactId>
-  <version>1.8.3</version>
+  <version>1.9.0</version>
 </dependency>
 ```
 

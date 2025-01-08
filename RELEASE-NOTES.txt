@@ -1,4 +1,39 @@
 
+Apache Commons Release Plugin Version 1.9.0 Release Notes
+---------------------------------------------------------
+
+This document contains the release notes for the 1.9.0 version of Apache Commons Release Plugin: 
+An Apache Maven Mojo for Apache Commons Release tasks.
+
+Apache Maven Mojo for Apache Commons Release tasks.
+
+Version 1.9.0
+
+
+Changes
+-------
+
+*                   Bump org.apache.commons:commons-build-plugin from 1.14.0 to 1.14.1 #341. Thanks to Dependabot, Gary Gregory.
+*                   Bump org.apache.commons:commons-collections4 from 4.5.0-M2 to 4.5.0-M3. Thanks to Gary Gregory.
+*                   maven-changes-plugin 3.0.0-M2 generate changes.html instead of changes-report.html (needs commons-parent 79). Thanks to Gary Gregory.
+*                   Bump commons-codec:commons-codec from 1.17.1 to 1.17.2. Thanks to Gary Gregory.
+*                   Bump org.apache.commons:commons-parent from 78 to 79, upgrades Doxia from 1 to 2. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
+
+For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
+
+https://commons.apache.org/proper/commons-release-plugin/
+
+Download page: https://commons.apache.org/proper/commons-release-plugin//download_release-plugin.cgi
+
+Have fun!
+-Apache Commons Team
+
+-----------------------------------------------------------------------------
+
 Apache Commons Release Plugin Version 1.8.3 Release Notes
 ---------------------------------------------------------
 

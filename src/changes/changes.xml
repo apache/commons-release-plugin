@@ -16,20 +16,21 @@
    limitations under the License.
 -->
 <!-- Description: http://maven.apache.org/plugins/maven-changes-plugin/changes.html -->
-<document xmlns="http://maven.apache.org/changes/1.0.0"
+<document xmlns="http://maven.apache.org/changes/2.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+          xsi:schemaLocation="http://maven.apache.org/changes/2.0.0 http://maven.apache.org/xsd/changes-2.0.0.xsd">
   <properties>
     <title>Apache Commons Release Plugin Changes</title>
     <author email="dev@commons.apache.org">Apache Commons Developers</author>
   </properties>
   <body>
-    <release version="1.8.4" date="YYYY-MM-DD" description="Version 1.8.4">
+    <release version="1.9.0" date="2025-01-08" description="Version 1.9.0">
       <!-- UPDATES -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-build-plugin from 1.14.0 to 1.14.1 #341.</action> 
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-collections4 from 4.5.0-M2 to 4.5.0-M3.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">maven-changes-plugin 3.0.0-M2 generate changes.html instead of changes-report.html (needs commons-parent 79).</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-codec:commons-codec from 1.17.1 to 1.17.2.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 78 to 79, upgrades Doxia from 1 to 2.</action>
     </release>
     <release version="1.8.3" date="2024-11-03" description="Version 1.8.3">
       <!-- UPDATES -->
