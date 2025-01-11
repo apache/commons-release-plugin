@@ -16,11 +16,12 @@
 ## under the License.
 ##
 
-${project.name} Version ${version} Release Notes
----------------------------------------------------------
+${project.name} ${version} Release Notes
+-------------------------------------------------
 
-This document contains the release notes for the ${version} version of Apache Commons Release Plugin: 
-An Apache Maven Mojo for Apache Commons Release tasks.
+The Apache Commons team is pleased to announce ${project.name} ${version}.
+
+This document contains the release notes for ${project.name}.
 
 $introduction.replaceAll("(?<!\015)\012", "
 ").replaceAll("(?m)^ +","")
