@@ -94,28 +94,38 @@ Requirements: Git, Java, and Maven.
 
 You can validate a release from a release candidate (RC) tag as follows.
 
-1a) Clone and checkout the RC tag
+1a) Download and decompress the source archive from:
+
+@DISTURL@/source
+
+1b) Check out the RC tag from git (optional)
+
+This is optional, as a reviewer must check source distributions as a minimum.
 
 git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
 cd @TAGNAME@
 
-1b) Download and unpack the source archive from:
+2) Checking the build
 
-@DISTURL@/source
+All components should include a default Maven goal, such that you can run 'mvn' from the command line by itself.
 
 2) Check Apache licenses
 
 This step is not required if the site includes a RAT report page which you then must check.
+This check should be included in the default Maven build, but you can check it with:
 
 mvn apache-rat:check
 
 3) Check binary compatibility
 
 This step is not required if the site includes a JApiCmp report page which you then must check.
+This check should be included in the default Maven build, but you can check it with:
 
-mvn install -DskipTests -P japicmp japicmp:cmp
+mvn verify -DskipTests -P japicmp japicmp:cmp
 
 4) Build the package
+
+This check should be included in the default Maven build, but you can check it with:
 
 mvn -V clean package
 
@@ -123,6 +133,14 @@ You can record the Maven and Java version produced by -V in your VOTE reply.
 To gather OS information from a command line:
 Windows: ver
 Linux: uname -a
+
+4b) Check reproducibility
+
+To check that a build is reproducible, run:
+
+mvn clean verify artifact:compare -DskipTests -Dreference.repo=https://repository.apache.org/content/repositories/staging/ '-Dbuildinfo.ignore=*/*.spdx.json'
+
+Note that this excludes SPDX files from the check.
 
 5) Build the site for a single module project
 
