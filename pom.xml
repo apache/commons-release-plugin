@@ -50,9 +50,7 @@
     <site>
       <id>commons.site</id>
       <name>Apache Commons Site SVN</name>
-      <url>
-        scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-release-plugin
-      </url>
+      <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-release-plugin</url>
     </site>
   </distributionManagement>
   <properties>
