@@ -15,8 +15,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.commons</groupId>
@@ -27,31 +28,24 @@
   <packaging>maven-plugin</packaging>
   <version>1.9.1-SNAPSHOT</version>
   <name>Apache Commons Release Plugin</name>
-
   <description>
     Apache Maven Mojo for Apache Commons Release tasks.
   </description>
-
   <url>https://commons.apache.org/proper/commons-release-plugin/</url>
-
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/COMMONSSITE</url>
   </issueManagement>
-
   <inceptionYear>2018</inceptionYear>
-
   <scm>
     <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-release-plugin.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-release-plugin.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=commons-release-plugin.git</url>
   </scm>
-
   <ciManagement>
     <system>GitHub</system>
     <url>https://github.com/apache/commons-release-plugin/actions</url>
   </ciManagement>
-
   <distributionManagement>
     <site>
       <id>commons.site</id>
@@ -61,38 +55,6 @@
       </url>
     </site>
   </distributionManagement>
-
-  <developers>
-    <developer>
-      <name>Rob Tompkins</name>
-      <id>chtompki</id>
-      <email>chtompki@apache.org</email>
-      <timezone>-5</timezone>
-    </developer>
-    <developer>
-      <id>ggregory</id>
-      <name>Gary Gregory</name>
-      <email>ggregory at apache.org</email>
-      <url>https://www.garygregory.com</url>
-      <organization>The Apache Software Foundation</organization>
-      <organizationUrl>https://www.apache.org/</organizationUrl>      
-      <roles>
-        <role>PMC Member</role>
-      </roles>
-      <timezone>America/New_York</timezone>
-      <properties>
-        <picUrl>https://people.apache.org/~ggregory/img/garydgregory80.png</picUrl>
-      </properties>
-    </developer>
-    <developer>
-      <name>Matt Benson</name>
-      <id>mbenson</id>
-      <roles>
-        <role>Java Developer</role>
-      </roles>
-    </developer>
-  </developers>
-
   <properties>
     <failOnError>false</failOnError>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -143,7 +105,6 @@
     <!-- Until Maven plugins used here don't fail the Moditect plugin -->
     <moditect.skip>true</moditect.skip>
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -249,7 +210,6 @@
       </exclusions>
     </dependency>
   </dependencies>
-
   <build>
     <defaultGoal>clean verify apache-rat:check checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
     <resources>
@@ -740,4 +700,34 @@
       </properties>
     </profile>
   </profiles>
+  <developers>
+    <developer>
+      <name>Rob Tompkins</name>
+      <id>chtompki</id>
+      <email>chtompki@apache.org</email>
+      <timezone>-5</timezone>
+    </developer>
+    <developer>
+      <id>ggregory</id>
+      <name>Gary Gregory</name>
+      <email>ggregory at apache.org</email>
+      <url>https://www.garygregory.com</url>
+      <organization>The Apache Software Foundation</organization>
+      <organizationUrl>https://www.apache.org/</organizationUrl>      
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>America/New_York</timezone>
+      <properties>
+        <picUrl>https://people.apache.org/~ggregory/img/garydgregory80.png</picUrl>
+      </properties>
+    </developer>
+    <developer>
+      <name>Matt Benson</name>
+      <id>mbenson</id>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
 </project>
