@@ -36,7 +36,7 @@ These are the artifacts and their hashes:
 @SHA512LIST@
 
 
-I have tested this with ***'mvn clean install site'*** using:
+I have tested this with 'mvn' and 'mvn clean install site' using:
 ***
 Use the output from "mvn -version" for each combination you tested.
 Windows: ver
@@ -50,9 +50,6 @@ Details of changes since @BC@ are in the release notes:
 Site:
     @SITEURL@/index.html
     (note some *relative* links are broken and the @VERSION@ directories are not yet created - these will be OK once the site is deployed.)
-
-*** CLIRR Report (compared to @BC@):
-    @SITEURL@/clirr-report.html
 
 *** JApiCmp Report (compared to @BC@):
     @SITEURL@/japicmp.html
@@ -93,7 +90,7 @@ Validating a release candidate
 
 These guidelines are NOT complete.
 
-Requirements: Git, Java, Maven.
+Requirements: Git, Java, and Maven.
 
 You can validate a release from a release candidate (RC) tag as follows.
 
@@ -113,14 +110,6 @@ This step is not required if the site includes a RAT report page which you then 
 mvn apache-rat:check
 
 3) Check binary compatibility
-
-Older components still use Apache Clirr:
-
-This step is not required if the site includes a Clirr report page which you then must check.
-
-mvn clirr:check
-
-Newer components use JApiCmp with the japicmp Maven Profile:
 
 This step is not required if the site includes a JApiCmp report page which you then must check.
 
