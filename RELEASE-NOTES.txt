@@ -19,7 +19,7 @@ Changes
 *                   Bump org.apache.commons:commons-parent from 78 to 79, upgrades Doxia from 1 to 2. Thanks to Gary Gregory.
 
 
-Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin/changes.html
 
 For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
@@ -60,7 +60,7 @@ Changes
 *                   Bump org.codehaus.plexus:plexus-velocity from 2.1.0 to 2.2.0 #325. Thanks to Dependabot.
 
 
-Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin/changes.html
 
 For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
@@ -101,7 +101,7 @@ Changes
 *                   Bump commons-codec:commons-codec from 1.16.0 to 1.16.1 #237. Thanks to Dependabot.
 
 
-Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes-report.html
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin/changes.html
 
 For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
