@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>79</version>
+    <version>80</version>
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
@@ -295,7 +295,6 @@
           <encoding>${commons.encoding}</encoding>
           <notimestamp>true</notimestamp>
           <links>
-            <link>${commons.javadoc.java.link}</link>
             <link>${commons.javadoc.javaee.link}</link>
           </links>
           <archive>
