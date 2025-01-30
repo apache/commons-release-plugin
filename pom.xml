@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>80</version>
+    <version>81</version>
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
