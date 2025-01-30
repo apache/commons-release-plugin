@@ -83,6 +83,29 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      */
     private List<File> filesToCompress;
 
+    /**
+     * Given the <code>directoryToZip</code> we add the <code>file</code> to the ZIP archive represented by
+     * <code>zos</code>.
+     *
+     * @param directoryToZip a {@link File} representing the directory from which the file exists that we are
+     *                       compressing. Generally this is <code>target/site</code>.
+     * @param file a {@link File} to add to the {@link ZipOutputStream} <code>zos</code>.
+     * @param zos the {@link ZipOutputStream} to which to add our <code>file</code>.
+     * @throws IOException if adding the <code>file</code> doesn't work out properly.
+     */
+    private void addToZip(final File directoryToZip, final File file, final ZipOutputStream zos) throws IOException {
+        try (InputStream fis = Files.newInputStream(file.toPath())) {
+            // we want the zipEntry's path to be a relative path that is relative
+            // to the directory being zipped, so chop off the rest of the path
+            final String zipFilePath = file.getCanonicalPath().substring(
+                    directoryToZip.getCanonicalPath().length() + 1,
+                    file.getCanonicalPath().length());
+            final ZipEntry zipEntry = new ZipEntry(zipFilePath);
+            zos.putNextEntry(zipEntry);
+            IOUtils.copy(fis, zos);
+        }
+    }
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (!isDistModule) {
@@ -155,29 +178,6 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
                     addToZip(directoryToZip, file, zos);
                 }
             }
-        }
-    }
-
-    /**
-     * Given the <code>directoryToZip</code> we add the <code>file</code> to the ZIP archive represented by
-     * <code>zos</code>.
-     *
-     * @param directoryToZip a {@link File} representing the directory from which the file exists that we are
-     *                       compressing. Generally this is <code>target/site</code>.
-     * @param file a {@link File} to add to the {@link ZipOutputStream} <code>zos</code>.
-     * @param zos the {@link ZipOutputStream} to which to add our <code>file</code>.
-     * @throws IOException if adding the <code>file</code> doesn't work out properly.
-     */
-    private void addToZip(final File directoryToZip, final File file, final ZipOutputStream zos) throws IOException {
-        try (InputStream fis = Files.newInputStream(file.toPath())) {
-            // we want the zipEntry's path to be a relative path that is relative
-            // to the directory being zipped, so chop off the rest of the path
-            final String zipFilePath = file.getCanonicalPath().substring(
-                    directoryToZip.getCanonicalPath().length() + 1,
-                    file.getCanonicalPath().length());
-            final ZipEntry zipEntry = new ZipEntry(zipFilePath);
-            zos.putNextEntry(zipEntry);
-            IOUtils.copy(fis, zos);
         }
     }
 }

@@ -43,19 +43,6 @@ public class ReadmeHtmlVelocityDelegateTest {
     }
 
     @Test
-    public void testSuccessfulRunLang3() throws IOException {
-        final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
-                .withArtifactId("commons-lang3")
-                .withVersion("3.8.1")
-                .withSiteUrl("https://commons.apache.org/text")
-                .build();
-        try (Writer writer = delegate.render(new StringWriter())) {
-            final String filledOutTemplate = writer.toString();
-            assertTrue(filledOutTemplate.contains("<h1>Commons-LANG v3.8.1.</h1>"));
-        }
-    }
-
-    @Test
     public void testSuccessfulRunBcel() throws IOException {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
                 .withArtifactId("bcel")
@@ -65,6 +52,19 @@ public class ReadmeHtmlVelocityDelegateTest {
         try (Writer writer = delegate.render(new StringWriter())) {
             final String filledOutTemplate = writer.toString();
             assertTrue(filledOutTemplate.contains("<h1>Commons-BCEL v1.5.</h1>"));
+        }
+    }
+
+    @Test
+    public void testSuccessfulRunLang3() throws IOException {
+        final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
+                .withArtifactId("commons-lang3")
+                .withVersion("3.8.1")
+                .withSiteUrl("https://commons.apache.org/text")
+                .build();
+        try (Writer writer = delegate.render(new StringWriter())) {
+            final String filledOutTemplate = writer.toString();
+            assertTrue(filledOutTemplate.contains("<h1>Commons-LANG v3.8.1.</h1>"));
         }
     }
 }

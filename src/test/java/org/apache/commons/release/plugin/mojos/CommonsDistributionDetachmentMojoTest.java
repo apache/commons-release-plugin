@@ -38,12 +38,12 @@ public class CommonsDistributionDetachmentMojoTest {
     @Rule
     public final MojoRule rule = new MojoRule() {
         @Override
-        protected void before() throws Throwable {
+        protected void after() {
             // noop
         }
 
         @Override
-        protected void after() {
+        protected void before() throws Throwable {
             // noop
         }
     };
@@ -56,6 +56,17 @@ public class CommonsDistributionDetachmentMojoTest {
         if (testingDirectory.exists()) {
             FileUtils.deleteDirectory(testingDirectory);
         }
+    }
+
+    @Test
+    public void testDisabled() throws Exception {
+        final File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions-disabled.xml");
+        assertNotNull(testPom);
+        assertTrue(testPom.exists());
+        mojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", testPom);
+        mojo.execute();
+        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        assertFalse(testingDirectory.exists());
     }
 
     @Test
@@ -93,16 +104,5 @@ public class CommonsDistributionDetachmentMojoTest {
         assertTrue(detachedBinZipSha512.exists());
         assertTrue(sha512Properties.exists());
         assertFalse(notDetachedMockAttachedFile.exists());
-    }
-
-    @Test
-    public void testDisabled() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions-disabled.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", testPom);
-        mojo.execute();
-        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
-        assertFalse(testingDirectory.exists());
     }
 }

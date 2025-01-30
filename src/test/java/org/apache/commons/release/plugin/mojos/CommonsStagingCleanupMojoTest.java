@@ -37,12 +37,12 @@ public class CommonsStagingCleanupMojoTest {
     @Rule
     public final MojoRule rule = new MojoRule() {
         @Override
-        protected void before() throws Throwable {
+        protected void after() {
             // noop
         }
 
         @Override
-        protected void after() {
+        protected void before() throws Throwable {
             // noop
         }
     };

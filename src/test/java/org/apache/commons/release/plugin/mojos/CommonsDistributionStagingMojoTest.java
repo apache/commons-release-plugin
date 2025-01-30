@@ -38,12 +38,12 @@ public class CommonsDistributionStagingMojoTest {
     @Rule
     public final MojoRule rule = new MojoRule() {
         @Override
-        protected void before() throws Throwable {
+        protected void after() {
             // noop
         }
 
         @Override
-        protected void after() {
+        protected void before() throws Throwable {
             // noop
         }
     };
@@ -51,42 +51,6 @@ public class CommonsDistributionStagingMojoTest {
     private CommonsDistributionDetachmentMojo detachmentMojo;
 
     private CommonsDistributionStagingMojo mojoForTest;
-
-    @Before
-    public void setUp() throws Exception {
-        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
-        if (testingDirectory.exists()) {
-            FileUtils.deleteDirectory(testingDirectory);
-        }
-    }
-
-    @Test
-    public void testSuccess() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/stage-distributions/stage-distributions.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        final File detachmentPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml");
-        assertNotNull(detachmentPom);
-        assertTrue(detachmentPom.exists());
-        mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
-        detachmentMojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", detachmentPom);
-        detachmentMojo.execute();
-        final File releaseNotesBasedir = new File("src/test/resources/mojos/stage-distributions/");
-        mojoForTest.setBaseDir(releaseNotesBasedir);
-        mojoForTest.execute();
-        assertRequisiteFilesExist();
-    }
-
-    @Test
-    public void testDisabled() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/stage-distributions/stage-distributions-disabled.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
-        mojoForTest.execute();
-        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
-        assertFalse(testingDirectory.exists());
-    }
 
     private void assertRequisiteFilesExist() {
         final File targetScmDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1");
@@ -139,5 +103,41 @@ public class CommonsDistributionStagingMojoTest {
         assertTrue(siteIndexHtml.exists());
         assertTrue(siteSubdirectory.exists());
         assertTrue(siteSubdirectoryIndexHtml.exists());
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        if (testingDirectory.exists()) {
+            FileUtils.deleteDirectory(testingDirectory);
+        }
+    }
+
+    @Test
+    public void testDisabled() throws Exception {
+        final File testPom = new File("src/test/resources/mojos/stage-distributions/stage-distributions-disabled.xml");
+        assertNotNull(testPom);
+        assertTrue(testPom.exists());
+        mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
+        mojoForTest.execute();
+        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        assertFalse(testingDirectory.exists());
+    }
+
+    @Test
+    public void testSuccess() throws Exception {
+        final File testPom = new File("src/test/resources/mojos/stage-distributions/stage-distributions.xml");
+        assertNotNull(testPom);
+        assertTrue(testPom.exists());
+        final File detachmentPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml");
+        assertNotNull(detachmentPom);
+        assertTrue(detachmentPom.exists());
+        mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
+        detachmentMojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", detachmentPom);
+        detachmentMojo.execute();
+        final File releaseNotesBasedir = new File("src/test/resources/mojos/stage-distributions/");
+        mojoForTest.setBaseDir(releaseNotesBasedir);
+        mojoForTest.execute();
+        assertRequisiteFilesExist();
     }
 }

@@ -41,12 +41,12 @@ public class CommonsSiteCompressionMojoTest {
     @Rule
     public final MojoRule rule = new MojoRule() {
         @Override
-        protected void before() throws Throwable {
+        protected void after() {
             // noop
         }
 
         @Override
-        protected void after() {
+        protected void before() throws Throwable {
             // noop
         }
     };
@@ -62,19 +62,6 @@ public class CommonsSiteCompressionMojoTest {
     }
 
     @Test
-    public void testCompressSiteSuccess() throws Exception {
-        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
-        testingDirectory.mkdir();
-        final File testPom = new File("src/test/resources/mojos/compress-site/compress-site.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
-        mojo.execute();
-        final File siteZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/site.zip");
-        assertTrue(siteZip.exists());
-    }
-
-    @Test
     public void testCompressSiteDirNonExistentFailure() throws Exception {
         final File testPom = new File("src/test/resources/mojos/compress-site/compress-site-failure.xml");
         assertNotNull(testPom);
@@ -87,6 +74,19 @@ public class CommonsSiteCompressionMojoTest {
                     "\"mvn site\" was not run before this goal, or a siteDirectory did not exist.", e.getMessage()
             );
         }
+    }
+
+    @Test
+    public void testCompressSiteSuccess() throws Exception {
+        final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
+        testingDirectory.mkdir();
+        final File testPom = new File("src/test/resources/mojos/compress-site/compress-site.xml");
+        assertNotNull(testPom);
+        assertTrue(testPom.exists());
+        mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
+        mojo.execute();
+        final File siteZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/site.zip");
+        assertTrue(siteZip.exists());
     }
 
     @Test

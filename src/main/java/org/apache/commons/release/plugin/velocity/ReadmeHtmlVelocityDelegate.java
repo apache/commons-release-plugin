@@ -32,13 +32,79 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * @since 1.3
  */
 public class ReadmeHtmlVelocityDelegate {
+    /**
+     * A builder class for instantiation of the {@link ReadmeHtmlVelocityDelegate}.
+     */
+    public static class ReadmeHtmlVelocityDelegateBuilder {
+        /** The maven artifactId to use in the <code>README.vm</code> template. */
+        private String artifactId;
+        /** The maven version to use in the <code>README.vm</code> template. */
+        private String version;
+        /** The site url to use in the <code>README.vm</code> template. */
+        private String siteUrl;
+
+        /**
+         * Private constructor for using the builder through the {@link ReadmeHtmlVelocityDelegate#builder()}
+         * method.
+         */
+        private ReadmeHtmlVelocityDelegateBuilder() {
+        }
+
+        /**
+         * Builds up the {@link ReadmeHtmlVelocityDelegate} from the previously set parameters.
+         * @return a new {@link ReadmeHtmlVelocityDelegate}.
+         */
+        public ReadmeHtmlVelocityDelegate build() {
+            return new ReadmeHtmlVelocityDelegate(this.artifactId, this.version, this.siteUrl);
+        }
+
+        /**
+         * Adds the artifactId to the {@link ReadmeHtmlVelocityDelegate}.
+         * @param artifactId the {@link String} representing the maven artifactId.
+         * @return the builder to continue building.
+         */
+        public ReadmeHtmlVelocityDelegateBuilder withArtifactId(final String artifactId) {
+            this.artifactId = artifactId;
+            return this;
+        }
+
+        /**
+         * Adds the siteUrl to the {@link ReadmeHtmlVelocityDelegate}.
+         * @param siteUrl the site url to be used in the <code>README.html</code>
+         * @return the builder to continue building.
+         */
+        public ReadmeHtmlVelocityDelegateBuilder withSiteUrl(final String siteUrl) {
+            this.siteUrl = siteUrl;
+            return this;
+        }
+
+        /**
+         * Adds the version to the {@link ReadmeHtmlVelocityDelegate}.
+         * @param version the maven version.
+         * @return the builder to continue building.
+         */
+        public ReadmeHtmlVelocityDelegateBuilder withVersion(final String version) {
+            this.version = version;
+            return this;
+        }
+    }
     /** The location of the velocity template for this class. */
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin"
                                          + "/velocity/README.vm";
+    /**
+     * Gets the {@link ReadmeHtmlVelocityDelegateBuilder} for constructing the {@link ReadmeHtmlVelocityDelegate}.
+     *
+     * @return the {@link ReadmeHtmlVelocityDelegateBuilder}.
+     */
+    public static ReadmeHtmlVelocityDelegateBuilder builder() {
+        return new ReadmeHtmlVelocityDelegateBuilder();
+    }
     /** This is supposed to represent the maven artifactId. */
     private final String artifactId;
+
     /** This is supposed to represent the maven version of the release. */
     private final String version;
+
     /** The url of the site that gets set into the <code>README.html</code>. */
     private final String siteUrl;
 
@@ -53,15 +119,6 @@ public class ReadmeHtmlVelocityDelegate {
         this.artifactId = artifactId;
         this.version = version;
         this.siteUrl = siteUrl;
-    }
-
-    /**
-     * Gets the {@link ReadmeHtmlVelocityDelegateBuilder} for constructing the {@link ReadmeHtmlVelocityDelegate}.
-     *
-     * @return the {@link ReadmeHtmlVelocityDelegateBuilder}.
-     */
-    public static ReadmeHtmlVelocityDelegateBuilder builder() {
-        return new ReadmeHtmlVelocityDelegateBuilder();
     }
 
     /**
@@ -101,62 +158,5 @@ public class ReadmeHtmlVelocityDelegate {
         context.internalPut("siteUrl", siteUrl);
         template.merge(context, writer);
         return writer;
-    }
-
-    /**
-     * A builder class for instantiation of the {@link ReadmeHtmlVelocityDelegate}.
-     */
-    public static class ReadmeHtmlVelocityDelegateBuilder {
-        /** The maven artifactId to use in the <code>README.vm</code> template. */
-        private String artifactId;
-        /** The maven version to use in the <code>README.vm</code> template. */
-        private String version;
-        /** The site url to use in the <code>README.vm</code> template. */
-        private String siteUrl;
-
-        /**
-         * Private constructor for using the builder through the {@link ReadmeHtmlVelocityDelegate#builder()}
-         * method.
-         */
-        private ReadmeHtmlVelocityDelegateBuilder() {
-        }
-
-        /**
-         * Adds the artifactId to the {@link ReadmeHtmlVelocityDelegate}.
-         * @param artifactId the {@link String} representing the maven artifactId.
-         * @return the builder to continue building.
-         */
-        public ReadmeHtmlVelocityDelegateBuilder withArtifactId(final String artifactId) {
-            this.artifactId = artifactId;
-            return this;
-        }
-
-        /**
-         * Adds the version to the {@link ReadmeHtmlVelocityDelegate}.
-         * @param version the maven version.
-         * @return the builder to continue building.
-         */
-        public ReadmeHtmlVelocityDelegateBuilder withVersion(final String version) {
-            this.version = version;
-            return this;
-        }
-
-        /**
-         * Adds the siteUrl to the {@link ReadmeHtmlVelocityDelegate}.
-         * @param siteUrl the site url to be used in the <code>README.html</code>
-         * @return the builder to continue building.
-         */
-        public ReadmeHtmlVelocityDelegateBuilder withSiteUrl(final String siteUrl) {
-            this.siteUrl = siteUrl;
-            return this;
-        }
-
-        /**
-         * Builds up the {@link ReadmeHtmlVelocityDelegate} from the previously set parameters.
-         * @return a new {@link ReadmeHtmlVelocityDelegate}.
-         */
-        public ReadmeHtmlVelocityDelegate build() {
-            return new ReadmeHtmlVelocityDelegate(this.artifactId, this.version, this.siteUrl);
-        }
     }
 }

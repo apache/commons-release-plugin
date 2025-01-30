@@ -189,6 +189,223 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     private File distRcVersionDirectory;
 
+    /**
+     * Builds up <code>README.html</code> and <code>HEADER.html</code> that reside in following.
+     * <ul>
+     *     <li>distRoot
+     *     <ul>
+     *         <li>binaries/HEADER.html (symlink)</li>
+     *         <li>binaries/README.html (symlink)</li>
+     *         <li>source/HEADER.html (symlink)</li>
+     *         <li>source/README.html (symlink)</li>
+     *         <li>HEADER.html</li>
+     *         <li>README.html</li>
+     *     </ul>
+     *     </li>
+     * </ul>
+     * @return the {@link List} of created files above
+     * @throws MojoExecutionException if an {@link IOException} occurs in the creation of these
+     *                                files fails.
+     */
+    private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
+        final List<File> headerAndReadmeFiles = new ArrayList<>();
+        final File headerFile = new File(distRcVersionDirectory, HEADER_FILE_NAME);
+        //
+        // HEADER file
+        //
+        try (Writer headerWriter = new OutputStreamWriter(Files.newOutputStream(headerFile.toPath()),
+                StandardCharsets.UTF_8)) {
+            HeaderHtmlVelocityDelegate.builder().build().render(headerWriter);
+        } catch (final IOException e) {
+            final String message = "Could not build HEADER html file " + headerFile;
+            getLog().error(message, e);
+            throw new MojoExecutionException(message, e);
+        }
+        headerAndReadmeFiles.add(headerFile);
+        //
+        // README file
+        //
+        final File readmeFile = new File(distRcVersionDirectory, README_FILE_NAME);
+        try (Writer readmeWriter = new OutputStreamWriter(Files.newOutputStream(readmeFile.toPath()),
+                StandardCharsets.UTF_8)) {
+            // @formatter:off
+            final ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
+                    .withArtifactId(project.getArtifactId())
+                    .withVersion(project.getVersion())
+                    .withSiteUrl(project.getUrl())
+                    .build();
+            // @formatter:on
+            readmeHtmlVelocityDelegate.render(readmeWriter);
+        } catch (final IOException e) {
+            final String message = "Could not build README html file " + readmeFile;
+            getLog().error(message, e);
+            throw new MojoExecutionException(message, e);
+        }
+        headerAndReadmeFiles.add(readmeFile);
+        //
+        // signature-validator.sh file copy
+        //
+        headerAndReadmeFiles.addAll(copyHeaderAndReadmeToSubdirectories(headerFile, readmeFile));
+        return headerAndReadmeFiles;
+    }
+
+    /**
+     * Copies the list of files at the root of the {@link CommonsDistributionStagingMojo#workingDirectory} into
+     * the directory structure of the distribution staging repository. Specifically:
+     * <ul>
+     *   <li>root:
+     *     <ul>
+     *         <li>site</li>
+     *         <li>site.zip</li>
+     *         <li>RELEASE-NOTES.txt</li>
+     *         <li>source:
+     *           <ul>
+     *             <li>-src artifacts....</li>
+     *           </ul>
+     *         </li>
+     *         <li>binaries:
+     *           <ul>
+     *             <li>-bin artifacts....</li>
+     *           </ul>
+     *         </li>
+     *     </ul>
+     *   </li>
+     * </ul>
+     *
+     * @param copiedReleaseNotes is the RELEASE-NOTES.txt file that exists in the
+     *                           <code>target/commons-release-plugin/scm</code> directory.
+     * @param provider is the {@link ScmProvider} that we will use for adding the files we wish to commit.
+     * @param repository is the {@link ScmRepository} that we will use for adding the files that we wish to commit.
+     * @return a {@link List} of {@link File}'s in the directory for the purpose of adding them to the maven
+     *         {@link ScmFileSet}.
+     * @throws MojoExecutionException if an {@link IOException} occurs so that Maven can handle it properly.
+     */
+    private List<File> copyDistributionsIntoScmDirectoryStructureAndAddToSvn(final File copiedReleaseNotes,
+                                                                             final ScmProvider provider,
+                                                                             final ScmRepository repository)
+            throws MojoExecutionException {
+        final List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
+        final List<File> filesForMavenScmFileSet = new ArrayList<>();
+        final File scmBinariesRoot = new File(distRcVersionDirectory, "binaries");
+        final File scmSourceRoot = new File(distRcVersionDirectory, "source");
+        SharedFunctions.initDirectory(getLog(), scmBinariesRoot);
+        SharedFunctions.initDirectory(getLog(), scmSourceRoot);
+        File copy;
+        for (final File file : workingDirectoryFiles) {
+            if (file.getName().contains("src")) {
+                copy = new File(scmSourceRoot,  file.getName());
+                SharedFunctions.copyFile(getLog(), file, copy);
+                filesForMavenScmFileSet.add(file);
+            } else if (file.getName().contains("bin")) {
+                copy = new File(scmBinariesRoot,  file.getName());
+                SharedFunctions.copyFile(getLog(), file, copy);
+                filesForMavenScmFileSet.add(file);
+            } else if (StringUtils.containsAny(file.getName(), "scm", "sha256.properties", "sha512.properties")) {
+                getLog().debug("Not copying scm directory over to the scm directory because it is the scm directory.");
+                //do nothing because we are copying into scm
+            } else {
+                copy = new File(distCheckoutDirectory.getAbsolutePath(),  file.getName());
+                SharedFunctions.copyFile(getLog(), file, copy);
+                filesForMavenScmFileSet.add(file);
+            }
+        }
+        filesForMavenScmFileSet.addAll(buildReadmeAndHeaderHtmlFiles());
+        filesForMavenScmFileSet.add(copySignatureValidatorScriptToScmDirectory());
+        filesForMavenScmFileSet.addAll(copySiteToScmDirectory());
+        return filesForMavenScmFileSet;
+    }
+
+    /**
+     * Copies <code>README.html</code> and <code>HEADER.html</code> to the source and binaries
+     * directories.
+     *
+     * @param headerFile The originally created <code>HEADER.html</code> file.
+     * @param readmeFile The originally created <code>README.html</code> file.
+     * @return a {@link List} of created files.
+     * @throws MojoExecutionException if the {@link SharedFunctions#copyFile(Log, File, File)}
+     *                                fails.
+     */
+    private List<File> copyHeaderAndReadmeToSubdirectories(final File headerFile, final File readmeFile)
+            throws MojoExecutionException {
+        final List<File> symbolicLinkFiles = new ArrayList<>();
+        final File sourceRoot = new File(distRcVersionDirectory, "source");
+        final File binariesRoot = new File(distRcVersionDirectory, "binaries");
+        final File sourceHeaderFile = new File(sourceRoot, HEADER_FILE_NAME);
+        final File sourceReadmeFile = new File(sourceRoot, README_FILE_NAME);
+        final File binariesHeaderFile = new File(binariesRoot, HEADER_FILE_NAME);
+        final File binariesReadmeFile = new File(binariesRoot, README_FILE_NAME);
+        SharedFunctions.copyFile(getLog(), headerFile, sourceHeaderFile);
+        symbolicLinkFiles.add(sourceHeaderFile);
+        SharedFunctions.copyFile(getLog(), readmeFile, sourceReadmeFile);
+        symbolicLinkFiles.add(sourceReadmeFile);
+        SharedFunctions.copyFile(getLog(), headerFile, binariesHeaderFile);
+        symbolicLinkFiles.add(binariesHeaderFile);
+        SharedFunctions.copyFile(getLog(), readmeFile, binariesReadmeFile);
+        symbolicLinkFiles.add(binariesReadmeFile);
+        return symbolicLinkFiles;
+    }
+
+    /**
+     * A utility method that takes the <code>RELEASE-NOTES.txt</code> file from the base directory of the
+     * project and copies it into {@link CommonsDistributionStagingMojo#workingDirectory}.
+     *
+     * @return the RELEASE-NOTES.txt file that exists in the <code>target/commons-release-notes/scm</code>
+     *         directory for the purpose of adding it to the scm change set in the method
+     *         {@link CommonsDistributionStagingMojo#copyDistributionsIntoScmDirectoryStructureAndAddToSvn(File,
+     *         ScmProvider, ScmRepository)}.
+     * @throws MojoExecutionException if an {@link IOException} occurs as a wrapper so that maven
+     *                                can properly handle the exception.
+     */
+    private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
+        SharedFunctions.initDirectory(getLog(), distRcVersionDirectory);
+        getLog().info("Copying RELEASE-NOTES.txt to working directory.");
+        final File copiedReleaseNotes = new File(distRcVersionDirectory, releaseNotesFile.getName());
+        SharedFunctions.copyFile(getLog(), releaseNotesFile, copiedReleaseNotes);
+        return copiedReleaseNotes;
+    }
+
+    /**
+     * Copies our <code>signature-validator.sh</code> script into
+     * <code>${basedir}/target/commons-release-plugin/scm/signature-validator.sh</code>.
+     *
+     * @return the {@link File} for the signature-validator.sh
+     * @throws MojoExecutionException if an error occurs while the resource is being copied
+     */
+    private File copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
+        final Path scmTargetPath = Paths.get(distRcVersionDirectory.toString(), SIGNATURE_VALIDATOR_NAME);
+        final String name = "/resources/" + SIGNATURE_VALIDATOR_NAME;
+        // The source can be in a local file or inside a jar file.
+        try {
+            PathUtils.copyFile(getClass().getResource(name), scmTargetPath);
+        } catch (final Exception e) {
+            throw new MojoExecutionException(String.format("Failed to copy '%s' to '%s'", name, scmTargetPath), e);
+        }
+        return scmTargetPath.toFile();
+    }
+
+    /**
+     * Copies <code>${basedir}/target/site</code> to <code>${basedir}/target/commons-release-plugin/scm/site</code>.
+     *
+     * @return the {@link List} of {@link File}'s contained in
+     *         <code>${basedir}/target/commons-release-plugin/scm/site</code>, after the copy is complete.
+     * @throws MojoExecutionException if the site copying fails for some reason.
+     */
+    private List<File> copySiteToScmDirectory() throws MojoExecutionException {
+        if (!siteDirectory.exists()) {
+            getLog().error("\"mvn site\" was not run before this goal, or a siteDirectory did not exist.");
+            throw new MojoExecutionException(
+                    "\"mvn site\" was not run before this goal, or a siteDirectory did not exist."
+            );
+        }
+        final File siteInScm = new File(distRcVersionDirectory, "site");
+        try {
+            FileUtils.copyDirectory(siteDirectory, siteInScm);
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Site copying failed", e);
+        }
+        return new ArrayList<>(FileUtils.listFiles(siteInScm, null, true));
+    }
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (!isDistModule) {
@@ -287,223 +504,6 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 listNotHiddenFilesAndDirectories(file, files);
             }
         }
-    }
-
-    /**
-     * A utility method that takes the <code>RELEASE-NOTES.txt</code> file from the base directory of the
-     * project and copies it into {@link CommonsDistributionStagingMojo#workingDirectory}.
-     *
-     * @return the RELEASE-NOTES.txt file that exists in the <code>target/commons-release-notes/scm</code>
-     *         directory for the purpose of adding it to the scm change set in the method
-     *         {@link CommonsDistributionStagingMojo#copyDistributionsIntoScmDirectoryStructureAndAddToSvn(File,
-     *         ScmProvider, ScmRepository)}.
-     * @throws MojoExecutionException if an {@link IOException} occurs as a wrapper so that maven
-     *                                can properly handle the exception.
-     */
-    private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
-        SharedFunctions.initDirectory(getLog(), distRcVersionDirectory);
-        getLog().info("Copying RELEASE-NOTES.txt to working directory.");
-        final File copiedReleaseNotes = new File(distRcVersionDirectory, releaseNotesFile.getName());
-        SharedFunctions.copyFile(getLog(), releaseNotesFile, copiedReleaseNotes);
-        return copiedReleaseNotes;
-    }
-
-    /**
-     * Copies the list of files at the root of the {@link CommonsDistributionStagingMojo#workingDirectory} into
-     * the directory structure of the distribution staging repository. Specifically:
-     * <ul>
-     *   <li>root:
-     *     <ul>
-     *         <li>site</li>
-     *         <li>site.zip</li>
-     *         <li>RELEASE-NOTES.txt</li>
-     *         <li>source:
-     *           <ul>
-     *             <li>-src artifacts....</li>
-     *           </ul>
-     *         </li>
-     *         <li>binaries:
-     *           <ul>
-     *             <li>-bin artifacts....</li>
-     *           </ul>
-     *         </li>
-     *     </ul>
-     *   </li>
-     * </ul>
-     *
-     * @param copiedReleaseNotes is the RELEASE-NOTES.txt file that exists in the
-     *                           <code>target/commons-release-plugin/scm</code> directory.
-     * @param provider is the {@link ScmProvider} that we will use for adding the files we wish to commit.
-     * @param repository is the {@link ScmRepository} that we will use for adding the files that we wish to commit.
-     * @return a {@link List} of {@link File}'s in the directory for the purpose of adding them to the maven
-     *         {@link ScmFileSet}.
-     * @throws MojoExecutionException if an {@link IOException} occurs so that Maven can handle it properly.
-     */
-    private List<File> copyDistributionsIntoScmDirectoryStructureAndAddToSvn(final File copiedReleaseNotes,
-                                                                             final ScmProvider provider,
-                                                                             final ScmRepository repository)
-            throws MojoExecutionException {
-        final List<File> workingDirectoryFiles = Arrays.asList(workingDirectory.listFiles());
-        final List<File> filesForMavenScmFileSet = new ArrayList<>();
-        final File scmBinariesRoot = new File(distRcVersionDirectory, "binaries");
-        final File scmSourceRoot = new File(distRcVersionDirectory, "source");
-        SharedFunctions.initDirectory(getLog(), scmBinariesRoot);
-        SharedFunctions.initDirectory(getLog(), scmSourceRoot);
-        File copy;
-        for (final File file : workingDirectoryFiles) {
-            if (file.getName().contains("src")) {
-                copy = new File(scmSourceRoot,  file.getName());
-                SharedFunctions.copyFile(getLog(), file, copy);
-                filesForMavenScmFileSet.add(file);
-            } else if (file.getName().contains("bin")) {
-                copy = new File(scmBinariesRoot,  file.getName());
-                SharedFunctions.copyFile(getLog(), file, copy);
-                filesForMavenScmFileSet.add(file);
-            } else if (StringUtils.containsAny(file.getName(), "scm", "sha256.properties", "sha512.properties")) {
-                getLog().debug("Not copying scm directory over to the scm directory because it is the scm directory.");
-                //do nothing because we are copying into scm
-            } else {
-                copy = new File(distCheckoutDirectory.getAbsolutePath(),  file.getName());
-                SharedFunctions.copyFile(getLog(), file, copy);
-                filesForMavenScmFileSet.add(file);
-            }
-        }
-        filesForMavenScmFileSet.addAll(buildReadmeAndHeaderHtmlFiles());
-        filesForMavenScmFileSet.add(copySignatureValidatorScriptToScmDirectory());
-        filesForMavenScmFileSet.addAll(copySiteToScmDirectory());
-        return filesForMavenScmFileSet;
-    }
-
-    /**
-     * Copies our <code>signature-validator.sh</code> script into
-     * <code>${basedir}/target/commons-release-plugin/scm/signature-validator.sh</code>.
-     *
-     * @return the {@link File} for the signature-validator.sh
-     * @throws MojoExecutionException if an error occurs while the resource is being copied
-     */
-    private File copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
-        final Path scmTargetPath = Paths.get(distRcVersionDirectory.toString(), SIGNATURE_VALIDATOR_NAME);
-        final String name = "/resources/" + SIGNATURE_VALIDATOR_NAME;
-        // The source can be in a local file or inside a jar file.
-        try {
-            PathUtils.copyFile(getClass().getResource(name), scmTargetPath);
-        } catch (final Exception e) {
-            throw new MojoExecutionException(String.format("Failed to copy '%s' to '%s'", name, scmTargetPath), e);
-        }
-        return scmTargetPath.toFile();
-    }
-
-    /**
-     * Copies <code>${basedir}/target/site</code> to <code>${basedir}/target/commons-release-plugin/scm/site</code>.
-     *
-     * @return the {@link List} of {@link File}'s contained in
-     *         <code>${basedir}/target/commons-release-plugin/scm/site</code>, after the copy is complete.
-     * @throws MojoExecutionException if the site copying fails for some reason.
-     */
-    private List<File> copySiteToScmDirectory() throws MojoExecutionException {
-        if (!siteDirectory.exists()) {
-            getLog().error("\"mvn site\" was not run before this goal, or a siteDirectory did not exist.");
-            throw new MojoExecutionException(
-                    "\"mvn site\" was not run before this goal, or a siteDirectory did not exist."
-            );
-        }
-        final File siteInScm = new File(distRcVersionDirectory, "site");
-        try {
-            FileUtils.copyDirectory(siteDirectory, siteInScm);
-        } catch (final IOException e) {
-            throw new MojoExecutionException("Site copying failed", e);
-        }
-        return new ArrayList<>(FileUtils.listFiles(siteInScm, null, true));
-    }
-
-    /**
-     * Builds up <code>README.html</code> and <code>HEADER.html</code> that reside in following.
-     * <ul>
-     *     <li>distRoot
-     *     <ul>
-     *         <li>binaries/HEADER.html (symlink)</li>
-     *         <li>binaries/README.html (symlink)</li>
-     *         <li>source/HEADER.html (symlink)</li>
-     *         <li>source/README.html (symlink)</li>
-     *         <li>HEADER.html</li>
-     *         <li>README.html</li>
-     *     </ul>
-     *     </li>
-     * </ul>
-     * @return the {@link List} of created files above
-     * @throws MojoExecutionException if an {@link IOException} occurs in the creation of these
-     *                                files fails.
-     */
-    private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
-        final List<File> headerAndReadmeFiles = new ArrayList<>();
-        final File headerFile = new File(distRcVersionDirectory, HEADER_FILE_NAME);
-        //
-        // HEADER file
-        //
-        try (Writer headerWriter = new OutputStreamWriter(Files.newOutputStream(headerFile.toPath()),
-                StandardCharsets.UTF_8)) {
-            HeaderHtmlVelocityDelegate.builder().build().render(headerWriter);
-        } catch (final IOException e) {
-            final String message = "Could not build HEADER html file " + headerFile;
-            getLog().error(message, e);
-            throw new MojoExecutionException(message, e);
-        }
-        headerAndReadmeFiles.add(headerFile);
-        //
-        // README file
-        //
-        final File readmeFile = new File(distRcVersionDirectory, README_FILE_NAME);
-        try (Writer readmeWriter = new OutputStreamWriter(Files.newOutputStream(readmeFile.toPath()),
-                StandardCharsets.UTF_8)) {
-            // @formatter:off
-            final ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
-                    .withArtifactId(project.getArtifactId())
-                    .withVersion(project.getVersion())
-                    .withSiteUrl(project.getUrl())
-                    .build();
-            // @formatter:on
-            readmeHtmlVelocityDelegate.render(readmeWriter);
-        } catch (final IOException e) {
-            final String message = "Could not build README html file " + readmeFile;
-            getLog().error(message, e);
-            throw new MojoExecutionException(message, e);
-        }
-        headerAndReadmeFiles.add(readmeFile);
-        //
-        // signature-validator.sh file copy
-        //
-        headerAndReadmeFiles.addAll(copyHeaderAndReadmeToSubdirectories(headerFile, readmeFile));
-        return headerAndReadmeFiles;
-    }
-
-    /**
-     * Copies <code>README.html</code> and <code>HEADER.html</code> to the source and binaries
-     * directories.
-     *
-     * @param headerFile The originally created <code>HEADER.html</code> file.
-     * @param readmeFile The originally created <code>README.html</code> file.
-     * @return a {@link List} of created files.
-     * @throws MojoExecutionException if the {@link SharedFunctions#copyFile(Log, File, File)}
-     *                                fails.
-     */
-    private List<File> copyHeaderAndReadmeToSubdirectories(final File headerFile, final File readmeFile)
-            throws MojoExecutionException {
-        final List<File> symbolicLinkFiles = new ArrayList<>();
-        final File sourceRoot = new File(distRcVersionDirectory, "source");
-        final File binariesRoot = new File(distRcVersionDirectory, "binaries");
-        final File sourceHeaderFile = new File(sourceRoot, HEADER_FILE_NAME);
-        final File sourceReadmeFile = new File(sourceRoot, README_FILE_NAME);
-        final File binariesHeaderFile = new File(binariesRoot, HEADER_FILE_NAME);
-        final File binariesReadmeFile = new File(binariesRoot, README_FILE_NAME);
-        SharedFunctions.copyFile(getLog(), headerFile, sourceHeaderFile);
-        symbolicLinkFiles.add(sourceHeaderFile);
-        SharedFunctions.copyFile(getLog(), readmeFile, sourceReadmeFile);
-        symbolicLinkFiles.add(sourceReadmeFile);
-        SharedFunctions.copyFile(getLog(), headerFile, binariesHeaderFile);
-        symbolicLinkFiles.add(binariesHeaderFile);
-        SharedFunctions.copyFile(getLog(), readmeFile, binariesReadmeFile);
-        symbolicLinkFiles.add(binariesReadmeFile);
-        return symbolicLinkFiles;
     }
 
     /**

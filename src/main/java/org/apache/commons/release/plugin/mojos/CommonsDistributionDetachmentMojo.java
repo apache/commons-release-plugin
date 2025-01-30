@@ -63,6 +63,7 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * *-bin.tar.gz, and the corresponding .asc pgp signatures.
      */
     private static final Set<String> ARTIFACT_TYPES_TO_DETACH;
+
     static {
         final Set<String> hashSet = new HashSet<>();
         hashSet.add("zip");
@@ -109,6 +110,28 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "false", property = "commons.release.isDistModule")
     private Boolean isDistModule;
+
+    /**
+     * A helper method to copy the newly detached artifacts to <code>target/commons-release-plugin</code>
+     * so that the {@link CommonsDistributionStagingMojo} can find the artifacts later.
+     *
+     * @throws MojoExecutionException if some form of an {@link IOException} occurs, we want it
+     *                                properly wrapped so that Maven can handle it.
+     */
+    private void copyRemovedArtifactsToWorkingDirectory() throws MojoExecutionException {
+        final String wdAbsolutePath = workingDirectory.getAbsolutePath();
+        getLog().info(
+                "Copying " + detachedArtifacts.size() + " detached artifacts to working directory " + wdAbsolutePath);
+        for (final Artifact artifact: detachedArtifacts) {
+            final File artifactFile = artifact.getFile();
+            final StringBuilder copiedArtifactAbsolutePath = new StringBuilder(wdAbsolutePath);
+            copiedArtifactAbsolutePath.append("/");
+            copiedArtifactAbsolutePath.append(artifactFile.getName());
+            final File copiedArtifact = new File(copiedArtifactAbsolutePath.toString());
+            getLog().info("Copying: " + artifactFile.getName());
+            SharedFunctions.copyFile(getLog(), artifactFile, copiedArtifact);
+        }
+    }
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -160,6 +183,60 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     }
 
     /**
+     * Generates the unique artifact key for storage in our sha512 map. For example,
+     * commons-test-1.4-src.tar.gz should have its name as the key.
+     *
+     * @param artifact the {@link Artifact} that we wish to generate a key for.
+     * @return the generated key
+     */
+    private String getArtifactKey(final Artifact artifact) {
+        return artifact.getFile().getName();
+    }
+
+    /**
+     * A helper method to create a file path for the <code>sha512</code> signature file from a given file.
+     *
+     * @param directory is the {@link File} for the directory in which to make the <code>.sha512</code> file.
+     * @param file the {@link File} whose name we should use to create the <code>.sha512</code> file.
+     * @return a {@link String} that is the absolute path to the <code>.sha512</code> file.
+     */
+    private String getSha512FilePath(final File directory, final File file) {
+        final StringBuilder buffer = new StringBuilder(directory.getAbsolutePath());
+        buffer.append("/");
+        buffer.append(file.getName());
+        buffer.append(".sha512");
+        return buffer.toString();
+    }
+
+    /**
+     *  A helper method that creates sha512 signature files for our detached artifacts in the
+     *  <code>target/commons-release-plugin</code> directory for the purpose of being uploaded by
+     *  the {@link CommonsDistributionStagingMojo}.
+     *
+     * @throws MojoExecutionException if some form of an {@link IOException} occurs, we want it
+     *                                properly wrapped so that Maven can handle it.
+     */
+    private void hashArtifacts() throws MojoExecutionException {
+        for (final Artifact artifact : detachedArtifacts) {
+            if (!artifact.getFile().getName().toLowerCase(Locale.ROOT).contains("asc")) {
+                final String artifactKey = getArtifactKey(artifact);
+                try {
+                    final String digest;
+                    // SHA-512
+                    digest = artifactSha512s.getProperty(artifactKey.toString());
+                    getLog().info(artifact.getFile().getName() + " sha512: " + digest);
+                    try (PrintWriter printWriter = new PrintWriter(
+                            getSha512FilePath(workingDirectory, artifact.getFile()))) {
+                        printWriter.println(digest);
+                    }
+                } catch (final IOException e) {
+                    throw new MojoExecutionException("Could not sign file: " + artifact.getFile().getName(), e);
+                }
+            }
+        }
+    }
+
+    /**
      * Takes an attached artifact and puts the signature in the map.
      * @param artifact is a Maven {@link Artifact} taken from the project at start time of mojo.
      * @throws MojoExecutionException if an {@link IOException} occurs when getting the sha512 of the
@@ -200,81 +277,5 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
         } catch (final IOException e) {
             throw new MojoExecutionException("Failure to write SHA-512's", e);
         }
-    }
-
-    /**
-     * A helper method to copy the newly detached artifacts to <code>target/commons-release-plugin</code>
-     * so that the {@link CommonsDistributionStagingMojo} can find the artifacts later.
-     *
-     * @throws MojoExecutionException if some form of an {@link IOException} occurs, we want it
-     *                                properly wrapped so that Maven can handle it.
-     */
-    private void copyRemovedArtifactsToWorkingDirectory() throws MojoExecutionException {
-        final String wdAbsolutePath = workingDirectory.getAbsolutePath();
-        getLog().info(
-                "Copying " + detachedArtifacts.size() + " detached artifacts to working directory " + wdAbsolutePath);
-        for (final Artifact artifact: detachedArtifacts) {
-            final File artifactFile = artifact.getFile();
-            final StringBuilder copiedArtifactAbsolutePath = new StringBuilder(wdAbsolutePath);
-            copiedArtifactAbsolutePath.append("/");
-            copiedArtifactAbsolutePath.append(artifactFile.getName());
-            final File copiedArtifact = new File(copiedArtifactAbsolutePath.toString());
-            getLog().info("Copying: " + artifactFile.getName());
-            SharedFunctions.copyFile(getLog(), artifactFile, copiedArtifact);
-        }
-    }
-
-    /**
-     *  A helper method that creates sha512 signature files for our detached artifacts in the
-     *  <code>target/commons-release-plugin</code> directory for the purpose of being uploaded by
-     *  the {@link CommonsDistributionStagingMojo}.
-     *
-     * @throws MojoExecutionException if some form of an {@link IOException} occurs, we want it
-     *                                properly wrapped so that Maven can handle it.
-     */
-    private void hashArtifacts() throws MojoExecutionException {
-        for (final Artifact artifact : detachedArtifacts) {
-            if (!artifact.getFile().getName().toLowerCase(Locale.ROOT).contains("asc")) {
-                final String artifactKey = getArtifactKey(artifact);
-                try {
-                    final String digest;
-                    // SHA-512
-                    digest = artifactSha512s.getProperty(artifactKey.toString());
-                    getLog().info(artifact.getFile().getName() + " sha512: " + digest);
-                    try (PrintWriter printWriter = new PrintWriter(
-                            getSha512FilePath(workingDirectory, artifact.getFile()))) {
-                        printWriter.println(digest);
-                    }
-                } catch (final IOException e) {
-                    throw new MojoExecutionException("Could not sign file: " + artifact.getFile().getName(), e);
-                }
-            }
-        }
-    }
-
-    /**
-     * A helper method to create a file path for the <code>sha512</code> signature file from a given file.
-     *
-     * @param directory is the {@link File} for the directory in which to make the <code>.sha512</code> file.
-     * @param file the {@link File} whose name we should use to create the <code>.sha512</code> file.
-     * @return a {@link String} that is the absolute path to the <code>.sha512</code> file.
-     */
-    private String getSha512FilePath(final File directory, final File file) {
-        final StringBuilder buffer = new StringBuilder(directory.getAbsolutePath());
-        buffer.append("/");
-        buffer.append(file.getName());
-        buffer.append(".sha512");
-        return buffer.toString();
-    }
-
-    /**
-     * Generates the unique artifact key for storage in our sha512 map. For example,
-     * commons-test-1.4-src.tar.gz should have its name as the key.
-     *
-     * @param artifact the {@link Artifact} that we wish to generate a key for.
-     * @return the generated key
-     */
-    private String getArtifactKey(final Artifact artifact) {
-        return artifact.getFile().getName();
     }
 }

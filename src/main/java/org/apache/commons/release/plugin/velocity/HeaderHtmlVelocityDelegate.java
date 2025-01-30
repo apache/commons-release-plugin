@@ -32,39 +32,6 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  */
 public class HeaderHtmlVelocityDelegate {
 
-    /** The location of the velocity template for this class. */
-    private static final String TEMPLATE = "resources/org/apache/commons/release/plugin/velocity/HEADER.vm";
-
-    /** The private constructor to be used by the {@link HeaderHtmlVelocityDelegateBuilder}. */
-    private HeaderHtmlVelocityDelegate() {
-    }
-
-    /**
-     * For instantiating our {@link HeaderHtmlVelocityDelegate} using the {@link HeaderHtmlVelocityDelegateBuilder}.
-     *
-     * @return a {@link HeaderHtmlVelocityDelegateBuilder}.
-     */
-    public static HeaderHtmlVelocityDelegateBuilder builder() {
-        return new HeaderHtmlVelocityDelegateBuilder();
-    }
-
-    /**
-     * Builds the HEADER.vm velocity template to the writer passed in.
-     *
-     * @param writer any {@link Writer} that we wish to have the filled velocity template written to.
-     * @return the {@link Writer} that we've filled out the template into.
-     */
-    public Writer render(final Writer writer) {
-        final VelocityEngine ve = new VelocityEngine();
-        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-        ve.init();
-        final Template template = ve.getTemplate(TEMPLATE);
-        final VelocityContext context = new VelocityContext();
-        template.merge(context, writer);
-        return writer;
-    }
-
     /**
      * A builder class for instantiation of the {@link HeaderHtmlVelocityDelegate}.
      */
@@ -83,5 +50,38 @@ public class HeaderHtmlVelocityDelegate {
         public HeaderHtmlVelocityDelegate build() {
             return new HeaderHtmlVelocityDelegate();
         }
+    }
+
+    /** The location of the velocity template for this class. */
+    private static final String TEMPLATE = "resources/org/apache/commons/release/plugin/velocity/HEADER.vm";
+
+    /**
+     * For instantiating our {@link HeaderHtmlVelocityDelegate} using the {@link HeaderHtmlVelocityDelegateBuilder}.
+     *
+     * @return a {@link HeaderHtmlVelocityDelegateBuilder}.
+     */
+    public static HeaderHtmlVelocityDelegateBuilder builder() {
+        return new HeaderHtmlVelocityDelegateBuilder();
+    }
+
+    /** The private constructor to be used by the {@link HeaderHtmlVelocityDelegateBuilder}. */
+    private HeaderHtmlVelocityDelegate() {
+    }
+
+    /**
+     * Builds the HEADER.vm velocity template to the writer passed in.
+     *
+     * @param writer any {@link Writer} that we wish to have the filled velocity template written to.
+     * @return the {@link Writer} that we've filled out the template into.
+     */
+    public Writer render(final Writer writer) {
+        final VelocityEngine ve = new VelocityEngine();
+        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        ve.init();
+        final Template template = ve.getTemplate(TEMPLATE);
+        final VelocityContext context = new VelocityContext();
+        template.merge(context, writer);
+        return writer;
     }
 }

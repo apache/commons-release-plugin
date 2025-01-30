@@ -38,26 +38,53 @@ import org.apache.maven.project.MavenProject;
  */
 public class DistributionDetachmentProjectStub extends MavenProjectStub {
 
+    public static class DistributionDetachmentArtifactStub extends ArtifactStub {
+
+        private final File artifact;
+
+        private final String version;
+
+        private final String classifier;
+
+        private final String type;
+
+        public DistributionDetachmentArtifactStub(final File file, final String type, final String groupId,
+                final String artifactId, final String classifier, final String version) {
+            this.setArtifactId(artifactId);
+            this.setGroupId(groupId);
+            this.setArtifactHandler(new DefaultArtifactHandlerStub(type, classifier));
+            this.artifact = file;
+            this.type = type;
+            this.classifier = classifier;
+            this.version = version;
+        }
+
+        @Override
+        public String getClassifier() {
+            return this.classifier;
+        }
+
+        @Override
+        public File getFile() {
+            return this.artifact;
+        }
+
+        @Override
+        public String getType() {
+            return this.type;
+        }
+
+        @Override
+        public String getVersion() {
+            return this.version;
+        }
+    }
+
     private List<Artifact> attachedArtifacts;
 
     @Override
     public String getArtifactId() {
         return "commons-text";
-    }
-
-    @Override
-    public String getGroupId() {
-        return "org.apache.commons";
-    }
-
-    @Override
-    public String getVersion() {
-        return "1.4";
-    }
-
-    @Override
-    public String getUrl() {
-        return "https://commons.apache.org/proper/commons-text/";
     }
 
     @Override
@@ -210,45 +237,18 @@ public class DistributionDetachmentProjectStub extends MavenProjectStub {
         return attachedArtifacts;
     }
 
-    public static class DistributionDetachmentArtifactStub extends ArtifactStub {
+    @Override
+    public String getGroupId() {
+        return "org.apache.commons";
+    }
 
-        private final File artifact;
+    @Override
+    public String getUrl() {
+        return "https://commons.apache.org/proper/commons-text/";
+    }
 
-        private final String version;
-
-        private final String classifier;
-
-        private final String type;
-
-        public DistributionDetachmentArtifactStub(final File file, final String type, final String groupId,
-                final String artifactId, final String classifier, final String version) {
-            this.setArtifactId(artifactId);
-            this.setGroupId(groupId);
-            this.setArtifactHandler(new DefaultArtifactHandlerStub(type, classifier));
-            this.artifact = file;
-            this.type = type;
-            this.classifier = classifier;
-            this.version = version;
-        }
-
-        @Override
-        public File getFile() {
-            return this.artifact;
-        }
-
-        @Override
-        public String getType() {
-            return this.type;
-        }
-
-        @Override
-        public String getVersion() {
-            return this.version;
-        }
-
-        @Override
-        public String getClassifier() {
-            return this.classifier;
-        }
+    @Override
+    public String getVersion() {
+        return "1.4";
     }
 }
