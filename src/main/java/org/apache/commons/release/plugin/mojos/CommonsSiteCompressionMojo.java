@@ -59,6 +59,7 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
     private File workingDirectory;
 
     /**
+     * The site output directory.
      */
     @Parameter(defaultValue = "${project.build.directory}/site", property = "commons.siteOutputDirectory")
     private File siteDirectory;
@@ -82,6 +83,13 @@ public class CommonsSiteCompressionMojo extends AbstractMojo {
      * The list of files to compress into the site.zip file.
      */
     private List<File> filesToCompress;
+
+    /**
+     * Constructs a new instance.
+     */
+    public CommonsSiteCompressionMojo() {
+        // empty
+    }
 
     /**
      * Given the <code>directoryToZip</code> we add the <code>file</code> to the ZIP archive represented by

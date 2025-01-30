@@ -78,13 +78,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /** The name of the signature validation shell script to be checked into the dist svn repo. */
     private static final String SIGNATURE_VALIDATOR_NAME = "signature-validator.sh";
+
     /**
      * The {@link MavenProject} object is essentially the context of the maven build at
      * a given time.
      */
     @Parameter(defaultValue = "${project}", required = true)
     private MavenProject project;
-
     /**
      * The {@link File} that contains a file to the root directory of the working project. Typically
      * this directory is where the <code>pom.xml</code> resides.
@@ -188,6 +188,13 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
      * the directory should look like <code>https://dist.apache.org/repos/dist/dev/commons/text/1.4-RC1</code>.
      */
     private File distRcVersionDirectory;
+
+    /**
+     * Constructs a new instance.
+     */
+    public CommonsDistributionStagingMojo() {
+        // empty
+    }
 
     /**
      * Builds up <code>README.html</code> and <code>HEADER.html</code> that reside in following.

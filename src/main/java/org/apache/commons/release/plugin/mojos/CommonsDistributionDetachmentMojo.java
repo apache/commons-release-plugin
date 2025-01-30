@@ -112,6 +112,13 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private Boolean isDistModule;
 
     /**
+     * Constructs a new instance.
+     */
+    public CommonsDistributionDetachmentMojo() {
+        // empty
+    }
+
+    /**
      * A helper method to copy the newly detached artifacts to <code>target/commons-release-plugin</code>
      * so that the {@link CommonsDistributionStagingMojo} can find the artifacts later.
      *

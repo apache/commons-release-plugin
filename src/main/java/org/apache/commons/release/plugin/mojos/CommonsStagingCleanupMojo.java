@@ -131,6 +131,13 @@ public class CommonsStagingCleanupMojo extends AbstractMojo {
     @Component
     private SettingsDecrypter settingsDecrypter;
 
+    /**
+     * Constructs a new instance.
+     */
+    public CommonsStagingCleanupMojo() {
+        // empty
+    }
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (!isDistModule) {
