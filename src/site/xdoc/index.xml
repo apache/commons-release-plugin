@@ -73,7 +73,7 @@
             <p>
             Configure the plugin as the last plugin in the<code>&lt;build&gt;</code> section of the <code>pom.xml</code>
             </p>
-            <p>N.B. This is now done in the Commons Parent POM, so is not needed in the component POM.</p>
+            <p>This is now done in the Commons Parent POM, so is not needed in the component POM.</p>
 <source><![CDATA[
 <plugin>
   <groupId>org.apache.commons</groupId>
