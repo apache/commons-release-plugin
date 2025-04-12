@@ -15,11 +15,10 @@
 ## specific language governing permissions and limitations
 ## under the License.
 ##
-
 ${project.name} ${version} Release Notes
--------------------------------------------------
+------------------------------------------------
 
-The Apache Commons team is pleased to announce ${project.name} ${version}.
+The ${developmentTeam} is pleased to announce the release of ${project.name} ${version}.
 
 This document contains the release notes for ${project.name}.
 
