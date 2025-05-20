@@ -30,9 +30,9 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80).</action>
       <!-- ADD -->
       <!-- UPDATE -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 79 to 84 #376.</action>
       <action type="update" dev="engelen" due-to="Dependabot, Arnout Engelen">Bump org.apache.commons:commons-build-plugin from 1.14.1 to 1.15.0 #355.</action>
       <action type="update" dev="engelen" due-to="Dependabot, Gary Gregory">Bump commons-codec:commons-codec from 1.17.2 to 1.18.0 #357.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 79 to 83 #376.</action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.codehaus.plexus:plexus-velocity from 2.2.0 to 2.2.1 #372.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump commons-io:commons-io from 2.18.0 to 2.19.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-collections4 from 4.5.0-M3 to 4.5.0.</action>
