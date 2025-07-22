@@ -99,7 +99,7 @@
     -->
     <!-- Including commons release plugin older version -->
     <maven.plugin.version>3.15.1</maven.plugin.version>
-    <commons.build-plugin.version>1.15.0</commons.build-plugin.version>
+    <commons.build-plugin.version>1.16.0</commons.build-plugin.version>
     <!-- Until Maven plugins used here don't fail the Moditect plugin -->
     <moditect.skip>true</moditect.skip>
   </properties>
