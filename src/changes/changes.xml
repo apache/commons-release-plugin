@@ -28,6 +28,7 @@
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Migrate site generation templates to https://maven.apache.org/xsd/xdoc-2.0.xsd.</action> 
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80).</action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">Pick up Javadoc site configuration from parent POM and make sure it works by addiing it to the default goal.</action>
       <!-- ADD -->
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 79 to 85 #376.</action>

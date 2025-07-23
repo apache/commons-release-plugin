@@ -209,7 +209,7 @@
     </dependency>
   </dependencies>
   <build>
-    <defaultGoal>clean verify apache-rat:check checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
+    <defaultGoal>clean verify apache-rat:check checkstyle:check spotbugs:check javadoc:javadoc site</defaultGoal>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -439,28 +439,6 @@
         <reportSets>
           <reportSet/>
         </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${commons.javadoc.version}</version>
-        <configuration>
-          <!-- keep only errors and warnings -->
-          <show>private</show>
-          <quiet>true</quiet>
-          <encoding>${commons.encoding}</encoding>
-          <notimestamp>true</notimestamp>
-          <links>
-            <link>${commons.javadoc.java.link}</link>
-            <link>${commons.javadoc.javaee.link}</link>
-          </links>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-            </manifest>
-          </archive>
-        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
