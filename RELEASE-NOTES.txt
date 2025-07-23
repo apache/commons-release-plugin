@@ -9,58 +9,12 @@ Apache Maven Mojo for Apache Commons Release tasks.
 
 Version 1.9.1.
 
-
-
 Fixed Bugs
 ----------
 
 *                   Migrate site generation templates to https://maven.apache.org/xsd/xdoc-2.0.xsd. Thanks to Gary Gregory.
 *                   Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80). Thanks to Gary Gregory.
 *                   Pick up Javadoc site configuration from parent POM and make sure it works by addiing it to the default goal. Thanks to Gary Gregory.
-
-Changes
--------
-
-*                   Bump org.apache.commons:commons-parent from 79 to 85 #376. Thanks to Gary Gregory, Dependabot.
-*                   Bump org.apache.commons:commons-build-plugin from 1.14.1 to 1.16.0 #355. Thanks to Dependabot, Arnout Engelen, Gary Greggory.
-*                   Bump commons-codec:commons-codec from 1.17.2 to 1.19.0 #357. Thanks to Dependabot, Gary Gregory.
-*                   Bump org.codehaus.plexus:plexus-velocity from 2.2.0 to 2.2.1 #372. Thanks to Dependabot, Gary Gregory.
-*                   Bump commons-io:commons-io from 2.18.0 to 2.20.0. Thanks to Gary Gregory, Dependabot.
-*                   Bump org.apache.commons:commons-collections4 from 4.5.0-M3 to 4.5.0. Thanks to Gary Gregory.
-*                   Bump maven.dependency.version from 3.9.9 to 3.9.11 #383. Thanks to Gary Gregory, Dependabot.
-
-
-Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes.html
-
-For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
-
-https://commons.apache.org/proper/commons-release-plugin/
-
-Download page: https://commons.apache.org/proper/commons-release-plugin//download_release-plugin.cgi
-
-Have fun!
--Apache Commons Team
-
------------------------------------------------------------------------------
-Apache Commons Release Plugin 1.9.1 Release Notes
-------------------------------------------------
-
-The Apache Commons Release Plugin team is pleased to announce the release of Apache Commons Release Plugin 1.9.1.
-
-This document contains the release notes for Apache Commons Release Plugin.
-
-Apache Maven Mojo for Apache Commons Release tasks.
-
-Version 1.9.1.
-
-
-
-Fixed Bugs
-----------
-
-*                   Migrate site generation templates to https://maven.apache.org/xsd/xdoc-2.0.xsd. Thanks to Gary Gregory.
-*                   Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80). Thanks to Gary Gregory.
 
 Changes
 -------
