@@ -28,7 +28,7 @@
       <!-- FIX -->
       <!-- ADD -->
       <!-- UPDATE -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 88 #396, #399.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 89 #396, #399.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress from 1.27.1 to 1.28.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump maven-scm.version from 2.1.0 to 2.2.1 #402.</action>
     </release>
