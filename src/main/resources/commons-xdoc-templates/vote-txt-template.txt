@@ -100,7 +100,7 @@ You can validate a release from a release candidate (RC) tag as follows.
 
 1b) Check out the RC tag from git (optional)
 
-This is optional, as a reviewer must check source distributions as a minimum.
+This is optional,  as a reviewer must at least check source distributions.
 
 git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
 cd @TAGNAME@
@@ -111,14 +111,14 @@ All components should include a default Maven goal, such that you can run 'mvn' 
 
 2) Check Apache licenses
 
-This step is not required if the site includes a RAT report page which you then must check.
+This step is not required if the site includes a RAT report page, which you then must check.
 This check should be included in the default Maven build, but you can check it with:
 
 mvn apache-rat:check
 
 3) Check binary compatibility
 
-This step is not required if the site includes a JApiCmp report page which you then must check.
+This step is not required if the site includes a JApiCmp report page, which you then must check.
 This check should be included in the default Maven build, but you can check it with:
 
 mvn verify -DskipTests -P japicmp japicmp:cmp
