@@ -27,8 +27,8 @@
 
       <p>
         The best sources of information are
-        <a href="http://maven.apache.org/guides/plugin/guide-java-plugin-development.html">Developing Java Plugins for Maven 3.x</a>
-        and <a href="http://www.sonatype.com/book/chapter-11.html">Maven: The Definitive Guide: Chapter 11 Writing Plugins</a>.
+        <a href="https://maven.apache.org/guides/plugin/guide-java-plugin-development.html">Developing Java Plugins for Maven 3.x</a>
+        and <a href="https://www.sonatype.com/book/chapter-11.html">Maven: The Definitive Guide: Chapter 11 Writing Plugins</a>.
       </p>
 
     </section>
