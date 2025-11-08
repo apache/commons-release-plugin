@@ -18,12 +18,12 @@
 To: dev@commons.apache.org
 Subject: [VOTE] Release @NAME@ @VERSION@ based on @RC@
 
-We have fixed a few bugs and added enhancements since @NAME@ @BC@ was released, so I would like to release @NAME@ @VERSION@.
+We have fixed a few bugs and added enhancements since the release of @NAME@ @BC@, so I would like to release @NAME@ @VERSION@.
 
 @NAME@ @VERSION@ @RC@ is available for review here:
     @DISTURL@ (svn revision @RCREV@)
 
-The Git tag @TAGNAME@ commit for this RC is @TAGCOMMIT@ which you can browse here:
+The Git tag @TAGNAME@ commit for this RC is @TAGCOMMIT@, which you can browse here:
     https://gitbox.apache.org/repos/asf?p=commons-@ID@.git;a=commit;h=@TAGCOMMIT@
 You may checkout this tag using:
     git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
@@ -49,7 +49,7 @@ Details of changes since @BC@ are in the release notes:
 
 Site:
     @SITEURL@/index.html
-    (note some *relative* links are broken and the @VERSION@ directories are not yet created - these will be OK once the site is deployed.)
+    (Note some *relative* links are broken and the @VERSION@ directories are not yet created - these will be OK once the site is deployed.)
 
 *** JApiCmp Report (compared to @BC@):
     @SITEURL@/japicmp.html
