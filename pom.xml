@@ -229,12 +229,12 @@
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
-            <excludes>
-              <exclude>site-content/**</exclude>
-              <exclude>src/site/resources/download_release-plugin.cgi</exclude>
-              <exclude>src/test/resources/mojos/detach-distributions/target/commons-text-1.4*.asc</exclude>
-              <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
-            </excludes>
+            <inputExcludes>
+              <inputExclude>site-content/**</inputExclude>
+              <inputExclude>src/site/resources/download_release-plugin.cgi</inputExclude>
+              <inputExclude>src/test/resources/mojos/detach-distributions/target/commons-text-1.4*.asc</inputExclude>
+              <inputExclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</inputExclude>
+            </inputExcludes>
           </configuration>
         </plugin>
         <plugin>
