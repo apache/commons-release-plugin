@@ -15,20 +15,24 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project name="Commons Release Plugin">
-
-    <body>
-        <menu name="Release Plugin">
-            <item name="Overview"                 href="/index.html" />
-            <item name="Download"                 href="/download_release-plugin.cgi"/>
-            <item name="Release History"          href="/changes.html"/>
-            <item name="Plugin Documentation"     href="/plugin-info.html" />
-            <item name="Javadoc (Latest release)" href="javadocs/api-release/index.html"/>
-            <item name="Help"                     href="/development.html">
-                <item name="Issue Tracking"       href="/issue-tracking.html"/>
-                <item name="Development"          href="/development.html"/>
-            </item>
-        </menu>
-    </body>
-
-</project>
+<site xmlns="http://maven.apache.org/SITE/2.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd" 
+  name="Apache Commons Build Plugin">
+  <bannerRight name="Commons Release Plugin" href="/index.html">
+    <image src="/images/logo.png" />
+  </bannerRight>
+  <body>
+    <menu name="Release Plugin">
+      <item name="Overview" href="/index.html" />
+      <item name="Download" href="/download_release-plugin.cgi" />
+      <item name="Release History" href="/changes.html" />
+      <item name="Plugin Documentation" href="/plugin-info.html" />
+      <item name="Javadoc (Latest release)" href="javadocs/api-release/index.html" />
+      <item name="Help" href="/development.html">
+        <item name="Issue Tracking" href="/issue-tracking.html" />
+        <item name="Development" href="/development.html" />
+      </item>
+    </menu>
+  </body>
+</site>
