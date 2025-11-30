@@ -31,6 +31,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.file.PathUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.release.plugin.SharedFunctions;
 import org.apache.commons.release.plugin.velocity.HeaderHtmlVelocityDelegate;
 import org.apache.commons.release.plugin.velocity.ReadmeHtmlVelocityDelegate;
@@ -307,7 +308,7 @@ public class CommonsDistributionStagingMojo extends AbstractMojo {
                 copy = new File(scmBinariesRoot,  file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
                 filesForMavenScmFileSet.add(file);
-            } else if (StringUtils.containsAny(file.getName(), "scm", "sha256.properties", "sha512.properties")) {
+            } else if (Strings.CS.containsAny(file.getName(), "scm", "sha256.properties", "sha512.properties")) {
                 getLog().debug("Not copying scm directory over to the scm directory because it is the scm directory.");
                 //do nothing because we are copying into scm
             } else {
