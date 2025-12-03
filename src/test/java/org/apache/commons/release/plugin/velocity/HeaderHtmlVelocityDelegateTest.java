@@ -25,7 +25,7 @@ import java.io.Writer;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link HeaderHtmlVelocityDelegate}
+ * Unit tests for {@link HeaderHtmlVelocityDelegate}.
  */
 public class HeaderHtmlVelocityDelegateTest {
 
