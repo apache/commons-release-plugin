@@ -54,7 +54,7 @@ import org.apache.maven.settings.crypto.SettingsDecrypter;
         defaultPhase = LifecyclePhase.POST_CLEAN,
         threadSafe = true,
         aggregator = true)
-public class CommonsStagingCleanupMojo extends AbstractMojo {
+public final class CommonsStagingCleanupMojo extends AbstractMojo {
 
     /**
      * The {@link MavenProject} object is essentially the context of the maven build at

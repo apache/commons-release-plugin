@@ -31,11 +31,11 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  *
  * @since 1.3
  */
-public class ReadmeHtmlVelocityDelegate {
+public final class ReadmeHtmlVelocityDelegate {
     /**
      * A builder class for instantiation of the {@link ReadmeHtmlVelocityDelegate}.
      */
-    public static class ReadmeHtmlVelocityDelegateBuilder {
+    public static final class ReadmeHtmlVelocityDelegateBuilder {
         /** The maven artifactId to use in the <code>README.vm</code> template. */
         private String artifactId;
         /** The maven version to use in the <code>README.vm</code> template. */

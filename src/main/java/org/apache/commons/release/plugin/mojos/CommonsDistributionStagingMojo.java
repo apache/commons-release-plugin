@@ -69,7 +69,7 @@ import org.apache.maven.settings.crypto.SettingsDecrypter;
         defaultPhase = LifecyclePhase.DEPLOY,
         threadSafe = true,
         aggregator = true)
-public class CommonsDistributionStagingMojo extends AbstractMojo {
+public final class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /** The name of file generated from the README.vm velocity template to be checked into the dist svn repo. */
     private static final String README_FILE_NAME = "README.html";

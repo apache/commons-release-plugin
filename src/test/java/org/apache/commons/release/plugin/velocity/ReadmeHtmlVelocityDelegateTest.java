@@ -27,7 +27,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link ReadmeHtmlVelocityDelegate}.
  */
-public class ReadmeHtmlVelocityDelegateTest {
+public final class ReadmeHtmlVelocityDelegateTest {
 
     @Test
     public void testSuccessfulRun() throws IOException {

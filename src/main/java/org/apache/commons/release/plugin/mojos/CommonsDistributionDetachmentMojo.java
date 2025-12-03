@@ -52,7 +52,7 @@ import org.apache.maven.project.MavenProject;
         defaultPhase = LifecyclePhase.VERIFY,
         threadSafe = true,
         aggregator = true)
-public class CommonsDistributionDetachmentMojo extends AbstractMojo {
+public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
 
     /**
      * A list of "artifact types" in the Maven vernacular, to

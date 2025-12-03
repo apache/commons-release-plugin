@@ -30,12 +30,12 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  *
  * @since 1.3
  */
-public class HeaderHtmlVelocityDelegate {
+public final class HeaderHtmlVelocityDelegate {
 
     /**
      * A builder class for instantiation of the {@link HeaderHtmlVelocityDelegate}.
      */
-    public static class HeaderHtmlVelocityDelegateBuilder {
+    public static final class HeaderHtmlVelocityDelegateBuilder {
 
         /**
          * Private constructor so that we can have a proper builder pattern.

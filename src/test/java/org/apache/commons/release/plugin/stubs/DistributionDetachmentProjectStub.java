@@ -36,9 +36,9 @@ import org.apache.maven.project.MavenProject;
  *
  * @since 1.0
  */
-public class DistributionDetachmentProjectStub extends MavenProjectStub {
+public final class DistributionDetachmentProjectStub extends MavenProjectStub {
 
-    public static class DistributionDetachmentArtifactStub extends ArtifactStub {
+    public static final class DistributionDetachmentArtifactStub extends ArtifactStub {
 
         private final File artifact;
 

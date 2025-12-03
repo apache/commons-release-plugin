@@ -48,7 +48,7 @@ import org.apache.maven.plugins.annotations.Parameter;
         defaultPhase = LifecyclePhase.POST_SITE,
         threadSafe = true,
         aggregator = true)
-public class CommonsSiteCompressionMojo extends AbstractMojo {
+public final class CommonsSiteCompressionMojo extends AbstractMojo {
 
     /**
      * The working directory for the plugin which, assuming the maven uses the default
