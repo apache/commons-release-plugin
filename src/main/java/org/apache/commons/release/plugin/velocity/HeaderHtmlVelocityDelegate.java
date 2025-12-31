@@ -45,6 +45,7 @@ public final class HeaderHtmlVelocityDelegate {
 
         /**
          * Builds up the {@link ReadmeHtmlVelocityDelegate} from the previously set parameters.
+         *
          * @return a new {@link ReadmeHtmlVelocityDelegate}.
          */
         public HeaderHtmlVelocityDelegate build() {

@@ -244,6 +244,7 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
 
     /**
      * Takes an attached artifact and puts the signature in the map.
+     *
      * @param artifact is a Maven {@link Artifact} taken from the project at start time of mojo.
      * @throws MojoExecutionException if an {@link IOException} occurs when getting the sha512 of the
      *                                artifact.

@@ -211,6 +211,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      *     </ul>
      *     </li>
      * </ul>
+     *
      * @return the {@link List} of created files above
      * @throws MojoExecutionException if an {@link IOException} occurs in the creation of these
      *                                files fails.
@@ -498,6 +499,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /**
      * Lists all directories and files to a flat list.
+     *
      * @param directory {@link File} containing directory to list
      * @param files a {@link List} of {@link File} to which to append the files.
      */
