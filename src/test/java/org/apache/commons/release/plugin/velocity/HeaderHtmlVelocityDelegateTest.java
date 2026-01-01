@@ -16,21 +16,21 @@
  */
 package org.apache.commons.release.plugin.velocity;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link HeaderHtmlVelocityDelegate}.
  */
-public class HeaderHtmlVelocityDelegateTest {
+class HeaderHtmlVelocityDelegateTest {
 
     @Test
-    public void testSuccess() throws IOException {
+    void testSuccess() throws IOException {
         final HeaderHtmlVelocityDelegate subject = HeaderHtmlVelocityDelegate.builder().build();
         try (Writer writer = subject.render(new StringWriter())) {
             assertTrue(writer.toString().contains("<h2>Apache Commons Project Distributions</h2>"));

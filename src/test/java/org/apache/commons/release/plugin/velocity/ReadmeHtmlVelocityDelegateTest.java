@@ -16,21 +16,21 @@
  */
 package org.apache.commons.release.plugin.velocity;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link ReadmeHtmlVelocityDelegate}.
  */
-public final class ReadmeHtmlVelocityDelegateTest {
+final class ReadmeHtmlVelocityDelegateTest {
 
     @Test
-    public void testSuccessfulRun() throws IOException {
+    void testSuccessfulRun() throws IOException {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
                 .withArtifactId("commons-text")
                 .withVersion("1.4")
@@ -43,7 +43,7 @@ public final class ReadmeHtmlVelocityDelegateTest {
     }
 
     @Test
-    public void testSuccessfulRunBcel() throws IOException {
+    void testSuccessfulRunBcel() throws IOException {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
                 .withArtifactId("bcel")
                 .withVersion("1.5")
@@ -56,7 +56,7 @@ public final class ReadmeHtmlVelocityDelegateTest {
     }
 
     @Test
-    public void testSuccessfulRunLang3() throws IOException {
+    void testSuccessfulRunLang3() throws IOException {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
                 .withArtifactId("commons-lang3")
                 .withVersion("3.8.1")

@@ -40,7 +40,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * <code>./target/commons-release-plugin/site.zip</code>.
  *
  * @since 1.0
- * @deprecated - as we no longer wish to compress the site, we are going to put this functionality in the
+ * @deprecated As we no longer wish to compress the site, we are going to put this functionality in the
  *               {@link CommonsDistributionStagingMojo}.
  */
 @Deprecated

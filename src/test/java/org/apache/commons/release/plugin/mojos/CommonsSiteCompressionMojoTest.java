@@ -19,41 +19,26 @@ package org.apache.commons.release.plugin.mojos;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.testing.MojoRule;
 import org.codehaus.plexus.util.FileUtils;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link CommonsSiteCompressionMojo}.
  */
 @SuppressWarnings("deprecation") // testing a deprecated class
+@MojoTest
 public class CommonsSiteCompressionMojoTest {
 
     private static final String COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH = "target/testing-commons-release-plugin";
 
-    @Rule
-    public final MojoRule rule = new MojoRule() {
-        @Override
-        protected void after() {
-            // noop
-        }
-
-        @Override
-        protected void before() throws Throwable {
-            // noop
-        }
-    };
-
-    protected CommonsSiteCompressionMojo mojo;
-
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         if (testingDirectory.exists()) {
@@ -62,11 +47,8 @@ public class CommonsSiteCompressionMojoTest {
     }
 
     @Test
-    public void testCompressSiteDirNonExistentFailure() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/compress-site/compress-site-failure.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
+    @InjectMojo(goal = "compress-site", pom = "src/test/resources/mojos/compress-site/compress-site-failure.xml")
+    public void testCompressSiteDirNonExistentFailure(final CommonsSiteCompressionMojo mojo) throws Exception {
         try {
             mojo.execute();
         } catch (final MojoFailureException e) {
@@ -77,24 +59,18 @@ public class CommonsSiteCompressionMojoTest {
     }
 
     @Test
-    public void testCompressSiteSuccess() throws Exception {
+    @InjectMojo(goal = "compress-site", pom = "src/test/resources/mojos/compress-site/compress-site.xml")
+    public void testCompressSiteSuccess(final CommonsSiteCompressionMojo mojo) throws Exception {
         final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         testingDirectory.mkdir();
-        final File testPom = new File("src/test/resources/mojos/compress-site/compress-site.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
         mojo.execute();
         final File siteZip = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/site.zip");
         assertTrue(siteZip.exists());
     }
 
     @Test
-    public void testDisabled() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/compress-site/compress-site-disabled.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
+    @InjectMojo(goal = "compress-site", pom = "src/test/resources/mojos/compress-site/compress-site-disabled.xml")
+    public void testDisabled(final CommonsSiteCompressionMojo mojo) throws Exception {
         mojo.execute();
         final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         assertFalse(testingDirectory.exists());

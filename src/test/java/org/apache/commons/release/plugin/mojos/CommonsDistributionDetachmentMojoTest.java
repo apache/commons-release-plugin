@@ -18,39 +18,24 @@ package org.apache.commons.release.plugin.mojos;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
-import org.apache.maven.plugin.testing.MojoRule;
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.codehaus.plexus.util.FileUtils;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link CommonsDistributionDetachmentMojo}.
  */
+@MojoTest
 public class CommonsDistributionDetachmentMojoTest {
 
     private static final String COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH = "target/testing-commons-release-plugin";
 
-    @Rule
-    public final MojoRule rule = new MojoRule() {
-        @Override
-        protected void after() {
-            // noop
-        }
-
-        @Override
-        protected void before() throws Throwable {
-            // noop
-        }
-    };
-
-    private CommonsDistributionDetachmentMojo mojo;
-
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         if (testingDirectory.exists()) {
@@ -59,22 +44,16 @@ public class CommonsDistributionDetachmentMojoTest {
     }
 
     @Test
-    public void testDisabled() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions-disabled.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", testPom);
+    @InjectMojo(goal = "detach-distributions", pom = "src/test/resources/mojos/detach-distributions/detach-distributions-disabled.xml")
+    public void testDisabled(final CommonsDistributionDetachmentMojo mojo) throws Exception {
         mojo.execute();
         final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         assertFalse(testingDirectory.exists());
     }
 
     @Test
-    public void testSuccess() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", testPom);
+    @InjectMojo(goal = "detach-distributions", pom = "src/test/resources/mojos/detach-distributions/detach-distributions.xml")
+    public void testSuccess(final CommonsDistributionDetachmentMojo mojo) throws Exception {
         mojo.execute();
         final File detachedSrcTarGz = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.tar.gz");
         final File detachedSrcTarGzAsc = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/commons-text-1.4-src.tar.gz.asc");
