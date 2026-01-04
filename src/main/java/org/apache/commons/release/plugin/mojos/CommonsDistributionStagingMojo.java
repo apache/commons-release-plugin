@@ -86,6 +86,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${project}", required = true)
     private MavenProject project;
+
     /**
      * The {@link File} that contains a file to the root directory of the working project. Typically
      * this directory is where the <code>pom.xml</code> resides.

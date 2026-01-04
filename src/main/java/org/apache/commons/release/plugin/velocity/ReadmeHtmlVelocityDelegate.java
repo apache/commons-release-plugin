@@ -32,14 +32,18 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * @since 1.3
  */
 public final class ReadmeHtmlVelocityDelegate {
+
     /**
      * A builder class for instantiation of the {@link ReadmeHtmlVelocityDelegate}.
      */
     public static final class ReadmeHtmlVelocityDelegateBuilder {
+
         /** The maven artifactId to use in the <code>README.vm</code> template. */
         private String artifactId;
+
         /** The maven version to use in the <code>README.vm</code> template. */
         private String version;
+
         /** The site url to use in the <code>README.vm</code> template. */
         private String siteUrl;
 
@@ -92,9 +96,11 @@ public final class ReadmeHtmlVelocityDelegate {
             return this;
         }
     }
+
     /** The location of the velocity template for this class. */
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin"
                                          + "/velocity/README.vm";
+
     /**
      * Gets the {@link ReadmeHtmlVelocityDelegateBuilder} for constructing the {@link ReadmeHtmlVelocityDelegate}.
      *
@@ -103,6 +109,7 @@ public final class ReadmeHtmlVelocityDelegate {
     public static ReadmeHtmlVelocityDelegateBuilder builder() {
         return new ReadmeHtmlVelocityDelegateBuilder();
     }
+
     /** This is supposed to represent the maven artifactId. */
     private final String artifactId;
 
