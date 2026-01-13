@@ -162,7 +162,7 @@
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
       <artifactId>maven-plugin-testing-harness</artifactId>
-      <version>3.4.0</version>
+      <version>3.4.1-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -536,7 +536,6 @@
       </plugin>              
     </plugins>
   </reporting>
-
   <profiles>
     <profile>
       <id>setup-checkout</id>
@@ -680,6 +679,18 @@
       </properties>
     </profile>
   </profiles>
+  <repositories>
+    <repository>
+      <id>apache.snapshots</id>
+      <url>https://repository.apache.org/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
   <developers>
     <developer>
       <name>Rob Tompkins</name>
