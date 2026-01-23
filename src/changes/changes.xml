@@ -30,13 +30,13 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Make some classes final.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix missing version for org.codehaus.mojo:jdepend-maven-plugin: 2.1.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Partial port to JUnit 5.</action>
-      <action type="fix" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-artifact from 3.9.11 to 3.9.12.</action>
-      <action type="fix" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-compat from 3.9.11 to 3.9.12.</action>
-      <action type="fix" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-core from 3.9.11 to 3.9.12.</action>
-      <action type="fix" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-plugin-api from 3.9.11 to 3.9.12.</action>
       <!-- ADD -->
       <!-- UPDATE -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 95 #396, #399, #419, #420.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-artifact from 3.9.11 to 3.9.12.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-compat from 3.9.11 to 3.9.12.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-core from 3.9.11 to 3.9.12.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-plugin-api from 3.9.11 to 3.9.12.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 96 #396, #399, #419, #420.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress from 1.27.1 to 1.28.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump maven-scm.version from 2.1.0 to 2.2.1 #402.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.codehaus.plexus:plexus-velocity from 2.2.1 to 2.3.0 #407.</action>
