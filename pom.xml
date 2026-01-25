@@ -101,6 +101,7 @@
     <commons.build-plugin.version>1.16.0</commons.build-plugin.version>
     <!-- Until Maven plugins used here don't fail the Moditect plugin -->
     <moditect.skip>true</moditect.skip>
+    <japicmp.skip>true</japicmp.skip>
   </properties>
   <dependencies>
     <dependency>
@@ -254,18 +255,6 @@
             <excludeFilterFile>${basedir}/fb-excludes.xml</excludeFilterFile>
           </configuration>
         </plugin>      
-        <plugin>
-          <groupId>com.github.siom79.japicmp</groupId>
-          <artifactId>japicmp-maven-plugin</artifactId>
-          <configuration>
-             <newVersion>
-              <file>
-                <!-- Parent incorrectly specifies ${project.packaging} for the extension -->
-                <path>${project.build.directory}/${project.artifactId}-${project.version}.jar</path>
-              </file>
-            </newVersion>
-          </configuration>
-        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>

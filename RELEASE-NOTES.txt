@@ -32,6 +32,58 @@ Changes
 *                   Bump commons-codec:commons-codec from 1.19.0 to 1.21.0. Thanks to Gary Gregory.
 *                   Bump org.apache.maven.plugin-testing:maven-plugin-testing-harness from 3.3.0 to 3.4.0 #416. Thanks to Gary Gregory, Dependabot.
 
+Removed
+-------
+
+*                   Skip JApiCmp plugin for this component. Thanks to Gary Gregory.
+
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes.html
+
+For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
+
+https://commons.apache.org/proper/commons-release-plugin/
+
+Download page: https://commons.apache.org/proper/commons-release-plugin//download_release-plugin.cgi
+
+Have fun!
+-Apache Commons Team
+
+-----------------------------------------------------------------------------
+Apache Commons Release Plugin 1.9.2 Release Notes
+------------------------------------------------
+
+The Apache Commons Release Plugin team is pleased to announce the release of Apache Commons Release Plugin 1.9.2.
+
+This document contains the release notes for Apache Commons Release Plugin.
+
+Apache Maven Mojo for Apache Commons Release tasks.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+
+Fixed Bugs
+----------
+
+*                   Fix Apache RAT plugin console warnings. Thanks to Gary Gregory.
+*                   Make some classes final. Thanks to Gary Gregory.
+*                   Fix missing version for org.codehaus.mojo:jdepend-maven-plugin: 2.1. Thanks to Gary Gregory.
+*                   Partial port to JUnit 5. Thanks to Gary Gregory.
+
+Changes
+-------
+
+*                   Bump org.apache.maven:maven-artifact from 3.9.11 to 3.9.12. Thanks to Gary Gregory.
+*                   Bump org.apache.maven:maven-compat from 3.9.11 to 3.9.12. Thanks to Gary Gregory.
+*                   Bump org.apache.maven:maven-core from 3.9.11 to 3.9.12. Thanks to Gary Gregory.
+*                   Bump org.apache.maven:maven-plugin-api from 3.9.11 to 3.9.12. Thanks to Gary Gregory.
+*                   Bump org.apache.commons:commons-parent from 85 to 96 #396, #399, #419, #420. Thanks to Gary Gregory.
+*                   Bump org.apache.commons:commons-compress from 1.27.1 to 1.28.0. Thanks to Gary Gregory.
+*                   Bump maven-scm.version from 2.1.0 to 2.2.1 #402. Thanks to Gary Gregory, Dependabot.
+*                   Bump org.codehaus.plexus:plexus-velocity from 2.2.1 to 2.3.0 #407. Thanks to Gary Gregory, Dependabot.
+*                   Bump commons-codec:commons-codec from 1.19.0 to 1.21.0. Thanks to Gary Gregory.
+*                   Bump org.apache.maven.plugin-testing:maven-plugin-testing-harness from 3.3.0 to 3.4.0 #416. Thanks to Gary Gregory, Dependabot.
+
 
 Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes.html
 
