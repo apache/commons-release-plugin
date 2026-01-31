@@ -276,7 +276,6 @@
       <plugin>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-build-plugin</artifactId>
-        <version>${commons.build-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
