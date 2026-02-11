@@ -14,43 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.release.plugin.mojos;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
-import org.apache.maven.plugin.testing.MojoRule;
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.codehaus.plexus.util.FileUtils;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link CommonsDistributionStagingMojo}.
  */
+@MojoTest
 public class CommonsDistributionStagingMojoTest {
 
     private static final String COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH = "target/testing-commons-release-plugin";
-
-    @Rule
-    public final MojoRule rule = new MojoRule() {
-        @Override
-        protected void after() {
-            // noop
-        }
-
-        @Override
-        protected void before() throws Throwable {
-            // noop
-        }
-    };
-
-    private CommonsDistributionDetachmentMojo detachmentMojo;
-
-    private CommonsDistributionStagingMojo mojoForTest;
 
     private void assertRequisiteFilesExist() {
         final File targetScmDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH + "/scm/1.0-SNAPSHOT-RC1");
@@ -105,7 +89,7 @@ public class CommonsDistributionStagingMojoTest {
         assertTrue(siteSubdirectoryIndexHtml.exists());
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         if (testingDirectory.exists()) {
@@ -114,26 +98,19 @@ public class CommonsDistributionStagingMojoTest {
     }
 
     @Test
-    public void testDisabled() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/stage-distributions/stage-distributions-disabled.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
+    public void testDisabled(
+            @InjectMojo(goal = "stage-distributions", pom = "src/test/resources/mojos/stage-distributions/stage-distributions-disabled.xml") final CommonsDistributionStagingMojo mojoForTest)
+            throws Exception {
         mojoForTest.execute();
         final File testingDirectory = new File(COMMONS_RELEASE_PLUGIN_TEST_DIR_PATH);
         assertFalse(testingDirectory.exists());
     }
 
     @Test
-    public void testSuccess() throws Exception {
-        final File testPom = new File("src/test/resources/mojos/stage-distributions/stage-distributions.xml");
-        assertNotNull(testPom);
-        assertTrue(testPom.exists());
-        final File detachmentPom = new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml");
-        assertNotNull(detachmentPom);
-        assertTrue(detachmentPom.exists());
-        mojoForTest = (CommonsDistributionStagingMojo) rule.lookupMojo("stage-distributions", testPom);
-        detachmentMojo = (CommonsDistributionDetachmentMojo) rule.lookupMojo("detach-distributions", detachmentPom);
+    public void testSuccess(
+            @InjectMojo(goal = "stage-distributions", pom = "src/test/resources/mojos/stage-distributions/stage-distributions.xml") final CommonsDistributionStagingMojo mojoForTest,
+            @InjectMojo(goal = "detach-distributions", pom = "src/test/resources/mojos/detach-distributions/detach-distributions.xml") final CommonsDistributionDetachmentMojo detachmentMojo)
+            throws Exception {
         detachmentMojo.execute();
         final File releaseNotesBasedir = new File("src/test/resources/mojos/stage-distributions/");
         mojoForTest.setBaseDir(releaseNotesBasedir);
