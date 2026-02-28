@@ -28,6 +28,7 @@
       <!-- FIX -->
       <!-- ADD -->
       <!-- UPDATE -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 96 to 97.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-codec:commons-codec from 1.20.0 to 1.21.0.</action>
     </release>
     <release version="1.9.2" date="2026-01-25" description="This is a feature and maintenance release. Java 8 or later is required.">
@@ -38,11 +39,11 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Partial port to JUnit 5.</action>
       <!-- ADD -->
       <!-- UPDATE -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 96 #396, #399, #419, #420.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-artifact from 3.9.11 to 3.9.12.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-compat from 3.9.11 to 3.9.12.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-core from 3.9.11 to 3.9.12.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.maven:maven-plugin-api from 3.9.11 to 3.9.12.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 96 #396, #399, #419, #420.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-compress from 1.27.1 to 1.28.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump maven-scm.version from 2.1.0 to 2.2.1 #402.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.codehaus.plexus:plexus-velocity from 2.2.1 to 2.3.0 #407.</action>
