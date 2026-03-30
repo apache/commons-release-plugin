@@ -342,7 +342,8 @@ public class BuildAttestationMojo extends AbstractMojo {
         List<ResourceDescriptor> dependencies = new ArrayList<>();
         try {
             dependencies.add(BuildToolDescriptors.jvm(Paths.get(System.getProperty("java.home"))));
-            dependencies.add(BuildToolDescriptors.maven(runtimeInformation.getMavenVersion(), mavenHome.toPath()));
+            dependencies.add(BuildToolDescriptors.maven(runtimeInformation.getMavenVersion(), mavenHome.toPath(),
+                    runtimeInformation.getClass().getClassLoader()));
             dependencies.add(getScmDescriptor());
         } catch (IOException e) {
             throw new MojoExecutionException(e);

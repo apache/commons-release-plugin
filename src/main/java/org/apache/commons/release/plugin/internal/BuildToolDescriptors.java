@@ -48,8 +48,15 @@ public final class BuildToolDescriptors {
         Map<String, String> digest = new HashMap<>();
         digest.put("gitTree", GitUtils.gitTree(javaHome));
         descriptor.setDigest(digest);
-        String[] propertyNames = {"java.version", "java.vendor", "java.vendor.version", "java.vm.name", "java.vm.version", "java.vm.vendor",
-                "java.runtime.name", "java.runtime.version", "java.specification.version"};
+        String[] propertyNames = {
+            "java.version", "java.version.date",
+            "java.vendor", "java.vendor.url", "java.vendor.version",
+            "java.home",
+            "java.vm.specification.version", "java.vm.specification.vendor", "java.vm.specification.name",
+            "java.vm.version", "java.vm.vendor", "java.vm.name",
+            "java.specification.version", "java.specification.maintenance.version",
+            "java.specification.vendor", "java.specification.name",
+        };
         Map<String, Object> annotations = new HashMap<>();
         for (String prop : propertyNames) {
             annotations.put(prop.substring("java.".length()), System.getProperty(prop));
@@ -61,12 +68,17 @@ public final class BuildToolDescriptors {
     /**
      * Creates a {@link ResourceDescriptor} for the Maven installation used during the build.
      *
-     * @param version   Maven version string
-     * @param mavenHome path to the Maven home directory
+     * <p>{@code build.properties} resides in a JAR inside {@code ${maven.home}/lib/}, which is loaded by Maven's Core Classloader.
+     * Plugin code runs in an isolated Plugin Classloader, which does see that resources. Therefore, we need to pass the classloader from a class from
+     * Maven Core, such as {@link org.apache.maven.rtinfo.RuntimeInformation}.</p>
+     *
+     * @param version          Maven version string
+     * @param mavenHome        path to the Maven home directory
+     * @param coreClassLoader  a classloader from Maven's Core Classloader realm, used to load core resources
      * @return a descriptor for the Maven installation
      * @throws IOException if hashing the Maven home directory fails
      */
-    public static ResourceDescriptor maven(String version, Path mavenHome) throws IOException {
+    public static ResourceDescriptor maven(String version, Path mavenHome, ClassLoader coreClassLoader) throws IOException {
         ResourceDescriptor descriptor = new ResourceDescriptor();
         descriptor.setName("Maven");
         descriptor.setUri("pkg:maven/org.apache.maven/apache-maven@" + version);
@@ -74,7 +86,7 @@ public final class BuildToolDescriptors {
         digest.put("gitTree", GitUtils.gitTree(mavenHome));
         descriptor.setDigest(digest);
         Properties buildProps = new Properties();
-        try (InputStream in = BuildToolDescriptors.class.getResourceAsStream("/org/apache/maven/messages/build.properties")) {
+        try (InputStream in = coreClassLoader.getResourceAsStream("org/apache/maven/messages/build.properties")) {
             if (in != null) {
                 buildProps.load(in);
             }
