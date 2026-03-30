@@ -69,7 +69,7 @@ public final class ReadmeHtmlVelocityDelegate {
          * @param artifactId the {@link String} representing the maven artifactId.
          * @return the builder to continue building.
          */
-        public ReadmeHtmlVelocityDelegateBuilder withArtifactId(final String artifactId) {
+        public ReadmeHtmlVelocityDelegateBuilder setArtifactId(final String artifactId) {
             this.artifactId = artifactId;
             return this;
         }
@@ -80,7 +80,7 @@ public final class ReadmeHtmlVelocityDelegate {
          * @param siteUrl the site url to be used in the <code>README.html</code>
          * @return the builder to continue building.
          */
-        public ReadmeHtmlVelocityDelegateBuilder withSiteUrl(final String siteUrl) {
+        public ReadmeHtmlVelocityDelegateBuilder setSiteUrl(final String siteUrl) {
             this.siteUrl = siteUrl;
             return this;
         }
@@ -91,7 +91,7 @@ public final class ReadmeHtmlVelocityDelegate {
          * @param version the maven version.
          * @return the builder to continue building.
          */
-        public ReadmeHtmlVelocityDelegateBuilder withVersion(final String version) {
+        public ReadmeHtmlVelocityDelegateBuilder setVersion(final String version) {
             this.version = version;
             return this;
         }

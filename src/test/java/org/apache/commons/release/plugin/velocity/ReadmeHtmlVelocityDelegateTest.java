@@ -32,9 +32,9 @@ final class ReadmeHtmlVelocityDelegateTest {
     @Test
     void testSuccessfulRun() throws IOException {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
-                .withArtifactId("commons-text")
-                .withVersion("1.4")
-                .withSiteUrl("https://commons.apache.org/text")
+                .setArtifactId("commons-text")
+                .setVersion("1.4")
+                .setSiteUrl("https://commons.apache.org/text")
                 .build();
         try (Writer writer = delegate.render(new StringWriter())) {
             final String filledOutTemplate = writer.toString();
@@ -45,9 +45,9 @@ final class ReadmeHtmlVelocityDelegateTest {
     @Test
     void testSuccessfulRunBcel() throws IOException {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
-                .withArtifactId("bcel")
-                .withVersion("1.5")
-                .withSiteUrl("https://commons.apache.org/text")
+                .setArtifactId("bcel")
+                .setVersion("1.5")
+                .setSiteUrl("https://commons.apache.org/text")
                 .build();
         try (Writer writer = delegate.render(new StringWriter())) {
             final String filledOutTemplate = writer.toString();
@@ -58,9 +58,9 @@ final class ReadmeHtmlVelocityDelegateTest {
     @Test
     void testSuccessfulRunLang3() throws IOException {
         final ReadmeHtmlVelocityDelegate delegate = ReadmeHtmlVelocityDelegate.builder()
-                .withArtifactId("commons-lang3")
-                .withVersion("3.8.1")
-                .withSiteUrl("https://commons.apache.org/text")
+                .setArtifactId("commons-lang3")
+                .setVersion("3.8.1")
+                .setSiteUrl("https://commons.apache.org/text")
                 .build();
         try (Writer writer = delegate.render(new StringWriter())) {
             final String filledOutTemplate = writer.toString();

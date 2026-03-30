@@ -240,9 +240,9 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
                 StandardCharsets.UTF_8)) {
             // @formatter:off
             final ReadmeHtmlVelocityDelegate readmeHtmlVelocityDelegate = ReadmeHtmlVelocityDelegate.builder()
-                    .withArtifactId(project.getArtifactId())
-                    .withVersion(project.getVersion())
-                    .withSiteUrl(project.getUrl())
+                    .setArtifactId(project.getArtifactId())
+                    .setVersion(project.getVersion())
+                    .setSiteUrl(project.getUrl())
                     .build();
             // @formatter:on
             readmeHtmlVelocityDelegate.render(readmeWriter);
