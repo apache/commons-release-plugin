@@ -30,6 +30,7 @@
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 96 to 97.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-codec:commons-codec from 1.20.0 to 1.21.0.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.maven.plugin-testing:maven-plugin-testing-harness from 3.4.0 to 3.5.1 #426.</action>
     </release>
     <release version="1.9.2" date="2026-01-25" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
