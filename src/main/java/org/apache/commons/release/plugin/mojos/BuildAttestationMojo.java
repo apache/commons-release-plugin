@@ -73,7 +73,7 @@ import org.apache.maven.scm.repository.ScmRepository;
 public class BuildAttestationMojo extends AbstractMojo {
 
     /** The file extension for in-toto attestation files. */
-    private static final String ATTESTATION_EXTENSION = "intoto.json";
+    private static final String ATTESTATION_EXTENSION = "intoto.jsonl";
 
     /** Shared Jackson object mapper for serializing attestation statements. */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -237,7 +237,8 @@ public class BuildAttestationMojo extends AbstractMojo {
         final Path artifactPath = outputPath.resolve(ArtifactUtils.getFileName(mainArtifact, ATTESTATION_EXTENSION));
         getLog().info("Writing attestation statement to: " + artifactPath);
         try (OutputStream os = Files.newOutputStream(artifactPath)) {
-            OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(os, statement);
+            OBJECT_MAPPER.writeValue(os, statement);
+            os.write('\n');
         } catch (IOException e) {
             throw new MojoExecutionException("Could not write attestation statement to: " + artifactPath, e);
         }
