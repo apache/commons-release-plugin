@@ -18,7 +18,7 @@ name: Java CI
 on:
   push:
     branches:
-      - "master"
+      - 'master'
   pull_request: {}
 
 permissions:
