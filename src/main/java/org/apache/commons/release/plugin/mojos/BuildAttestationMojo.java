@@ -33,6 +33,7 @@ import java.util.Properties;
 
 import javax.inject.Inject;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.release.plugin.internal.ArtifactUtils;
@@ -81,6 +82,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     static {
         OBJECT_MAPPER.findAndRegisterModules();
         OBJECT_MAPPER.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        OBJECT_MAPPER.disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
     }
 
     /** The SCM connection URL for the current project. */

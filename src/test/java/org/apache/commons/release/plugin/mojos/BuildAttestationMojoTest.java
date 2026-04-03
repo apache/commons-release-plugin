@@ -103,9 +103,9 @@ public class BuildAttestationMojoTest {
         mojo.execute();
 
         Artifact attestation = project.getAttachedArtifacts().stream()
-                .filter(a -> "intoto.json".equals(a.getType()))
+                .filter(a -> "intoto.jsonl".equals(a.getType()))
                 .findFirst()
-                .orElseThrow(() -> new AssertionError("No intoto.json artifact attached to project"));
+                .orElseThrow(() -> new AssertionError("No intoto.jsonl artifact attached to project"));
         String json = new String(Files.readAllBytes(attestation.getFile().toPath()), StandardCharsets.UTF_8);
 
         String resolvedDeps = "predicate.buildDefinition.resolvedDependencies";
