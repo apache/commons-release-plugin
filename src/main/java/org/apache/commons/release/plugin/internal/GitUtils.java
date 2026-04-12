@@ -25,6 +25,7 @@ import java.security.MessageDigest;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.GitIdentifiers;
 
 /**
  * Utilities for Git operations.
@@ -46,7 +47,7 @@ public final class GitUtils {
             throw new IOException("Path is not a directory: " + path);
         }
         MessageDigest digest = DigestUtils.getSha1Digest();
-        return Hex.encodeHexString(DigestUtils.gitTree(digest, path));
+        return Hex.encodeHexString(GitIdentifiers.treeId(digest, path));
     }
 
     /**
