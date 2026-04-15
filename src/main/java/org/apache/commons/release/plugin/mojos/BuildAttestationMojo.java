@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,17 +35,21 @@ import java.util.Properties;
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.release.plugin.internal.ArtifactUtils;
 import org.apache.commons.release.plugin.internal.BuildToolDescriptors;
+import org.apache.commons.release.plugin.internal.DsseUtils;
 import org.apache.commons.release.plugin.internal.GitUtils;
 import org.apache.commons.release.plugin.slsa.v1_2.BuildDefinition;
 import org.apache.commons.release.plugin.slsa.v1_2.BuildMetadata;
 import org.apache.commons.release.plugin.slsa.v1_2.Builder;
+import org.apache.commons.release.plugin.slsa.v1_2.DsseEnvelope;
 import org.apache.commons.release.plugin.slsa.v1_2.Provenance;
 import org.apache.commons.release.plugin.slsa.v1_2.ResourceDescriptor;
 import org.apache.commons.release.plugin.slsa.v1_2.RunDetails;
+import org.apache.commons.release.plugin.slsa.v1_2.Signature;
 import org.apache.commons.release.plugin.slsa.v1_2.Statement;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenExecutionRequest;
@@ -56,6 +61,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.plugins.gpg.AbstractGpgSigner;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.rtinfo.RuntimeInformation;
@@ -73,10 +79,14 @@ import org.apache.maven.scm.repository.ScmRepository;
 @Mojo(name = "build-attestation", defaultPhase = LifecyclePhase.VERIFY, requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class BuildAttestationMojo extends AbstractMojo {
 
-    /** The file extension for in-toto attestation files. */
+    /**
+     * The file extension for in-toto attestation files.
+     */
     private static final String ATTESTATION_EXTENSION = "intoto.jsonl";
 
-    /** Shared Jackson object mapper for serializing attestation statements. */
+    /**
+     * Shared Jackson object mapper for serializing attestation statements.
+     */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
@@ -85,11 +95,15 @@ public class BuildAttestationMojo extends AbstractMojo {
         OBJECT_MAPPER.disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
     }
 
-    /** The SCM connection URL for the current project. */
+    /**
+     * The SCM connection URL for the current project.
+     */
     @Parameter(defaultValue = "${project.scm.connection}", readonly = true)
     private String scmConnectionUrl;
 
-    /** The Maven home directory. */
+    /**
+     * The Maven home directory.
+     */
     @Parameter(defaultValue = "${maven.home}", readonly = true)
     private File mavenHome;
 
@@ -99,13 +113,61 @@ public class BuildAttestationMojo extends AbstractMojo {
     @Parameter(property = "commons.release.scmDirectory", defaultValue = "${basedir}")
     private File scmDirectory;
 
-    /** The output directory for the attestation file. */
+    /**
+     * The output directory for the attestation file.
+     */
     @Parameter(property = "commons.release.outputDirectory", defaultValue = "${project.build.directory}")
     private File outputDirectory;
 
-    /** Whether to skip attaching the attestation artifact to the project. */
+    /**
+     * Whether to skip attaching the attestation artifact to the project.
+     */
     @Parameter(property = "commons.release.skipAttach")
     private boolean skipAttach;
+
+    /**
+     * Whether to sign the attestation envelope with GPG.
+     */
+    @Parameter(property = "commons.release.signAttestation", defaultValue = "true")
+    private boolean signAttestation;
+
+    /**
+     * Path to the GPG executable; if not set, {@code gpg} is resolved from {@code PATH}.
+     */
+    @Parameter(property = "gpg.executable")
+    private String executable;
+
+    /**
+     * Whether to include the default GPG keyring.
+     *
+     * <p>When {@code false}, passes {@code --no-default-keyring} to the GPG command.</p>
+     */
+    @Parameter(property = "gpg.defaultKeyring", defaultValue = "true")
+    private boolean defaultKeyring;
+
+    /**
+     * GPG database lock mode passed via {@code --lock-once}, {@code --lock-multiple}, or
+     * {@code --lock-never}; no lock flag is added when not set.
+     */
+    @Parameter(property = "gpg.lockMode")
+    private String lockMode;
+
+    /**
+     * Name or fingerprint of the GPG key to use for signing.
+     *
+     * <p>Passed as {@code --local-user} to the GPG command; uses the default key when not set.</p>
+     */
+    @Parameter(property = "gpg.keyname")
+    private String keyname;
+
+    /**
+     * Whether to use gpg-agent for passphrase management.
+     *
+     * <p>For GPG versions before 2.1, passes {@code --use-agent} or {@code --no-use-agent}
+     * accordingly; ignored for GPG 2.1 and later where the agent is always used.</p>
+     */
+    @Parameter(property = "gpg.useagent", defaultValue = "true")
+    private boolean useAgent;
 
     /**
      * The current Maven project.
@@ -135,10 +197,10 @@ public class BuildAttestationMojo extends AbstractMojo {
     /**
      * Creates a new instance with the given dependencies.
      *
-     * @param project A Maven project.
-     * @param scmManager A SCM manager.
+     * @param project            A Maven project.
+     * @param scmManager         A SCM manager.
      * @param runtimeInformation Maven runtime information.
-     * @param session A Maven session.
+     * @param session            A Maven session.
      * @param mavenProjectHelper A helper to attach artifacts to the project.
      */
     @Inject
@@ -217,16 +279,22 @@ public class BuildAttestationMojo extends AbstractMojo {
         statement.setSubject(getSubjects());
         statement.setPredicate(provenance);
 
-        writeStatement(statement);
+        final Path outputPath = ensureOutputDirectory();
+        final Path artifactPath = outputPath.resolve(ArtifactUtils.getFileName(project.getArtifact(), ATTESTATION_EXTENSION));
+        if (signAttestation) {
+            signAndWriteStatement(statement, outputPath, artifactPath);
+        } else {
+            writeStatement(statement, artifactPath);
+        }
     }
 
     /**
-     * Serializes the attestation statement to a file and optionally attaches it to the project.
+     * Creates the output directory if it does not already exist and returns its path.
      *
-     * @param statement The attestation statement to write.
-     * @throws MojoExecutionException If the output directory cannot be created or the file cannot be written.
+     * @return the output directory path
+     * @throws MojoExecutionException if the directory cannot be created
      */
-    private void writeStatement(final Statement statement) throws MojoExecutionException {
+    private Path ensureOutputDirectory() throws MojoExecutionException {
         final Path outputPath = outputDirectory.toPath();
         try {
             if (!Files.exists(outputPath)) {
@@ -235,18 +303,72 @@ public class BuildAttestationMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new MojoExecutionException("Could not create output directory.", e);
         }
-        final Artifact mainArtifact = project.getArtifact();
-        final Path artifactPath = outputPath.resolve(ArtifactUtils.getFileName(mainArtifact, ATTESTATION_EXTENSION));
+        return outputPath;
+    }
+
+    /**
+     * Serializes the attestation statement as a bare JSON line and writes it to {@code artifactPath}.
+     *
+     * @param statement    the attestation statement to write
+     * @param artifactPath the destination file path
+     * @throws MojoExecutionException if the file cannot be written
+     */
+    private void writeStatement(final Statement statement, final Path artifactPath) throws MojoExecutionException {
         getLog().info("Writing attestation statement to: " + artifactPath);
+        writeAndAttach(statement, artifactPath);
+    }
+
+    /**
+     * Signs the attestation statement with GPG, wraps it in a DSSE envelope, and writes it to
+     * {@code artifactPath}.
+     *
+     * @param statement    the attestation statement to sign and write
+     * @param outputPath   directory used for intermediate PAE and signature files
+     * @param artifactPath the destination file path for the envelope
+     * @throws MojoExecutionException if serialization, signing, or file I/O fails
+     * @throws MojoFailureException   if the GPG signer cannot be prepared
+     */
+    private void signAndWriteStatement(final Statement statement, final Path outputPath,
+            final Path artifactPath) throws MojoExecutionException, MojoFailureException {
+        final byte[] statementBytes;
+        try {
+            statementBytes = OBJECT_MAPPER.writeValueAsBytes(statement);
+        } catch (JsonProcessingException e) {
+            throw new MojoExecutionException("Failed to serialize attestation statement", e);
+        }
+        final AbstractGpgSigner signer = DsseUtils.createGpgSigner(executable, defaultKeyring, lockMode, keyname, useAgent, getLog());
+        final Path paeFile = DsseUtils.writePaeFile(statementBytes, outputPath);
+        final byte[] sigBytes = DsseUtils.signPaeFile(signer, paeFile);
+
+        final Signature sig = new Signature();
+        sig.setKeyid(DsseUtils.getKeyId(sigBytes));
+        sig.setSig(sigBytes);
+
+        final DsseEnvelope envelope = new DsseEnvelope();
+        envelope.setPayload(statementBytes);
+        envelope.setSignatures(Collections.singletonList(sig));
+
+        getLog().info("Writing signed attestation envelope to: " + artifactPath);
+        writeAndAttach(envelope, artifactPath);
+    }
+
+    /**
+     * Writes {@code value} as a JSON line to {@code artifactPath} and optionally attaches it to the project.
+     *
+     * @param value        the object to serialize
+     * @param artifactPath the destination file path
+     * @throws MojoExecutionException if the file cannot be written
+     */
+    private void writeAndAttach(final Object value, final Path artifactPath) throws MojoExecutionException {
         try (OutputStream os = Files.newOutputStream(artifactPath)) {
-            OBJECT_MAPPER.writeValue(os, statement);
+            OBJECT_MAPPER.writeValue(os, value);
             os.write('\n');
         } catch (IOException e) {
-            throw new MojoExecutionException("Could not write attestation statement to: " + artifactPath, e);
+            throw new MojoExecutionException("Could not write attestation to: " + artifactPath, e);
         }
         if (!skipAttach) {
-            getLog().info(String.format("Attaching attestation statement as %s-%s.%s", mainArtifact.getArtifactId(), mainArtifact.getVersion(),
-                    ATTESTATION_EXTENSION));
+            final Artifact mainArtifact = project.getArtifact();
+            getLog().info(String.format("Attaching attestation as %s-%s.%s", mainArtifact.getArtifactId(), mainArtifact.getVersion(), ATTESTATION_EXTENSION));
             mavenProjectHelper.attachArtifact(project, ATTESTATION_EXTENSION, null, artifactPath.toFile());
         }
     }
@@ -373,7 +495,7 @@ public class BuildAttestationMojo extends AbstractMojo {
      * Returns a resource descriptor for the current SCM source, including the URI and Git commit digest.
      *
      * @return A resource descriptor for the SCM source.
-     * @throws IOException If the current branch cannot be determined.
+     * @throws IOException            If the current branch cannot be determined.
      * @throws MojoExecutionException If the SCM revision cannot be retrieved.
      */
     private ResourceDescriptor getScmDescriptor() throws IOException, MojoExecutionException {
