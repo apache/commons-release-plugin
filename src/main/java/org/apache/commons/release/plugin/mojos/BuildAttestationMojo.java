@@ -338,7 +338,7 @@ public class BuildAttestationMojo extends AbstractMojo {
         }
         final AbstractGpgSigner signer = DsseUtils.createGpgSigner(executable, defaultKeyring, lockMode, keyname, useAgent, getLog());
         final Path paeFile = DsseUtils.writePaeFile(statementBytes, outputPath);
-        final byte[] sigBytes = DsseUtils.signPaeFile(signer, paeFile);
+        final byte[] sigBytes = DsseUtils.signFile(signer, paeFile);
 
         final Signature sig = new Signature();
         sig.setKeyid(DsseUtils.getKeyId(sigBytes));

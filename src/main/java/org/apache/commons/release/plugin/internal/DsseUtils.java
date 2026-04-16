@@ -17,7 +17,6 @@
 package org.apache.commons.release.plugin.internal;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -57,7 +56,7 @@ public final class DsseUtils {
     /**
      * Creates and prepares a {@link GpgSigner} from the given configuration.
      *
-     * <p>The returned signer has {@link AbstractGpgSigner#prepare()} already called and is ready for use with {@link #signPaeFile(AbstractGpgSigner, Path)}.</p>
+     * <p>The returned signer has {@link AbstractGpgSigner#prepare()} already called and is ready for use with {@link #signFile(AbstractGpgSigner, Path)}.</p>
      *
      * @param executable     path to the GPG executable, or {@code null} to use {@code gpg} from {@code PATH}
      * @param defaultKeyring whether to include the default GPG keyring
@@ -81,12 +80,9 @@ public final class DsseUtils {
     }
 
     /**
-     * Serializes {@code statement} to JSON, computes the DSSE Pre-Authentication Encoding (PAE), and writes
-     * the result to {@code buildDirectory/statement.pae}.
+     * Serializes {@code statement} to JSON using the DSSE Pre-Authentication Encoding (PAE)
      *
-     * <p>The PAE format is:
-     * {@code "DSSEv1" SP LEN(payloadType) SP payloadType SP LEN(payload) SP payload},
-     * where {@code LEN} is the ASCII decimal byte-length of the operand.</p>
+     * <pre>PAE(type, body) = "DSSEv1" + SP + LEN(type) + SP + type + SP + LEN(body) + SP + body</pre>
      *
      * @param statement      the attestation statement to encode
      * @param objectMapper   the Jackson mapper used to serialize {@code statement}
@@ -103,12 +99,9 @@ public final class DsseUtils {
     }
 
     /**
-     * Computes the DSSE Pre-Authentication Encoding (PAE) for {@code statementBytes} and writes it to
-     * {@code buildDirectory/statement.pae}.
+     * Writes serialized JSON to a file using the DSSE Pre-Authentication Encoding (PAE)
      *
-     * <p>Use this overload when the statement has already been serialized to bytes, so the same byte array
-     * can be reused as the {@link DsseEnvelope#setPayload(byte[]) envelope payload} without a second
-     * serialization pass.</p>
+     * <pre>PAE(type, body) = "DSSEv1" + SP + LEN(type) + SP + type + SP + LEN(body) + SP + body</pre>
      *
      * @param statementBytes the already-serialized JSON statement bytes to encode
      * @param buildDirectory directory in which the PAE file is created
@@ -134,38 +127,35 @@ public final class DsseUtils {
     }
 
     /**
-     * Signs {@code paeFile} using {@link AbstractGpgSigner#generateSignatureForArtifact(File)},
-     * then decodes the resulting ASCII-armored {@code .asc} file with BouncyCastle and returns the raw
-     * binary PGP signature bytes.
+     * Signs {@code paeFile} and returns the raw OpenPGP signature bytes.
      *
-     * <p>The signer must already have {@link AbstractGpgSigner#prepare()} called before this method is
-     * invoked. The {@code .asc} file produced by the signer is not deleted; callers may remove it once
-     * the raw bytes have been consumed.</p>
+     * <p>The signer must already have {@link AbstractGpgSigner#prepare()} called before this method is invoked.</p>
      *
      * @param signer  the configured, prepared signer
-     * @param paeFile path to the PAE-encoded file to sign
-     * @return raw binary PGP signature bytes (suitable for storing in {@link org.apache.commons.release.plugin.slsa.v1_2.Signature#setSig})
+     * @param path path to the file to sign
+     * @return raw binary PGP signature bytes
      * @throws MojoExecutionException if signing or signature decoding fails
      */
-    public static byte[] signPaeFile(final AbstractGpgSigner signer, final Path paeFile) throws MojoExecutionException {
-        final File signatureFile = signer.generateSignatureForArtifact(paeFile.toFile());
-        try (InputStream in = Files.newInputStream(signatureFile.toPath()); ArmoredInputStream armoredIn = new ArmoredInputStream(in)) {
-            return IOUtils.toByteArray(armoredIn);
+    public static byte[] signFile(final AbstractGpgSigner signer, final Path path) throws MojoExecutionException {
+        final Path signaturePath = signer.generateSignatureForArtifact(path.toFile()).toPath();
+        final byte[] signatureBytes;
+        try (InputStream in = Files.newInputStream(signaturePath); ArmoredInputStream armoredIn = new ArmoredInputStream(in)) {
+            signatureBytes = IOUtils.toByteArray(armoredIn);
         } catch (final IOException e) {
-            throw new MojoExecutionException("Failed to read signature file: " + signatureFile, e);
+            throw new MojoExecutionException("Failed to read signature file: " + signaturePath, e);
         }
+        try {
+            Files.delete(signaturePath);
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Failed to delete signature file: " + signaturePath, e);
+        }
+        return signatureBytes;
     }
 
     /**
      * Extracts the key identifier from a binary OpenPGP Signature Packet.
      *
-     * <p>Inspects the hashed subpackets for an {@code IssuerFingerprint} subpacket (type&nbsp;33),
-     * which carries the full public-key fingerprint and is present in all signatures produced by
-     * GPG&nbsp;2.1+. Falls back to the 8-byte {@code IssuerKeyID} from the unhashed subpackets
-     * when no fingerprint subpacket is found.</p>
-     *
-     * @param sigBytes raw binary OpenPGP Signature Packet bytes, as returned by
-     *                 {@link #signPaeFile(AbstractGpgSigner, Path)}
+     * @param sigBytes raw binary OpenPGP Signature Packet bytes
      * @return uppercase hex-encoded fingerprint or key ID string
      * @throws MojoExecutionException if {@code sigBytes} cannot be parsed as an OpenPGP signature
      */
