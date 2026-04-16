@@ -63,10 +63,7 @@ public class BuildMetadata {
     }
 
     /**
-     * Returns the identifier for this build invocation.
-     *
-     * <p>Useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by the
-     * builder and is treated as opaque and case-sensitive. The value SHOULD be globally unique.</p>
+     * Gets the identifier for this build invocation.
      *
      * @return the invocation identifier, or {@code null} if not set
      */
@@ -84,7 +81,7 @@ public class BuildMetadata {
     }
 
     /**
-     * Returns the timestamp of when the build started, serialized as RFC 3339 in UTC ({@code "Z"} suffix).
+     * Gets the timestamp of when the build started, serialized as RFC 3339 in UTC ({@code "Z"} suffix).
      *
      * @return the start timestamp, or {@code null} if not set
      */
@@ -102,7 +99,7 @@ public class BuildMetadata {
     }
 
     /**
-     * Returns the timestamp of when the build completed, serialized as RFC 3339 in UTC ({@code "Z"} suffix).
+     * Gets the timestamp of when the build completed, serialized as RFC 3339 in UTC ({@code "Z"} suffix).
      *
      * @return the completion timestamp, or {@code null} if not set
      */

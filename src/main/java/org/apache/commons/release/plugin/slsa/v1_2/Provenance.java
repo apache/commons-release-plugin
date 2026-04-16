@@ -59,7 +59,7 @@ public class Provenance {
     }
 
     /**
-     * Returns the build definition describing all inputs that produced the build output.
+     * Gets the build definition describing all inputs that produced the build output.
      *
      * <p>Includes source code, dependencies, build tools, base images, and other materials.</p>
      *
@@ -79,7 +79,7 @@ public class Provenance {
     }
 
     /**
-     * Returns the details about the invocation of the build tool and the environment in which it was run.
+     * Gets the details about the invocation of the build tool and the environment in which it was run.
      *
      * @return the run details, or {@code null} if not set
      */

@@ -25,12 +25,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * DSSE (Dead Simple Signing Envelope) that wraps a signed in-toto statement payload.
  *
- * <p>The {@code payload} field holds the serialized {@link Statement} bytes; Jackson serializes them as Base64. The
- * {@code payloadType} identifies the content type of the payload. The {@code signatures} list contains one or more
- * cryptographic signatures over the PAE-encoded payload.</p>
- *
- * <p>All three fields are REQUIRED and MUST be set, even if empty.</p>
- *
  * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
  */
 public class DsseEnvelope {
@@ -55,7 +49,7 @@ public class DsseEnvelope {
     }
 
     /**
-     * Returns the payload type URI.
+     * Gets the payload type URI.
      *
      * @return the payload type, never {@code null} in a valid envelope
      */
@@ -73,7 +67,7 @@ public class DsseEnvelope {
     }
 
     /**
-     * Returns the serialized payload bytes.
+     * Gets the serialized payload bytes.
      *
      * <p>When serialized to JSON the bytes are Base64-encoded.</p>
      *
@@ -93,7 +87,7 @@ public class DsseEnvelope {
     }
 
     /**
-     * Returns the list of signatures over the PAE-encoded payload.
+     * Gets the list of signatures over the PAE-encoded payload.
      *
      * @return the signatures, or {@code null} if not set
      */

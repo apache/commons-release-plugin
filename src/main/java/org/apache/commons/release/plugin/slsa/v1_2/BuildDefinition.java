@@ -65,7 +65,7 @@ public class BuildDefinition {
   }
 
   /**
-   * Returns the URI indicating what type of build was performed.
+   * Gets the URI indicating what type of build was performed.
    *
    * <p>Determines the meaning of {@code externalParameters} and {@code internalParameters}.</p>
    *
@@ -85,7 +85,7 @@ public class BuildDefinition {
   }
 
   /**
-   * Returns the inputs passed to the build, such as command-line arguments or environment variables.
+   * Gets the inputs passed to the build, such as command-line arguments or environment variables.
    *
    * @return the external parameters map, or {@code null} if not set
    */
@@ -103,7 +103,7 @@ public class BuildDefinition {
   }
 
   /**
-   * Returns the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
+   * Gets the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
    * specified by URI and digest.
    *
    * @return the internal parameters map, or {@code null} if not set
@@ -122,7 +122,7 @@ public class BuildDefinition {
   }
 
   /**
-   * Returns the materials that influenced the build.
+   * Gets the materials that influenced the build.
    *
    * <p>Considered incomplete unless resolved materials are present.</p>
    *

@@ -25,9 +25,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * A single cryptographic signature within a DSSE envelope.
  *
- * <p>The {@code sig} field holds the raw signature bytes; Jackson serializes them as Base64. The optional
- * {@code keyid} field identifies which key produced the signature.</p>
- *
  * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -41,7 +38,7 @@ public class Signature {
     @JsonProperty("keyid")
     private String keyid;
 
-    /** Raw signature bytes over the PAE-encoded payload, Base64-encoded in JSON. */
+    /** Raw signature bytes of the PAE-encoded payload. */
     @JsonProperty("sig")
     private byte[] sig;
 
@@ -50,7 +47,7 @@ public class Signature {
     }
 
     /**
-     * Returns the key identifier hint, or {@code null} if not set.
+     * Gets the key identifier hint, or {@code null} if not set.
      *
      * @return the key identifier, or {@code null}
      */
@@ -68,9 +65,7 @@ public class Signature {
     }
 
     /**
-     * Returns the raw signature bytes.
-     *
-     * <p>When serialized to JSON the bytes are Base64-encoded.</p>
+     * Gets the raw signature bytes.
      *
      * @return the signature bytes, or {@code null} if not set
      */

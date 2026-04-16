@@ -57,13 +57,11 @@ public final class DsseUtils {
     /**
      * Creates and prepares a {@link GpgSigner} from the given configuration.
      *
-     * <p>The returned signer has {@link AbstractGpgSigner#prepare()} already called and is ready
-     * for use with {@link #signPaeFile(AbstractGpgSigner, Path)}.</p>
+     * <p>The returned signer has {@link AbstractGpgSigner#prepare()} already called and is ready for use with {@link #signPaeFile(AbstractGpgSigner, Path)}.</p>
      *
      * @param executable     path to the GPG executable, or {@code null} to use {@code gpg} from {@code PATH}
      * @param defaultKeyring whether to include the default GPG keyring
-     * @param lockMode       GPG lock mode ({@code "once"}, {@code "multiple"}, or {@code "never"}),
-     *                       or {@code null} for no explicit lock flag
+     * @param lockMode       GPG lock mode ({@code "once"}, {@code "multiple"}, or {@code "never"}), or {@code null} for no explicit lock flag
      * @param keyname        name or fingerprint of the signing key, or {@code null} for the default key
      * @param useAgent       whether to use gpg-agent for passphrase management
      * @param log            Maven logger to attach to the signer

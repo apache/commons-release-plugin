@@ -48,7 +48,7 @@ public class Builder {
     }
 
     /**
-     * Returns the identifier of the builder.
+     * Gets the identifier of the builder.
      *
      * @return the builder identifier URI
      */
@@ -66,7 +66,7 @@ public class Builder {
     }
 
     /**
-     * Returns orchestrator dependencies that do not run within the build workload and do not affect the build output,
+     * Gets orchestrator dependencies that do not run within the build workload and do not affect the build output,
      * but may affect provenance generation or security guarantees.
      *
      * @return the list of builder dependencies, or {@code null} if not set
@@ -85,7 +85,7 @@ public class Builder {
     }
 
     /**
-     * Returns a map of build platform component names to their versions.
+     * Gets a map of build platform component names to their versions.
      *
      * @return the version map, or {@code null} if not set
      */

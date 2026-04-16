@@ -58,7 +58,7 @@ public class RunDetails {
   }
 
   /**
-   * Returns the builder that executed the invocation.
+   * Gets the builder that executed the invocation.
    *
    * <p>Trusted to have correctly performed the operation and populated this provenance.</p>
    *
@@ -78,7 +78,7 @@ public class RunDetails {
   }
 
   /**
-   * Returns the metadata about the build invocation, including its identifier and timing.
+   * Gets the metadata about the build invocation, including its identifier and timing.
    *
    * @return the build metadata, or {@code null} if not set
    */
@@ -96,7 +96,7 @@ public class RunDetails {
   }
 
   /**
-   * Returns artifacts produced as a side effect of the build that are not the primary output.
+   * Gets artifacts produced as a side effect of the build that are not the primary output.
    *
    * @return the list of byproduct artifacts, or {@code null} if not set
    */

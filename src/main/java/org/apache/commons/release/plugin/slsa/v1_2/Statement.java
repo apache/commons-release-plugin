@@ -49,10 +49,9 @@ public class Statement {
     }
 
     /**
-     * Returns the set of software artifacts that the attestation applies to.
+     * Gets the set of software artifacts that the attestation applies to.
      *
-     * <p>Each element represents a single artifact. Artifacts are matched purely by digest, regardless of content
-     * type.</p>
+     * <p>Each element represents a single artifact. Artifacts are matched purely by digest, regardless of content type.</p>
      *
      * @return the list of subject artifacts, or {@code null} if not set
      */
@@ -70,7 +69,7 @@ public class Statement {
     }
 
     /**
-     * Returns the URI identifying the type of the predicate.
+     * Gets the URI identifying the type of the predicate.
      *
      * @return the predicate type URI, or {@code null} if no predicate has been set
      */
@@ -79,7 +78,7 @@ public class Statement {
     }
 
     /**
-     * Returns the provenance predicate.
+     * Gets the provenance predicate.
      *
      * <p>Unset is treated the same as set-but-empty. May be omitted if {@code predicateType} fully describes the
      * predicate.</p>

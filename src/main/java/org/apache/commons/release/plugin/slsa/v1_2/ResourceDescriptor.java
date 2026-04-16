@@ -76,7 +76,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Returns the name of the resource.
+     * Gets the name of the resource.
      *
      * @return the resource name, or {@code null} if not set
      */
@@ -94,7 +94,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Returns the URI identifying the resource.
+     * Gets the URI identifying the resource.
      *
      * @return the resource URI, or {@code null} if not set
      */
@@ -112,7 +112,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Returns the map of cryptographic digest algorithms to their corresponding hex-encoded values for this resource.
+     * Gets the map of cryptographic digest algorithms to their corresponding hex-encoded values for this resource.
      *
      * <p>Common keys include {@code "sha256"} and {@code "sha512"}.</p>
      *
@@ -132,7 +132,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Returns the raw contents of the resource, base64-encoded when serialized to JSON.
+     * Gets the raw contents of the resource, base64-encoded when serialized to JSON.
      *
      * @return the resource content, or {@code null} if not set
      */
@@ -150,7 +150,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Returns the download URI for the resource, if different from {@link #getUri()}.
+     * Gets the download URI for the resource, if different from {@link #getUri()}.
      *
      * @return the download location URI, or {@code null} if not set
      */
@@ -168,7 +168,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Returns the media type of the resource (e.g., {@code "application/octet-stream"}).
+     * Gets the media type of the resource (e.g., {@code "application/octet-stream"}).
      *
      * @return the media type, or {@code null} if not set
      */
@@ -186,7 +186,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Returns additional key-value metadata about the resource, such as filename, size, or builder-specific attributes.
+     * Gets additional key-value metadata about the resource, such as filename, size, or builder-specific attributes.
      *
      * @return the annotations map, or {@code null} if not set
      */
