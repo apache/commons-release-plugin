@@ -568,8 +568,8 @@ public class BuildAttestationMojo extends AbstractMojo {
         ScmRepository scmRepository = getScmRepository();
         CommandParameters commandParameters = new CommandParameters();
         try {
-            InfoScmResult result = scmManager.getProviderByRepository(scmRepository).info(scmRepository.getProviderRepository(), new ScmFileSet(scmDirectory)
-                    , commandParameters);
+            InfoScmResult result = scmManager.getProviderByRepository(scmRepository).info(scmRepository.getProviderRepository(),
+                    new ScmFileSet(scmDirectory), commandParameters);
 
             return getScmRevision(result);
         } catch (ScmException e) {

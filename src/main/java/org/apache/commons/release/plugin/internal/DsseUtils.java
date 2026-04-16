@@ -80,7 +80,7 @@ public final class DsseUtils {
     }
 
     /**
-     * Serializes {@code statement} to JSON using the DSSE Pre-Authentication Encoding (PAE)
+     * Serializes {@code statement} to JSON using the DSSE Pre-Authentication Encoding (PAE).
      *
      * <pre>PAE(type, body) = "DSSEv1" + SP + LEN(type) + SP + type + SP + LEN(body) + SP + body</pre>
      *
@@ -99,7 +99,7 @@ public final class DsseUtils {
     }
 
     /**
-     * Writes serialized JSON to a file using the DSSE Pre-Authentication Encoding (PAE)
+     * Writes serialized JSON to a file using the DSSE Pre-Authentication Encoding (PAE).
      *
      * <pre>PAE(type, body) = "DSSEv1" + SP + LEN(type) + SP + type + SP + LEN(body) + SP + body</pre>
      *

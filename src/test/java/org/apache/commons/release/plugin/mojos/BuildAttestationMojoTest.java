@@ -39,9 +39,9 @@ import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.gpg.AbstractGpgSigner;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
-import org.apache.maven.plugins.gpg.AbstractGpgSigner;
 import org.apache.maven.rtinfo.RuntimeInformation;
 import org.apache.maven.scm.manager.ScmManager;
 import org.codehaus.plexus.PlexusContainer;
@@ -113,7 +113,7 @@ public class BuildAttestationMojoTest {
             @Override
             protected void generateSignatureForFile(final File file, final File signature) throws MojoExecutionException {
                 try {
-                    Files.copy(Paths.get("src/test/resources/signatures/commons-release-plugin-1.9.2.jar.asc"),
+                    Files.copy(Paths.get("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.jar.asc"),
                             signature.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 } catch (final IOException e) {
                     throw new MojoExecutionException("Failed to copy mock signature", e);
