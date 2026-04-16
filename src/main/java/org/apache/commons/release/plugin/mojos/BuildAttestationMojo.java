@@ -319,8 +319,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Signs the attestation statement with GPG, wraps it in a DSSE envelope, and writes it to
-     * {@code artifactPath}.
+     * Signs the attestation statement with GPG and writes it to {@code artifactPath}.
      *
      * @param statement    the attestation statement to sign and write
      * @param outputPath   directory used for intermediate PAE and signature files
@@ -533,8 +532,8 @@ public class BuildAttestationMojo extends AbstractMojo {
         ScmRepository scmRepository = getScmRepository();
         CommandParameters commandParameters = new CommandParameters();
         try {
-            InfoScmResult result = scmManager.getProviderByRepository(scmRepository).info(scmRepository.getProviderRepository(),
-                    new ScmFileSet(scmDirectory), commandParameters);
+            InfoScmResult result = scmManager.getProviderByRepository(scmRepository).info(scmRepository.getProviderRepository(), new ScmFileSet(scmDirectory)
+                    , commandParameters);
 
             return getScmRevision(result);
         } catch (ScmException e) {
