@@ -18,21 +18,26 @@ package org.apache.commons.release.plugin.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.release.plugin.slsa.v1_2.ResourceDescriptor;
+import org.apache.maven.execution.MavenExecutionRequest;
+import org.apache.maven.execution.MavenSession;
 
 /**
- * Factory methods for {@link ResourceDescriptor} instances representing build-tool dependencies.
+ * Factory methods for the SLSA {@code BuildDefinition} fields: JVM, Maven descriptors and external build parameters.
  */
-public final class BuildToolDescriptors {
+public final class BuildDefinitions {
 
-    /** No instances. */
-    private BuildToolDescriptors() {
-        // no instantiation
+    /**
+     * No instances.
+     */
+    private BuildDefinitions() {
     }
 
     /**
@@ -72,9 +77,9 @@ public final class BuildToolDescriptors {
      * Plugin code runs in an isolated Plugin Classloader, which does see that resources. Therefore, we need to pass the classloader from a class from
      * Maven Core, such as {@link org.apache.maven.rtinfo.RuntimeInformation}.</p>
      *
-     * @param version          Maven version string
-     * @param mavenHome        path to the Maven home directory
-     * @param coreClassLoader  a classloader from Maven's Core Classloader realm, used to load core resources
+     * @param version         Maven version string
+     * @param mavenHome       path to the Maven home directory
+     * @param coreClassLoader a classloader from Maven's Core Classloader realm, used to load core resources
      * @return a descriptor for the Maven installation
      * @throws IOException if hashing the Maven home directory fails
      */
@@ -97,5 +102,69 @@ public final class BuildToolDescriptors {
             descriptor.setAnnotations(annotations);
         }
         return descriptor;
+    }
+
+    /**
+     * Returns a map of external build parameters captured from the current JVM and Maven session.
+     *
+     * @param session the current Maven session
+     * @return a map of parameter names to values
+     */
+    public static Map<String, Object> externalParameters(final MavenSession session) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("jvm.args", ManagementFactory.getRuntimeMXBean().getInputArguments());
+        MavenExecutionRequest request = session.getRequest();
+        params.put("maven.goals", request.getGoals());
+        params.put("maven.profiles", request.getActiveProfiles());
+        params.put("maven.user.properties", request.getUserProperties());
+        params.put("maven.cmdline", commandLine(request));
+        Map<String, Object> env = new HashMap<>();
+        params.put("env", env);
+        for (Map.Entry<String, String> entry : System.getenv().entrySet()) {
+            String key = entry.getKey();
+            if ("TZ".equals(key) || "LANG".equals(key) || key.startsWith("LC_")) {
+                env.put(key, entry.getValue());
+            }
+        }
+        return params;
+    }
+
+    /**
+     * Reconstructs the Maven command line string from the given execution request.
+     *
+     * @param request the Maven execution request
+     * @return a string representation of the Maven command line
+     */
+    static String commandLine(final MavenExecutionRequest request) {
+        StringBuilder sb = new StringBuilder();
+        for (String goal : request.getGoals()) {
+            sb.append(goal).append(" ");
+        }
+        List<String> activeProfiles = request.getActiveProfiles();
+        if (activeProfiles != null && !activeProfiles.isEmpty()) {
+            sb.append("-P");
+            for (String profile : activeProfiles) {
+                sb.append(profile).append(",");
+            }
+            removeLast(sb);
+            sb.append(" ");
+        }
+        Properties userProperties = request.getUserProperties();
+        for (String propertyName : userProperties.stringPropertyNames()) {
+            sb.append("-D").append(propertyName).append("=").append(userProperties.get(propertyName)).append(" ");
+        }
+        removeLast(sb);
+        return sb.toString();
+    }
+
+    /**
+     * Removes last character from a {@link StringBuilder}.
+     *
+     * @param sb The {@link StringBuilder} to use
+     */
+    private static void removeLast(final StringBuilder sb) {
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        }
     }
 }

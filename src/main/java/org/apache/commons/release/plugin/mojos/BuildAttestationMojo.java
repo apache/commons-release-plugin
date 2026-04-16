@@ -19,7 +19,6 @@ package org.apache.commons.release.plugin.mojos;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +29,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.inject.Inject;
 
@@ -39,7 +37,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.release.plugin.internal.ArtifactUtils;
-import org.apache.commons.release.plugin.internal.BuildToolDescriptors;
+import org.apache.commons.release.plugin.internal.BuildDefinitions;
 import org.apache.commons.release.plugin.internal.DsseUtils;
 import org.apache.commons.release.plugin.internal.GitUtils;
 import org.apache.commons.release.plugin.slsa.v1_2.BuildDefinition;
@@ -52,7 +50,6 @@ import org.apache.commons.release.plugin.slsa.v1_2.RunDetails;
 import org.apache.commons.release.plugin.slsa.v1_2.Signature;
 import org.apache.commons.release.plugin.slsa.v1_2.Statement;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -298,7 +295,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     public void execute() throws MojoFailureException, MojoExecutionException {
         // Build definition
         BuildDefinition buildDefinition = new BuildDefinition();
-        buildDefinition.setExternalParameters(getExternalParameters());
+        buildDefinition.setExternalParameters(BuildDefinitions.externalParameters(session));
         buildDefinition.setResolvedDependencies(getBuildDependencies());
         // Builder
         Builder builder = new Builder();
@@ -424,75 +421,6 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Gets map of external build parameters captured from the current JVM and Maven session.
-     *
-     * @return A map of parameter names to values.
-     */
-    private Map<String, Object> getExternalParameters() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("jvm.args", ManagementFactory.getRuntimeMXBean().getInputArguments());
-        MavenExecutionRequest request = session.getRequest();
-        params.put("maven.goals", request.getGoals());
-        params.put("maven.profiles", request.getActiveProfiles());
-        params.put("maven.user.properties", request.getUserProperties());
-        params.put("maven.cmdline", getCommandLine(request));
-        Map<String, Object> env = new HashMap<>();
-        params.put("env", env);
-        for (Map.Entry<String, String> entry : System.getenv().entrySet()) {
-            String key = entry.getKey();
-            if ("TZ".equals(key) || "LANG".equals(key) || key.startsWith("LC_")) {
-                env.put(key, entry.getValue());
-            }
-        }
-        return params;
-    }
-
-    /**
-     * Reconstructs the Maven command line string from the given execution request.
-     *
-     * @param request The Maven execution request.
-     * @return A string representation of the Maven command line.
-     */
-    private static String getCommandLine(final MavenExecutionRequest request) {
-        StringBuilder sb = new StringBuilder();
-        for (String goal : request.getGoals()) {
-            sb.append(goal);
-            sb.append(" ");
-        }
-        List<String> activeProfiles = request.getActiveProfiles();
-        if (activeProfiles != null && !activeProfiles.isEmpty()) {
-            sb.append("-P");
-            for (String profile : activeProfiles) {
-                sb.append(profile);
-                sb.append(",");
-            }
-            removeLast(sb);
-            sb.append(" ");
-        }
-        Properties userProperties = request.getUserProperties();
-        for (String propertyName : userProperties.stringPropertyNames()) {
-            sb.append("-D");
-            sb.append(propertyName);
-            sb.append("=");
-            sb.append(userProperties.get(propertyName));
-            sb.append(" ");
-        }
-        removeLast(sb);
-        return sb.toString();
-    }
-
-    /**
-     * Removes the last character from the given {@link StringBuilder} if it is non-empty.
-     *
-     * @param sb The string builder to trim.
-     */
-    private static void removeLast(final StringBuilder sb) {
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 1);
-        }
-    }
-
-    /**
      * Returns resource descriptors for the JVM, Maven installation, SCM source, and project dependencies.
      *
      * @return A list of resolved build dependencies.
@@ -501,8 +429,8 @@ public class BuildAttestationMojo extends AbstractMojo {
     private List<ResourceDescriptor> getBuildDependencies() throws MojoExecutionException {
         List<ResourceDescriptor> dependencies = new ArrayList<>();
         try {
-            dependencies.add(BuildToolDescriptors.jvm(Paths.get(System.getProperty("java.home"))));
-            dependencies.add(BuildToolDescriptors.maven(runtimeInformation.getMavenVersion(), mavenHome.toPath(),
+            dependencies.add(BuildDefinitions.jvm(Paths.get(System.getProperty("java.home"))));
+            dependencies.add(BuildDefinitions.maven(runtimeInformation.getMavenVersion(), mavenHome.toPath(),
                     runtimeInformation.getClass().getClassLoader()));
             dependencies.add(getScmDescriptor());
         } catch (IOException e) {
