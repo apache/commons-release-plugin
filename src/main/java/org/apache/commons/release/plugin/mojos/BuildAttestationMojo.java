@@ -170,6 +170,11 @@ public class BuildAttestationMojo extends AbstractMojo {
     private boolean useAgent;
 
     /**
+     * GPG signer used for signing; lazily initialized from plugin parameters when {@code null}.
+     */
+    private AbstractGpgSigner signer;
+
+    /**
      * The current Maven project.
      */
     private final MavenProject project;
@@ -258,6 +263,37 @@ public class BuildAttestationMojo extends AbstractMojo {
         this.mavenHome = mavenHome;
     }
 
+    /**
+     * Sets whether to sign the attestation envelope.
+     *
+     * @param signAttestation {@code true} to sign, {@code false} to skip signing
+     */
+    void setSignAttestation(final boolean signAttestation) {
+        this.signAttestation = signAttestation;
+    }
+
+    /**
+     * Overrides the GPG signer used for signing. Intended for testing.
+     *
+     * @param signer the signer to use
+     */
+    void setSigner(final AbstractGpgSigner signer) {
+        this.signer = signer;
+    }
+
+    /**
+     * Returns the GPG signer, creating and preparing it from plugin parameters if not already set.
+     *
+     * @return the prepared signer
+     * @throws MojoFailureException if signer preparation fails
+     */
+    private AbstractGpgSigner getSigner() throws MojoFailureException {
+        if (signer == null) {
+            signer = DsseUtils.createGpgSigner(executable, defaultKeyring, lockMode, keyname, useAgent, getLog());
+        }
+        return signer;
+    }
+
     @Override
     public void execute() throws MojoFailureException, MojoExecutionException {
         // Build definition
@@ -335,7 +371,7 @@ public class BuildAttestationMojo extends AbstractMojo {
         } catch (JsonProcessingException e) {
             throw new MojoExecutionException("Failed to serialize attestation statement", e);
         }
-        final AbstractGpgSigner signer = DsseUtils.createGpgSigner(executable, defaultKeyring, lockMode, keyname, useAgent, getLog());
+        final AbstractGpgSigner signer = getSigner();
         final Path paeFile = DsseUtils.writePaeFile(statementBytes, outputPath);
         final byte[] sigBytes = DsseUtils.signFile(signer, paeFile);
 
@@ -417,7 +453,7 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @param request The Maven execution request.
      * @return A string representation of the Maven command line.
      */
-    private String getCommandLine(final MavenExecutionRequest request) {
+    private static String getCommandLine(final MavenExecutionRequest request) {
         StringBuilder sb = new StringBuilder();
         for (String goal : request.getGoals()) {
             sb.append(goal);
