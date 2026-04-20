@@ -16,8 +16,8 @@
  */
 
 /**
- * Internal utilities for the commons-release-plugin.
+ * Internal utilities
  *
- * <p>Should not be referenced by external artifacts.</p>
+ * <p>Should not be referenced by external artifacts. Their API can change at any moment</p>
  */
 package org.apache.commons.release.plugin.internal;
