@@ -225,7 +225,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Returns the SCM directory.
+     * Gets the SCM directory.
      *
      * @return The SCM directory.
      */
@@ -270,7 +270,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Overrides the GPG signer used for signing. Intended for testing.
+     * Sets the GPG signer used for signing. Intended for testing.
      *
      * @param signer the signer to use
      */
@@ -279,7 +279,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Returns the GPG signer, creating and preparing it from plugin parameters if not already set.
+     * Gets the GPG signer, creating and preparing it from plugin parameters if not already set.
      *
      * @return the prepared signer
      * @throws MojoFailureException if signer preparation fails
@@ -421,7 +421,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Returns resource descriptors for the JVM, Maven installation, SCM source, and project dependencies.
+     * Gets resource descriptors for the JVM, Maven installation, SCM source, and project dependencies.
      *
      * @return A list of resolved build dependencies.
      * @throws MojoExecutionException If any dependency cannot be resolved or hashed.
@@ -441,7 +441,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Returns resource descriptors for all resolved project dependencies.
+     * Gets resource descriptors for all resolved project dependencies.
      *
      * @return A list of resource descriptors for the project's resolved artifacts.
      * @throws MojoExecutionException If a dependency artifact cannot be described.
@@ -455,7 +455,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Returns a resource descriptor for the current SCM source, including the URI and Git commit digest.
+     * Gets a resource descriptor for the current SCM source, including the URI and Git commit digest.
      *
      * @return A resource descriptor for the SCM source.
      * @throws IOException            If the current branch cannot be determined.
@@ -473,7 +473,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Creates and returns an SCM repository from the configured connection URL.
+     * Gets an SCM repository from the configured connection URL.
      *
      * @return The SCM repository.
      * @throws MojoExecutionException If the SCM repository cannot be created.
@@ -487,7 +487,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Returns the current SCM revision (commit hash) for the configured SCM directory.
+     * Gets the current SCM revision (commit hash) for the configured SCM directory.
      *
      * @return The current SCM revision string.
      * @throws MojoExecutionException If the revision cannot be retrieved from SCM.
@@ -531,7 +531,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Returns build metadata derived from the current Maven session, including start and finish timestamps.
+     * Gets build metadata derived from the current Maven session, including start and finish timestamps.
      *
      * @return The build metadata.
      */

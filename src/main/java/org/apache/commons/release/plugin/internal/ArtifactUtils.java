@@ -36,7 +36,7 @@ public final class ArtifactUtils {
     }
 
     /**
-     * Returns the conventional filename for the given artifact.
+     * Gets the conventional filename for the given artifact.
      *
      * @param artifact A Maven artifact.
      * @return A filename.
@@ -46,7 +46,7 @@ public final class ArtifactUtils {
     }
 
     /**
-     * Returns the filename for the given artifact with a changed extension.
+     * Gets the filename for the given artifact with a changed extension.
      *
      * @param artifact A Maven artifact.
      * @param extension The file name extension.
@@ -63,7 +63,7 @@ public final class ArtifactUtils {
     }
 
     /**
-     * Returns the Package URL corresponding to this artifact.
+     * Gets the Package URL corresponding to this artifact.
      *
      * @param artifact A maven artifact.
      * @return A PURL for the given artifact.
@@ -81,7 +81,7 @@ public final class ArtifactUtils {
     }
 
     /**
-     * Returns a map of checksum algorithm names to hex-encoded digest values for the given artifact file.
+     * Gets a map of checksum algorithm names to hex-encoded digest values for the given artifact file.
      *
      * @param artifact A Maven artifact.
      * @return A map of checksum algorithm names to hex-encoded digest values.

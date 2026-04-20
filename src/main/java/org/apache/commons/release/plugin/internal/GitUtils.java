@@ -67,7 +67,7 @@ public final class GitUtils {
     }
 
     /**
-     * Returns the current branch name for the given repository path.
+     * Gets the current branch name for the given repository path.
      *
      * <p>Returns the commit SHA if the repository is in a detached HEAD state.
      *
