@@ -129,6 +129,12 @@ public class BuildAttestationMojo extends AbstractMojo {
     private boolean signAttestation;
 
     /**
+     * Checksum algorithms used in the generated attestation.
+     */
+    @Parameter(property = "commons.release.checksums.algorithms", defaultValue = "SHA-512,SHA-256,SHA-1,MD5")
+    private String algorithmNames;
+
+    /**
      * Path to the GPG executable; if not set, {@code gpg} is resolved from {@code PATH}.
      */
     @Parameter(property = "gpg.executable")
@@ -279,6 +285,15 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
+     * Sets the list of checksum algorithms to use.
+     *
+     * @param algorithmNames A comma-separated list of {@link java.security.MessageDigest} algorithm names to use.
+     */
+    void setAlgorithmNames(String algorithmNames) {
+        this.algorithmNames = algorithmNames;
+    }
+
+    /**
      * Gets the GPG signer, creating and preparing it from plugin parameters if not already set.
      *
      * @return the prepared signer
@@ -413,9 +428,9 @@ public class BuildAttestationMojo extends AbstractMojo {
      */
     private List<ResourceDescriptor> getSubjects() throws MojoExecutionException {
         List<ResourceDescriptor> subjects = new ArrayList<>();
-        subjects.add(ArtifactUtils.toResourceDescriptor(project.getArtifact()));
+        subjects.add(ArtifactUtils.toResourceDescriptor(project.getArtifact(), algorithmNames));
         for (Artifact artifact : project.getAttachedArtifacts()) {
-            subjects.add(ArtifactUtils.toResourceDescriptor(artifact));
+            subjects.add(ArtifactUtils.toResourceDescriptor(artifact, algorithmNames));
         }
         return subjects;
     }
@@ -449,7 +464,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     private List<ResourceDescriptor> getProjectDependencies() throws MojoExecutionException {
         List<ResourceDescriptor> dependencies = new ArrayList<>();
         for (Artifact artifact : project.getArtifacts()) {
-            dependencies.add(ArtifactUtils.toResourceDescriptor(artifact));
+            dependencies.add(ArtifactUtils.toResourceDescriptor(artifact, algorithmNames));
         }
         return dependencies;
     }

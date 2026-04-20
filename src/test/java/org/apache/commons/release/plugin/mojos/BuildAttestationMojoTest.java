@@ -112,6 +112,16 @@ public class BuildAttestationMojoTest {
                 createMavenSession(createMavenExecutionRequest(), new DefaultMavenExecutionResult()), projectHelper);
     }
 
+    private static void configureBuildAttestationMojo(BuildAttestationMojo mojo, boolean signAttestation) {
+        mojo.setOutputDirectory(new File("target/attestations"));
+        mojo.setScmDirectory(new File("."));
+        mojo.setScmConnectionUrl("scm:git:https://github.com/apache/commons-text.git");
+        mojo.setMavenHome(new File(System.getProperty("maven.home", ".")));
+        mojo.setAlgorithmNames("SHA-512,SHA-256,SHA-1,MD5");
+        mojo.setSignAttestation(signAttestation);
+        mojo.setSigner(createMockSigner());
+    }
+
     private static MavenProject createMavenProject(MavenProjectHelper projectHelper, MavenRepositorySystem repoSystem) throws Exception {
         File pomFile = new File(ARTIFACTS_DIR + "commons-text-1.4.pom");
         Model model;
@@ -209,10 +219,7 @@ public class BuildAttestationMojoTest {
         MavenProject project = createMavenProject(projectHelper, repoSystem);
 
         BuildAttestationMojo mojo = createBuildAttestationMojo(project, projectHelper);
-        mojo.setOutputDirectory(new File("target/attestations"));
-        mojo.setScmDirectory(new File("."));
-        mojo.setScmConnectionUrl("scm:git:https://github.com/apache/commons-text.git");
-        mojo.setMavenHome(new File(System.getProperty("maven.home", ".")));
+        configureBuildAttestationMojo(mojo, false);
         mojo.execute();
 
         JsonNode statement = OBJECT_MAPPER.readTree(getAttestation(project).getFile());
@@ -226,12 +233,7 @@ public class BuildAttestationMojoTest {
         MavenProject project = createMavenProject(projectHelper, repoSystem);
 
         BuildAttestationMojo mojo = createBuildAttestationMojo(project, projectHelper);
-        mojo.setOutputDirectory(new File("target/attestations"));
-        mojo.setScmDirectory(new File("."));
-        mojo.setScmConnectionUrl("scm:git:https://github.com/apache/commons-text.git");
-        mojo.setMavenHome(new File(System.getProperty("maven.home", ".")));
-        mojo.setSignAttestation(true);
-        mojo.setSigner(createMockSigner());
+        configureBuildAttestationMojo(mojo, true);
         mojo.execute();
 
         String envelopeJson = new String(Files.readAllBytes(getAttestation(project).getFile().toPath()), StandardCharsets.UTF_8);
