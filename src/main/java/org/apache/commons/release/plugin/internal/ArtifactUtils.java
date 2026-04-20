@@ -36,7 +36,7 @@ public final class ArtifactUtils {
     }
 
     /**
-     * Gets the conventional filename for the given artifact.
+     * Gets the filename of an artifact in the default Maven repository layout.
      *
      * @param artifact A Maven artifact.
      * @return A filename.
@@ -46,7 +46,7 @@ public final class ArtifactUtils {
     }
 
     /**
-     * Gets the filename for the given artifact with a changed extension.
+     * Gets the filename of an artifact in the default Maven repository layout, using the specified extension.
      *
      * @param artifact A Maven artifact.
      * @param extension The file name extension.
