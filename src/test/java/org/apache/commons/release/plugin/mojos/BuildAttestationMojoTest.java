@@ -16,7 +16,10 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
-import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonNodeAbsent;
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonNodePresent;
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonPartEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +30,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.javacrumbs.jsonunit.JsonAssert;
+import net.javacrumbs.jsonunit.core.Configuration;
+import net.javacrumbs.jsonunit.core.Option;
 import org.apache.commons.release.plugin.internal.MojoUtils;
 import org.apache.commons.release.plugin.slsa.v1_2.DsseEnvelope;
 import org.apache.maven.artifact.Artifact;
@@ -54,6 +61,8 @@ import org.junit.jupiter.api.io.TempDir;
 public class BuildAttestationMojoTest {
 
     private static final String ARTIFACTS_DIR = "src/test/resources/mojos/detach-distributions/target/";
+    public static final Configuration IGNORING_CONFIGURATION = JsonAssert.when(
+            Option.IGNORING_ARRAY_ORDER, Option.IGNORING_EXTRA_ARRAY_ITEMS, Option.IGNORING_EXTRA_FIELDS);
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -138,15 +147,12 @@ public class BuildAttestationMojoTest {
     }
 
     private static void assertSubject(final String statementJson, final String name, final String sha256) {
-        assertThatJson(statementJson)
-                .node("subject").isArray()
-                .anySatisfy(s -> {
-                    assertThatJson(s).node("name").isEqualTo(name);
-                    assertThatJson(s).node("digest.sha256").isEqualTo(sha256);
-                });
+        assertJsonPartEquals(
+                String.format("[{\"name\":\"%s\",\"digest\":{\"sha256\":\"%s\"}}]", name, sha256),
+                statementJson, "subject", IGNORING_CONFIGURATION);
     }
 
-    private static void assertStatementContent(final String statementJson) {
+    private static void assertStatementContent(final String statementJson) throws IOException {
         assertSubject(statementJson, "commons-text-1.4.jar",
                 "ad2d2eacf15ab740c115294afc1192603d8342004a6d7d0ad35446f7dda8a134");
         assertSubject(statementJson, "commons-text-1.4.pom",
@@ -171,19 +177,19 @@ public class BuildAttestationMojoTest {
         String resolvedDeps = "predicate.buildDefinition.resolvedDependencies";
         String javaVersion = System.getProperty("java.version");
 
-        assertThatJson(statementJson)
-                .node(resolvedDeps).isArray()
-                .anySatisfy(dep -> {
-                    assertThatJson(dep).node("name").isEqualTo("JDK");
-                    assertThatJson(dep).node("annotations.version").isEqualTo(javaVersion);
-                });
-        assertThatJson(statementJson)
-                .node(resolvedDeps).isArray()
-                .anySatisfy(dep -> assertThatJson(dep).node("name").isEqualTo("Maven"));
-        assertThatJson(statementJson)
-                .node(resolvedDeps).isArray()
-                .anySatisfy(dep -> assertThatJson(dep).node("uri").isString()
-                        .startsWith("git+https://github.com/apache/commons-text.git"));
+        assertJsonPartEquals(
+                "[{\"name\":\"JDK\",\"annotations\":{\"version\":\"" + javaVersion + "\"}}]",
+                statementJson, resolvedDeps, IGNORING_CONFIGURATION);
+        assertJsonPartEquals("[{\"name\":\"Maven\"}]", statementJson, resolvedDeps, IGNORING_CONFIGURATION);
+        String gitUriPrefix = "git+https://github.com/apache/commons-text.git";
+        boolean hasGitUri = false;
+        for (JsonNode dep : OBJECT_MAPPER.readTree(statementJson).at("/predicate/buildDefinition/resolvedDependencies")) {
+            if (dep.path("uri").asText().startsWith(gitUriPrefix)) {
+                hasGitUri = true;
+                break;
+            }
+        }
+        assertTrue(hasGitUri, "No resolved dependency with URI starting with " + gitUriPrefix);
     }
 
     @Test
@@ -220,9 +226,10 @@ public class BuildAttestationMojoTest {
 
         String envelopeJson = new String(Files.readAllBytes(getAttestation(project).getFile().toPath()), StandardCharsets.UTF_8);
 
-        assertThatJson(envelopeJson).node("payloadType").isEqualTo(DsseEnvelope.PAYLOAD_TYPE);
-        assertThatJson(envelopeJson).node("signatures").isArray().hasSize(1);
-        assertThatJson(envelopeJson).node("signatures[0].sig").isString().isNotEmpty();
+        assertJsonPartEquals(DsseEnvelope.PAYLOAD_TYPE, envelopeJson, "payloadType");
+        assertJsonNodePresent(envelopeJson, "signatures[0]");
+        assertJsonNodeAbsent(envelopeJson, "signatures[1]");
+        assertJsonPartEquals("${json-unit.regex}.+", envelopeJson, "signatures[0].sig");
 
         DsseEnvelope envelope = OBJECT_MAPPER.readValue(envelopeJson.trim(), DsseEnvelope.class);
         String statementJson = new String(envelope.getPayload(), StandardCharsets.UTF_8);

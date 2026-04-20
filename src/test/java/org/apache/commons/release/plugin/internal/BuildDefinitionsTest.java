@@ -19,7 +19,7 @@ package org.apache.commons.release.plugin.internal;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.Properties;
@@ -54,7 +54,7 @@ class BuildDefinitionsTest {
         request.setGoals(goals);
         request.setActiveProfiles(profiles);
         request.setUserProperties(userProperties);
-        assertThat(BuildDefinitions.commandLine(request)).isEqualTo(expected);
+        assertEquals(expected, BuildDefinitions.commandLine(request));
     }
 
     private static Properties props(final String key, final String value) {
