@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import org.apache.commons.release.plugin.slsa.v1_2.ResourceDescriptor;
 import org.apache.maven.execution.MavenExecutionRequest;
@@ -86,15 +87,11 @@ public final class BuildDefinitions {
      */
     public static ResourceDescriptor jvm(final Path javaHome) throws IOException {
         final String[] propertyNames = {
-            "java.version", "java.version.date",
-            "java.vendor", "java.vendor.url", "java.vendor.version",
-            "java.home",
-            "java.vm.specification.version", "java.vm.specification.vendor", "java.vm.specification.name",
-            "java.vm.version", "java.vm.vendor", "java.vm.name",
-            "java.specification.version", "java.specification.maintenance.version",
-            "java.specification.vendor", "java.specification.name",
+                "java.home", "java.specification.maintenance.version", "java.specification.name", "java.specification.vendor", "java.specification.version",
+                "java.vendor", "java.vendor.url", "java.vendor.version", "java.version", "java.version.date", "java.vm.name", "java.vm.specification.name",
+                "java.vm.specification.vendor", "java.vm.specification.version", "java.vm.vendor", "java.vm.version"
         };
-        final Map<String, Object> annotations = new HashMap<>();
+        final Map<String, Object> annotations = new TreeMap<>();
         for (final String prop : propertyNames) {
             annotations.put(prop.substring("java.".length()), System.getProperty(prop));
         }

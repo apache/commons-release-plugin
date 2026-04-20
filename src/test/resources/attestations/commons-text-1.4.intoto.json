@@ -133,22 +133,22 @@
             "gitTree": "bdb67e47c1b7df9c35ae045f29a348bb5bd32dc3"
           },
           "annotations": {
-            "vendor.version": "Temurin-25.0.2+10",
+            "home": "/usr/lib/jvm/temurin-25-jdk-amd64",
+            "specification.maintenance.version": null,
             "specification.name": "Java Platform API Specification",
             "specification.vendor": "Oracle Corporation",
-            "vm.version": "25.0.2+10-LTS",
+            "specification.version": "25",
+            "vendor": "Eclipse Adoptium",
+            "vendor.url": "https://adoptium.net/",
+            "vendor.version": "Temurin-25.0.2+10",
             "version": "25.0.2",
             "version.date": "2026-01-20",
-            "vm.specification.vendor": "Oracle Corporation",
-            "home": "/usr/lib/jvm/temurin-25-jdk-amd64",
-            "vendor": "Eclipse Adoptium",
-            "vm.vendor": "Eclipse Adoptium",
-            "vendor.url": "https://adoptium.net/",
-            "specification.maintenance.version": null,
-            "vm.specification.version": "25",
             "vm.name": "OpenJDK 64-Bit Server VM",
             "vm.specification.name": "Java Virtual Machine Specification",
-            "specification.version": "25"
+            "vm.specification.vendor": "Oracle Corporation",
+            "vm.specification.version": "25",
+            "vm.vendor": "Eclipse Adoptium",
+            "vm.version": "25.0.2+10-LTS"
           }
         },
         {
