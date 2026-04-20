@@ -46,6 +46,12 @@ class BuildDefinitionsTest {
         );
     }
 
+    private static Properties singletonProperties(final String key, final String value) {
+        final Properties p = new Properties();
+        p.setProperty(key, value);
+        return p;
+    }
+
     @ParameterizedTest(name = "{0}")
     @MethodSource("commandLineArguments")
     void commandLineTest(final String description, final List<String> goals, final List<String> profiles,
@@ -55,11 +61,5 @@ class BuildDefinitionsTest {
         request.setActiveProfiles(profiles);
         request.setUserProperties(userProperties);
         assertEquals(expected, BuildDefinitions.commandLine(request));
-    }
-
-    private static Properties singletonProperties(final String key, final String value) {
-        final Properties p = new Properties();
-        p.setProperty(key, value);
-        return p;
     }
 }

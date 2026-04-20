@@ -58,44 +58,6 @@ public class Provenance {
         this.runDetails = runDetails;
     }
 
-    /**
-     * Gets the build definition describing all inputs that produced the build output.
-     *
-     * <p>Includes source code, dependencies, build tools, base images, and other materials.</p>
-     *
-     * @return the build definition, or {@code null} if not set
-     */
-    public BuildDefinition getBuildDefinition() {
-        return buildDefinition;
-    }
-
-    /**
-     * Sets the build definition describing all inputs that produced the build output.
-     *
-     * @param buildDefinition the build definition
-     */
-    public void setBuildDefinition(BuildDefinition buildDefinition) {
-        this.buildDefinition = buildDefinition;
-    }
-
-    /**
-     * Gets the details about the invocation of the build tool and the environment in which it was run.
-     *
-     * @return the run details, or {@code null} if not set
-     */
-    public RunDetails getRunDetails() {
-        return runDetails;
-    }
-
-    /**
-     * Sets the details about the invocation of the build tool and the environment in which it was run.
-     *
-     * @param runDetails the run details
-     */
-    public void setRunDetails(RunDetails runDetails) {
-        this.runDetails = runDetails;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -108,9 +70,47 @@ public class Provenance {
         return Objects.equals(buildDefinition, that.buildDefinition) && Objects.equals(runDetails, that.runDetails);
     }
 
+    /**
+     * Gets the build definition describing all inputs that produced the build output.
+     *
+     * <p>Includes source code, dependencies, build tools, base images, and other materials.</p>
+     *
+     * @return the build definition, or {@code null} if not set
+     */
+    public BuildDefinition getBuildDefinition() {
+        return buildDefinition;
+    }
+
+    /**
+     * Gets the details about the invocation of the build tool and the environment in which it was run.
+     *
+     * @return the run details, or {@code null} if not set
+     */
+    public RunDetails getRunDetails() {
+        return runDetails;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(buildDefinition, runDetails);
+    }
+
+    /**
+     * Sets the build definition describing all inputs that produced the build output.
+     *
+     * @param buildDefinition the build definition
+     */
+    public void setBuildDefinition(BuildDefinition buildDefinition) {
+        this.buildDefinition = buildDefinition;
+    }
+
+    /**
+     * Sets the details about the invocation of the build tool and the environment in which it was run.
+     *
+     * @param runDetails the run details
+     */
+    public void setRunDetails(RunDetails runDetails) {
+        this.runDetails = runDetails;
     }
 
     @Override

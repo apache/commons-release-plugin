@@ -32,33 +32,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResourceDescriptor {
 
-    /** Human-readable name of the resource. */
-    @JsonProperty("name")
-    private String name;
-
-    /** URI identifying the resource. */
-    @JsonProperty("uri")
-    private String uri;
-
-    /** Map of digest algorithm names to hex-encoded values. */
-    @JsonProperty("digest")
-    private Map<String, String> digest;
-
-    /** Raw contents of the resource, base64-encoded in JSON. */
-    @JsonProperty("content")
-    private byte[] content;
-
-    /** Download URI for the resource, if different from {@link #uri}. */
-    @JsonProperty("downloadLocation")
-    private String downloadLocation;
-
-    /** Media type of the resource. */
-    @JsonProperty("mediaType")
-    private String mediaType;
-
     /** Additional key-value metadata about the resource. */
     @JsonProperty("annotations")
     private Map<String, Object> annotations;
+    /** Raw contents of the resource, base64-encoded in JSON. */
+    @JsonProperty("content")
+    private byte[] content;
+    /** Map of digest algorithm names to hex-encoded values. */
+    @JsonProperty("digest")
+    private Map<String, String> digest;
+    /** Download URI for the resource, if different from {@link #uri}. */
+    @JsonProperty("downloadLocation")
+    private String downloadLocation;
+    /** Media type of the resource. */
+    @JsonProperty("mediaType")
+    private String mediaType;
+    /** Human-readable name of the resource. */
+    @JsonProperty("name")
+    private String name;
+    /** URI identifying the resource. */
+    @JsonProperty("uri")
+    private String uri;
 
     /** Creates a new ResourceDescriptor instance. */
     public ResourceDescriptor() {
@@ -75,40 +69,34 @@ public class ResourceDescriptor {
         this.digest = digest;
     }
 
-    /**
-     * Gets the name of the resource.
-     *
-     * @return the resource name, or {@code null} if not set
-     */
-    public String getName() {
-        return name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ResourceDescriptor that = (ResourceDescriptor) o;
+        return Objects.equals(uri, that.uri) && Objects.equals(digest, that.digest);
     }
 
     /**
-     * Sets the name of the resource.
+     * Gets additional key-value metadata about the resource, such as filename, size, or builder-specific attributes.
      *
-     * @param name the resource name
+     * @return the annotations map, or {@code null} if not set
      */
-    public void setName(String name) {
-        this.name = name;
+    public Map<String, Object> getAnnotations() {
+        return annotations;
     }
 
     /**
-     * Gets the URI identifying the resource.
+     * Gets the raw contents of the resource, base64-encoded when serialized to JSON.
      *
-     * @return the resource URI, or {@code null} if not set
+     * @return the resource content, or {@code null} if not set
      */
-    public String getUri() {
-        return uri;
-    }
-
-    /**
-     * Sets the URI identifying the resource.
-     *
-     * @param uri the resource URI
-     */
-    public void setUri(String uri) {
-        this.uri = uri;
+    public byte[] getContent() {
+        return content;
     }
 
     /**
@@ -123,48 +111,12 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Sets the map of cryptographic digest algorithms to their hex-encoded values.
-     *
-     * @param digest the digest map
-     */
-    public void setDigest(Map<String, String> digest) {
-        this.digest = digest;
-    }
-
-    /**
-     * Gets the raw contents of the resource, base64-encoded when serialized to JSON.
-     *
-     * @return the resource content, or {@code null} if not set
-     */
-    public byte[] getContent() {
-        return content;
-    }
-
-    /**
-     * Sets the raw contents of the resource.
-     *
-     * @param content the resource content
-     */
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
-
-    /**
      * Gets the download URI for the resource, if different from {@link #getUri()}.
      *
      * @return the download location URI, or {@code null} if not set
      */
     public String getDownloadLocation() {
         return downloadLocation;
-    }
-
-    /**
-     * Sets the download URI for the resource.
-     *
-     * @param downloadLocation the download location URI
-     */
-    public void setDownloadLocation(String downloadLocation) {
-        this.downloadLocation = downloadLocation;
     }
 
     /**
@@ -177,21 +129,26 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Sets the media type of the resource.
+     * Gets the name of the resource.
      *
-     * @param mediaType the media type
+     * @return the resource name, or {@code null} if not set
      */
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
+    public String getName() {
+        return name;
     }
 
     /**
-     * Gets additional key-value metadata about the resource, such as filename, size, or builder-specific attributes.
+     * Gets the URI identifying the resource.
      *
-     * @return the annotations map, or {@code null} if not set
+     * @return the resource URI, or {@code null} if not set
      */
-    public Map<String, Object> getAnnotations() {
-        return annotations;
+    public String getUri() {
+        return uri;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uri, digest);
     }
 
     /**
@@ -203,21 +160,58 @@ public class ResourceDescriptor {
         this.annotations = annotations;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ResourceDescriptor that = (ResourceDescriptor) o;
-        return Objects.equals(uri, that.uri) && Objects.equals(digest, that.digest);
+    /**
+     * Sets the raw contents of the resource.
+     *
+     * @param content the resource content
+     */
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(uri, digest);
+    /**
+     * Sets the map of cryptographic digest algorithms to their hex-encoded values.
+     *
+     * @param digest the digest map
+     */
+    public void setDigest(Map<String, String> digest) {
+        this.digest = digest;
+    }
+
+    /**
+     * Sets the download URI for the resource.
+     *
+     * @param downloadLocation the download location URI
+     */
+    public void setDownloadLocation(String downloadLocation) {
+        this.downloadLocation = downloadLocation;
+    }
+
+    /**
+     * Sets the media type of the resource.
+     *
+     * @param mediaType the media type
+     */
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    /**
+     * Sets the name of the resource.
+     *
+     * @param name the resource name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets the URI identifying the resource.
+     *
+     * @param uri the resource URI
+     */
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     @Override

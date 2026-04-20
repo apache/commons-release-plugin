@@ -39,20 +39,6 @@ import org.eclipse.aether.spi.localrepo.LocalRepositoryManagerFactory;
  */
 public final class MojoUtils {
 
-    private static ContainerConfiguration setupContainerConfiguration() {
-        final ClassWorld classWorld =
-                new ClassWorld("plexus.core", Thread.currentThread().getContextClassLoader());
-        return new DefaultContainerConfiguration()
-                .setClassWorld(classWorld)
-                .setClassPathScanning(PlexusConstants.SCANNING_INDEX)
-                .setAutoWiring(true)
-                .setName("maven");
-    }
-
-    public static PlexusContainer setupContainer() throws PlexusContainerException {
-        return new DefaultPlexusContainer(setupContainerConfiguration());
-    }
-
     public static RepositorySystemSession createRepositorySystemSession(
             final PlexusContainer container, final Path localRepositoryPath) throws ComponentLookupException, RepositoryException {
         final LocalRepositoryManagerFactory factory = container.lookup(LocalRepositoryManagerFactory.class, "simple");
@@ -64,6 +50,20 @@ public final class MojoUtils {
         repoSession.setUpdatePolicy(RepositoryPolicy.UPDATE_POLICY_DAILY);
         repoSession.setChecksumPolicy(RepositoryPolicy.CHECKSUM_POLICY_WARN);
         return repoSession;
+    }
+
+    public static PlexusContainer setupContainer() throws PlexusContainerException {
+        return new DefaultPlexusContainer(setupContainerConfiguration());
+    }
+
+    private static ContainerConfiguration setupContainerConfiguration() {
+        final ClassWorld classWorld =
+                new ClassWorld("plexus.core", Thread.currentThread().getContextClassLoader());
+        return new DefaultContainerConfiguration()
+                .setClassWorld(classWorld)
+                .setClassPathScanning(PlexusConstants.SCANNING_INDEX)
+                .setAutoWiring(true)
+                .setName("maven");
     }
 
     private MojoUtils() {

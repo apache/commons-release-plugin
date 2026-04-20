@@ -31,75 +31,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Builder {
 
-    /** Identifier URI of the builder. */
-    @JsonProperty("id")
-    private String id = "https://commons.apache.org/builds/0.1.0";
-
     /** Orchestrator dependencies that may affect provenance generation. */
     @JsonProperty("builderDependencies")
     private List<ResourceDescriptor> builderDependencies = new ArrayList<>();
-
+    /** Identifier URI of the builder. */
+    @JsonProperty("id")
+    private String id = "https://commons.apache.org/builds/0.1.0";
     /** Map of build platform component names to their versions. */
     @JsonProperty("version")
     private Map<String, String> version = new HashMap<>();
 
     /** Creates a new Builder instance. */
     public Builder() {
-    }
-
-    /**
-     * Gets the identifier of the builder.
-     *
-     * @return the builder identifier URI
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the identifier of the builder.
-     *
-     * @param id the builder identifier URI
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets orchestrator dependencies that do not run within the build workload and do not affect the build output,
-     * but may affect provenance generation or security guarantees.
-     *
-     * @return the list of builder dependencies, or {@code null} if not set
-     */
-    public List<ResourceDescriptor> getBuilderDependencies() {
-        return builderDependencies;
-    }
-
-    /**
-     * Sets the orchestrator dependencies that may affect provenance generation or security guarantees.
-     *
-     * @param builderDependencies the list of builder dependencies
-     */
-    public void setBuilderDependencies(List<ResourceDescriptor> builderDependencies) {
-        this.builderDependencies = builderDependencies;
-    }
-
-    /**
-     * Gets a map of build platform component names to their versions.
-     *
-     * @return the version map, or {@code null} if not set
-     */
-    public Map<String, String> getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the map of build platform component names to their versions.
-     *
-     * @param version the version map
-     */
-    public void setVersion(Map<String, String> version) {
-        this.version = version;
     }
 
     @Override
@@ -113,9 +56,64 @@ public class Builder {
                 && Objects.equals(version, that.version);
     }
 
+    /**
+     * Gets orchestrator dependencies that do not run within the build workload and do not affect the build output,
+     * but may affect provenance generation or security guarantees.
+     *
+     * @return the list of builder dependencies, or {@code null} if not set
+     */
+    public List<ResourceDescriptor> getBuilderDependencies() {
+        return builderDependencies;
+    }
+
+    /**
+     * Gets the identifier of the builder.
+     *
+     * @return the builder identifier URI
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Gets a map of build platform component names to their versions.
+     *
+     * @return the version map, or {@code null} if not set
+     */
+    public Map<String, String> getVersion() {
+        return version;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, builderDependencies, version);
+    }
+
+    /**
+     * Sets the orchestrator dependencies that may affect provenance generation or security guarantees.
+     *
+     * @param builderDependencies the list of builder dependencies
+     */
+    public void setBuilderDependencies(List<ResourceDescriptor> builderDependencies) {
+        this.builderDependencies = builderDependencies;
+    }
+
+    /**
+     * Sets the identifier of the builder.
+     *
+     * @param id the builder identifier URI
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Sets the map of build platform component names to their versions.
+     *
+     * @param version the version map
+     */
+    public void setVersion(Map<String, String> version) {
+        this.version = version;
     }
 
     @Override

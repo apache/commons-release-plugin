@@ -64,83 +64,6 @@ public class BuildDefinition {
     this.externalParameters = externalParameters;
   }
 
-  /**
-   * Gets the URI indicating what type of build was performed.
-   *
-   * <p>Determines the meaning of {@code externalParameters} and {@code internalParameters}.</p>
-   *
-   * @return the build type URI
-   */
-  public String getBuildType() {
-    return buildType;
-  }
-
-  /**
-   * Sets the URI indicating what type of build was performed.
-   *
-   * @param buildType the build type URI
-   */
-  public void setBuildType(String buildType) {
-    this.buildType = buildType;
-  }
-
-  /**
-   * Gets the inputs passed to the build, such as command-line arguments or environment variables.
-   *
-   * @return the external parameters map, or {@code null} if not set
-   */
-  public Map<String, Object> getExternalParameters() {
-    return externalParameters;
-  }
-
-  /**
-   * Sets the inputs passed to the build.
-   *
-   * @param externalParameters the external parameters map
-   */
-  public void setExternalParameters(Map<String, Object> externalParameters) {
-    this.externalParameters = externalParameters;
-  }
-
-  /**
-   * Gets the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
-   * specified by URI and digest.
-   *
-   * @return the internal parameters map, or {@code null} if not set
-   */
-  public Map<String, Object> getInternalParameters() {
-    return internalParameters;
-  }
-
-  /**
-   * Sets the artifacts the build depends on.
-   *
-   * @param internalParameters the internal parameters map
-   */
-  public void setInternalParameters(Map<String, Object> internalParameters) {
-    this.internalParameters = internalParameters;
-  }
-
-  /**
-   * Gets the materials that influenced the build.
-   *
-   * <p>Considered incomplete unless resolved materials are present.</p>
-   *
-   * @return the list of resolved dependencies, or {@code null} if not set
-   */
-  public List<ResourceDescriptor> getResolvedDependencies() {
-    return resolvedDependencies;
-  }
-
-  /**
-   * Sets the materials that influenced the build.
-   *
-   * @param resolvedDependencies the list of resolved dependencies
-   */
-  public void setResolvedDependencies(List<ResourceDescriptor> resolvedDependencies) {
-    this.resolvedDependencies = resolvedDependencies;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -156,9 +79,86 @@ public class BuildDefinition {
         && Objects.equals(resolvedDependencies, that.resolvedDependencies);
   }
 
+  /**
+   * Gets the URI indicating what type of build was performed.
+   *
+   * <p>Determines the meaning of {@code externalParameters} and {@code internalParameters}.</p>
+   *
+   * @return the build type URI
+   */
+  public String getBuildType() {
+    return buildType;
+  }
+
+  /**
+   * Gets the inputs passed to the build, such as command-line arguments or environment variables.
+   *
+   * @return the external parameters map, or {@code null} if not set
+   */
+  public Map<String, Object> getExternalParameters() {
+    return externalParameters;
+  }
+
+  /**
+   * Gets the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
+   * specified by URI and digest.
+   *
+   * @return the internal parameters map, or {@code null} if not set
+   */
+  public Map<String, Object> getInternalParameters() {
+    return internalParameters;
+  }
+
+  /**
+   * Gets the materials that influenced the build.
+   *
+   * <p>Considered incomplete unless resolved materials are present.</p>
+   *
+   * @return the list of resolved dependencies, or {@code null} if not set
+   */
+  public List<ResourceDescriptor> getResolvedDependencies() {
+    return resolvedDependencies;
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(buildType, externalParameters, internalParameters, resolvedDependencies);
+  }
+
+  /**
+   * Sets the URI indicating what type of build was performed.
+   *
+   * @param buildType the build type URI
+   */
+  public void setBuildType(String buildType) {
+    this.buildType = buildType;
+  }
+
+  /**
+   * Sets the inputs passed to the build.
+   *
+   * @param externalParameters the external parameters map
+   */
+  public void setExternalParameters(Map<String, Object> externalParameters) {
+    this.externalParameters = externalParameters;
+  }
+
+  /**
+   * Sets the artifacts the build depends on.
+   *
+   * @param internalParameters the internal parameters map
+   */
+  public void setInternalParameters(Map<String, Object> internalParameters) {
+    this.internalParameters = internalParameters;
+  }
+
+  /**
+   * Sets the materials that influenced the build.
+   *
+   * @param resolvedDependencies the list of resolved dependencies
+   */
+  public void setResolvedDependencies(List<ResourceDescriptor> resolvedDependencies) {
+    this.resolvedDependencies = resolvedDependencies;
   }
 
   @Override

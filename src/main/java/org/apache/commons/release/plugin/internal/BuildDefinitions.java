@@ -36,9 +36,44 @@ import org.apache.maven.execution.MavenSession;
 public final class BuildDefinitions {
 
     /**
-     * No instances.
+     * Reconstructs the Maven command line string from the given execution request.
+     *
+     * @param request the Maven execution request
+     * @return a string representation of the Maven command line
      */
-    private BuildDefinitions() {
+    static String commandLine(final MavenExecutionRequest request) {
+        final List<String> args = new ArrayList<>(request.getGoals());
+        final String profiles = String.join(",", request.getActiveProfiles());
+        if (!profiles.isEmpty()) {
+            args.add("-P" + profiles);
+        }
+        request.getUserProperties().forEach((key, value) -> args.add("-D" + key + "=" + value));
+        return String.join(" ", args);
+    }
+
+    /**
+     * Returns a map of external build parameters captured from the current JVM and Maven session.
+     *
+     * @param session the current Maven session
+     * @return a map of parameter names to values
+     */
+    public static Map<String, Object> externalParameters(final MavenSession session) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("jvm.args", ManagementFactory.getRuntimeMXBean().getInputArguments());
+        final MavenExecutionRequest request = session.getRequest();
+        params.put("maven.goals", request.getGoals());
+        params.put("maven.profiles", request.getActiveProfiles());
+        params.put("maven.user.properties", request.getUserProperties());
+        params.put("maven.cmdline", commandLine(request));
+        final Map<String, Object> env = new HashMap<>();
+        params.put("env", env);
+        for (final Map.Entry<String, String> entry : System.getenv().entrySet()) {
+            final String key = entry.getKey();
+            if ("TZ".equals(key) || "LANG".equals(key) || key.startsWith("LC_")) {
+                env.put(key, entry.getValue());
+            }
+        }
+        return params;
     }
 
     /**
@@ -106,43 +141,8 @@ public final class BuildDefinitions {
     }
 
     /**
-     * Returns a map of external build parameters captured from the current JVM and Maven session.
-     *
-     * @param session the current Maven session
-     * @return a map of parameter names to values
+     * No instances.
      */
-    public static Map<String, Object> externalParameters(final MavenSession session) {
-        final Map<String, Object> params = new HashMap<>();
-        params.put("jvm.args", ManagementFactory.getRuntimeMXBean().getInputArguments());
-        final MavenExecutionRequest request = session.getRequest();
-        params.put("maven.goals", request.getGoals());
-        params.put("maven.profiles", request.getActiveProfiles());
-        params.put("maven.user.properties", request.getUserProperties());
-        params.put("maven.cmdline", commandLine(request));
-        final Map<String, Object> env = new HashMap<>();
-        params.put("env", env);
-        for (final Map.Entry<String, String> entry : System.getenv().entrySet()) {
-            final String key = entry.getKey();
-            if ("TZ".equals(key) || "LANG".equals(key) || key.startsWith("LC_")) {
-                env.put(key, entry.getValue());
-            }
-        }
-        return params;
-    }
-
-    /**
-     * Reconstructs the Maven command line string from the given execution request.
-     *
-     * @param request the Maven execution request
-     * @return a string representation of the Maven command line
-     */
-    static String commandLine(final MavenExecutionRequest request) {
-        final List<String> args = new ArrayList<>(request.getGoals());
-        final String profiles = String.join(",", request.getActiveProfiles());
-        if (!profiles.isEmpty()) {
-            args.add("-P" + profiles);
-        }
-        request.getUserProperties().forEach((key, value) -> args.add("-D" + key + "=" + value));
-        return String.join(" ", args);
+    private BuildDefinitions() {
     }
 }

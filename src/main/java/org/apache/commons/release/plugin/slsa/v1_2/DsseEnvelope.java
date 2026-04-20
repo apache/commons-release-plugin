@@ -31,15 +31,12 @@ public class DsseEnvelope {
 
     /** The payload type URI for in-toto attestation statements. */
     public static final String PAYLOAD_TYPE = "application/vnd.in-toto+json";
-
-    /** Content type identifying the format of {@link #payload}. */
-    @JsonProperty("payloadType")
-    private String payloadType = PAYLOAD_TYPE;
-
     /** Serialized statement bytes, Base64-encoded in JSON. */
     @JsonProperty("payload")
     private byte[] payload;
-
+    /** Content type identifying the format of {@link #payload}. */
+    @JsonProperty("payloadType")
+    private String payloadType = PAYLOAD_TYPE;
     /** One or more signatures over the PAE-encoded payload. */
     @JsonProperty("signatures")
     private List<Signature> signatures;
@@ -48,22 +45,14 @@ public class DsseEnvelope {
     public DsseEnvelope() {
     }
 
-    /**
-     * Gets the payload type URI.
-     *
-     * @return the payload type, never {@code null} in a valid envelope
-     */
-    public String getPayloadType() {
-        return payloadType;
-    }
-
-    /**
-     * Sets the payload type URI.
-     *
-     * @param payloadType the payload type URI
-     */
-    public void setPayloadType(String payloadType) {
-        this.payloadType = payloadType;
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof DsseEnvelope)) {
+            return false;
+        }
+        DsseEnvelope envelope = (DsseEnvelope) o;
+        return Objects.equals(payloadType, envelope.payloadType) && Arrays.equals(payload, envelope.payload)
+                && Objects.equals(signatures, envelope.signatures);
     }
 
     /**
@@ -78,12 +67,12 @@ public class DsseEnvelope {
     }
 
     /**
-     * Sets the serialized payload bytes.
+     * Gets the payload type URI.
      *
-     * @param payload the payload bytes
+     * @return the payload type, never {@code null} in a valid envelope
      */
-    public void setPayload(byte[] payload) {
-        this.payload = payload;
+    public String getPayloadType() {
+        return payloadType;
     }
 
     /**
@@ -95,6 +84,29 @@ public class DsseEnvelope {
         return signatures;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(payloadType, Arrays.hashCode(payload), signatures);
+    }
+
+    /**
+     * Sets the serialized payload bytes.
+     *
+     * @param payload the payload bytes
+     */
+    public void setPayload(byte[] payload) {
+        this.payload = payload;
+    }
+
+    /**
+     * Sets the payload type URI.
+     *
+     * @param payloadType the payload type URI
+     */
+    public void setPayloadType(String payloadType) {
+        this.payloadType = payloadType;
+    }
+
     /**
      * Sets the list of signatures over the PAE-encoded payload.
      *
@@ -102,21 +114,6 @@ public class DsseEnvelope {
      */
     public void setSignatures(List<Signature> signatures) {
         this.signatures = signatures;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof DsseEnvelope)) {
-            return false;
-        }
-        DsseEnvelope envelope = (DsseEnvelope) o;
-        return Objects.equals(payloadType, envelope.payloadType) && Arrays.equals(payload, envelope.payload)
-                && Objects.equals(signatures, envelope.signatures);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(payloadType, Arrays.hashCode(payload), signatures);
     }
 
     @Override

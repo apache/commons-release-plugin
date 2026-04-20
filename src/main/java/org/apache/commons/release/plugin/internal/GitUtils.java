@@ -36,6 +36,51 @@ public final class GitUtils {
     private static final String SCM_GIT_PREFIX = "scm:git:";
 
     /**
+     * Walks up the directory tree from {@code path} to find the {@code .git} directory.
+     *
+     * @param path A path inside the Git repository.
+     * @return The path to the {@code .git} directory (or file for worktrees).
+     * @throws IOException If no {@code .git} directory is found.
+     */
+    private static Path findGitDir(final Path path) throws IOException {
+        Path current = path.toAbsolutePath();
+        while (current != null) {
+            final Path candidate = current.resolve(".git");
+            if (Files.isDirectory(candidate)) {
+                return candidate;
+            }
+            if (Files.isRegularFile(candidate)) {
+                // git worktree: .git is a file containing "gitdir: /path/to/real/.git"
+                final String content = new String(Files.readAllBytes(candidate), StandardCharsets.UTF_8).trim();
+                if (content.startsWith("gitdir: ")) {
+                    return Paths.get(content.substring("gitdir: ".length()));
+                }
+            }
+            current = current.getParent();
+        }
+        throw new IOException("No .git directory found above: " + path);
+    }
+
+    /**
+     * Gets the current branch name for the given repository path.
+     *
+     * <p>Returns the commit SHA if the repository is in a detached HEAD state.
+     *
+     * @param repositoryPath A path inside the Git repository.
+     * @return The current branch name, or the commit SHA for a detached HEAD.
+     * @throws IOException If the {@code .git} directory cannot be found or read.
+     */
+    public static String getCurrentBranch(final Path repositoryPath) throws IOException {
+        final Path gitDir = findGitDir(repositoryPath);
+        final String head = new String(Files.readAllBytes(gitDir.resolve("HEAD")), StandardCharsets.UTF_8).trim();
+        if (head.startsWith("ref: refs/heads/")) {
+            return head.substring("ref: refs/heads/".length());
+        }
+        // detached HEAD — return the commit SHA
+        return head;
+    }
+
+    /**
      * Returns the Git tree hash for the given directory.
      *
      * @param path A directory path.
@@ -64,51 +109,6 @@ public final class GitUtils {
         }
         final String currentBranch = getCurrentBranch(repositoryPath);
         return "git+" + scmUri.substring(SCM_GIT_PREFIX.length()) + "@" + currentBranch;
-    }
-
-    /**
-     * Gets the current branch name for the given repository path.
-     *
-     * <p>Returns the commit SHA if the repository is in a detached HEAD state.
-     *
-     * @param repositoryPath A path inside the Git repository.
-     * @return The current branch name, or the commit SHA for a detached HEAD.
-     * @throws IOException If the {@code .git} directory cannot be found or read.
-     */
-    public static String getCurrentBranch(final Path repositoryPath) throws IOException {
-        final Path gitDir = findGitDir(repositoryPath);
-        final String head = new String(Files.readAllBytes(gitDir.resolve("HEAD")), StandardCharsets.UTF_8).trim();
-        if (head.startsWith("ref: refs/heads/")) {
-            return head.substring("ref: refs/heads/".length());
-        }
-        // detached HEAD — return the commit SHA
-        return head;
-    }
-
-    /**
-     * Walks up the directory tree from {@code path} to find the {@code .git} directory.
-     *
-     * @param path A path inside the Git repository.
-     * @return The path to the {@code .git} directory (or file for worktrees).
-     * @throws IOException If no {@code .git} directory is found.
-     */
-    private static Path findGitDir(final Path path) throws IOException {
-        Path current = path.toAbsolutePath();
-        while (current != null) {
-            final Path candidate = current.resolve(".git");
-            if (Files.isDirectory(candidate)) {
-                return candidate;
-            }
-            if (Files.isRegularFile(candidate)) {
-                // git worktree: .git is a file containing "gitdir: /path/to/real/.git"
-                final String content = new String(Files.readAllBytes(candidate), StandardCharsets.UTF_8).trim();
-                if (content.startsWith("gitdir: ")) {
-                    return Paths.get(content.substring("gitdir: ".length()));
-                }
-            }
-            current = current.getParent();
-        }
-        throw new IOException("No .git directory found above: " + path);
     }
 
     /** No instances. */

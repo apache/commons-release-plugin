@@ -61,56 +61,6 @@ public final class ArtifactUtils {
         IN_TOTO_DIGEST_NAMES = Collections.unmodifiableMap(m);
     }
 
-    /** No instances. */
-    private ArtifactUtils() {
-        // prevent instantiation
-    }
-
-    /**
-     * Gets the filename of an artifact in the default Maven repository layout.
-     *
-     * @param artifact A Maven artifact.
-     * @return A filename.
-     */
-    public static String getFileName(final Artifact artifact) {
-        return getFileName(artifact, artifact.getArtifactHandler().getExtension());
-    }
-
-    /**
-     * Gets the filename of an artifact in the default Maven repository layout, using the specified extension.
-     *
-     * @param artifact A Maven artifact.
-     * @param extension The file name extension.
-     * @return A filename.
-     */
-    public static String getFileName(final Artifact artifact, final String extension) {
-        final StringBuilder fileName = new StringBuilder();
-        fileName.append(artifact.getArtifactId()).append("-").append(artifact.getVersion());
-        if (artifact.getClassifier() != null) {
-            fileName.append("-").append(artifact.getClassifier());
-        }
-        fileName.append(".").append(extension);
-        return fileName.toString();
-    }
-
-    /**
-     * Gets the Package URL corresponding to this artifact.
-     *
-     * @param artifact A maven artifact.
-     * @return A PURL for the given artifact.
-     */
-    public static String getPackageUrl(final Artifact artifact) {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("pkg:maven/").append(artifact.getGroupId()).append("/").append(artifact.getArtifactId()).append("@").append(artifact.getVersion())
-                .append("?");
-        final String classifier = artifact.getClassifier();
-        if (classifier != null) {
-            sb.append("classifier=").append(classifier).append("&");
-        }
-        sb.append("type=").append(artifact.getType());
-        return sb.toString();
-    }
-
     /**
      * Gets a map of checksum algorithm names to hex-encoded digest values for the given artifact file.
      *
@@ -135,6 +85,51 @@ public final class ArtifactUtils {
     }
 
     /**
+     * Gets the filename of an artifact in the default Maven repository layout, using the specified extension.
+     *
+     * @param artifact A Maven artifact.
+     * @param extension The file name extension.
+     * @return A filename.
+     */
+    public static String getFileName(final Artifact artifact, final String extension) {
+        final StringBuilder fileName = new StringBuilder();
+        fileName.append(artifact.getArtifactId()).append("-").append(artifact.getVersion());
+        if (artifact.getClassifier() != null) {
+            fileName.append("-").append(artifact.getClassifier());
+        }
+        fileName.append(".").append(extension);
+        return fileName.toString();
+    }
+
+    /**
+     * Gets the filename of an artifact in the default Maven repository layout.
+     *
+     * @param artifact A Maven artifact.
+     * @return A filename.
+     */
+    public static String getFileName(final Artifact artifact) {
+        return getFileName(artifact, artifact.getArtifactHandler().getExtension());
+    }
+
+    /**
+     * Gets the Package URL corresponding to this artifact.
+     *
+     * @param artifact A maven artifact.
+     * @return A PURL for the given artifact.
+     */
+    public static String getPackageUrl(final Artifact artifact) {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("pkg:maven/").append(artifact.getGroupId()).append("/").append(artifact.getArtifactId()).append("@").append(artifact.getVersion())
+                .append("?");
+        final String classifier = artifact.getClassifier();
+        if (classifier != null) {
+            sb.append("classifier=").append(classifier).append("&");
+        }
+        sb.append("type=").append(artifact.getType());
+        return sb.toString();
+    }
+
+    /**
      * Converts a Maven artifact to a SLSA {@link ResourceDescriptor}.
      *
      * @param artifact A Maven artifact.
@@ -154,5 +149,10 @@ public final class ArtifactUtils {
             }
         }
         return descriptor;
+    }
+
+    /** No instances. */
+    private ArtifactUtils() {
+        // prevent instantiation
     }
 }

@@ -93,53 +93,10 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * The SCM connection URL for the current project.
-     */
-    @Parameter(defaultValue = "${project.scm.connection}", readonly = true)
-    private String scmConnectionUrl;
-
-    /**
-     * The Maven home directory.
-     */
-    @Parameter(defaultValue = "${maven.home}", readonly = true)
-    private File mavenHome;
-
-    /**
-     * Issue SCM actions at this local directory.
-     */
-    @Parameter(property = "commons.release.scmDirectory", defaultValue = "${basedir}")
-    private File scmDirectory;
-
-    /**
-     * The output directory for the attestation file.
-     */
-    @Parameter(property = "commons.release.outputDirectory", defaultValue = "${project.build.directory}")
-    private File outputDirectory;
-
-    /**
-     * Whether to skip attaching the attestation artifact to the project.
-     */
-    @Parameter(property = "commons.release.skipAttach")
-    private boolean skipAttach;
-
-    /**
-     * Whether to sign the attestation envelope with GPG.
-     */
-    @Parameter(property = "commons.release.signAttestation", defaultValue = "true")
-    private boolean signAttestation;
-
-    /**
      * Checksum algorithms used in the generated attestation.
      */
     @Parameter(property = "commons.release.checksums.algorithms", defaultValue = "SHA-512,SHA-256,SHA-1,MD5")
     private String algorithmNames;
-
-    /**
-     * Path to the GPG executable; if not set, {@code gpg} is resolved from {@code PATH}.
-     */
-    @Parameter(property = "gpg.executable")
-    private String executable;
-
     /**
      * Whether to include the default GPG keyring.
      *
@@ -147,14 +104,11 @@ public class BuildAttestationMojo extends AbstractMojo {
      */
     @Parameter(property = "gpg.defaultKeyring", defaultValue = "true")
     private boolean defaultKeyring;
-
     /**
-     * GPG database lock mode passed via {@code --lock-once}, {@code --lock-multiple}, or
-     * {@code --lock-never}; no lock flag is added when not set.
+     * Path to the GPG executable; if not set, {@code gpg} is resolved from {@code PATH}.
      */
-    @Parameter(property = "gpg.lockMode")
-    private String lockMode;
-
+    @Parameter(property = "gpg.executable")
+    private String executable;
     /**
      * Name or fingerprint of the GPG key to use for signing.
      *
@@ -162,7 +116,66 @@ public class BuildAttestationMojo extends AbstractMojo {
      */
     @Parameter(property = "gpg.keyname")
     private String keyname;
-
+    /**
+     * GPG database lock mode passed via {@code --lock-once}, {@code --lock-multiple}, or
+     * {@code --lock-never}; no lock flag is added when not set.
+     */
+    @Parameter(property = "gpg.lockMode")
+    private String lockMode;
+    /**
+     * The Maven home directory.
+     */
+    @Parameter(defaultValue = "${maven.home}", readonly = true)
+    private File mavenHome;
+    /**
+     * Helper to attach artifacts to the project.
+     */
+    private final MavenProjectHelper mavenProjectHelper;
+    /**
+     * The output directory for the attestation file.
+     */
+    @Parameter(property = "commons.release.outputDirectory", defaultValue = "${project.build.directory}")
+    private File outputDirectory;
+    /**
+     * The current Maven project.
+     */
+    private final MavenProject project;
+    /**
+     * Runtime information.
+     */
+    private final RuntimeInformation runtimeInformation;
+    /**
+     * The SCM connection URL for the current project.
+     */
+    @Parameter(defaultValue = "${project.scm.connection}", readonly = true)
+    private String scmConnectionUrl;
+    /**
+     * Issue SCM actions at this local directory.
+     */
+    @Parameter(property = "commons.release.scmDirectory", defaultValue = "${basedir}")
+    private File scmDirectory;
+    /**
+     * SCM manager to detect the Git revision.
+     */
+    private final ScmManager scmManager;
+    /**
+     * The current Maven session, used to resolve plugin dependencies.
+     */
+    private final MavenSession session;
+    /**
+     * Whether to sign the attestation envelope with GPG.
+     */
+    @Parameter(property = "commons.release.signAttestation", defaultValue = "true")
+    private boolean signAttestation;
+    /**
+     * GPG signer used for signing; lazily initialized from plugin parameters when {@code null}.
+     */
+    private AbstractGpgSigner signer;
+    /**
+     * Whether to skip attaching the attestation artifact to the project.
+     */
+    @Parameter(property = "commons.release.skipAttach")
+    private boolean skipAttach;
     /**
      * Whether to use gpg-agent for passphrase management.
      *
@@ -171,36 +184,6 @@ public class BuildAttestationMojo extends AbstractMojo {
      */
     @Parameter(property = "gpg.useagent", defaultValue = "true")
     private boolean useAgent;
-
-    /**
-     * GPG signer used for signing; lazily initialized from plugin parameters when {@code null}.
-     */
-    private AbstractGpgSigner signer;
-
-    /**
-     * The current Maven project.
-     */
-    private final MavenProject project;
-
-    /**
-     * SCM manager to detect the Git revision.
-     */
-    private final ScmManager scmManager;
-
-    /**
-     * Runtime information.
-     */
-    private final RuntimeInformation runtimeInformation;
-
-    /**
-     * The current Maven session, used to resolve plugin dependencies.
-     */
-    private final MavenSession session;
-
-    /**
-     * Helper to attach artifacts to the project.
-     */
-    private final MavenProjectHelper mavenProjectHelper;
 
     /**
      * Creates a new instance with the given dependencies.
@@ -222,88 +205,21 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Sets the output directory for the attestation file.
+     * Creates the output directory if it does not already exist and returns its path.
      *
-     * @param outputDirectory The output directory.
+     * @return the output directory path
+     * @throws MojoExecutionException if the directory cannot be created
      */
-    void setOutputDirectory(final File outputDirectory) {
-        this.outputDirectory = outputDirectory;
-    }
-
-    /**
-     * Gets the SCM directory.
-     *
-     * @return The SCM directory.
-     */
-    public File getScmDirectory() {
-        return scmDirectory;
-    }
-
-    /**
-     * Sets the SCM directory.
-     *
-     * @param scmDirectory The SCM directory.
-     */
-    public void setScmDirectory(final File scmDirectory) {
-        this.scmDirectory = scmDirectory;
-    }
-
-    /**
-     * Sets the public SCM connection URL.
-     *
-     * @param scmConnectionUrl The SCM connection URL.
-     */
-    void setScmConnectionUrl(final String scmConnectionUrl) {
-        this.scmConnectionUrl = scmConnectionUrl;
-    }
-
-    /**
-     * Sets the Maven home directory.
-     *
-     * @param mavenHome The Maven home directory.
-     */
-    void setMavenHome(final File mavenHome) {
-        this.mavenHome = mavenHome;
-    }
-
-    /**
-     * Sets whether to sign the attestation envelope.
-     *
-     * @param signAttestation {@code true} to sign, {@code false} to skip signing
-     */
-    void setSignAttestation(final boolean signAttestation) {
-        this.signAttestation = signAttestation;
-    }
-
-    /**
-     * Sets the GPG signer used for signing. Intended for testing.
-     *
-     * @param signer the signer to use
-     */
-    void setSigner(final AbstractGpgSigner signer) {
-        this.signer = signer;
-    }
-
-    /**
-     * Sets the list of checksum algorithms to use.
-     *
-     * @param algorithmNames A comma-separated list of {@link java.security.MessageDigest} algorithm names to use.
-     */
-    void setAlgorithmNames(final String algorithmNames) {
-        this.algorithmNames = algorithmNames;
-    }
-
-    /**
-     * Gets the GPG signer, creating and preparing it from plugin parameters if not already set.
-     *
-     * @return the prepared signer
-     * @throws MojoFailureException if signer preparation fails
-     */
-    private AbstractGpgSigner getSigner() throws MojoFailureException {
-        if (signer == null) {
-            signer = DsseUtils.createGpgSigner(executable, defaultKeyring, lockMode, keyname, useAgent, getLog());
+    private Path ensureOutputDirectory() throws MojoExecutionException {
+        final Path outputPath = outputDirectory.toPath();
+        try {
+            if (!Files.exists(outputPath)) {
+                Files.createDirectories(outputPath);
+            }
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Could not create output directory.", e);
         }
-        return signer;
+        return outputPath;
     }
 
     @Override
@@ -337,105 +253,6 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Creates the output directory if it does not already exist and returns its path.
-     *
-     * @return the output directory path
-     * @throws MojoExecutionException if the directory cannot be created
-     */
-    private Path ensureOutputDirectory() throws MojoExecutionException {
-        final Path outputPath = outputDirectory.toPath();
-        try {
-            if (!Files.exists(outputPath)) {
-                Files.createDirectories(outputPath);
-            }
-        } catch (final IOException e) {
-            throw new MojoExecutionException("Could not create output directory.", e);
-        }
-        return outputPath;
-    }
-
-    /**
-     * Serializes the attestation statement as a bare JSON line and writes it to {@code artifactPath}.
-     *
-     * @param statement    the attestation statement to write
-     * @param artifactPath the destination file path
-     * @throws MojoExecutionException if the file cannot be written
-     */
-    private void writeStatement(final Statement statement, final Path artifactPath) throws MojoExecutionException {
-        getLog().info("Writing attestation statement to: " + artifactPath);
-        writeAndAttach(statement, artifactPath);
-    }
-
-    /**
-     * Signs the attestation statement with GPG and writes it to {@code artifactPath}.
-     *
-     * @param statement    the attestation statement to sign and write
-     * @param outputPath   directory used for intermediate PAE and signature files
-     * @param artifactPath the destination file path for the envelope
-     * @throws MojoExecutionException if serialization, signing, or file I/O fails
-     * @throws MojoFailureException   if the GPG signer cannot be prepared
-     */
-    private void signAndWriteStatement(final Statement statement, final Path outputPath,
-            final Path artifactPath) throws MojoExecutionException, MojoFailureException {
-        final byte[] statementBytes;
-        try {
-            statementBytes = OBJECT_MAPPER.writeValueAsBytes(statement);
-        } catch (final JsonProcessingException e) {
-            throw new MojoExecutionException("Failed to serialize attestation statement", e);
-        }
-        final AbstractGpgSigner signer = getSigner();
-        final Path paeFile = DsseUtils.writePaeFile(statementBytes, outputPath);
-        final byte[] sigBytes = DsseUtils.signFile(signer, paeFile);
-
-        final Signature sig = new Signature();
-        sig.setKeyid(DsseUtils.getKeyId(sigBytes));
-        sig.setSig(sigBytes);
-
-        final DsseEnvelope envelope = new DsseEnvelope();
-        envelope.setPayload(statementBytes);
-        envelope.setSignatures(Collections.singletonList(sig));
-
-        getLog().info("Writing signed attestation envelope to: " + artifactPath);
-        writeAndAttach(envelope, artifactPath);
-    }
-
-    /**
-     * Writes {@code value} as a JSON line to {@code artifactPath} and optionally attaches it to the project.
-     *
-     * @param value        the object to serialize
-     * @param artifactPath the destination file path
-     * @throws MojoExecutionException if the file cannot be written
-     */
-    private void writeAndAttach(final Object value, final Path artifactPath) throws MojoExecutionException {
-        try (OutputStream os = Files.newOutputStream(artifactPath)) {
-            OBJECT_MAPPER.writeValue(os, value);
-            os.write('\n');
-        } catch (final IOException e) {
-            throw new MojoExecutionException("Could not write attestation to: " + artifactPath, e);
-        }
-        if (!skipAttach) {
-            final Artifact mainArtifact = project.getArtifact();
-            getLog().info(String.format("Attaching attestation as %s-%s.%s", mainArtifact.getArtifactId(), mainArtifact.getVersion(), ATTESTATION_EXTENSION));
-            mavenProjectHelper.attachArtifact(project, ATTESTATION_EXTENSION, null, artifactPath.toFile());
-        }
-    }
-
-    /**
-     * Get the artifacts generated by the build.
-     *
-     * @return A list of resource descriptors for the build artifacts.
-     * @throws MojoExecutionException If artifact hashing fails.
-     */
-    private List<ResourceDescriptor> getSubjects() throws MojoExecutionException {
-        final List<ResourceDescriptor> subjects = new ArrayList<>();
-        subjects.add(ArtifactUtils.toResourceDescriptor(project.getArtifact(), algorithmNames));
-        for (final Artifact artifact : project.getAttachedArtifacts()) {
-            subjects.add(ArtifactUtils.toResourceDescriptor(artifact, algorithmNames));
-        }
-        return subjects;
-    }
-
-    /**
      * Gets resource descriptors for the JVM, Maven installation, SCM source, and project dependencies.
      *
      * @return A list of resolved build dependencies.
@@ -453,6 +270,17 @@ public class BuildAttestationMojo extends AbstractMojo {
         }
         dependencies.addAll(getProjectDependencies());
         return dependencies;
+    }
+
+    /**
+     * Gets build metadata derived from the current Maven session, including start and finish timestamps.
+     *
+     * @return The build metadata.
+     */
+    private BuildMetadata getBuildMetadata() {
+        final OffsetDateTime startedOn = session.getStartTime().toInstant().atOffset(ZoneOffset.UTC);
+        final OffsetDateTime finishedOn = OffsetDateTime.now(ZoneOffset.UTC);
+        return new BuildMetadata(null, startedOn, finishedOn);
     }
 
     /**
@@ -485,6 +313,15 @@ public class BuildAttestationMojo extends AbstractMojo {
         digest.put("gitCommit", getScmRevision());
         scmDescriptor.setDigest(digest);
         return scmDescriptor;
+    }
+
+    /**
+     * Gets the SCM directory.
+     *
+     * @return The SCM directory.
+     */
+    public File getScmDirectory() {
+        return scmDirectory;
     }
 
     /**
@@ -546,13 +383,159 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Gets build metadata derived from the current Maven session, including start and finish timestamps.
+     * Gets the GPG signer, creating and preparing it from plugin parameters if not already set.
      *
-     * @return The build metadata.
+     * @return the prepared signer
+     * @throws MojoFailureException if signer preparation fails
      */
-    private BuildMetadata getBuildMetadata() {
-        final OffsetDateTime startedOn = session.getStartTime().toInstant().atOffset(ZoneOffset.UTC);
-        final OffsetDateTime finishedOn = OffsetDateTime.now(ZoneOffset.UTC);
-        return new BuildMetadata(null, startedOn, finishedOn);
+    private AbstractGpgSigner getSigner() throws MojoFailureException {
+        if (signer == null) {
+            signer = DsseUtils.createGpgSigner(executable, defaultKeyring, lockMode, keyname, useAgent, getLog());
+        }
+        return signer;
+    }
+
+    /**
+     * Get the artifacts generated by the build.
+     *
+     * @return A list of resource descriptors for the build artifacts.
+     * @throws MojoExecutionException If artifact hashing fails.
+     */
+    private List<ResourceDescriptor> getSubjects() throws MojoExecutionException {
+        final List<ResourceDescriptor> subjects = new ArrayList<>();
+        subjects.add(ArtifactUtils.toResourceDescriptor(project.getArtifact(), algorithmNames));
+        for (final Artifact artifact : project.getAttachedArtifacts()) {
+            subjects.add(ArtifactUtils.toResourceDescriptor(artifact, algorithmNames));
+        }
+        return subjects;
+    }
+
+    /**
+     * Sets the list of checksum algorithms to use.
+     *
+     * @param algorithmNames A comma-separated list of {@link java.security.MessageDigest} algorithm names to use.
+     */
+    void setAlgorithmNames(final String algorithmNames) {
+        this.algorithmNames = algorithmNames;
+    }
+
+    /**
+     * Sets the Maven home directory.
+     *
+     * @param mavenHome The Maven home directory.
+     */
+    void setMavenHome(final File mavenHome) {
+        this.mavenHome = mavenHome;
+    }
+
+    /**
+     * Sets the output directory for the attestation file.
+     *
+     * @param outputDirectory The output directory.
+     */
+    void setOutputDirectory(final File outputDirectory) {
+        this.outputDirectory = outputDirectory;
+    }
+
+    /**
+     * Sets the public SCM connection URL.
+     *
+     * @param scmConnectionUrl The SCM connection URL.
+     */
+    void setScmConnectionUrl(final String scmConnectionUrl) {
+        this.scmConnectionUrl = scmConnectionUrl;
+    }
+
+    /**
+     * Sets the SCM directory.
+     *
+     * @param scmDirectory The SCM directory.
+     */
+    public void setScmDirectory(final File scmDirectory) {
+        this.scmDirectory = scmDirectory;
+    }
+
+    /**
+     * Sets whether to sign the attestation envelope.
+     *
+     * @param signAttestation {@code true} to sign, {@code false} to skip signing
+     */
+    void setSignAttestation(final boolean signAttestation) {
+        this.signAttestation = signAttestation;
+    }
+
+    /**
+     * Sets the GPG signer used for signing. Intended for testing.
+     *
+     * @param signer the signer to use
+     */
+    void setSigner(final AbstractGpgSigner signer) {
+        this.signer = signer;
+    }
+
+    /**
+     * Signs the attestation statement with GPG and writes it to {@code artifactPath}.
+     *
+     * @param statement    the attestation statement to sign and write
+     * @param outputPath   directory used for intermediate PAE and signature files
+     * @param artifactPath the destination file path for the envelope
+     * @throws MojoExecutionException if serialization, signing, or file I/O fails
+     * @throws MojoFailureException   if the GPG signer cannot be prepared
+     */
+    private void signAndWriteStatement(final Statement statement, final Path outputPath,
+            final Path artifactPath) throws MojoExecutionException, MojoFailureException {
+        final byte[] statementBytes;
+        try {
+            statementBytes = OBJECT_MAPPER.writeValueAsBytes(statement);
+        } catch (final JsonProcessingException e) {
+            throw new MojoExecutionException("Failed to serialize attestation statement", e);
+        }
+        final AbstractGpgSigner signer = getSigner();
+        final Path paeFile = DsseUtils.writePaeFile(statementBytes, outputPath);
+        final byte[] sigBytes = DsseUtils.signFile(signer, paeFile);
+
+        final Signature sig = new Signature();
+        sig.setKeyid(DsseUtils.getKeyId(sigBytes));
+        sig.setSig(sigBytes);
+
+        final DsseEnvelope envelope = new DsseEnvelope();
+        envelope.setPayload(statementBytes);
+        envelope.setSignatures(Collections.singletonList(sig));
+
+        getLog().info("Writing signed attestation envelope to: " + artifactPath);
+        writeAndAttach(envelope, artifactPath);
+    }
+
+    /**
+     * Writes {@code value} as a JSON line to {@code artifactPath} and optionally attaches it to the project.
+     *
+     * @param value        the object to serialize
+     * @param artifactPath the destination file path
+     * @throws MojoExecutionException if the file cannot be written
+     */
+    private void writeAndAttach(final Object value, final Path artifactPath) throws MojoExecutionException {
+        try (OutputStream os = Files.newOutputStream(artifactPath)) {
+            OBJECT_MAPPER.writeValue(os, value);
+            os.write('\n');
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Could not write attestation to: " + artifactPath, e);
+        }
+        if (!skipAttach) {
+            final Artifact mainArtifact = project.getArtifact();
+            getLog().info(String.format("Attaching attestation as %s-%s.%s", mainArtifact.getArtifactId(), mainArtifact.getVersion(), ATTESTATION_EXTENSION));
+            mavenProjectHelper.attachArtifact(project, ATTESTATION_EXTENSION, null, artifactPath.toFile());
+        }
+    }
+
+    /**
+     * Serializes the attestation statement as a bare JSON line and writes it to {@code artifactPath}.
+     *
+     * @param statement    the attestation statement to write
+     * @param artifactPath the destination file path
+     * @throws MojoExecutionException if the file cannot be written
+     */
+    private void writeStatement(final Statement statement, final Path artifactPath) throws MojoExecutionException {
+        getLog().info("Writing attestation statement to: " + artifactPath);
+        writeAndAttach(statement, artifactPath);
     }
 }

@@ -48,12 +48,6 @@ import org.bouncycastle.openpgp.bc.BcPGPObjectFactory;
 public final class DsseUtils {
 
     /**
-     * Not instantiable.
-     */
-    private DsseUtils() {
-    }
-
-    /**
      * Creates and prepares a {@link GpgSigner} from the given configuration.
      *
      * <p>The returned signer has {@link AbstractGpgSigner#prepare()} already called and is ready for use with {@link #signFile(AbstractGpgSigner, Path)}.</p>
@@ -77,6 +71,56 @@ public final class DsseUtils {
         signer.setLog(log);
         signer.prepare();
         return signer;
+    }
+
+    /**
+     * Extracts the key identifier from a binary OpenPGP Signature Packet.
+     *
+     * @param sigBytes raw binary OpenPGP Signature Packet bytes
+     * @return uppercase hex-encoded fingerprint or key ID string
+     * @throws MojoExecutionException if {@code sigBytes} cannot be parsed as an OpenPGP signature
+     */
+    public static String getKeyId(final byte[] sigBytes) throws MojoExecutionException {
+        try {
+            final PGPSignatureList sigList = (PGPSignatureList) new BcPGPObjectFactory(sigBytes).nextObject();
+            final PGPSignature sig = sigList.get(0);
+            final PGPSignatureSubpacketVector hashed = sig.getHashedSubPackets();
+            if (hashed != null) {
+                final IssuerFingerprint fp = hashed.getIssuerFingerprint();
+                if (fp != null) {
+                    return Hex.encodeHexString(fp.getFingerprint());
+                }
+            }
+            return Long.toHexString(sig.getKeyID()).toUpperCase(Locale.ROOT);
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Failed to extract key ID from signature", e);
+        }
+    }
+
+    /**
+     * Signs {@code paeFile} and returns the raw OpenPGP signature bytes.
+     *
+     * <p>The signer must already have {@link AbstractGpgSigner#prepare()} called before this method is invoked.</p>
+     *
+     * @param signer  the configured, prepared signer
+     * @param path path to the file to sign
+     * @return raw binary PGP signature bytes
+     * @throws MojoExecutionException if signing or signature decoding fails
+     */
+    public static byte[] signFile(final AbstractGpgSigner signer, final Path path) throws MojoExecutionException {
+        final Path signaturePath = signer.generateSignatureForArtifact(path.toFile()).toPath();
+        final byte[] signatureBytes;
+        try (InputStream in = Files.newInputStream(signaturePath); ArmoredInputStream armoredIn = new ArmoredInputStream(in)) {
+            signatureBytes = IOUtils.toByteArray(armoredIn);
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Failed to read signature file: " + signaturePath, e);
+        }
+        try {
+            Files.delete(signaturePath);
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Failed to delete signature file: " + signaturePath, e);
+        }
+        return signatureBytes;
     }
 
     /**
@@ -127,52 +171,8 @@ public final class DsseUtils {
     }
 
     /**
-     * Signs {@code paeFile} and returns the raw OpenPGP signature bytes.
-     *
-     * <p>The signer must already have {@link AbstractGpgSigner#prepare()} called before this method is invoked.</p>
-     *
-     * @param signer  the configured, prepared signer
-     * @param path path to the file to sign
-     * @return raw binary PGP signature bytes
-     * @throws MojoExecutionException if signing or signature decoding fails
+     * Not instantiable.
      */
-    public static byte[] signFile(final AbstractGpgSigner signer, final Path path) throws MojoExecutionException {
-        final Path signaturePath = signer.generateSignatureForArtifact(path.toFile()).toPath();
-        final byte[] signatureBytes;
-        try (InputStream in = Files.newInputStream(signaturePath); ArmoredInputStream armoredIn = new ArmoredInputStream(in)) {
-            signatureBytes = IOUtils.toByteArray(armoredIn);
-        } catch (final IOException e) {
-            throw new MojoExecutionException("Failed to read signature file: " + signaturePath, e);
-        }
-        try {
-            Files.delete(signaturePath);
-        } catch (final IOException e) {
-            throw new MojoExecutionException("Failed to delete signature file: " + signaturePath, e);
-        }
-        return signatureBytes;
-    }
-
-    /**
-     * Extracts the key identifier from a binary OpenPGP Signature Packet.
-     *
-     * @param sigBytes raw binary OpenPGP Signature Packet bytes
-     * @return uppercase hex-encoded fingerprint or key ID string
-     * @throws MojoExecutionException if {@code sigBytes} cannot be parsed as an OpenPGP signature
-     */
-    public static String getKeyId(final byte[] sigBytes) throws MojoExecutionException {
-        try {
-            final PGPSignatureList sigList = (PGPSignatureList) new BcPGPObjectFactory(sigBytes).nextObject();
-            final PGPSignature sig = sigList.get(0);
-            final PGPSignatureSubpacketVector hashed = sig.getHashedSubPackets();
-            if (hashed != null) {
-                final IssuerFingerprint fp = hashed.getIssuerFingerprint();
-                if (fp != null) {
-                    return Hex.encodeHexString(fp.getFingerprint());
-                }
-            }
-            return Long.toHexString(sig.getKeyID()).toUpperCase(Locale.ROOT);
-        } catch (final IOException e) {
-            throw new MojoExecutionException("Failed to extract key ID from signature", e);
-        }
+    private DsseUtils() {
     }
 }

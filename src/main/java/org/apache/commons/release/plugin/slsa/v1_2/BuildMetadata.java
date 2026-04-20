@@ -31,19 +31,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BuildMetadata {
 
-    /** Identifier for this build invocation. */
-    @JsonProperty("invocationId")
-    private String invocationId;
-
-    /** Timestamp when the build started. */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @JsonProperty("startedOn")
-    private OffsetDateTime startedOn;
-
     /** Timestamp when the build completed. */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @JsonProperty("finishedOn")
     private OffsetDateTime finishedOn;
+    /** Identifier for this build invocation. */
+    @JsonProperty("invocationId")
+    private String invocationId;
+    /** Timestamp when the build started. */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonProperty("startedOn")
+    private OffsetDateTime startedOn;
 
     /** Creates a new BuildMetadata instance. */
     public BuildMetadata() {
@@ -62,40 +60,13 @@ public class BuildMetadata {
         this.finishedOn = finishedOn;
     }
 
-    /**
-     * Gets the identifier for this build invocation.
-     *
-     * @return the invocation identifier, or {@code null} if not set
-     */
-    public String getInvocationId() {
-        return invocationId;
-    }
-
-    /**
-     * Sets the identifier for this build invocation.
-     *
-     * @param invocationId the invocation identifier
-     */
-    public void setInvocationId(String invocationId) {
-        this.invocationId = invocationId;
-    }
-
-    /**
-     * Gets the timestamp of when the build started, serialized as RFC 3339 in UTC ({@code "Z"} suffix).
-     *
-     * @return the start timestamp, or {@code null} if not set
-     */
-    public OffsetDateTime getStartedOn() {
-        return startedOn;
-    }
-
-    /**
-     * Sets the timestamp of when the build started.
-     *
-     * @param startedOn the start timestamp
-     */
-    public void setStartedOn(OffsetDateTime startedOn) {
-        this.startedOn = startedOn;
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof BuildMetadata)) {
+            return false;
+        }
+        BuildMetadata that = (BuildMetadata) o;
+        return Objects.equals(invocationId, that.invocationId) && Objects.equals(startedOn, that.startedOn) && Objects.equals(finishedOn, that.finishedOn);
     }
 
     /**
@@ -108,6 +79,29 @@ public class BuildMetadata {
     }
 
     /**
+     * Gets the identifier for this build invocation.
+     *
+     * @return the invocation identifier, or {@code null} if not set
+     */
+    public String getInvocationId() {
+        return invocationId;
+    }
+
+    /**
+     * Gets the timestamp of when the build started, serialized as RFC 3339 in UTC ({@code "Z"} suffix).
+     *
+     * @return the start timestamp, or {@code null} if not set
+     */
+    public OffsetDateTime getStartedOn() {
+        return startedOn;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(invocationId, startedOn, finishedOn);
+    }
+
+    /**
      * Sets the timestamp of when the build completed.
      *
      * @param finishedOn the completion timestamp
@@ -116,18 +110,22 @@ public class BuildMetadata {
         this.finishedOn = finishedOn;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof BuildMetadata)) {
-            return false;
-        }
-        BuildMetadata that = (BuildMetadata) o;
-        return Objects.equals(invocationId, that.invocationId) && Objects.equals(startedOn, that.startedOn) && Objects.equals(finishedOn, that.finishedOn);
+    /**
+     * Sets the identifier for this build invocation.
+     *
+     * @param invocationId the invocation identifier
+     */
+    public void setInvocationId(String invocationId) {
+        this.invocationId = invocationId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(invocationId, startedOn, finishedOn);
+    /**
+     * Sets the timestamp of when the build started.
+     *
+     * @param startedOn the start timestamp
+     */
+    public void setStartedOn(OffsetDateTime startedOn) {
+        this.startedOn = startedOn;
     }
 
     @Override

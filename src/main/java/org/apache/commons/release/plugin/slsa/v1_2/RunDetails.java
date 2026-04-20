@@ -35,18 +35,16 @@ public class RunDetails {
      */
     @JsonProperty("builder")
     private Builder builder;
-
-    /**
-     * Metadata about the build invocation.
-     */
-    @JsonProperty("metadata")
-    private BuildMetadata metadata;
-
     /**
      * Artifacts produced as a side effect of the build.
      */
     @JsonProperty("byproducts")
     private List<ResourceDescriptor> byproducts;
+    /**
+     * Metadata about the build invocation.
+     */
+    @JsonProperty("metadata")
+    private BuildMetadata metadata;
 
     /**
      * Creates a new RunDetails instance.
@@ -65,62 +63,6 @@ public class RunDetails {
         this.metadata = metadata;
     }
 
-    /**
-     * Gets the builder that executed the invocation.
-     *
-     * <p>Trusted to have correctly performed the operation and populated this provenance.</p>
-     *
-     * @return the builder, or {@code null} if not set
-     */
-    public Builder getBuilder() {
-        return builder;
-    }
-
-    /**
-     * Sets the builder that executed the invocation.
-     *
-     * @param builder the builder
-     */
-    public void setBuilder(Builder builder) {
-        this.builder = builder;
-    }
-
-    /**
-     * Gets the metadata about the build invocation, including its identifier and timing.
-     *
-     * @return the build metadata, or {@code null} if not set
-     */
-    public BuildMetadata getMetadata() {
-        return metadata;
-    }
-
-    /**
-     * Sets the metadata about the build invocation.
-     *
-     * @param metadata the build metadata
-     */
-    public void setMetadata(BuildMetadata metadata) {
-        this.metadata = metadata;
-    }
-
-    /**
-     * Gets artifacts produced as a side effect of the build that are not the primary output.
-     *
-     * @return the list of byproduct artifacts, or {@code null} if not set
-     */
-    public List<ResourceDescriptor> getByproducts() {
-        return byproducts;
-    }
-
-    /**
-     * Sets the artifacts produced as a side effect of the build that are not the primary output.
-     *
-     * @param byproducts the list of byproduct artifacts
-     */
-    public void setByproducts(List<ResourceDescriptor> byproducts) {
-        this.byproducts = byproducts;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -133,9 +75,65 @@ public class RunDetails {
         return Objects.equals(builder, that.builder) && Objects.equals(metadata, that.metadata) && Objects.equals(byproducts, that.byproducts);
     }
 
+    /**
+     * Gets the builder that executed the invocation.
+     *
+     * <p>Trusted to have correctly performed the operation and populated this provenance.</p>
+     *
+     * @return the builder, or {@code null} if not set
+     */
+    public Builder getBuilder() {
+        return builder;
+    }
+
+    /**
+     * Gets artifacts produced as a side effect of the build that are not the primary output.
+     *
+     * @return the list of byproduct artifacts, or {@code null} if not set
+     */
+    public List<ResourceDescriptor> getByproducts() {
+        return byproducts;
+    }
+
+    /**
+     * Gets the metadata about the build invocation, including its identifier and timing.
+     *
+     * @return the build metadata, or {@code null} if not set
+     */
+    public BuildMetadata getMetadata() {
+        return metadata;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(builder, metadata, byproducts);
+    }
+
+    /**
+     * Sets the builder that executed the invocation.
+     *
+     * @param builder the builder
+     */
+    public void setBuilder(Builder builder) {
+        this.builder = builder;
+    }
+
+    /**
+     * Sets the artifacts produced as a side effect of the build that are not the primary output.
+     *
+     * @param byproducts the list of byproduct artifacts
+     */
+    public void setByproducts(List<ResourceDescriptor> byproducts) {
+        this.byproducts = byproducts;
+    }
+
+    /**
+     * Sets the metadata about the build invocation.
+     *
+     * @param metadata the build metadata
+     */
+    public void setMetadata(BuildMetadata metadata) {
+        this.metadata = metadata;
     }
 
     @Override

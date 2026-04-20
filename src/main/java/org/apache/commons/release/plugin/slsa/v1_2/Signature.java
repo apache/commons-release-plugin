@@ -46,6 +46,15 @@ public class Signature {
     public Signature() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Signature)) {
+            return false;
+        }
+        Signature signature = (Signature) o;
+        return Objects.equals(keyid, signature.keyid) && Arrays.equals(sig, signature.sig);
+    }
+
     /**
      * Gets the key identifier hint, or {@code null} if not set.
      *
@@ -53,6 +62,20 @@ public class Signature {
      */
     public String getKeyid() {
         return keyid;
+    }
+
+    /**
+     * Gets the raw signature bytes.
+     *
+     * @return the signature bytes, or {@code null} if not set
+     */
+    public byte[] getSig() {
+        return sig;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(keyid, Arrays.hashCode(sig));
     }
 
     /**
@@ -65,35 +88,12 @@ public class Signature {
     }
 
     /**
-     * Gets the raw signature bytes.
-     *
-     * @return the signature bytes, or {@code null} if not set
-     */
-    public byte[] getSig() {
-        return sig;
-    }
-
-    /**
      * Sets the raw signature bytes.
      *
      * @param sig the signature bytes
      */
     public void setSig(byte[] sig) {
         this.sig = sig;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Signature)) {
-            return false;
-        }
-        Signature signature = (Signature) o;
-        return Objects.equals(keyid, signature.keyid) && Arrays.equals(sig, signature.sig);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(keyid, Arrays.hashCode(sig));
     }
 
     @Override
