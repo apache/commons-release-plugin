@@ -33,141 +33,155 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class BuildDefinition {
 
-  /** URI indicating what type of build was performed. */
-  @JsonProperty("buildType")
-  private String buildType = "https://commons.apache.org/builds/0.1.0";
+    /**
+     * URI indicating what type of build was performed.
+     */
+    @JsonProperty("buildType")
+    private String buildType = "https://commons.apache.org/builds/0.1.0";
 
-  /** Inputs passed to the build. */
-  @JsonProperty("externalParameters")
-  private Map<String, Object> externalParameters = new HashMap<>();
+    /**
+     * Inputs passed to the build.
+     */
+    @JsonProperty("externalParameters")
+    private Map<String, Object> externalParameters = new HashMap<>();
 
-  /** Parameters set by the build platform. */
-  @JsonProperty("internalParameters")
-  private Map<String, Object> internalParameters = new HashMap<>();
+    /**
+     * Parameters set by the build platform.
+     */
+    @JsonProperty("internalParameters")
+    private Map<String, Object> internalParameters = new HashMap<>();
 
-  /** Artifacts the build depends on, specified by URI and digest. */
-  @JsonProperty("resolvedDependencies")
-  private List<ResourceDescriptor> resolvedDependencies;
+    /**
+     * Artifacts the build depends on, specified by URI and digest.
+     */
+    @JsonProperty("resolvedDependencies")
+    private List<ResourceDescriptor> resolvedDependencies;
 
-  /** Creates a new BuildDefinition instance with the default build type. */
-  public BuildDefinition() {
-  }
-
-  /**
-   * Creates a new BuildDefinition with the given build type and external parameters.
-   *
-   * @param buildType          URI indicating what type of build was performed
-   * @param externalParameters inputs passed to the build
-   */
-  public BuildDefinition(String buildType, Map<String, Object> externalParameters) {
-    this.buildType = buildType;
-    this.externalParameters = externalParameters;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Creates a new BuildDefinition instance with the default build type.
+     */
+    public BuildDefinition() {
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Creates a new BuildDefinition with the given build type and external parameters.
+     *
+     * @param buildType          URI indicating what type of build was performed
+     * @param externalParameters inputs passed to the build
+     */
+    public BuildDefinition(String buildType, Map<String, Object> externalParameters) {
+        this.buildType = buildType;
+        this.externalParameters = externalParameters;
     }
-    BuildDefinition that = (BuildDefinition) o;
-    return Objects.equals(buildType, that.buildType)
-        && Objects.equals(externalParameters, that.externalParameters)
-        && Objects.equals(internalParameters, that.internalParameters)
-        && Objects.equals(resolvedDependencies, that.resolvedDependencies);
-  }
 
-  /**
-   * Gets the URI indicating what type of build was performed.
-   *
-   * <p>Determines the meaning of {@code externalParameters} and {@code internalParameters}.</p>
-   *
-   * @return the build type URI
-   */
-  public String getBuildType() {
-    return buildType;
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BuildDefinition that = (BuildDefinition) o;
+        return Objects.equals(buildType, that.buildType) && Objects.equals(externalParameters, that.externalParameters) && Objects.equals(internalParameters,
+                that.internalParameters) && Objects.equals(resolvedDependencies, that.resolvedDependencies);
+    }
 
-  /**
-   * Gets the inputs passed to the build, such as command-line arguments or environment variables.
-   *
-   * @return the external parameters map, or {@code null} if not set
-   */
-  public Map<String, Object> getExternalParameters() {
-    return externalParameters;
-  }
+    /**
+     * Gets the URI indicating what type of build was performed.
+     *
+     * <p>Determines the meaning of {@code externalParameters} and {@code internalParameters}.</p>
+     *
+     * @return the build type URI
+     */
+    public String getBuildType() {
+        return buildType;
+    }
 
-  /**
-   * Gets the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
-   * specified by URI and digest.
-   *
-   * @return the internal parameters map, or {@code null} if not set
-   */
-  public Map<String, Object> getInternalParameters() {
-    return internalParameters;
-  }
+    /**
+     * Gets the inputs passed to the build, such as command-line arguments or environment variables.
+     *
+     * @return the external parameters map, or {@code null} if not set
+     */
+    public Map<String, Object> getExternalParameters() {
+        return externalParameters;
+    }
 
-  /**
-   * Gets the materials that influenced the build.
-   *
-   * <p>Considered incomplete unless resolved materials are present.</p>
-   *
-   * @return the list of resolved dependencies, or {@code null} if not set
-   */
-  public List<ResourceDescriptor> getResolvedDependencies() {
-    return resolvedDependencies;
-  }
+    /**
+     * Gets the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
+     * specified by URI and digest.
+     *
+     * @return the internal parameters map, or {@code null} if not set
+     */
+    public Map<String, Object> getInternalParameters() {
+        return internalParameters;
+    }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(buildType, externalParameters, internalParameters, resolvedDependencies);
-  }
+    /**
+     * Gets the materials that influenced the build.
+     *
+     * <p>Considered incomplete unless resolved materials are present.</p>
+     *
+     * @return the list of resolved dependencies, or {@code null} if not set
+     */
+    public List<ResourceDescriptor> getResolvedDependencies() {
+        return resolvedDependencies;
+    }
 
-  /**
-   * Sets the URI indicating what type of build was performed.
-   *
-   * @param buildType the build type URI
-   */
-  public void setBuildType(String buildType) {
-    this.buildType = buildType;
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(buildType, externalParameters, internalParameters, resolvedDependencies);
+    }
 
-  /**
-   * Sets the inputs passed to the build.
-   *
-   * @param externalParameters the external parameters map
-   */
-  public void setExternalParameters(Map<String, Object> externalParameters) {
-    this.externalParameters = externalParameters;
-  }
+    /**
+     * Sets the URI indicating what type of build was performed.
+     *
+     * @param buildType the build type URI
+     * @return this for chaining
+     */
+    public BuildDefinition setBuildType(String buildType) {
+        this.buildType = buildType;
+        return this;
+    }
 
-  /**
-   * Sets the artifacts the build depends on.
-   *
-   * @param internalParameters the internal parameters map
-   */
-  public void setInternalParameters(Map<String, Object> internalParameters) {
-    this.internalParameters = internalParameters;
-  }
+    /**
+     * Sets the inputs passed to the build.
+     *
+     * @param externalParameters the external parameters map
+     * @return this for chaining
+     */
+    public BuildDefinition setExternalParameters(Map<String, Object> externalParameters) {
+        this.externalParameters = externalParameters;
+        return this;
+    }
 
-  /**
-   * Sets the materials that influenced the build.
-   *
-   * @param resolvedDependencies the list of resolved dependencies
-   */
-  public void setResolvedDependencies(List<ResourceDescriptor> resolvedDependencies) {
-    this.resolvedDependencies = resolvedDependencies;
-  }
+    /**
+     * Sets the artifacts the build depends on.
+     *
+     * @param internalParameters the internal parameters map
+     * @return this for chaining
+     */
+    public BuildDefinition setInternalParameters(Map<String, Object> internalParameters) {
+        this.internalParameters = internalParameters;
+        return this;
+    }
 
-  @Override
-  public String toString() {
-    return "BuildDefinition{"
-        + "buildType='" + buildType + '\''
-        + ", externalParameters=" + externalParameters
-        + ", internalParameters=" + internalParameters
-        + ", resolvedDependencies=" + resolvedDependencies
-        + '}';
-  }
+    /**
+     * Sets the materials that influenced the build.
+     *
+     * @param resolvedDependencies the list of resolved dependencies
+     * @return this for chaining
+     */
+    public BuildDefinition setResolvedDependencies(List<ResourceDescriptor> resolvedDependencies) {
+        this.resolvedDependencies = resolvedDependencies;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "BuildDefinition{buildType='" + buildType + '\''
+                + ", externalParameters=" + externalParameters
+                + ", internalParameters=" + internalParameters
+                + ", resolvedDependencies=" + resolvedDependencies + '}';
+    }
 }

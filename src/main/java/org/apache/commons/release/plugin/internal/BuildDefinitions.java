@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,11 +85,6 @@ public final class BuildDefinitions {
      * @throws IOException if hashing the JDK directory fails
      */
     public static ResourceDescriptor jvm(final Path javaHome) throws IOException {
-        final ResourceDescriptor descriptor = new ResourceDescriptor();
-        descriptor.setName("JDK");
-        final Map<String, String> digest = new HashMap<>();
-        digest.put("gitTree", GitUtils.gitTree(javaHome));
-        descriptor.setDigest(digest);
         final String[] propertyNames = {
             "java.version", "java.version.date",
             "java.vendor", "java.vendor.url", "java.vendor.version",
@@ -102,8 +98,10 @@ public final class BuildDefinitions {
         for (final String prop : propertyNames) {
             annotations.put(prop.substring("java.".length()), System.getProperty(prop));
         }
-        descriptor.setAnnotations(annotations);
-        return descriptor;
+        return new ResourceDescriptor()
+                .setName("JDK")
+                .setDigest(Collections.singletonMap("gitTree", GitUtils.gitTree(javaHome)))
+                .setAnnotations(annotations);
     }
 
     /**
@@ -120,12 +118,10 @@ public final class BuildDefinitions {
      * @throws IOException if hashing the Maven home directory fails
      */
     public static ResourceDescriptor maven(final String version, final Path mavenHome, final ClassLoader coreClassLoader) throws IOException {
-        final ResourceDescriptor descriptor = new ResourceDescriptor();
-        descriptor.setName("Maven");
-        descriptor.setUri("pkg:maven/org.apache.maven/apache-maven@" + version);
-        final Map<String, String> digest = new HashMap<>();
-        digest.put("gitTree", GitUtils.gitTree(mavenHome));
-        descriptor.setDigest(digest);
+        final ResourceDescriptor descriptor = new ResourceDescriptor()
+                .setName("Maven")
+                .setUri("pkg:maven/org.apache.maven/apache-maven@" + version)
+                .setDigest(Collections.singletonMap("gitTree", GitUtils.gitTree(mavenHome)));
         final Properties buildProps = new Properties();
         try (InputStream in = coreClassLoader.getResourceAsStream("org/apache/maven/messages/build.properties")) {
             if (in != null) {

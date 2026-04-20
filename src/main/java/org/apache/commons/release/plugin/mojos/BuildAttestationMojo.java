@@ -26,9 +26,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -224,24 +222,18 @@ public class BuildAttestationMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoFailureException, MojoExecutionException {
-        // Build definition
-        final BuildDefinition buildDefinition = new BuildDefinition();
-        buildDefinition.setExternalParameters(BuildDefinitions.externalParameters(session));
-        buildDefinition.setResolvedDependencies(getBuildDependencies());
-        // Builder
-        final Builder builder = new Builder();
-        // RunDetails
-        final RunDetails runDetails = new RunDetails();
-        runDetails.setBuilder(builder);
-        runDetails.setMetadata(getBuildMetadata());
-        // Provenance
-        final Provenance provenance = new Provenance();
-        provenance.setBuildDefinition(buildDefinition);
-        provenance.setRunDetails(runDetails);
-        // Statement
-        final Statement statement = new Statement();
-        statement.setSubject(getSubjects());
-        statement.setPredicate(provenance);
+        final BuildDefinition buildDefinition = new BuildDefinition()
+                .setExternalParameters(BuildDefinitions.externalParameters(session))
+                .setResolvedDependencies(getBuildDependencies());
+        final RunDetails runDetails = new RunDetails()
+                .setBuilder(new Builder())
+                .setMetadata(getBuildMetadata());
+        final Provenance provenance = new Provenance()
+                .setBuildDefinition(buildDefinition)
+                .setRunDetails(runDetails);
+        final Statement statement = new Statement()
+                .setSubject(getSubjects())
+                .setPredicate(provenance);
 
         final Path outputPath = ensureOutputDirectory();
         final Path artifactPath = outputPath.resolve(ArtifactUtils.getFileName(project.getArtifact(), ATTESTATION_EXTENSION));
@@ -305,14 +297,9 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @throws MojoExecutionException If the SCM revision cannot be retrieved.
      */
     private ResourceDescriptor getScmDescriptor() throws IOException, MojoExecutionException {
-        final ResourceDescriptor scmDescriptor = new ResourceDescriptor();
-        final String scmUri = GitUtils.scmToDownloadUri(scmConnectionUrl, scmDirectory.toPath());
-        scmDescriptor.setUri(scmUri);
-        // Compute the revision
-        final Map<String, String> digest = new HashMap<>();
-        digest.put("gitCommit", getScmRevision());
-        scmDescriptor.setDigest(digest);
-        return scmDescriptor;
+        return new ResourceDescriptor()
+                .setUri(GitUtils.scmToDownloadUri(scmConnectionUrl, scmDirectory.toPath()))
+                .setDigest(Collections.singletonMap("gitCommit", getScmRevision()));
     }
 
     /**
@@ -494,13 +481,12 @@ public class BuildAttestationMojo extends AbstractMojo {
         final Path paeFile = DsseUtils.writePaeFile(statementBytes, outputPath);
         final byte[] sigBytes = DsseUtils.signFile(signer, paeFile);
 
-        final Signature sig = new Signature();
-        sig.setKeyid(DsseUtils.getKeyId(sigBytes));
-        sig.setSig(sigBytes);
-
-        final DsseEnvelope envelope = new DsseEnvelope();
-        envelope.setPayload(statementBytes);
-        envelope.setSignatures(Collections.singletonList(sig));
+        final Signature sig = new Signature()
+                .setKeyid(DsseUtils.getKeyId(sigBytes))
+                .setSig(sigBytes);
+        final DsseEnvelope envelope = new DsseEnvelope()
+                .setPayload(statementBytes)
+                .setSignatures(Collections.singletonList(sig));
 
         getLog().info("Writing signed attestation envelope to: " + artifactPath);
         writeAndAttach(envelope, artifactPath);

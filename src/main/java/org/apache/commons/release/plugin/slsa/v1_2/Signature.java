@@ -82,18 +82,22 @@ public class Signature {
      * Sets the key identifier hint.
      *
      * @param keyid the key identifier, or {@code null} to leave unset
+     * @return this for chaining
      */
-    public void setKeyid(String keyid) {
+    public Signature setKeyid(String keyid) {
         this.keyid = keyid;
+        return this;
     }
 
     /**
      * Sets the raw signature bytes.
      *
      * @param sig the signature bytes
+     * @return this for chaining
      */
-    public void setSig(byte[] sig) {
+    public Signature setSig(byte[] sig) {
         this.sig = sig;
+        return this;
     }
 
     @Override

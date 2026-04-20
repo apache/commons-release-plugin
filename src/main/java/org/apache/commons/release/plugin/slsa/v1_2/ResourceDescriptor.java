@@ -155,63 +155,77 @@ public class ResourceDescriptor {
      * Sets additional key-value metadata about the resource.
      *
      * @param annotations the annotations map
+     * @return this for chaining
      */
-    public void setAnnotations(Map<String, Object> annotations) {
+    public ResourceDescriptor setAnnotations(Map<String, Object> annotations) {
         this.annotations = annotations;
+        return this;
     }
 
     /**
      * Sets the raw contents of the resource.
      *
      * @param content the resource content
+     * @return this for chaining
      */
-    public void setContent(byte[] content) {
+    public ResourceDescriptor setContent(byte[] content) {
         this.content = content;
+        return this;
     }
 
     /**
      * Sets the map of cryptographic digest algorithms to their hex-encoded values.
      *
      * @param digest the digest map
+     * @return this for chaining
      */
-    public void setDigest(Map<String, String> digest) {
+    public ResourceDescriptor setDigest(Map<String, String> digest) {
         this.digest = digest;
+        return this;
     }
 
     /**
      * Sets the download URI for the resource.
      *
      * @param downloadLocation the download location URI
+     * @return this for chaining
      */
-    public void setDownloadLocation(String downloadLocation) {
+    public ResourceDescriptor setDownloadLocation(String downloadLocation) {
         this.downloadLocation = downloadLocation;
+        return this;
     }
 
     /**
      * Sets the media type of the resource.
      *
      * @param mediaType the media type
+     * @return this for chaining
      */
-    public void setMediaType(String mediaType) {
+    public ResourceDescriptor setMediaType(String mediaType) {
         this.mediaType = mediaType;
+        return this;
     }
 
     /**
      * Sets the name of the resource.
      *
      * @param name the resource name
+     * @return this for chaining
      */
-    public void setName(String name) {
+    public ResourceDescriptor setName(String name) {
         this.name = name;
+        return this;
     }
 
     /**
      * Sets the URI identifying the resource.
      *
      * @param uri the resource URI
+     * @return this for chaining
      */
-    public void setUri(String uri) {
+    public ResourceDescriptor setUri(String uri) {
         this.uri = uri;
+        return this;
     }
 
     @Override

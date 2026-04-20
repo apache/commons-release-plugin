@@ -99,18 +99,22 @@ public class Provenance {
      * Sets the build definition describing all inputs that produced the build output.
      *
      * @param buildDefinition the build definition
+     * @return this for chaining
      */
-    public void setBuildDefinition(BuildDefinition buildDefinition) {
+    public Provenance setBuildDefinition(BuildDefinition buildDefinition) {
         this.buildDefinition = buildDefinition;
+        return this;
     }
 
     /**
      * Sets the details about the invocation of the build tool and the environment in which it was run.
      *
      * @param runDetails the run details
+     * @return this for chaining
      */
-    public void setRunDetails(RunDetails runDetails) {
+    public Provenance setRunDetails(RunDetails runDetails) {
         this.runDetails = runDetails;
+        return this;
     }
 
     @Override

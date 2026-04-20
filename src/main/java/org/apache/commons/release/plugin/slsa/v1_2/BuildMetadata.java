@@ -105,27 +105,33 @@ public class BuildMetadata {
      * Sets the timestamp of when the build completed.
      *
      * @param finishedOn the completion timestamp
+     * @return this for chaining
      */
-    public void setFinishedOn(OffsetDateTime finishedOn) {
+    public BuildMetadata setFinishedOn(OffsetDateTime finishedOn) {
         this.finishedOn = finishedOn;
+        return this;
     }
 
     /**
      * Sets the identifier for this build invocation.
      *
      * @param invocationId the invocation identifier
+     * @return this for chaining
      */
-    public void setInvocationId(String invocationId) {
+    public BuildMetadata setInvocationId(String invocationId) {
         this.invocationId = invocationId;
+        return this;
     }
 
     /**
      * Sets the timestamp of when the build started.
      *
      * @param startedOn the start timestamp
+     * @return this for chaining
      */
-    public void setStartedOn(OffsetDateTime startedOn) {
+    public BuildMetadata setStartedOn(OffsetDateTime startedOn) {
         this.startedOn = startedOn;
+        return this;
     }
 
     @Override

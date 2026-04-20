@@ -93,27 +93,33 @@ public class DsseEnvelope {
      * Sets the serialized payload bytes.
      *
      * @param payload the payload bytes
+     * @return this for chaining
      */
-    public void setPayload(byte[] payload) {
+    public DsseEnvelope setPayload(byte[] payload) {
         this.payload = payload;
+        return this;
     }
 
     /**
      * Sets the payload type URI.
      *
      * @param payloadType the payload type URI
+     * @return this for chaining
      */
-    public void setPayloadType(String payloadType) {
+    public DsseEnvelope setPayloadType(String payloadType) {
         this.payloadType = payloadType;
+        return this;
     }
 
     /**
      * Sets the list of signatures over the PAE-encoded payload.
      *
      * @param signatures the signatures
+     * @return this for chaining
      */
-    public void setSignatures(List<Signature> signatures) {
+    public DsseEnvelope setSignatures(List<Signature> signatures) {
         this.signatures = signatures;
+        return this;
     }
 
     @Override

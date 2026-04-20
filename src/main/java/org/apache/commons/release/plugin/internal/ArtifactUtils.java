@@ -138,9 +138,9 @@ public final class ArtifactUtils {
      * @throws MojoExecutionException If an I/O error occurs retrieving the artifact.
      */
     public static ResourceDescriptor toResourceDescriptor(final Artifact artifact, final String algorithms) throws MojoExecutionException {
-        final ResourceDescriptor descriptor = new ResourceDescriptor();
-        descriptor.setName(getFileName(artifact));
-        descriptor.setUri(getPackageUrl(artifact));
+        final ResourceDescriptor descriptor = new ResourceDescriptor()
+                .setName(getFileName(artifact))
+                .setUri(getPackageUrl(artifact));
         if (artifact.getFile() != null) {
             try {
                 descriptor.setDigest(getChecksums(artifact, StringUtils.split(algorithms, ",")));

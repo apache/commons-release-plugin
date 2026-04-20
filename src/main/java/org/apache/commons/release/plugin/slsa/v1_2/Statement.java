@@ -96,19 +96,23 @@ public class Statement {
      * Sets the provenance predicate and automatically assigns {@code predicateType} to the SLSA provenance v1 URI.
      *
      * @param predicate the provenance predicate
+     * @return this for chaining
      */
-    public void setPredicate(Provenance predicate) {
+    public Statement setPredicate(Provenance predicate) {
         this.predicate = predicate;
         this.predicateType = Provenance.PREDICATE_TYPE;
+        return this;
     }
 
     /**
      * Sets the set of software artifacts that the attestation applies to.
      *
      * @param subject the list of subject artifacts
+     * @return this for chaining
      */
-    public void setSubject(List<ResourceDescriptor> subject) {
+    public Statement setSubject(List<ResourceDescriptor> subject) {
         this.subject = subject;
+        return this;
     }
 
     @Override
