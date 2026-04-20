@@ -104,7 +104,7 @@
   "predicateType": "https://slsa.dev/provenance/v1",
   "predicate": {
     "buildDefinition": {
-      "buildType": "https://commons.apache.org/builds/0.1.0",
+      "buildType": "https://commons.apache.org/proper/commons-release-plugin/slsa/v0.1.0",
       "externalParameters": {
         "maven.profiles": [
           "release"

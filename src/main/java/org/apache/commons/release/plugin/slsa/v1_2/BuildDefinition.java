@@ -37,7 +37,7 @@ public class BuildDefinition {
      * URI indicating what type of build was performed.
      */
     @JsonProperty("buildType")
-    private String buildType = "https://commons.apache.org/builds/0.1.0";
+    private String buildType = "https://commons.apache.org/proper/commons-release-plugin/slsa/v0.1.0";
 
     /**
      * Inputs passed to the build.
