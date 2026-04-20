@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,35 +137,12 @@ public final class BuildDefinitions {
      * @return a string representation of the Maven command line
      */
     static String commandLine(final MavenExecutionRequest request) {
-        StringBuilder sb = new StringBuilder();
-        for (String goal : request.getGoals()) {
-            sb.append(goal).append(" ");
+        List<String> args = new ArrayList<>(request.getGoals());
+        String profiles = String.join(",", request.getActiveProfiles());
+        if (!profiles.isEmpty()) {
+            args.add("-P" + profiles);
         }
-        List<String> activeProfiles = request.getActiveProfiles();
-        if (activeProfiles != null && !activeProfiles.isEmpty()) {
-            sb.append("-P");
-            for (String profile : activeProfiles) {
-                sb.append(profile).append(",");
-            }
-            removeLast(sb);
-            sb.append(" ");
-        }
-        Properties userProperties = request.getUserProperties();
-        for (String propertyName : userProperties.stringPropertyNames()) {
-            sb.append("-D").append(propertyName).append("=").append(userProperties.get(propertyName)).append(" ");
-        }
-        removeLast(sb);
-        return sb.toString();
-    }
-
-    /**
-     * Removes last character from a {@link StringBuilder}.
-     *
-     * @param sb The {@link StringBuilder} to use
-     */
-    private static void removeLast(final StringBuilder sb) {
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 1);
-        }
+        request.getUserProperties().forEach((key, value) -> args.add("-D" + key + "=" + value));
+        return String.join(" ", args);
     }
 }
