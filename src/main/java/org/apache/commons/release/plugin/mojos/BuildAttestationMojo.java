@@ -81,7 +81,12 @@ public class BuildAttestationMojo extends AbstractMojo {
     private static final String ATTESTATION_EXTENSION = "intoto.jsonl";
 
     /**
-     * Shared Jackson object mapper for serializing attestation statements.
+     * Shared Jackson object mapper used to serialize SLSA statements and DSSE envelopes to JSON.
+     *
+     * <p>Each attestation is written as a single JSON value followed by a line separator, matching
+     * the <a href="https://jsonlines.org/">JSON Lines</a> format used by {@code .intoto.jsonl}
+     * files. The mapper is configured not to auto-close the output stream so the caller can append
+     * the trailing newline, and to emit ISO-8601 timestamps rather than numeric ones.</p>
      */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
