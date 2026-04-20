@@ -36,7 +36,7 @@ public class Builder {
     private List<ResourceDescriptor> builderDependencies = new ArrayList<>();
     /** Identifier URI of the builder. */
     @JsonProperty("id")
-    private String id = "https://commons.apache.org/builds/0.1.0";
+    private String id;
     /** Map of build platform component names to their versions. */
     @JsonProperty("version")
     private Map<String, String> version = new HashMap<>();

@@ -55,6 +55,7 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.gpg.AbstractGpgSigner;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
@@ -76,6 +77,7 @@ public class BuildAttestationMojoTest {
     private static JsonNode expectedStatement;
     @TempDir
     private static Path localRepositoryPath;
+    private static PluginDescriptor pluginDescriptor;
     private static RepositorySystemSession repoSession;
 
     private static void assertStatementContent(final JsonNode statement) {
@@ -111,6 +113,7 @@ public class BuildAttestationMojoTest {
         mojo.setScmConnectionUrl("scm:git:https://github.com/apache/commons-text.git");
         mojo.setMavenHome(new File(System.getProperty("maven.home", ".")));
         mojo.setAlgorithmNames("SHA-512,SHA-256,SHA-1,MD5");
+        mojo.setPluginDescriptor(pluginDescriptor);
         mojo.setSignAttestation(signAttestation);
         mojo.setSigner(createMockSigner());
     }
@@ -209,6 +212,14 @@ public class BuildAttestationMojoTest {
         try (InputStream in = BuildAttestationMojoTest.class.getResourceAsStream("/attestations/commons-text-1.4.intoto.json")) {
             expectedStatement = OBJECT_MAPPER.readTree(in);
         }
+        final Properties pluginProps = new Properties();
+        try (InputStream in = BuildAttestationMojoTest.class.getResourceAsStream("/plugin.properties")) {
+            pluginProps.load(in);
+        }
+        pluginDescriptor = new PluginDescriptor();
+        pluginDescriptor.setGroupId(pluginProps.getProperty("plugin.groupId"));
+        pluginDescriptor.setArtifactId(pluginProps.getProperty("plugin.artifactId"));
+        pluginDescriptor.setVersion(pluginProps.getProperty("plugin.version"));
     }
 
     @Test

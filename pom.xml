@@ -320,6 +320,25 @@
         </includes>
       </resource>
     </resources>
+    <testResources>
+      <!-- Filter the attestation fixture and plugin coordinate file so they carry the current plugin version. -->
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>attestations/**</include>
+          <include>plugin.properties</include>
+        </includes>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>attestations/**</exclude>
+          <exclude>plugin.properties</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
     <pluginManagement>
       <plugins>
         <plugin>

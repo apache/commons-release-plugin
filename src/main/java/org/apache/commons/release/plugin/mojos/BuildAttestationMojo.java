@@ -52,6 +52,7 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -166,6 +167,12 @@ public class BuildAttestationMojo extends AbstractMojo {
     @Parameter(property = "commons.release.signAttestation", defaultValue = "true")
     private boolean signAttestation;
     /**
+     * Descriptor of this plugin; used to fill in {@code builder.id} with the plugin's own
+     * Package URL so that consumers can resolve the exact code that produced the provenance.
+     */
+    @Parameter(defaultValue = "${plugin}", readonly = true)
+    private PluginDescriptor pluginDescriptor;
+    /**
      * GPG signer used for signing; lazily initialized from plugin parameters when {@code null}.
      */
     private AbstractGpgSigner signer;
@@ -225,8 +232,10 @@ public class BuildAttestationMojo extends AbstractMojo {
         final BuildDefinition buildDefinition = new BuildDefinition()
                 .setExternalParameters(BuildDefinitions.externalParameters(session))
                 .setResolvedDependencies(getBuildDependencies());
+        final String builderId = String.format("pkg:maven/%s/%s@%s",
+                pluginDescriptor.getGroupId(), pluginDescriptor.getArtifactId(), pluginDescriptor.getVersion());
         final RunDetails runDetails = new RunDetails()
-                .setBuilder(new Builder())
+                .setBuilder(new Builder().setId(builderId))
                 .setMetadata(getBuildMetadata());
         final Provenance provenance = new Provenance()
                 .setBuildDefinition(buildDefinition)
@@ -449,6 +458,15 @@ public class BuildAttestationMojo extends AbstractMojo {
      */
     void setSignAttestation(final boolean signAttestation) {
         this.signAttestation = signAttestation;
+    }
+
+    /**
+     * Sets the plugin descriptor. Intended for testing.
+     *
+     * @param pluginDescriptor the plugin descriptor
+     */
+    void setPluginDescriptor(final PluginDescriptor pluginDescriptor) {
+        this.pluginDescriptor = pluginDescriptor;
     }
 
     /**

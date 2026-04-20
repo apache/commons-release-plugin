@@ -175,7 +175,7 @@
     },
     "runDetails": {
       "builder": {
-        "id": "https://commons.apache.org/builds/0.1.0",
+        "id": "pkg:maven/${project.groupId}/${project.artifactId}@${project.version}",
         "builderDependencies": [],
         "version": {}
       },
