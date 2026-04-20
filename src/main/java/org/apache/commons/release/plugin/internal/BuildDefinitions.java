@@ -48,13 +48,13 @@ public final class BuildDefinitions {
      * @return a descriptor with digest and annotations populated from system properties
      * @throws IOException if hashing the JDK directory fails
      */
-    public static ResourceDescriptor jvm(Path javaHome) throws IOException {
-        ResourceDescriptor descriptor = new ResourceDescriptor();
+    public static ResourceDescriptor jvm(final Path javaHome) throws IOException {
+        final ResourceDescriptor descriptor = new ResourceDescriptor();
         descriptor.setName("JDK");
-        Map<String, String> digest = new HashMap<>();
+        final Map<String, String> digest = new HashMap<>();
         digest.put("gitTree", GitUtils.gitTree(javaHome));
         descriptor.setDigest(digest);
-        String[] propertyNames = {
+        final String[] propertyNames = {
             "java.version", "java.version.date",
             "java.vendor", "java.vendor.url", "java.vendor.version",
             "java.home",
@@ -63,8 +63,8 @@ public final class BuildDefinitions {
             "java.specification.version", "java.specification.maintenance.version",
             "java.specification.vendor", "java.specification.name",
         };
-        Map<String, Object> annotations = new HashMap<>();
-        for (String prop : propertyNames) {
+        final Map<String, Object> annotations = new HashMap<>();
+        for (final String prop : propertyNames) {
             annotations.put(prop.substring("java.".length()), System.getProperty(prop));
         }
         descriptor.setAnnotations(annotations);
@@ -84,21 +84,21 @@ public final class BuildDefinitions {
      * @return a descriptor for the Maven installation
      * @throws IOException if hashing the Maven home directory fails
      */
-    public static ResourceDescriptor maven(String version, Path mavenHome, ClassLoader coreClassLoader) throws IOException {
-        ResourceDescriptor descriptor = new ResourceDescriptor();
+    public static ResourceDescriptor maven(final String version, final Path mavenHome, final ClassLoader coreClassLoader) throws IOException {
+        final ResourceDescriptor descriptor = new ResourceDescriptor();
         descriptor.setName("Maven");
         descriptor.setUri("pkg:maven/org.apache.maven/apache-maven@" + version);
-        Map<String, String> digest = new HashMap<>();
+        final Map<String, String> digest = new HashMap<>();
         digest.put("gitTree", GitUtils.gitTree(mavenHome));
         descriptor.setDigest(digest);
-        Properties buildProps = new Properties();
+        final Properties buildProps = new Properties();
         try (InputStream in = coreClassLoader.getResourceAsStream("org/apache/maven/messages/build.properties")) {
             if (in != null) {
                 buildProps.load(in);
             }
         }
         if (!buildProps.isEmpty()) {
-            Map<String, Object> annotations = new HashMap<>();
+            final Map<String, Object> annotations = new HashMap<>();
             buildProps.forEach((key, value) -> annotations.put((String) key, value));
             descriptor.setAnnotations(annotations);
         }
@@ -112,17 +112,17 @@ public final class BuildDefinitions {
      * @return a map of parameter names to values
      */
     public static Map<String, Object> externalParameters(final MavenSession session) {
-        Map<String, Object> params = new HashMap<>();
+        final Map<String, Object> params = new HashMap<>();
         params.put("jvm.args", ManagementFactory.getRuntimeMXBean().getInputArguments());
-        MavenExecutionRequest request = session.getRequest();
+        final MavenExecutionRequest request = session.getRequest();
         params.put("maven.goals", request.getGoals());
         params.put("maven.profiles", request.getActiveProfiles());
         params.put("maven.user.properties", request.getUserProperties());
         params.put("maven.cmdline", commandLine(request));
-        Map<String, Object> env = new HashMap<>();
+        final Map<String, Object> env = new HashMap<>();
         params.put("env", env);
-        for (Map.Entry<String, String> entry : System.getenv().entrySet()) {
-            String key = entry.getKey();
+        for (final Map.Entry<String, String> entry : System.getenv().entrySet()) {
+            final String key = entry.getKey();
             if ("TZ".equals(key) || "LANG".equals(key) || key.startsWith("LC_")) {
                 env.put(key, entry.getValue());
             }
@@ -137,8 +137,8 @@ public final class BuildDefinitions {
      * @return a string representation of the Maven command line
      */
     static String commandLine(final MavenExecutionRequest request) {
-        List<String> args = new ArrayList<>(request.getGoals());
-        String profiles = String.join(",", request.getActiveProfiles());
+        final List<String> args = new ArrayList<>(request.getGoals());
+        final String profiles = String.join(",", request.getActiveProfiles());
         if (!profiles.isEmpty()) {
             args.add("-P" + profiles);
         }

@@ -42,11 +42,11 @@ public final class GitUtils {
      * @return A hex-encoded SHA-1 tree hash.
      * @throws IOException If the path is not a directory or an I/O error occurs.
      */
-    public static String gitTree(Path path) throws IOException {
+    public static String gitTree(final Path path) throws IOException {
         if (!Files.isDirectory(path)) {
             throw new IOException("Path is not a directory: " + path);
         }
-        MessageDigest digest = DigestUtils.getSha1Digest();
+        final MessageDigest digest = DigestUtils.getSha1Digest();
         return Hex.encodeHexString(GitIdentifiers.treeId(digest, path));
     }
 
@@ -58,11 +58,11 @@ public final class GitUtils {
      * @return A download URI of the form {@code git+<url>@<branch>}.
      * @throws IOException If the current branch cannot be determined.
      */
-    public static String scmToDownloadUri(String scmUri, Path repositoryPath) throws IOException {
+    public static String scmToDownloadUri(final String scmUri, final Path repositoryPath) throws IOException {
         if (!scmUri.startsWith(SCM_GIT_PREFIX)) {
             throw new IllegalArgumentException("Invalid scmUri: " + scmUri);
         }
-        String currentBranch = getCurrentBranch(repositoryPath);
+        final String currentBranch = getCurrentBranch(repositoryPath);
         return "git+" + scmUri.substring(SCM_GIT_PREFIX.length()) + "@" + currentBranch;
     }
 
@@ -75,9 +75,9 @@ public final class GitUtils {
      * @return The current branch name, or the commit SHA for a detached HEAD.
      * @throws IOException If the {@code .git} directory cannot be found or read.
      */
-    public static String getCurrentBranch(Path repositoryPath) throws IOException {
-        Path gitDir = findGitDir(repositoryPath);
-        String head = new String(Files.readAllBytes(gitDir.resolve("HEAD")), StandardCharsets.UTF_8).trim();
+    public static String getCurrentBranch(final Path repositoryPath) throws IOException {
+        final Path gitDir = findGitDir(repositoryPath);
+        final String head = new String(Files.readAllBytes(gitDir.resolve("HEAD")), StandardCharsets.UTF_8).trim();
         if (head.startsWith("ref: refs/heads/")) {
             return head.substring("ref: refs/heads/".length());
         }
@@ -92,16 +92,16 @@ public final class GitUtils {
      * @return The path to the {@code .git} directory (or file for worktrees).
      * @throws IOException If no {@code .git} directory is found.
      */
-    private static Path findGitDir(Path path) throws IOException {
+    private static Path findGitDir(final Path path) throws IOException {
         Path current = path.toAbsolutePath();
         while (current != null) {
-            Path candidate = current.resolve(".git");
+            final Path candidate = current.resolve(".git");
             if (Files.isDirectory(candidate)) {
                 return candidate;
             }
             if (Files.isRegularFile(candidate)) {
                 // git worktree: .git is a file containing "gitdir: /path/to/real/.git"
-                String content = new String(Files.readAllBytes(candidate), StandardCharsets.UTF_8).trim();
+                final String content = new String(Files.readAllBytes(candidate), StandardCharsets.UTF_8).trim();
                 if (content.startsWith("gitdir: ")) {
                     return Paths.get(content.substring("gitdir: ".length()));
                 }

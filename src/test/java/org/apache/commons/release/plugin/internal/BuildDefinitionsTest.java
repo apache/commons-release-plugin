@@ -50,7 +50,7 @@ class BuildDefinitionsTest {
     @MethodSource("commandLineArguments")
     void commandLineTest(final String description, final List<String> goals, final List<String> profiles,
             final Properties userProperties, final String expected) {
-        MavenExecutionRequest request = new DefaultMavenExecutionRequest();
+        final MavenExecutionRequest request = new DefaultMavenExecutionRequest();
         request.setGoals(goals);
         request.setActiveProfiles(profiles);
         request.setUserProperties(userProperties);
@@ -58,7 +58,7 @@ class BuildDefinitionsTest {
     }
 
     private static Properties singletonProperties(final String key, final String value) {
-        Properties p = new Properties();
+        final Properties p = new Properties();
         p.setProperty(key, value);
         return p;
     }

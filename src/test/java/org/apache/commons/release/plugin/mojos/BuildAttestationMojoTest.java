@@ -90,29 +90,30 @@ public class BuildAttestationMojoTest {
     }
 
     private static MavenExecutionRequest createMavenExecutionRequest() {
-        DefaultMavenExecutionRequest request = new DefaultMavenExecutionRequest();
+        final DefaultMavenExecutionRequest request = new DefaultMavenExecutionRequest();
         request.setStartTime(Date.from(Instant.parse("2026-04-20T09:28:44Z")));
         request.setActiveProfiles(Collections.singletonList("release"));
         request.setGoals(Collections.singletonList("deploy"));
-        Properties userProperties = new Properties();
+        final Properties userProperties = new Properties();
         userProperties.setProperty("gpg.keyname", "3C8D57E0A2B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9");
         request.setUserProperties(userProperties);
         return request;
     }
 
     @SuppressWarnings("deprecation")
-    private static MavenSession createMavenSession(MavenExecutionRequest request, MavenExecutionResult result) {
+    private static MavenSession createMavenSession(final MavenExecutionRequest request, final MavenExecutionResult result) {
         return new MavenSession(container, repoSession, request, result);
     }
 
-    private static BuildAttestationMojo createBuildAttestationMojo(MavenProject project, MavenProjectHelper projectHelper) throws ComponentLookupException {
-        ScmManager scmManager = container.lookup(ScmManager.class);
-        RuntimeInformation runtimeInfo = container.lookup(RuntimeInformation.class);
+    private static BuildAttestationMojo createBuildAttestationMojo(final MavenProject project, final MavenProjectHelper projectHelper)
+            throws ComponentLookupException {
+        final ScmManager scmManager = container.lookup(ScmManager.class);
+        final RuntimeInformation runtimeInfo = container.lookup(RuntimeInformation.class);
         return new BuildAttestationMojo(project, scmManager, runtimeInfo,
                 createMavenSession(createMavenExecutionRequest(), new DefaultMavenExecutionResult()), projectHelper);
     }
 
-    private static void configureBuildAttestationMojo(BuildAttestationMojo mojo, boolean signAttestation) {
+    private static void configureBuildAttestationMojo(final BuildAttestationMojo mojo, final boolean signAttestation) {
         mojo.setOutputDirectory(new File("target/attestations"));
         mojo.setScmDirectory(new File("."));
         mojo.setScmConnectionUrl("scm:git:https://github.com/apache/commons-text.git");
@@ -122,16 +123,16 @@ public class BuildAttestationMojoTest {
         mojo.setSigner(createMockSigner());
     }
 
-    private static MavenProject createMavenProject(MavenProjectHelper projectHelper, MavenRepositorySystem repoSystem) throws Exception {
-        File pomFile = new File(ARTIFACTS_DIR + "commons-text-1.4.pom");
-        Model model;
+    private static MavenProject createMavenProject(final MavenProjectHelper projectHelper, final MavenRepositorySystem repoSystem) throws Exception {
+        final File pomFile = new File(ARTIFACTS_DIR + "commons-text-1.4.pom");
+        final Model model;
         try (InputStream in = Files.newInputStream(pomFile.toPath())) {
             model = new MavenXpp3Reader().read(in);
         }
         // Group id is inherited from the missing parent, so we override it
         model.setGroupId("org.apache.commons");
-        MavenProject project = new MavenProject(model);
-        Artifact artifact = repoSystem.createArtifact(model.getArtifactId(), model.getArtifactId(), model.getVersion(), null, "jar");
+        final MavenProject project = new MavenProject(model);
+        final Artifact artifact = repoSystem.createArtifact(model.getArtifactId(), model.getArtifactId(), model.getVersion(), null, "jar");
         artifact.setFile(new File(ARTIFACTS_DIR + "commons-text-1.4.jar"));
         project.setArtifact(artifact);
         projectHelper.attachArtifact(project, "pom", null, pomFile);
@@ -193,9 +194,9 @@ public class BuildAttestationMojoTest {
         assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/resolvedDependencies"),
                 statement.at("/predicate/buildDefinition/resolvedDependencies"),
                 JsonAssert.when(Option.IGNORING_VALUES).whenIgnoringPaths("[0].annotations"));
-        Set<String> expectedJdkFields = fieldNames(
+        final Set<String> expectedJdkFields = fieldNames(
                 expectedStatement.at("/predicate/buildDefinition/resolvedDependencies/0/annotations"));
-        Set<String> actualJdkFields = fieldNames(
+        final Set<String> actualJdkFields = fieldNames(
                 statement.at("/predicate/buildDefinition/resolvedDependencies/0/annotations"));
         assertEquals(expectedJdkFields, actualJdkFields);
         assertJsonEquals(expectedStatement.at("/predicate/runDetails"),
@@ -204,8 +205,8 @@ public class BuildAttestationMojoTest {
     }
 
     private static Set<String> fieldNames(final JsonNode node) {
-        Set<String> names = new TreeSet<>();
-        Iterator<String> it = node.fieldNames();
+        final Set<String> names = new TreeSet<>();
+        final Iterator<String> it = node.fieldNames();
         while (it.hasNext()) {
             names.add(it.next());
         }
@@ -214,37 +215,37 @@ public class BuildAttestationMojoTest {
 
     @Test
     void attestationTest() throws Exception {
-        MavenProjectHelper projectHelper = container.lookup(MavenProjectHelper.class);
-        MavenRepositorySystem repoSystem = container.lookup(MavenRepositorySystem.class);
-        MavenProject project = createMavenProject(projectHelper, repoSystem);
+        final MavenProjectHelper projectHelper = container.lookup(MavenProjectHelper.class);
+        final MavenRepositorySystem repoSystem = container.lookup(MavenRepositorySystem.class);
+        final MavenProject project = createMavenProject(projectHelper, repoSystem);
 
-        BuildAttestationMojo mojo = createBuildAttestationMojo(project, projectHelper);
+        final BuildAttestationMojo mojo = createBuildAttestationMojo(project, projectHelper);
         configureBuildAttestationMojo(mojo, false);
         mojo.execute();
 
-        JsonNode statement = OBJECT_MAPPER.readTree(getAttestation(project).getFile());
+        final JsonNode statement = OBJECT_MAPPER.readTree(getAttestation(project).getFile());
         assertStatementContent(statement);
     }
 
     @Test
     void signingTest() throws Exception {
-        MavenProjectHelper projectHelper = container.lookup(MavenProjectHelper.class);
-        MavenRepositorySystem repoSystem = container.lookup(MavenRepositorySystem.class);
-        MavenProject project = createMavenProject(projectHelper, repoSystem);
+        final MavenProjectHelper projectHelper = container.lookup(MavenProjectHelper.class);
+        final MavenRepositorySystem repoSystem = container.lookup(MavenRepositorySystem.class);
+        final MavenProject project = createMavenProject(projectHelper, repoSystem);
 
-        BuildAttestationMojo mojo = createBuildAttestationMojo(project, projectHelper);
+        final BuildAttestationMojo mojo = createBuildAttestationMojo(project, projectHelper);
         configureBuildAttestationMojo(mojo, true);
         mojo.execute();
 
-        String envelopeJson = new String(Files.readAllBytes(getAttestation(project).getFile().toPath()), StandardCharsets.UTF_8);
+        final String envelopeJson = new String(Files.readAllBytes(getAttestation(project).getFile().toPath()), StandardCharsets.UTF_8);
 
         assertJsonPartEquals(DsseEnvelope.PAYLOAD_TYPE, envelopeJson, "payloadType");
         assertJsonNodePresent(envelopeJson, "signatures[0]");
         assertJsonNodeAbsent(envelopeJson, "signatures[1]");
         assertJsonPartEquals("${json-unit.regex}.+", envelopeJson, "signatures[0].sig");
 
-        DsseEnvelope envelope = OBJECT_MAPPER.readValue(envelopeJson.trim(), DsseEnvelope.class);
-        JsonNode statement = OBJECT_MAPPER.readTree(envelope.getPayload());
+        final DsseEnvelope envelope = OBJECT_MAPPER.readValue(envelopeJson.trim(), DsseEnvelope.class);
+        final JsonNode statement = OBJECT_MAPPER.readTree(envelope.getPayload());
         assertStatementContent(statement);
     }
 }

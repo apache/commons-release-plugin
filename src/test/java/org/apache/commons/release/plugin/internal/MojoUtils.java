@@ -40,7 +40,7 @@ import org.eclipse.aether.spi.localrepo.LocalRepositoryManagerFactory;
 public final class MojoUtils {
 
     private static ContainerConfiguration setupContainerConfiguration() {
-        ClassWorld classWorld =
+        final ClassWorld classWorld =
                 new ClassWorld("plexus.core", Thread.currentThread().getContextClassLoader());
         return new DefaultContainerConfiguration()
                 .setClassWorld(classWorld)
@@ -54,10 +54,10 @@ public final class MojoUtils {
     }
 
     public static RepositorySystemSession createRepositorySystemSession(
-            PlexusContainer container, Path localRepositoryPath) throws ComponentLookupException, RepositoryException {
-        LocalRepositoryManagerFactory factory = container.lookup(LocalRepositoryManagerFactory.class, "simple");
-        DefaultRepositorySystemSession repoSession = new DefaultRepositorySystemSession();
-        LocalRepositoryManager manager =
+            final PlexusContainer container, final Path localRepositoryPath) throws ComponentLookupException, RepositoryException {
+        final LocalRepositoryManagerFactory factory = container.lookup(LocalRepositoryManagerFactory.class, "simple");
+        final DefaultRepositorySystemSession repoSession = new DefaultRepositorySystemSession();
+        final LocalRepositoryManager manager =
                 factory.newInstance(repoSession, new LocalRepository(localRepositoryPath.toFile()));
         repoSession.setLocalRepositoryManager(manager);
         // Default policies

@@ -72,7 +72,7 @@ public final class ArtifactUtils {
      * @param artifact A Maven artifact.
      * @return A filename.
      */
-    public static String getFileName(Artifact artifact) {
+    public static String getFileName(final Artifact artifact) {
         return getFileName(artifact, artifact.getArtifactHandler().getExtension());
     }
 
@@ -83,8 +83,8 @@ public final class ArtifactUtils {
      * @param extension The file name extension.
      * @return A filename.
      */
-    public static String getFileName(Artifact artifact, String extension) {
-        StringBuilder fileName = new StringBuilder();
+    public static String getFileName(final Artifact artifact, final String extension) {
+        final StringBuilder fileName = new StringBuilder();
         fileName.append(artifact.getArtifactId()).append("-").append(artifact.getVersion());
         if (artifact.getClassifier() != null) {
             fileName.append("-").append(artifact.getClassifier());
@@ -99,11 +99,11 @@ public final class ArtifactUtils {
      * @param artifact A maven artifact.
      * @return A PURL for the given artifact.
      */
-    public static String getPackageUrl(Artifact artifact) {
-        StringBuilder sb = new StringBuilder();
+    public static String getPackageUrl(final Artifact artifact) {
+        final StringBuilder sb = new StringBuilder();
         sb.append("pkg:maven/").append(artifact.getGroupId()).append("/").append(artifact.getArtifactId()).append("@").append(artifact.getVersion())
                 .append("?");
-        String classifier = artifact.getClassifier();
+        final String classifier = artifact.getClassifier();
         if (classifier != null) {
             sb.append("classifier=").append(classifier).append("&");
         }
@@ -120,15 +120,15 @@ public final class ArtifactUtils {
      * @throws IOException If an I/O error occurs reading the artifact file.
      * @throws IllegalArgumentException If any of the algorithms is not supported.
      */
-    private static Map<String, String> getChecksums(Artifact artifact, String... algorithms) throws IOException {
-        Map<String, String> checksums = new HashMap<>();
-        for (String algorithm : algorithms) {
-            String key = IN_TOTO_DIGEST_NAMES.get(algorithm);
+    private static Map<String, String> getChecksums(final Artifact artifact, final String... algorithms) throws IOException {
+        final Map<String, String> checksums = new HashMap<>();
+        for (final String algorithm : algorithms) {
+            final String key = IN_TOTO_DIGEST_NAMES.get(algorithm);
             if (key == null) {
                 throw new IllegalArgumentException("Invalid algorithm name for in-toto attestation: " + algorithm);
             }
-            DigestUtils digest = new DigestUtils(DigestUtils.getDigest(algorithm));
-            String checksum = digest.digestAsHex(artifact.getFile());
+            final DigestUtils digest = new DigestUtils(DigestUtils.getDigest(algorithm));
+            final String checksum = digest.digestAsHex(artifact.getFile());
             checksums.put(key, checksum);
         }
         return checksums;
@@ -142,14 +142,14 @@ public final class ArtifactUtils {
      * @return A SLSA resource descriptor.
      * @throws MojoExecutionException If an I/O error occurs retrieving the artifact.
      */
-    public static ResourceDescriptor toResourceDescriptor(Artifact artifact, String algorithms) throws MojoExecutionException {
-        ResourceDescriptor descriptor = new ResourceDescriptor();
+    public static ResourceDescriptor toResourceDescriptor(final Artifact artifact, final String algorithms) throws MojoExecutionException {
+        final ResourceDescriptor descriptor = new ResourceDescriptor();
         descriptor.setName(getFileName(artifact));
         descriptor.setUri(getPackageUrl(artifact));
         if (artifact.getFile() != null) {
             try {
                 descriptor.setDigest(getChecksums(artifact, StringUtils.split(algorithms, ",")));
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 throw new MojoExecutionException("Unable to compute hash for artifact file: " + artifact.getFile(), e);
             }
         }

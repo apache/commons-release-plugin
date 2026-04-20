@@ -212,8 +212,8 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @param mavenProjectHelper A helper to attach artifacts to the project.
      */
     @Inject
-    public BuildAttestationMojo(MavenProject project, ScmManager scmManager, RuntimeInformation runtimeInformation, MavenSession session,
-            MavenProjectHelper mavenProjectHelper) {
+    public BuildAttestationMojo(final MavenProject project, final ScmManager scmManager, final RuntimeInformation runtimeInformation,
+            final MavenSession session, final MavenProjectHelper mavenProjectHelper) {
         this.project = project;
         this.scmManager = scmManager;
         this.runtimeInformation = runtimeInformation;
@@ -244,7 +244,7 @@ public class BuildAttestationMojo extends AbstractMojo {
      *
      * @param scmDirectory The SCM directory.
      */
-    public void setScmDirectory(File scmDirectory) {
+    public void setScmDirectory(final File scmDirectory) {
         this.scmDirectory = scmDirectory;
     }
 
@@ -289,7 +289,7 @@ public class BuildAttestationMojo extends AbstractMojo {
      *
      * @param algorithmNames A comma-separated list of {@link java.security.MessageDigest} algorithm names to use.
      */
-    void setAlgorithmNames(String algorithmNames) {
+    void setAlgorithmNames(final String algorithmNames) {
         this.algorithmNames = algorithmNames;
     }
 
@@ -309,21 +309,21 @@ public class BuildAttestationMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoFailureException, MojoExecutionException {
         // Build definition
-        BuildDefinition buildDefinition = new BuildDefinition();
+        final BuildDefinition buildDefinition = new BuildDefinition();
         buildDefinition.setExternalParameters(BuildDefinitions.externalParameters(session));
         buildDefinition.setResolvedDependencies(getBuildDependencies());
         // Builder
-        Builder builder = new Builder();
+        final Builder builder = new Builder();
         // RunDetails
-        RunDetails runDetails = new RunDetails();
+        final RunDetails runDetails = new RunDetails();
         runDetails.setBuilder(builder);
         runDetails.setMetadata(getBuildMetadata());
         // Provenance
-        Provenance provenance = new Provenance();
+        final Provenance provenance = new Provenance();
         provenance.setBuildDefinition(buildDefinition);
         provenance.setRunDetails(runDetails);
         // Statement
-        Statement statement = new Statement();
+        final Statement statement = new Statement();
         statement.setSubject(getSubjects());
         statement.setPredicate(provenance);
 
@@ -348,7 +348,7 @@ public class BuildAttestationMojo extends AbstractMojo {
             if (!Files.exists(outputPath)) {
                 Files.createDirectories(outputPath);
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new MojoExecutionException("Could not create output directory.", e);
         }
         return outputPath;
@@ -380,7 +380,7 @@ public class BuildAttestationMojo extends AbstractMojo {
         final byte[] statementBytes;
         try {
             statementBytes = OBJECT_MAPPER.writeValueAsBytes(statement);
-        } catch (JsonProcessingException e) {
+        } catch (final JsonProcessingException e) {
             throw new MojoExecutionException("Failed to serialize attestation statement", e);
         }
         final AbstractGpgSigner signer = getSigner();
@@ -410,7 +410,7 @@ public class BuildAttestationMojo extends AbstractMojo {
         try (OutputStream os = Files.newOutputStream(artifactPath)) {
             OBJECT_MAPPER.writeValue(os, value);
             os.write('\n');
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new MojoExecutionException("Could not write attestation to: " + artifactPath, e);
         }
         if (!skipAttach) {
@@ -427,9 +427,9 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @throws MojoExecutionException If artifact hashing fails.
      */
     private List<ResourceDescriptor> getSubjects() throws MojoExecutionException {
-        List<ResourceDescriptor> subjects = new ArrayList<>();
+        final List<ResourceDescriptor> subjects = new ArrayList<>();
         subjects.add(ArtifactUtils.toResourceDescriptor(project.getArtifact(), algorithmNames));
-        for (Artifact artifact : project.getAttachedArtifacts()) {
+        for (final Artifact artifact : project.getAttachedArtifacts()) {
             subjects.add(ArtifactUtils.toResourceDescriptor(artifact, algorithmNames));
         }
         return subjects;
@@ -442,13 +442,13 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @throws MojoExecutionException If any dependency cannot be resolved or hashed.
      */
     private List<ResourceDescriptor> getBuildDependencies() throws MojoExecutionException {
-        List<ResourceDescriptor> dependencies = new ArrayList<>();
+        final List<ResourceDescriptor> dependencies = new ArrayList<>();
         try {
             dependencies.add(BuildDefinitions.jvm(Paths.get(System.getProperty("java.home"))));
             dependencies.add(BuildDefinitions.maven(runtimeInformation.getMavenVersion(), mavenHome.toPath(),
                     runtimeInformation.getClass().getClassLoader()));
             dependencies.add(getScmDescriptor());
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new MojoExecutionException(e);
         }
         dependencies.addAll(getProjectDependencies());
@@ -462,8 +462,8 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @throws MojoExecutionException If a dependency artifact cannot be described.
      */
     private List<ResourceDescriptor> getProjectDependencies() throws MojoExecutionException {
-        List<ResourceDescriptor> dependencies = new ArrayList<>();
-        for (Artifact artifact : project.getArtifacts()) {
+        final List<ResourceDescriptor> dependencies = new ArrayList<>();
+        for (final Artifact artifact : project.getArtifacts()) {
             dependencies.add(ArtifactUtils.toResourceDescriptor(artifact, algorithmNames));
         }
         return dependencies;
@@ -477,11 +477,11 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @throws MojoExecutionException If the SCM revision cannot be retrieved.
      */
     private ResourceDescriptor getScmDescriptor() throws IOException, MojoExecutionException {
-        ResourceDescriptor scmDescriptor = new ResourceDescriptor();
-        String scmUri = GitUtils.scmToDownloadUri(scmConnectionUrl, scmDirectory.toPath());
+        final ResourceDescriptor scmDescriptor = new ResourceDescriptor();
+        final String scmUri = GitUtils.scmToDownloadUri(scmConnectionUrl, scmDirectory.toPath());
         scmDescriptor.setUri(scmUri);
         // Compute the revision
-        Map<String, String> digest = new HashMap<>();
+        final Map<String, String> digest = new HashMap<>();
         digest.put("gitCommit", getScmRevision());
         scmDescriptor.setDigest(digest);
         return scmDescriptor;
@@ -496,7 +496,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     private ScmRepository getScmRepository() throws MojoExecutionException {
         try {
             return scmManager.makeScmRepository(scmConnectionUrl);
-        } catch (ScmException e) {
+        } catch (final ScmException e) {
             throw new MojoExecutionException("Failed to create SCM repository", e);
         }
     }
@@ -508,14 +508,14 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @throws MojoExecutionException If the revision cannot be retrieved from SCM.
      */
     private String getScmRevision() throws MojoExecutionException {
-        ScmRepository scmRepository = getScmRepository();
-        CommandParameters commandParameters = new CommandParameters();
+        final ScmRepository scmRepository = getScmRepository();
+        final CommandParameters commandParameters = new CommandParameters();
         try {
-            InfoScmResult result = scmManager.getProviderByRepository(scmRepository).info(scmRepository.getProviderRepository(),
+            final InfoScmResult result = scmManager.getProviderByRepository(scmRepository).info(scmRepository.getProviderRepository(),
                     new ScmFileSet(scmDirectory), commandParameters);
 
             return getScmRevision(result);
-        } catch (ScmException e) {
+        } catch (final ScmException e) {
             throw new MojoExecutionException("Failed to retrieve SCM revision", e);
         }
     }
@@ -536,9 +536,9 @@ public class BuildAttestationMojo extends AbstractMojo {
             throw new MojoExecutionException("No SCM revision information found for " + scmDirectory);
         }
 
-        InfoItem item = result.getInfoItems().get(0);
+        final InfoItem item = result.getInfoItems().get(0);
 
-        String revision = item.getRevision();
+        final String revision = item.getRevision();
         if (revision == null) {
             throw new MojoExecutionException("Empty SCM revision returned for " + scmDirectory);
         }
@@ -551,8 +551,8 @@ public class BuildAttestationMojo extends AbstractMojo {
      * @return The build metadata.
      */
     private BuildMetadata getBuildMetadata() {
-        OffsetDateTime startedOn = session.getStartTime().toInstant().atOffset(ZoneOffset.UTC);
-        OffsetDateTime finishedOn = OffsetDateTime.now(ZoneOffset.UTC);
+        final OffsetDateTime startedOn = session.getStartTime().toInstant().atOffset(ZoneOffset.UTC);
+        final OffsetDateTime finishedOn = OffsetDateTime.now(ZoneOffset.UTC);
         return new BuildMetadata(null, startedOn, finishedOn);
     }
 }
