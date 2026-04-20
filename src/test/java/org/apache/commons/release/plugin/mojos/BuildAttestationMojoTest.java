@@ -21,6 +21,7 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonNodeAbsent;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonNodePresent;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonPartEquals;
 import static net.javacrumbs.jsonunit.JsonAssert.whenIgnoringPaths;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,10 @@ import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -173,12 +177,29 @@ public class BuildAttestationMojoTest {
                 JsonAssert.when(Option.IGNORING_VALUES).whenIgnoringPaths("jvm.args", "env"));
         assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/internalParameters"),
                 statement.at("/predicate/buildDefinition/internalParameters"));
+        // `[0].annotations` holds JVM system properties;
+        // Not all properties are available on all JDKs, so they are either null or strings, which json-unit treats as a structural mismatch.
+        // We will check them below
         assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/resolvedDependencies"),
                 statement.at("/predicate/buildDefinition/resolvedDependencies"),
-                JsonAssert.when(Option.IGNORING_VALUES));
+                JsonAssert.when(Option.IGNORING_VALUES).whenIgnoringPaths("[0].annotations"));
+        Set<String> expectedJdkFields = fieldNames(
+                expectedStatement.at("/predicate/buildDefinition/resolvedDependencies/0/annotations"));
+        Set<String> actualJdkFields = fieldNames(
+                statement.at("/predicate/buildDefinition/resolvedDependencies/0/annotations"));
+        assertEquals(expectedJdkFields, actualJdkFields);
         assertJsonEquals(expectedStatement.at("/predicate/runDetails"),
                 statement.at("/predicate/runDetails"),
                 whenIgnoringPaths("metadata.finishedOn"));
+    }
+
+    private static Set<String> fieldNames(final JsonNode node) {
+        Set<String> names = new TreeSet<>();
+        Iterator<String> it = node.fieldNames();
+        while (it.hasNext()) {
+            names.add(it.next());
+        }
+        return names;
     }
 
     @Test
