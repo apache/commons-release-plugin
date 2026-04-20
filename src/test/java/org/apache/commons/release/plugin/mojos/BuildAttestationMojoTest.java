@@ -31,7 +31,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Properties;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,6 +88,11 @@ public class BuildAttestationMojoTest {
     private static MavenExecutionRequest createMavenExecutionRequest() {
         DefaultMavenExecutionRequest request = new DefaultMavenExecutionRequest();
         request.setStartTime(Date.from(Instant.parse("2026-04-20T09:28:44Z")));
+        request.setActiveProfiles(Collections.singletonList("release"));
+        request.setGoals(Collections.singletonList("deploy"));
+        Properties userProperties = new Properties();
+        userProperties.setProperty("gpg.keyname", "3C8D57E0A2B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9");
+        request.setUserProperties(userProperties);
         return request;
     }
 
