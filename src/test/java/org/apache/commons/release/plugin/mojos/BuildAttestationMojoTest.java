@@ -16,24 +16,26 @@
  */
 package org.apache.commons.release.plugin.mojos;
 
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonNodeAbsent;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonNodePresent;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonPartEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static net.javacrumbs.jsonunit.JsonAssert.whenIgnoringPaths;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.Instant;
 import java.util.Date;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.javacrumbs.jsonunit.JsonAssert;
-import net.javacrumbs.jsonunit.core.Configuration;
 import net.javacrumbs.jsonunit.core.Option;
 import org.apache.commons.release.plugin.internal.MojoUtils;
 import org.apache.commons.release.plugin.slsa.v1_2.DsseEnvelope;
@@ -45,6 +47,7 @@ import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.gpg.AbstractGpgSigner;
 import org.apache.maven.project.MavenProject;
@@ -61,8 +64,6 @@ import org.junit.jupiter.api.io.TempDir;
 public class BuildAttestationMojoTest {
 
     private static final String ARTIFACTS_DIR = "src/test/resources/mojos/detach-distributions/target/";
-    public static final Configuration IGNORING_CONFIGURATION = JsonAssert.when(
-            Option.IGNORING_ARRAY_ORDER, Option.IGNORING_EXTRA_ARRAY_ITEMS, Option.IGNORING_EXTRA_FIELDS);
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -71,16 +72,20 @@ public class BuildAttestationMojoTest {
 
     private static PlexusContainer container;
     private static RepositorySystemSession repoSession;
+    private static JsonNode expectedStatement;
 
     @BeforeAll
     static void setup() throws Exception {
         container = MojoUtils.setupContainer();
         repoSession = MojoUtils.createRepositorySystemSession(container, localRepositoryPath);
+        try (InputStream in = BuildAttestationMojoTest.class.getResourceAsStream("/attestations/commons-text-1.4.intoto.json")) {
+            expectedStatement = OBJECT_MAPPER.readTree(in);
+        }
     }
 
     private static MavenExecutionRequest createMavenExecutionRequest() {
         DefaultMavenExecutionRequest request = new DefaultMavenExecutionRequest();
-        request.setStartTime(new Date());
+        request.setStartTime(Date.from(Instant.parse("2026-04-20T09:28:44Z")));
         return request;
     }
 
@@ -96,15 +101,19 @@ public class BuildAttestationMojoTest {
                 createMavenSession(createMavenExecutionRequest(), new DefaultMavenExecutionResult()), projectHelper);
     }
 
-    private static MavenProject createMavenProject(MavenProjectHelper projectHelper, MavenRepositorySystem repoSystem) {
-        MavenProject project = new MavenProject(new Model());
-        Artifact artifact = repoSystem.createArtifact("org.apache.commons", "commons-text", "1.4", null, "jar");
+    private static MavenProject createMavenProject(MavenProjectHelper projectHelper, MavenRepositorySystem repoSystem) throws Exception {
+        File pomFile = new File(ARTIFACTS_DIR + "commons-text-1.4.pom");
+        Model model;
+        try (InputStream in = Files.newInputStream(pomFile.toPath())) {
+            model = new MavenXpp3Reader().read(in);
+        }
+        // Group id is inherited from the missing parent, so we override it
+        model.setGroupId("org.apache.commons");
+        MavenProject project = new MavenProject(model);
+        Artifact artifact = repoSystem.createArtifact(model.getArtifactId(), model.getArtifactId(), model.getVersion(), null, "jar");
         artifact.setFile(new File(ARTIFACTS_DIR + "commons-text-1.4.jar"));
         project.setArtifact(artifact);
-        project.setGroupId("org.apache.commons");
-        project.setArtifactId("commons-text");
-        project.setVersion("1.4");
-        projectHelper.attachArtifact(project, "pom", null, new File(ARTIFACTS_DIR + "commons-text-1.4.pom"));
+        projectHelper.attachArtifact(project, "pom", null, pomFile);
         projectHelper.attachArtifact(project, "jar", "sources", new File(ARTIFACTS_DIR + "commons-text-1.4-sources.jar"));
         projectHelper.attachArtifact(project, "jar", "javadoc", new File(ARTIFACTS_DIR + "commons-text-1.4-javadoc.jar"));
         projectHelper.attachArtifact(project, "jar", "tests", new File(ARTIFACTS_DIR + "commons-text-1.4-tests.jar"));
@@ -146,50 +155,23 @@ public class BuildAttestationMojoTest {
                 .orElseThrow(() -> new AssertionError("No intoto.jsonl artifact attached to project"));
     }
 
-    private static void assertSubject(final String statementJson, final String name, final String sha256) {
-        assertJsonPartEquals(
-                String.format("[{\"name\":\"%s\",\"digest\":{\"sha256\":\"%s\"}}]", name, sha256),
-                statementJson, "subject", IGNORING_CONFIGURATION);
-    }
-
-    private static void assertStatementContent(final String statementJson) throws IOException {
-        assertSubject(statementJson, "commons-text-1.4.jar",
-                "ad2d2eacf15ab740c115294afc1192603d8342004a6d7d0ad35446f7dda8a134");
-        assertSubject(statementJson, "commons-text-1.4.pom",
-                "4d6277b1e0720bb054c640620679a9da120f753029342150e714095f48934d76");
-        assertSubject(statementJson, "commons-text-1.4-sources.jar",
-                "58a95591fe7fc94db94a0a9e64b4a5bcc1c49edf17f2b24d7c0747357d855761");
-        assertSubject(statementJson, "commons-text-1.4-javadoc.jar",
-                "42f5b341d0fbeaa30b06aed90612840bc513fb39792c3d39446510670216e8b1");
-        assertSubject(statementJson, "commons-text-1.4-tests.jar",
-                "e4e365d08d601a4bda44be2a31f748b96762504d301742d4a0f7f5953d4c793a");
-        assertSubject(statementJson, "commons-text-1.4-test-sources.jar",
-                "9200a2a41b35f2d6d30c1c698308591cf577547ec39514657dff0e2f7dff18ca");
-        assertSubject(statementJson, "commons-text-1.4-bin.tar.gz",
-                "8b9393f7ddc2efb69d8c2b6f4d85d8711dddfe77009799cf21619fc9b8411897");
-        assertSubject(statementJson, "commons-text-1.4-bin.zip",
-                "ad3732dcb38e510b1dbb1544115d0eb797fab61afe0008fdb187cd4ef1706cd7");
-        assertSubject(statementJson, "commons-text-1.4-src.tar.gz",
-                "1cb8536c375c3cff66757fd40c2bf878998254ba0a247866a6536bd48ba2e88a");
-        assertSubject(statementJson, "commons-text-1.4-src.zip",
-                "e4a6c992153faae4f7faff689b899073000364e376736b9746a5d0acb9d8b980");
-
-        String resolvedDeps = "predicate.buildDefinition.resolvedDependencies";
-        String javaVersion = System.getProperty("java.version");
-
-        assertJsonPartEquals(
-                "[{\"name\":\"JDK\",\"annotations\":{\"version\":\"" + javaVersion + "\"}}]",
-                statementJson, resolvedDeps, IGNORING_CONFIGURATION);
-        assertJsonPartEquals("[{\"name\":\"Maven\"}]", statementJson, resolvedDeps, IGNORING_CONFIGURATION);
-        String gitUriPrefix = "git+https://github.com/apache/commons-text.git";
-        boolean hasGitUri = false;
-        for (JsonNode dep : OBJECT_MAPPER.readTree(statementJson).at("/predicate/buildDefinition/resolvedDependencies")) {
-            if (dep.path("uri").asText().startsWith(gitUriPrefix)) {
-                hasGitUri = true;
-                break;
-            }
-        }
-        assertTrue(hasGitUri, "No resolved dependency with URI starting with " + gitUriPrefix);
+    private static void assertStatementContent(final JsonNode statement) {
+        assertJsonEquals(expectedStatement.get("subject"), statement.get("subject"),
+                JsonAssert.when(Option.IGNORING_ARRAY_ORDER));
+        assertJsonEquals(expectedStatement.get("predicateType"), statement.get("predicateType"));
+        assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/buildType"),
+                statement.at("/predicate/buildDefinition/buildType"));
+        assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/externalParameters"),
+                statement.at("/predicate/buildDefinition/externalParameters"),
+                JsonAssert.when(Option.IGNORING_VALUES).whenIgnoringPaths("jvm.args", "env"));
+        assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/internalParameters"),
+                statement.at("/predicate/buildDefinition/internalParameters"));
+        assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/resolvedDependencies"),
+                statement.at("/predicate/buildDefinition/resolvedDependencies"),
+                JsonAssert.when(Option.IGNORING_VALUES));
+        assertJsonEquals(expectedStatement.at("/predicate/runDetails"),
+                statement.at("/predicate/runDetails"),
+                whenIgnoringPaths("metadata.finishedOn"));
     }
 
     @Test
@@ -205,8 +187,8 @@ public class BuildAttestationMojoTest {
         mojo.setMavenHome(new File(System.getProperty("maven.home", ".")));
         mojo.execute();
 
-        String json = new String(Files.readAllBytes(getAttestation(project).getFile().toPath()), StandardCharsets.UTF_8);
-        assertStatementContent(json);
+        JsonNode statement = OBJECT_MAPPER.readTree(getAttestation(project).getFile());
+        assertStatementContent(statement);
     }
 
     @Test
@@ -232,7 +214,7 @@ public class BuildAttestationMojoTest {
         assertJsonPartEquals("${json-unit.regex}.+", envelopeJson, "signatures[0].sig");
 
         DsseEnvelope envelope = OBJECT_MAPPER.readValue(envelopeJson.trim(), DsseEnvelope.class);
-        String statementJson = new String(envelope.getPayload(), StandardCharsets.UTF_8);
-        assertStatementContent(statementJson);
+        JsonNode statement = OBJECT_MAPPER.readTree(envelope.getPayload());
+        assertStatementContent(statement);
     }
 }

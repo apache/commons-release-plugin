@@ -1,0 +1,152 @@
+{
+  "subject": [
+    {
+      "name": "commons-text-1.4.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?type=jar",
+      "digest": {
+        "sha256": "ad2d2eacf15ab740c115294afc1192603d8342004a6d7d0ad35446f7dda8a134"
+      }
+    },
+    {
+      "name": "commons-text-1.4.pom",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?type=pom",
+      "digest": {
+        "sha256": "4d6277b1e0720bb054c640620679a9da120f753029342150e714095f48934d76"
+      }
+    },
+    {
+      "name": "commons-text-1.4-sources.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=sources&type=jar",
+      "digest": {
+        "sha256": "58a95591fe7fc94db94a0a9e64b4a5bcc1c49edf17f2b24d7c0747357d855761"
+      }
+    },
+    {
+      "name": "commons-text-1.4-javadoc.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=javadoc&type=jar",
+      "digest": {
+        "sha256": "42f5b341d0fbeaa30b06aed90612840bc513fb39792c3d39446510670216e8b1"
+      }
+    },
+    {
+      "name": "commons-text-1.4-tests.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=tests&type=jar",
+      "digest": {
+        "sha256": "e4e365d08d601a4bda44be2a31f748b96762504d301742d4a0f7f5953d4c793a"
+      }
+    },
+    {
+      "name": "commons-text-1.4-test-sources.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=test-sources&type=jar",
+      "digest": {
+        "sha256": "9200a2a41b35f2d6d30c1c698308591cf577547ec39514657dff0e2f7dff18ca"
+      }
+    },
+    {
+      "name": "commons-text-1.4-bin.tar.gz",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=bin&type=tar.gz",
+      "digest": {
+        "sha256": "8b9393f7ddc2efb69d8c2b6f4d85d8711dddfe77009799cf21619fc9b8411897"
+      }
+    },
+    {
+      "name": "commons-text-1.4-bin.zip",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=bin&type=zip",
+      "digest": {
+        "sha256": "ad3732dcb38e510b1dbb1544115d0eb797fab61afe0008fdb187cd4ef1706cd7"
+      }
+    },
+    {
+      "name": "commons-text-1.4-src.tar.gz",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=src&type=tar.gz",
+      "digest": {
+        "sha256": "1cb8536c375c3cff66757fd40c2bf878998254ba0a247866a6536bd48ba2e88a"
+      }
+    },
+    {
+      "name": "commons-text-1.4-src.zip",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=src&type=zip",
+      "digest": {
+        "sha256": "e4a6c992153faae4f7faff689b899073000364e376736b9746a5d0acb9d8b980"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "https://commons.apache.org/builds/0.1.0",
+      "externalParameters": {
+        "maven.profiles": [],
+        "maven.cmdline": "",
+        "jvm.args": [
+          "-Dfile.encoding=UTF-8",
+          "-Dsun.stdout.encoding=UTF-8",
+          "-Dsun.stderr.encoding=UTF-8"
+        ],
+        "maven.user.properties": {},
+        "maven.goals": [],
+        "env": {
+          "LANG": "pl_PL.UTF-8"
+        }
+      },
+      "internalParameters": {},
+      "resolvedDependencies": [
+        {
+          "name": "JDK",
+          "digest": {
+            "gitTree": "bdb67e47c1b7df9c35ae045f29a348bb5bd32dc3"
+          },
+          "annotations": {
+            "vendor.version": "Temurin-25.0.2+10",
+            "specification.name": "Java Platform API Specification",
+            "specification.vendor": "Oracle Corporation",
+            "vm.version": "25.0.2+10-LTS",
+            "version": "25.0.2",
+            "version.date": "2026-01-20",
+            "vm.specification.vendor": "Oracle Corporation",
+            "home": "/usr/lib/jvm/temurin-25-jdk-amd64",
+            "vendor": "Eclipse Adoptium",
+            "vm.vendor": "Eclipse Adoptium",
+            "vendor.url": "https://adoptium.net/",
+            "specification.maintenance.version": null,
+            "vm.specification.version": "25",
+            "vm.name": "OpenJDK 64-Bit Server VM",
+            "vm.specification.name": "Java Virtual Machine Specification",
+            "specification.version": "25"
+          }
+        },
+        {
+          "name": "Maven",
+          "uri": "pkg:maven/org.apache.maven/apache-maven@3.9.12",
+          "digest": {
+            "gitTree": "3cdb4a67690dc18373f70ead98dc86567cc5ad67"
+          },
+          "annotations": {
+            "distributionId": "apache-maven",
+            "distributionName": "Apache Maven",
+            "distributionShortName": "Maven",
+            "buildNumber": "848fbb4bf2d427b72bdb2471c22fced7ebd9a7a1",
+            "version": "3.9.12"
+          }
+        },
+        {
+          "uri": "git+https://github.com/apache/commons-text.git@feat/slsa",
+          "digest": {
+            "gitCommit": "f519b3670795da3fb4f43b6af1f727eadf8e6800"
+          }
+        }
+      ]
+    },
+    "runDetails": {
+      "builder": {
+        "id": "https://commons.apache.org/builds/0.1.0",
+        "builderDependencies": [],
+        "version": {}
+      },
+      "metadata": {
+        "startedOn": "2026-04-20T09:28:44Z",
+        "finishedOn": "2026-04-20T09:28:45Z"
+      }
+    }
+  }
+}

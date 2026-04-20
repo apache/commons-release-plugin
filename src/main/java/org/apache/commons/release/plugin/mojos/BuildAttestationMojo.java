@@ -538,6 +538,6 @@ public class BuildAttestationMojo extends AbstractMojo {
     private BuildMetadata getBuildMetadata() {
         OffsetDateTime startedOn = session.getStartTime().toInstant().atOffset(ZoneOffset.UTC);
         OffsetDateTime finishedOn = OffsetDateTime.now(ZoneOffset.UTC);
-        return new BuildMetadata(session.getRequest().getBuilderId(), startedOn, finishedOn);
+        return new BuildMetadata(null, startedOn, finishedOn);
     }
 }
