@@ -21,9 +21,11 @@ import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -38,7 +40,17 @@ import org.apache.maven.execution.MavenSession;
 public final class BuildDefinitions {
 
     /**
+     * User-property names containing any of these substrings (case-insensitive) are omitted from attestations.
+     *
+     * <p>The Maven GPG plugin discourages passing credentials on the command line, but a stray {@code -Dgpg.passphrase=...} must not be captured in the
+     * attestation if someone does it anyway.</p>
+     */
+    private static final List<String> SENSITIVE_KEYWORDS =
+            Arrays.asList("secret", "password", "passphrase", "token", "credential");
+
+    /**
      * Reconstructs the Maven command line string from the given execution request.
+     * User properties whose name matches {@link #SENSITIVE_KEYWORDS} are omitted.
      *
      * @param request the Maven execution request
      * @return a string representation of the Maven command line
@@ -49,8 +61,24 @@ public final class BuildDefinitions {
         if (!profiles.isEmpty()) {
             args.add("-P" + profiles);
         }
-        request.getUserProperties().forEach((key, value) -> args.add("-D" + key + "=" + value));
+        request.getUserProperties().forEach((key, value) -> {
+            final String k = key.toString();
+            if (isNotSensitive(k)) {
+                args.add("-D" + k + "=" + value);
+            }
+        });
         return String.join(" ", args);
+    }
+
+    /**
+     * Checks if a property key is not sensitive.
+     *
+     * @param property A property key
+     * @return {@code true} if the property is not considered sensitive
+     */
+    private static boolean isNotSensitive(final String property) {
+        final String lower = property.toLowerCase(Locale.ROOT);
+        return SENSITIVE_KEYWORDS.stream().noneMatch(lower::contains);
     }
 
     /**
@@ -65,7 +93,7 @@ public final class BuildDefinitions {
         final MavenExecutionRequest request = session.getRequest();
         params.put("maven.goals", request.getGoals());
         params.put("maven.profiles", request.getActiveProfiles());
-        params.put("maven.user.properties", request.getUserProperties());
+        params.put("maven.user.properties", getUserProperties(request));
         params.put("maven.cmdline", commandLine(request));
         final Map<String, Object> env = new HashMap<>();
         params.put("env", env);
@@ -76,6 +104,23 @@ public final class BuildDefinitions {
             }
         }
         return params;
+    }
+
+    /**
+     * Returns a filtered map of user properties.
+     *
+     * @param request A Maven request
+     * @return A map of user properties.
+     */
+    private static TreeMap<String, String> getUserProperties(final MavenExecutionRequest request) {
+        final TreeMap<String, String> properties = new TreeMap<>();
+        request.getUserProperties().forEach((k, value) -> {
+            final String key = k.toString();
+            if (isNotSensitive(key)) {
+                properties.put(key, value.toString());
+            }
+        });
+        return properties;
     }
 
     /**

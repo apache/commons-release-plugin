@@ -40,15 +40,23 @@ class BuildDefinitionsTest {
                 Arguments.of("multiple goals", asList("clean", "verify"), emptyList(), new Properties(), "clean verify"),
                 Arguments.of("single profile", singletonList("verify"), singletonList("release"), new Properties(), "verify -Prelease"),
                 Arguments.of("multiple profiles", singletonList("verify"), asList("release", "sign"), new Properties(), "verify -Prelease,sign"),
-                Arguments.of("user property", singletonList("verify"), emptyList(), singletonProperties("foo", "bar"), "verify -Dfoo=bar"),
-                Arguments.of("goals, profile and property", singletonList("verify"), singletonList("release"), singletonProperties("foo", "bar"),
-                        "verify -Prelease -Dfoo=bar")
+                Arguments.of("user property", singletonList("verify"), emptyList(), toProperties("foo", "bar"), "verify -Dfoo=bar"),
+                Arguments.of("goals, profile and property", singletonList("verify"), singletonList("release"), toProperties("foo", "bar"),
+                        "verify -Prelease -Dfoo=bar"),
+                Arguments.of("redacts gpg.passphrase", singletonList("verify"), emptyList(), toProperties("gpg.passphrase", "s3cr3t"), "verify"),
+                Arguments.of("redacts passphrase case-insensitively", singletonList("verify"), emptyList(), toProperties("GPG_PASSPHRASE", "s3cr3t"), "verify"),
+                Arguments.of("redacts any *password*", singletonList("verify"), emptyList(), toProperties("my.db.password", "hunter2"), "verify"),
+                Arguments.of("redacts *token*", singletonList("verify"), emptyList(), toProperties("github.token", "ghp_xxx"), "verify"),
+                Arguments.of("keeps safe property, drops sensitive one", singletonList("verify"), emptyList(),
+                        toProperties("foo", "bar", "gpg.passphrase", "s3cr3t"), "verify -Dfoo=bar")
         );
     }
 
-    private static Properties singletonProperties(final String key, final String value) {
+    private static Properties toProperties(final String... keysAndValues) {
         final Properties p = new Properties();
-        p.setProperty(key, value);
+        for (int i = 0; i < keysAndValues.length; i += 2) {
+            p.setProperty(keysAndValues[i], keysAndValues[i + 1]);
+        }
         return p;
     }
 
