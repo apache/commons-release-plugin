@@ -51,6 +51,14 @@ class GitUtilsTest {
                 Arguments.of(worktree, GitFixture.WORKTREE_BRANCH), Arguments.of(worktree.resolve(GitFixture.SUBDIR), GitFixture.WORKTREE_BRANCH));
     }
 
+    static Stream<Arguments> testGetHeadCommit() {
+        return Stream.of(
+                Arguments.of(repo, GitFixture.INITIAL_COMMIT_SHA),
+                Arguments.of(repo.resolve(GitFixture.SUBDIR), GitFixture.INITIAL_COMMIT_SHA),
+                Arguments.of(worktree, GitFixture.INITIAL_COMMIT_SHA),
+                Arguments.of(worktree.resolve(GitFixture.SUBDIR), GitFixture.INITIAL_COMMIT_SHA));
+    }
+
     static Stream<Arguments> testScmToDownloadUri() {
         return Stream.of(
                 Arguments.of("scm:git:https://gitbox.apache.org/repos/asf/commons-release-plugin.git",
@@ -78,6 +86,31 @@ class GitUtilsTest {
         GitFixture.createRepoAndWorktree(detachedRepo, detachedWorktree);
         GitFixture.git(detachedRepo, "checkout", "-q", "--detach", "HEAD");
         assertEquals(GitFixture.INITIAL_COMMIT_SHA, GitUtils.getCurrentBranch(detachedRepo));
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testGetHeadCommit(final Path repositoryPath, final String expectedSha) throws IOException {
+        assertEquals(expectedSha, GitUtils.getHeadCommit(repositoryPath));
+    }
+
+    @Test
+    void testGetHeadCommitDetachedHead() throws IOException {
+        final Path detachedRepo = tempDir.resolve("detached-head-commit-repo");
+        final Path detachedWorktree = tempDir.resolve("detached-head-commit-worktree");
+        GitFixture.createRepoAndWorktree(detachedRepo, detachedWorktree);
+        GitFixture.git(detachedRepo, "checkout", "-q", "--detach", "HEAD");
+        assertEquals(GitFixture.INITIAL_COMMIT_SHA, GitUtils.getHeadCommit(detachedRepo));
+    }
+
+    @Test
+    void testGetHeadCommitPackedRefs() throws IOException {
+        final Path packedRepo = tempDir.resolve("packed-repo");
+        final Path packedWorktree = tempDir.resolve("packed-worktree");
+        GitFixture.createRepoAndWorktree(packedRepo, packedWorktree);
+        // Move all loose refs (branches, tags) into .git/packed-refs and delete the loose files.
+        GitFixture.git(packedRepo, "pack-refs", "--all", "--prune");
+        assertEquals(GitFixture.INITIAL_COMMIT_SHA, GitUtils.getHeadCommit(packedRepo));
     }
 
     @ParameterizedTest

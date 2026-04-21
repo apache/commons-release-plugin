@@ -61,13 +61,6 @@ import org.apache.maven.plugins.gpg.AbstractGpgSigner;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.rtinfo.RuntimeInformation;
-import org.apache.maven.scm.CommandParameters;
-import org.apache.maven.scm.ScmException;
-import org.apache.maven.scm.ScmFileSet;
-import org.apache.maven.scm.command.info.InfoItem;
-import org.apache.maven.scm.command.info.InfoScmResult;
-import org.apache.maven.scm.manager.ScmManager;
-import org.apache.maven.scm.repository.ScmRepository;
 
 /**
  * Generates a SLSA v1.2 in-toto attestation covering all artifacts attached to the project.
@@ -175,10 +168,6 @@ public class BuildAttestationMojo extends AbstractMojo {
     @Parameter(property = "commons.release.scmDirectory", defaultValue = "${basedir}")
     private File scmDirectory;
     /**
-     * SCM manager to detect the Git revision.
-     */
-    private final ScmManager scmManager;
-    /**
      * The current Maven session, used to resolve plugin dependencies.
      */
     private final MavenSession session;
@@ -215,16 +204,14 @@ public class BuildAttestationMojo extends AbstractMojo {
      * Creates a new instance with the given dependencies.
      *
      * @param project            A Maven project.
-     * @param scmManager         A SCM manager.
      * @param runtimeInformation Maven runtime information.
      * @param session            A Maven session.
      * @param mavenProjectHelper A helper to attach artifacts to the project.
      */
     @Inject
-    public BuildAttestationMojo(final MavenProject project, final ScmManager scmManager, final RuntimeInformation runtimeInformation,
+    public BuildAttestationMojo(final MavenProject project, final RuntimeInformation runtimeInformation,
             final MavenSession session, final MavenProjectHelper mavenProjectHelper) {
         this.project = project;
-        this.scmManager = scmManager;
         this.runtimeInformation = runtimeInformation;
         this.session = session;
         this.mavenProjectHelper = mavenProjectHelper;
@@ -323,13 +310,13 @@ public class BuildAttestationMojo extends AbstractMojo {
      * Gets a resource descriptor for the current SCM source, including the URI and Git commit digest.
      *
      * @return A resource descriptor for the SCM source.
-     * @throws IOException            If the current branch cannot be determined.
-     * @throws MojoExecutionException If the SCM revision cannot be retrieved.
+     * @throws IOException If the current branch or the HEAD commit cannot be determined.
      */
-    private ResourceDescriptor getScmDescriptor() throws IOException, MojoExecutionException {
+    private ResourceDescriptor getScmDescriptor() throws IOException {
+        final Path scmPath = scmDirectory.toPath();
         return new ResourceDescriptor()
-                .setUri(GitUtils.scmToDownloadUri(scmConnectionUrl, scmDirectory.toPath()))
-                .setDigest(Collections.singletonMap("gitCommit", getScmRevision()));
+                .setUri(GitUtils.scmToDownloadUri(scmConnectionUrl, scmPath))
+                .setDigest(Collections.singletonMap("gitCommit", GitUtils.getHeadCommit(scmPath)));
     }
 
     /**
@@ -339,64 +326,6 @@ public class BuildAttestationMojo extends AbstractMojo {
      */
     public File getScmDirectory() {
         return scmDirectory;
-    }
-
-    /**
-     * Gets an SCM repository from the configured connection URL.
-     *
-     * @return The SCM repository.
-     * @throws MojoExecutionException If the SCM repository cannot be created.
-     */
-    private ScmRepository getScmRepository() throws MojoExecutionException {
-        try {
-            return scmManager.makeScmRepository(scmConnectionUrl);
-        } catch (final ScmException e) {
-            throw new MojoExecutionException("Failed to create SCM repository", e);
-        }
-    }
-
-    /**
-     * Gets the current SCM revision (commit hash) for the configured SCM directory.
-     *
-     * @return The current SCM revision string.
-     * @throws MojoExecutionException If the revision cannot be retrieved from SCM.
-     */
-    private String getScmRevision() throws MojoExecutionException {
-        final ScmRepository scmRepository = getScmRepository();
-        final CommandParameters commandParameters = new CommandParameters();
-        try {
-            final InfoScmResult result = scmManager.getProviderByRepository(scmRepository).info(scmRepository.getProviderRepository(),
-                    new ScmFileSet(scmDirectory), commandParameters);
-
-            return getScmRevision(result);
-        } catch (final ScmException e) {
-            throw new MojoExecutionException("Failed to retrieve SCM revision", e);
-        }
-    }
-
-    /**
-     * Extracts the revision string from an SCM info result.
-     *
-     * @param result The SCM info result.
-     * @return The revision string.
-     * @throws MojoExecutionException If the result is unsuccessful or contains no revision.
-     */
-    private String getScmRevision(final InfoScmResult result) throws MojoExecutionException {
-        if (!result.isSuccess()) {
-            throw new MojoExecutionException("Failed to retrieve SCM revision: " + result.getProviderMessage());
-        }
-
-        if (result.getInfoItems() == null || result.getInfoItems().isEmpty()) {
-            throw new MojoExecutionException("No SCM revision information found for " + scmDirectory);
-        }
-
-        final InfoItem item = result.getInfoItems().get(0);
-
-        final String revision = item.getRevision();
-        if (revision == null) {
-            throw new MojoExecutionException("Empty SCM revision returned for " + scmDirectory);
-        }
-        return revision;
     }
 
     /**

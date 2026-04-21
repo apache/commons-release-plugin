@@ -59,7 +59,6 @@ import org.apache.maven.plugins.gpg.AbstractGpgSigner;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.rtinfo.RuntimeInformation;
-import org.apache.maven.scm.manager.ScmManager;
 import org.codehaus.plexus.PlexusContainer;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.eclipse.aether.RepositorySystemSession;
@@ -118,9 +117,8 @@ public class BuildAttestationMojoTest {
 
     private static BuildAttestationMojo createBuildAttestationMojo(final MavenProject project, final MavenProjectHelper projectHelper)
             throws ComponentLookupException {
-        final ScmManager scmManager = container.lookup(ScmManager.class);
         final RuntimeInformation runtimeInfo = container.lookup(RuntimeInformation.class);
-        return new BuildAttestationMojo(project, scmManager, runtimeInfo,
+        return new BuildAttestationMojo(project, runtimeInfo,
                 createMavenSession(createMavenExecutionRequest(), new DefaultMavenExecutionResult()), projectHelper);
     }
 
