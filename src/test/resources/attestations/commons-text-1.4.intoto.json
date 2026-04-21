@@ -1,4 +1,5 @@
 {
+  "_type": "https://in-toto.io/Statement/v1",
   "subject": [
     {
       "name": "commons-text-1.4.jar",

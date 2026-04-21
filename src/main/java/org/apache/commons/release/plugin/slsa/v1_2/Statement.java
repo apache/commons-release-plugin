@@ -29,7 +29,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Statement {
 
     /** The in-toto statement schema URI. */
-    @JsonProperty("_type")
     public static final String TYPE = "https://in-toto.io/Statement/v1";
     /** The provenance predicate. */
     @JsonProperty("predicate")
@@ -53,6 +52,16 @@ public class Statement {
         Statement statement = (Statement) o;
         return Objects.equals(subject, statement.subject) && Objects.equals(predicateType, statement.predicateType) && Objects.equals(predicate,
                 statement.predicate);
+    }
+
+    /**
+     * Type of JSON object.
+     *
+     * @return Always {@value TYPE}
+     */
+    @JsonProperty("_type")
+    public String getType() {
+        return TYPE;
     }
 
     /**

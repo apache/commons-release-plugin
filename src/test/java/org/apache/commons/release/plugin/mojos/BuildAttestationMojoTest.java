@@ -20,7 +20,6 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonNodeAbsent;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonNodePresent;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonPartEquals;
-import static net.javacrumbs.jsonunit.JsonAssert.whenIgnoringPaths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
@@ -81,30 +80,29 @@ public class BuildAttestationMojoTest {
     private static RepositorySystemSession repoSession;
 
     private static void assertStatementContent(final JsonNode statement) {
-        assertJsonEquals(expectedStatement.get("subject"), statement.get("subject"),
-                JsonAssert.when(Option.IGNORING_ARRAY_ORDER));
-        assertJsonEquals(expectedStatement.get("predicateType"), statement.get("predicateType"));
-        assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/buildType"),
-                statement.at("/predicate/buildDefinition/buildType"));
-        assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/externalParameters"),
-                statement.at("/predicate/buildDefinition/externalParameters"),
-                JsonAssert.when(Option.IGNORING_VALUES).whenIgnoringPaths("jvm.args", "env"));
-        assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/internalParameters"),
-                statement.at("/predicate/buildDefinition/internalParameters"));
+        // Check all fields except `predicate`
+        assertJsonEquals(expectedStatement, statement,
+                JsonAssert.whenIgnoringPaths("predicate"));
+
+        // Build definition except:
+        // - some external parameters we don't control
+        // - the resolved dependencies for which we check the structure, but ignore the values
+        assertJsonEquals(expectedStatement.at("/predicate/buildDefinition"), statement.at("/predicate/buildDefinition"),
+                JsonAssert.whenIgnoringPaths("externalParameters.jvm.args", "externalParameters.env", "resolvedDependencies",
+                        "runDetails.metadata.finishedOn"));
+
         // `[0].annotations` holds JVM system properties;
         // Not all properties are available on all JDKs, so they are either null or strings, which json-unit treats as a structural mismatch.
         // We will check them below
         assertJsonEquals(expectedStatement.at("/predicate/buildDefinition/resolvedDependencies"),
                 statement.at("/predicate/buildDefinition/resolvedDependencies"),
                 JsonAssert.when(Option.IGNORING_VALUES).whenIgnoringPaths("[0].annotations"));
+
         final Set<String> expectedJdkFields = fieldNames(
                 expectedStatement.at("/predicate/buildDefinition/resolvedDependencies/0/annotations"));
         final Set<String> actualJdkFields = fieldNames(
                 statement.at("/predicate/buildDefinition/resolvedDependencies/0/annotations"));
         assertEquals(expectedJdkFields, actualJdkFields);
-        assertJsonEquals(expectedStatement.at("/predicate/runDetails"),
-                statement.at("/predicate/runDetails"),
-                whenIgnoringPaths("metadata.finishedOn"));
     }
 
     private static void configureBuildAttestationMojo(final BuildAttestationMojo mojo, final boolean signAttestation) {
