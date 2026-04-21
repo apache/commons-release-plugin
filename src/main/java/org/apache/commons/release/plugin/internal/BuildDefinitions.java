@@ -150,7 +150,7 @@ public final class BuildDefinitions {
      * Creates a {@link ResourceDescriptor} for the Maven installation used during the build.
      *
      * <p>{@code build.properties} resides in a JAR inside {@code ${maven.home}/lib/}, which is loaded by Maven's Core Classloader.
-     * Plugin code runs in an isolated Plugin Classloader, which does see that resources. Therefore, we need to pass the classloader from a class from
+     * Plugin code runs in an isolated Plugin Classloader, which does not see those resources. Therefore, we need to pass the classloader from a class from
      * Maven Core, such as {@link org.apache.maven.rtinfo.RuntimeInformation}.</p>
      *
      * @param version         Maven version string
