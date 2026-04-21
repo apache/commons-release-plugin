@@ -1,0 +1,189 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "commons-text-1.4.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?type=jar",
+      "digest": {
+        "md5": "9cbe22bb0ce86c70779213dfb7f3eb5a",
+        "sha1": "c81f089b3542485d4d09b02aae822906e5d2f209",
+        "sha256": "ad2d2eacf15ab740c115294afc1192603d8342004a6d7d0ad35446f7dda8a134",
+        "sha512": "126302c5f6865733774eb41fecc10ba8d0bb5ba11d14b9562047429abeb13bf8cdcdbfdf5e7d7708e2a40f67f4265cbbce609164f57abcd676067a840aa48e6a"
+      }
+    },
+    {
+      "name": "commons-text-1.4.pom",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?type=pom",
+      "digest": {
+        "md5": "00045f652e3dc8970442ce819806db34",
+        "sha1": "26fa30e496321e74c77ad66781ba53448e6e3a68",
+        "sha256": "4d6277b1e0720bb054c640620679a9da120f753029342150e714095f48934d76",
+        "sha512": "db8934f3062ea9c965ea27cfe4517a25513fb7cebe35ed02bedc1d8287b01c7ba64c93a8a261325fe12ab6957cbd80dbc8c06ec34c9a23c5a5c89ef6bace88fe"
+      }
+    },
+    {
+      "name": "commons-text-1.4-sources.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=sources&type=jar",
+      "digest": {
+        "md5": "21af10902cea10cf54bc9acf956863d4",
+        "sha1": "cadbe9d3980a21e6eaec3aad629bbcdb7714aa3f",
+        "sha256": "58a95591fe7fc94db94a0a9e64b4a5bcc1c49edf17f2b24d7c0747357d855761",
+        "sha512": "c91ed209fa97c5e69e21d3a29d1f2ea90f2f77451762b3c387a8cb94dea167b4d3f04ea1a8635232476d804f40935698b4f8884fd43520bcc79b3a0f9a757716"
+      }
+    },
+    {
+      "name": "commons-text-1.4-javadoc.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=javadoc&type=jar",
+      "digest": {
+        "md5": "2ad93e1d99c0b80cbf6872d1762d7297",
+        "sha1": "9f06cdf753e1bb512e7640ec5fcce83f5a19ba2c",
+        "sha256": "42f5b341d0fbeaa30b06aed90612840bc513fb39792c3d39446510670216e8b1",
+        "sha512": "052ab4e9facfc64f265a567607d40d37620b616908ce71405cae9cd30ad6ac9f2558663029933f90df67c1e748ac81451a32e28975dc773c2c7476c489146c30"
+      }
+    },
+    {
+      "name": "commons-text-1.4-tests.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=tests&type=jar",
+      "digest": {
+        "md5": "9820547734aff2c17c4a696bbd7d8d5e",
+        "sha1": "dbfb945a12375e9fe06558840b43f35374c391ff",
+        "sha256": "e4e365d08d601a4bda44be2a31f748b96762504d301742d4a0f7f5953d4c793a",
+        "sha512": "a8e373cf10a9dc2d3c1cfdd43b23910c9ca9d83dea4e566772dd1ebe5e28419777e0d83b002e8cf950f7bde3218b714e0cc3718464ee34ecda77f603e260ab20"
+      }
+    },
+    {
+      "name": "commons-text-1.4-test-sources.jar",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=test-sources&type=jar",
+      "digest": {
+        "md5": "340231a697e2862c8d820de419a91d3e",
+        "sha1": "5e107fc877c67992948620a8a2d9bb94cab21aa0",
+        "sha256": "9200a2a41b35f2d6d30c1c698308591cf577547ec39514657dff0e2f7dff18ca",
+        "sha512": "02b405eb9aff57959a3e066030745be47b76c71af71f86e06fd5004602a399cdf86b1149554e92e9922d9da2fd2239dcf6e8c783462167320838dd7662405b30"
+      }
+    },
+    {
+      "name": "commons-text-1.4-bin.tar.gz",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=bin&type=tar.gz",
+      "digest": {
+        "md5": "9fe25162590be6fa684a9d9cdc0b505d",
+        "sha1": "6f46fd82d5ccf9644a37bcec6f2158a52ebdbab8",
+        "sha256": "8b9393f7ddc2efb69d8c2b6f4d85d8711dddfe77009799cf21619fc9b8411897",
+        "sha512": "c76f4e5814c0533030fecf0ef7639ce68df54b76ebc1320d9c4e3b8dff0a90c95ce0a425b8df6a0d742f6e9fca8dce6f08632d576c6a99357fdd54b9435fed6c"
+      }
+    },
+    {
+      "name": "commons-text-1.4-bin.zip",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=bin&type=zip",
+      "digest": {
+        "md5": "e29e5290b7420ba1908c418fc5bc7f8a",
+        "sha1": "447a051d6c8292c7e4d7641ca6586b335ef13bd6",
+        "sha256": "ad3732dcb38e510b1dbb1544115d0eb797fab61afe0008fdb187cd4ef1706cd7",
+        "sha512": "040634b27146e2008bf953f1bb63f8ccbb63cdaaaf24beb17acc6782d31452214e755539c2df737e46e7ede5d4e376cb3de5bbf72ceba5409b43f25612c2bf40"
+      }
+    },
+    {
+      "name": "commons-text-1.4-src.tar.gz",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=src&type=tar.gz",
+      "digest": {
+        "md5": "be130c23d3b6630824e2a08530bd4581",
+        "sha1": "0dcee421c4e03d6bc098a61a5cdcc90656856611",
+        "sha256": "1cb8536c375c3cff66757fd40c2bf878998254ba0a247866a6536bd48ba2e88a",
+        "sha512": "8279eb7f45009f11658c256b07cfb06c5a45ef89949e78a67e5d64520d957707f90a9614c95e8aac350a07a54f9160f0802dbd1efc0769a5b1391e52ee4cd51b"
+      }
+    },
+    {
+      "name": "commons-text-1.4-src.zip",
+      "uri": "pkg:maven/commons-text/commons-text@1.4?classifier=src&type=zip",
+      "digest": {
+        "md5": "fd65603e930f2b0805c809aa2deb1498",
+        "sha1": "ca1cc6fbb4e46b44f8bb09b70c9e3a2ae3c5fce8",
+        "sha256": "e4a6c992153faae4f7faff689b899073000364e376736b9746a5d0acb9d8b980",
+        "sha512": "79ca61ff7b287407428bbb6ae13c6d372dcd0665114c55cd5bc57978a6fa760305e32feabef62cfeb0c4181220a59406239f6cccaa9a25c68773eef0250cb3a9"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "https://commons.apache.org/proper/commons-release-plugin/slsa/v0.1.0",
+      "externalParameters": {
+        "maven.profiles": [
+          "release"
+        ],
+        "maven.cmdline": "deploy -Prelease -Dgpg.keyname=3C8D57E0A2B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9",
+        "jvm.args": [
+          "-Dfile.encoding=UTF-8",
+          "-Dsun.stdout.encoding=UTF-8",
+          "-Dsun.stderr.encoding=UTF-8"
+        ],
+        "maven.user.properties": {
+          "gpg.keyname": "3C8D57E0A2B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9"
+        },
+        "maven.goals": [
+          "deploy"
+        ],
+        "env": {
+          "LANG": "pl_PL.UTF-8"
+        }
+      },
+      "internalParameters": {},
+      "resolvedDependencies": [
+        {
+          "name": "JDK",
+          "digest": {
+            "gitTree": "bdb67e47c1b7df9c35ae045f29a348bb5bd32dc3"
+          },
+          "annotations": {
+            "home": "/usr/lib/jvm/temurin-25-jdk-amd64",
+            "specification.maintenance.version": null,
+            "specification.name": "Java Platform API Specification",
+            "specification.vendor": "Oracle Corporation",
+            "specification.version": "25",
+            "vendor": "Eclipse Adoptium",
+            "vendor.url": "https://adoptium.net/",
+            "vendor.version": "Temurin-25.0.2+10",
+            "version": "25.0.2",
+            "version.date": "2026-01-20",
+            "vm.name": "OpenJDK 64-Bit Server VM",
+            "vm.specification.name": "Java Virtual Machine Specification",
+            "vm.specification.vendor": "Oracle Corporation",
+            "vm.specification.version": "25",
+            "vm.vendor": "Eclipse Adoptium",
+            "vm.version": "25.0.2+10-LTS"
+          }
+        },
+        {
+          "name": "Maven",
+          "uri": "pkg:maven/org.apache.maven/apache-maven@3.9.12",
+          "digest": {
+            "gitTree": "3cdb4a67690dc18373f70ead98dc86567cc5ad67"
+          },
+          "annotations": {
+            "distributionId": "apache-maven",
+            "distributionName": "Apache Maven",
+            "distributionShortName": "Maven",
+            "buildNumber": "848fbb4bf2d427b72bdb2471c22fced7ebd9a7a1",
+            "version": "3.9.12"
+          }
+        },
+        {
+          "uri": "git+https://github.com/apache/commons-text.git@feat/slsa",
+          "digest": {
+            "gitCommit": "f519b3670795da3fb4f43b6af1f727eadf8e6800"
+          }
+        }
+      ]
+    },
+    "runDetails": {
+      "builder": {
+        "id": "pkg:maven/${project.groupId}/${project.artifactId}@${project.version}",
+        "builderDependencies": [],
+        "version": {}
+      },
+      "metadata": {
+        "startedOn": "2026-04-20T09:28:44Z",
+        "finishedOn": "2026-04-20T09:38:12Z"
+      }
+    }
+  }
+}
