@@ -17,6 +17,7 @@
 package org.apache.commons.release.plugin.internal;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -25,6 +26,7 @@ import java.nio.file.Path;
 import java.util.Locale;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.release.plugin.slsa.v1_2.DsseEnvelope;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -47,7 +49,7 @@ public final class DsseUtils {
     /**
      * Creates and prepares a {@link GpgSigner} from the given configuration.
      *
-     * <p>The returned signer has {@link AbstractGpgSigner#prepare()} already called and is ready for use with {@link #signFile(AbstractGpgSigner, Path)}.</p>
+     * <p>The returned signer has {@link AbstractGpgSigner#prepare()} already called and is ready for use with {@link #signStatement}.</p>
      *
      * @param executable     path to the GPG executable, or {@code null} to use {@code gpg} from {@code PATH}
      * @param defaultKeyring whether to include the default GPG keyring
@@ -95,57 +97,66 @@ public final class DsseUtils {
     }
 
     /**
-     * Signs {@code paeFile} and returns the raw OpenPGP signature bytes.
+     * Signs a serialized DSSE payload and returns the raw OpenPGP signature bytes.
      *
-     * <p>The signer must already have {@link AbstractGpgSigner#prepare()} called before this method is invoked.</p>
-     *
-     * @param signer  the configured, prepared signer
-     * @param path path to the file to sign
-     * @return raw binary PGP signature bytes
-     * @throws MojoExecutionException if signing or signature decoding fails
-     */
-    public static byte[] signFile(final AbstractGpgSigner signer, final Path path) throws MojoExecutionException {
-        final Path signaturePath = signer.generateSignatureForArtifact(path.toFile()).toPath();
-        final byte[] signatureBytes;
-        try (InputStream in = Files.newInputStream(signaturePath); ArmoredInputStream armoredIn = new ArmoredInputStream(in)) {
-            signatureBytes = IOUtils.toByteArray(armoredIn);
-        } catch (final IOException e) {
-            throw new MojoExecutionException("Failed to read signature file: " + signaturePath, e);
-        }
-        try {
-            Files.delete(signaturePath);
-        } catch (final IOException e) {
-            throw new MojoExecutionException("Failed to delete signature file: " + signaturePath, e);
-        }
-        return signatureBytes;
-    }
-
-    /**
-     * Writes serialized JSON to a file using the DSSE Pre-Authentication Encoding (PAE).
+     * <p>Creates a unique temporary {@code .pae} file inside {@code workDir}, containing the payload
+     * wrapped in the DSSE Pre-Authentication Encoding:</p>
      *
      * <pre>PAE(type, body) = "DSSEv1" + SP + LEN(type) + SP + type + SP + LEN(body) + SP + body</pre>
      *
-     * @param statementBytes the already-serialized JSON statement bytes to encode
-     * @param buildDirectory directory in which the PAE file is created
-     * @return path to the written PAE file
-     * @throws MojoExecutionException if I/O fails
+     * <p>then invokes {@code signer} on that file, reads back the un-armored PGP signature, and
+     * deletes both temporary files in a {@code finally} block. Cleanup is best-effort; a delete
+     * failure at the end of a successful sign only leaves a stray temporary file in {@code workDir}
+     * and does not fail the build.</p>
+     *
+     * <p>The signer must already have {@link AbstractGpgSigner#prepare()} called before this method
+     * is invoked.</p>
+     *
+     * @param signer         the configured, prepared signer
+     * @param statementBytes the already-serialized JSON statement bytes to sign
+     * @param workDir        directory in which to create the intermediate PAE and signature files
+     * @return raw binary PGP signature bytes
+     * @throws MojoExecutionException if encoding, signing, or signature decoding fails
      */
-    public static Path writePaeFile(final byte[] statementBytes, final Path buildDirectory) throws MojoExecutionException {
+    public static byte[] signStatement(final AbstractGpgSigner signer, final byte[] statementBytes, final Path workDir)
+            throws MojoExecutionException {
+        File paeFile = null;
+        File ascFile = null;
         try {
-            final byte[] payloadTypeBytes = DsseEnvelope.PAYLOAD_TYPE.getBytes(StandardCharsets.UTF_8);
+            paeFile = File.createTempFile("statement-", ".pae", workDir.toFile());
+            FileUtils.writeByteArrayToFile(paeFile, paeEncode(statementBytes));
+            ascFile = signer.generateSignatureForArtifact(paeFile);
+            try (InputStream in = Files.newInputStream(ascFile.toPath());
+                 ArmoredInputStream armoredIn = new ArmoredInputStream(in)) {
+                return IOUtils.toByteArray(armoredIn);
+            }
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Failed to sign attestation statement", e);
+        } finally {
+            FileUtils.deleteQuietly(paeFile);
+            FileUtils.deleteQuietly(ascFile);
+        }
+    }
 
-            final ByteArrayOutputStream pae = new ByteArrayOutputStream();
+    /**
+     * Encodes {@code statementBytes} using the DSSEv1 Pre-Authentication Encoding.
+     *
+     * @param statementBytes the already-serialized JSON statement bytes to encode
+     * @return the PAE-encoded bytes
+     */
+    private static byte[] paeEncode(final byte[] statementBytes) {
+        final byte[] payloadTypeBytes = DsseEnvelope.PAYLOAD_TYPE.getBytes(StandardCharsets.UTF_8);
+        final ByteArrayOutputStream pae = new ByteArrayOutputStream();
+        try {
             pae.write(("DSSEv1 " + payloadTypeBytes.length + " ").getBytes(StandardCharsets.UTF_8));
             pae.write(payloadTypeBytes);
             pae.write((" " + statementBytes.length + " ").getBytes(StandardCharsets.UTF_8));
             pae.write(statementBytes);
-
-            final Path paeFile = buildDirectory.resolve("statement.pae");
-            Files.write(paeFile, pae.toByteArray());
-            return paeFile;
         } catch (final IOException e) {
-            throw new MojoExecutionException("Failed to write PAE file", e);
+            // ByteArrayOutputStream#write(byte[]) never throws; this branch is unreachable.
+            throw new IllegalStateException(e);
         }
+        return pae.toByteArray();
     }
 
     /**
