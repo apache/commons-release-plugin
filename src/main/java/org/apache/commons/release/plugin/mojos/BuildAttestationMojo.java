@@ -70,9 +70,25 @@ import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.repository.ScmRepository;
 
 /**
- * This plugin generates an in-toto attestation for all the artifacts.
+ * Generates a SLSA v1.2 in-toto attestation covering all artifacts attached to the project.
+ *
+ * <p>The goal binds to the {@code post-integration-test} phase so the following constraints are
+ * satisfied:</p>
+ * <ul>
+ *   <li>it runs after {@code package}, so every build artifact is already attached to the project;</li>
+ *   <li>it runs before {@code maven-gpg-plugin}'s {@code sign} goal (bound to {@code verify}), so
+ *       the attestation file itself receives the detached {@code .asc} signature required by
+ *       Maven Central;</li>
+ *   <li>it runs before {@code detach-distributions} (also bound to {@code verify}), so the
+ *       distribution archives ({@code tar.gz}, {@code zip}) are covered by the attestation before
+ *       they are removed from the list of artifacts to deploy.</li>
+ * </ul>
+ *
+ * <p>Binding to an earlier lifecycle phase than {@code verify} is needed because Maven 3 cannot
+ * order executions of different plugins within the same phase in a way that satisfies all three
+ * constraints at once.</p>
  */
-@Mojo(name = "build-attestation", defaultPhase = LifecyclePhase.VERIFY, requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
+@Mojo(name = "build-attestation", defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST, requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class BuildAttestationMojo extends AbstractMojo {
 
     /**
