@@ -248,6 +248,8 @@ public class BuildAttestationMojoTest {
         assertJsonNodePresent(envelopeJson, "signatures[0]");
         assertJsonNodeAbsent(envelopeJson, "signatures[1]");
         assertJsonPartEquals("${json-unit.regex}.+", envelopeJson, "signatures[0].sig");
+        // Issuer fingerprint extracted from the canned commons-text-1.4.jar.asc.
+        assertJsonPartEquals("b6e73d84ea4fcc47166087253faad2cd5ecbb314", envelopeJson, "signatures[0].keyid");
 
         final DsseEnvelope envelope = OBJECT_MAPPER.readValue(envelopeJson.trim(), DsseEnvelope.class);
         final JsonNode statement = OBJECT_MAPPER.readTree(envelope.getPayload());
