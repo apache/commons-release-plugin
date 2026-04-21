@@ -320,15 +320,6 @@ public class BuildAttestationMojo extends AbstractMojo {
     }
 
     /**
-     * Gets the SCM directory.
-     *
-     * @return The SCM directory.
-     */
-    public File getScmDirectory() {
-        return scmDirectory;
-    }
-
-    /**
      * Gets the GPG signer, creating and preparing it from plugin parameters if not already set.
      *
      * @return the prepared signer
@@ -397,7 +388,7 @@ public class BuildAttestationMojo extends AbstractMojo {
      *
      * @param scmDirectory The SCM directory.
      */
-    public void setScmDirectory(final File scmDirectory) {
+    void setScmDirectory(final File scmDirectory) {
         this.scmDirectory = scmDirectory;
     }
 
