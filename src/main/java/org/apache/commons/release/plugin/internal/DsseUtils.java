@@ -88,7 +88,7 @@ public final class DsseUtils {
                     return Hex.encodeHexString(fp.getFingerprint());
                 }
             }
-            return Long.toHexString(sig.getKeyID()).toUpperCase(Locale.ROOT);
+            return Long.toHexString(sig.getKeyID()).toLowerCase(Locale.ROOT);
         } catch (final IOException e) {
             throw new MojoExecutionException("Failed to extract key ID from signature", e);
         }
