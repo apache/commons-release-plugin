@@ -107,6 +107,12 @@ public class BuildAttestationMojo extends AbstractMojo {
 
     /**
      * Checksum algorithms used in the generated attestation.
+     *
+     * <p>The default list is:</p>
+     * <ul>
+     *   <li>{@code SHA-1} and {@code MD5} are easily available from Maven Central without downloading the artifact;</li>
+     *   <li>{@code SHA-512} and {@code SHA-256} provide more security to the signed attestation, if the artifact is downloaded.</li>
+     * </ul>
      */
     @Parameter(property = "commons.release.checksums.algorithms", defaultValue = "SHA-512,SHA-256,SHA-1,MD5")
     private String algorithmNames;
@@ -189,7 +195,7 @@ public class BuildAttestationMojo extends AbstractMojo {
     /**
      * Whether to skip attaching the attestation artifact to the project.
      */
-    @Parameter(property = "commons.release.skipAttach")
+    @Parameter(property = "commons.release.skipAttach", defaultValue = "false")
     private boolean skipAttach;
     /**
      * Whether to use gpg-agent for passphrase management.
