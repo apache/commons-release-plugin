@@ -501,8 +501,14 @@ public class BuildAttestationMojo extends AbstractMojo {
             throw new MojoExecutionException("Failed to serialize attestation statement", e);
         }
         final AbstractGpgSigner signer = getSigner();
-        final Path paeFile = DsseUtils.writePaeFile(statementBytes, outputPath);
-        final byte[] sigBytes = DsseUtils.signFile(signer, paeFile);
+        final byte[] sigBytes;
+        try {
+            final Path paeFile = DsseUtils.writePaeFile(statementBytes, outputPath);
+            sigBytes = DsseUtils.signFile(signer, paeFile);
+            Files.deleteIfExists(paeFile);
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Failed to sign attestation statement", e);
+        }
 
         final Signature sig = new Signature()
                 .setKeyid(DsseUtils.getKeyId(sigBytes))
