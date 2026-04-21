@@ -176,12 +176,6 @@
     </dependency>
     <dependency>
       <groupId>org.apache.maven.scm</groupId>
-      <artifactId>maven-scm-manager-plexus</artifactId>
-      <version>${maven-scm.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.scm</groupId>
       <artifactId>maven-scm-provider-svnexe</artifactId>
       <version>${maven-scm.version}</version>
     </dependency>
@@ -514,20 +508,6 @@
                 </rule>
               </rules>
               <haltOnFailure>${commons.jacoco.haltOnFailure}</haltOnFailure>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- Copy nested `.git` folders excluded by default -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>default-testResources</id>
-            <configuration>
-              <addDefaultExcludes>false</addDefaultExcludes>
             </configuration>
           </execution>
         </executions>
