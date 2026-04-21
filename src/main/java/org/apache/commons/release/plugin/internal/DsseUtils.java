@@ -24,12 +24,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Locale;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.release.plugin.slsa.v1_2.DsseEnvelope;
-import org.apache.commons.release.plugin.slsa.v1_2.Statement;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
@@ -121,25 +118,6 @@ public final class DsseUtils {
             throw new MojoExecutionException("Failed to delete signature file: " + signaturePath, e);
         }
         return signatureBytes;
-    }
-
-    /**
-     * Serializes {@code statement} to JSON using the DSSE Pre-Authentication Encoding (PAE).
-     *
-     * <pre>PAE(type, body) = "DSSEv1" + SP + LEN(type) + SP + type + SP + LEN(body) + SP + body</pre>
-     *
-     * @param statement      the attestation statement to encode
-     * @param objectMapper   the Jackson mapper used to serialize {@code statement}
-     * @param buildDirectory directory in which the PAE file is created
-     * @return path to the written PAE file
-     * @throws MojoExecutionException if serialization or I/O fails
-     */
-    public static Path writePaeFile(final Statement statement, final ObjectMapper objectMapper, final Path buildDirectory) throws MojoExecutionException {
-        try {
-            return writePaeFile(objectMapper.writeValueAsBytes(statement), buildDirectory);
-        } catch (final JsonProcessingException e) {
-            throw new MojoExecutionException("Failed to serialize attestation statement", e);
-        }
     }
 
     /**
