@@ -268,6 +268,12 @@
       <version>4.11.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-exec</artifactId>
+      <version>1.6.0</version>
+      <scope>test</scope>
+    </dependency>
     <!--  A bit of jar-hell requires this to come last. -->
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -518,6 +524,20 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- Copy nested `.git` folders excluded by default -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-testResources</id>
+            <configuration>
+              <addDefaultExcludes>false</addDefaultExcludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <reporting>
@@ -631,7 +651,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-      </plugin>              
+      </plugin>
     </plugins>
   </reporting>
 

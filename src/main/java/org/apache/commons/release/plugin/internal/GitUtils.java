@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 
 import org.apache.commons.codec.binary.Hex;
@@ -32,7 +31,15 @@ import org.apache.commons.codec.digest.GitIdentifiers;
  */
 public final class GitUtils {
 
-    /** The SCM URI prefix for Git repositories. */
+    /**
+     * Prefix used in a {@code gitfile} to point to the Git directory.
+     *
+     * <p>See <a href="https://git-scm.com/docs/gitrepository-layout">gitrepository-layout</a>.</p>
+     */
+    private static final String GITDIR_PREFIX = "gitdir: ";
+    /**
+     * The SCM URI prefix for Git repositories.
+     */
     private static final String SCM_GIT_PREFIX = "scm:git:";
 
     /**
@@ -52,8 +59,8 @@ public final class GitUtils {
             if (Files.isRegularFile(candidate)) {
                 // git worktree: .git is a file containing "gitdir: /path/to/real/.git"
                 final String content = new String(Files.readAllBytes(candidate), StandardCharsets.UTF_8).trim();
-                if (content.startsWith("gitdir: ")) {
-                    return Paths.get(content.substring("gitdir: ".length()));
+                if (content.startsWith(GITDIR_PREFIX)) {
+                    return current.resolve(content.substring(GITDIR_PREFIX.length()));
                 }
             }
             current = current.getParent();
@@ -98,7 +105,7 @@ public final class GitUtils {
     /**
      * Converts an SCM URI to a download URI suffixed with the current branch name.
      *
-     * @param scmUri A Maven SCM URI starting with {@code scm:git}.
+     * @param scmUri         A Maven SCM URI starting with {@code scm:git}.
      * @param repositoryPath A path inside the Git repository.
      * @return A download URI of the form {@code git+<url>@<branch>}.
      * @throws IOException If the current branch cannot be determined.
@@ -111,7 +118,9 @@ public final class GitUtils {
         return "git+" + scmUri.substring(SCM_GIT_PREFIX.length()) + "@" + currentBranch;
     }
 
-    /** No instances. */
+    /**
+     * No instances.
+     */
     private GitUtils() {
         // no instantiation
     }
