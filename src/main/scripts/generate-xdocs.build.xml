@@ -126,6 +126,8 @@
              <filter token="TAGCOMMIT"      value="${git.tag.commit}"/>
              <filter token="SITEURL"        value="${svn.site.url}"/>
              <filter token="NEXUS_REPO_ID"  value="${commons.nexus.repo.id}"/>
+             <filter token="JAVA_VERSION"   value="${java.version}"/>
+             <filter token="TIMEZONE"       value="${user.timezone}"/>
             </filterset>
         </copy>
 
