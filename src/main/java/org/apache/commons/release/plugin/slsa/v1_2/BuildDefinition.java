@@ -180,8 +180,8 @@ public class BuildDefinition {
 
     @Override
     public String toString() {
-        return "BuildDefinition{buildType='" + buildType + '\''
-                + ", externalParameters=" + externalParameters
+        return "BuildDefinition{buildType='" + buildType
+                + "', externalParameters=" + externalParameters
                 + ", internalParameters=" + internalParameters
                 + ", resolvedDependencies=" + resolvedDependencies + '}';
     }

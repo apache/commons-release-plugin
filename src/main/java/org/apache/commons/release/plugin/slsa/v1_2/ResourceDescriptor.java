@@ -231,6 +231,6 @@ public class ResourceDescriptor {
 
     @Override
     public String toString() {
-        return "ResourceDescriptor{uri='" + uri + '\'' + ", digest=" + digest + '}';
+        return "ResourceDescriptor{uri='" + uri + "', digest=" + digest + '}';
     }
 }

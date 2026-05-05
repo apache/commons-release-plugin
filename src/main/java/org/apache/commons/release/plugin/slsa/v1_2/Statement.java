@@ -127,6 +127,6 @@ public class Statement {
 
     @Override
     public String toString() {
-        return "Statement{_type='" + TYPE + "', subject=" + subject + ", predicateType='" + predicateType + "', predicate=" + predicate + '}';
+        return "Statement{type='" + TYPE + "', subject=" + subject + ", predicateType='" + predicateType + "', predicate=" + predicate + '}';
     }
 }
