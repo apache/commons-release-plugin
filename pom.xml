@@ -103,7 +103,7 @@
     <moditect.skip>true</moditect.skip>
     <japicmp.skip>true</japicmp.skip>
     <!-- Dependency versions -->
-    <commons.jackson.version>2.21.2</commons.jackson.version>
+    <commons.jackson.version>2.21.3</commons.jackson.version>
   </properties>
   <dependencyManagement>
     <dependencies>
