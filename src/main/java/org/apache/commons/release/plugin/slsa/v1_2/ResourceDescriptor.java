@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * <p>Used to represent inputs to, outputs from, or byproducts of the build process.</p>
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
+ * @since 1.10.0
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResourceDescriptor {

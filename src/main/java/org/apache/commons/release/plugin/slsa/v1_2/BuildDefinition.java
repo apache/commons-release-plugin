@@ -30,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * {@link Provenance} record.</p>
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
+ * @since 1.10.0
  */
 public class BuildDefinition {
 

@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * DSSE (Dead Simple Signing Envelope) that wraps a signed in-toto statement payload.
  *
  * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
+ * @since 1.10.0
  */
 public class DsseEnvelope {
 

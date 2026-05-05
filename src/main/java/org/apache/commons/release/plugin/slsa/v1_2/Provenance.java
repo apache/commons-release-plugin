@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * used as the {@code predicate} field of an in-toto {@link Statement}.</p>
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
+ * @since 1.10.0
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Provenance {

@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Details about the build invocation: the builder identity, execution metadata, and any byproduct artifacts.
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
+ * @since 1.10.0
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RunDetails {

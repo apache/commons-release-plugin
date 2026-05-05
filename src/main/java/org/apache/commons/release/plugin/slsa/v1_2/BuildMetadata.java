@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Metadata about a build invocation: its identifier and start and finish timestamps.
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
+ * @since 1.10.0
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BuildMetadata {
