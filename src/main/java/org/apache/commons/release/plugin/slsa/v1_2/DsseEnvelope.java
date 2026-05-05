@@ -21,11 +21,13 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * DSSE (Dead Simple Signing Envelope) that wraps a signed in-toto statement payload.
  *
  * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
+ * @since 1.10.0
  */
 public class DsseEnvelope {
 
@@ -124,7 +126,8 @@ public class DsseEnvelope {
 
     @Override
     public String toString() {
-        return "DsseEnvelope{payloadType='" + payloadType + "', payload=<" + (payload != null ? payload.length : 0)
+        return "DsseEnvelope{payloadType='" + payloadType
+                + "', payload=<" + ArrayUtils.getLength(payload)
                 + " bytes>, signatures=" + signatures + '}';
     }
 }

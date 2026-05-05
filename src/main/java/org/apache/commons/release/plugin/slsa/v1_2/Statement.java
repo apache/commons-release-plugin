@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * In-toto v1 attestation envelope that binds a set of subject artifacts to an SLSA provenance predicate.
  *
  * @see <a href="https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md">in-toto Statement v1</a>
+ * @since 1.10.0
  */
 public class Statement {
 
@@ -126,6 +127,6 @@ public class Statement {
 
     @Override
     public String toString() {
-        return "Statement{_type='" + TYPE + "', subject=" + subject + ", predicateType='" + predicateType + "', predicate=" + predicate + '}';
+        return "Statement{type='" + TYPE + "', subject=" + subject + ", predicateType='" + predicateType + "', predicate=" + predicate + '}';
     }
 }

@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * A single cryptographic signature within a DSSE envelope.
  *
  * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
+ * @since 1.10.0
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Signature {

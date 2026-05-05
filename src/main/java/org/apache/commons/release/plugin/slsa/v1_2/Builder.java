@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Entity that executed the build and is trusted to have correctly performed the operation and populated the provenance.
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
+ * @since 1.10.0
  */
 public class Builder {
 

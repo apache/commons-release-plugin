@@ -29,6 +29,7 @@
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @see <a href="https://github.com/in-toto/attestation">In-toto Attestation Framework</a>
  * @see <a href="https://github.com/FasterXML/jackson">Jackson JSON processor</a>
+ * @since 1.10.0
  */
 package org.apache.commons.release.plugin.slsa.v1_2;
 
