@@ -62,8 +62,8 @@ public class ResourceDescriptor {
     /**
      * Creates a new ResourceDescriptor with the given URI and digest.
      *
-     * @param uri    URI identifying the resource
-     * @param digest map of digest algorithm names to their hex-encoded values
+     * @param uri    URI identifying the resource.
+     * @param digest map of digest algorithm names to their hex-encoded values.
      */
     public ResourceDescriptor(String uri, Map<String, String> digest) {
         this.uri = uri;
@@ -85,7 +85,7 @@ public class ResourceDescriptor {
     /**
      * Gets additional key-value metadata about the resource, such as filename, size, or builder-specific attributes.
      *
-     * @return the annotations map, or {@code null} if not set
+     * @return the annotations map, or {@code null} if not set.
      */
     public Map<String, Object> getAnnotations() {
         return annotations;
@@ -94,7 +94,7 @@ public class ResourceDescriptor {
     /**
      * Gets the raw contents of the resource, base64-encoded when serialized to JSON.
      *
-     * @return the resource content, or {@code null} if not set
+     * @return the resource content, or {@code null} if not set.
      */
     public byte[] getContent() {
         return content;
@@ -105,7 +105,7 @@ public class ResourceDescriptor {
      *
      * <p>Common keys include {@code "sha256"} and {@code "sha512"}.</p>
      *
-     * @return the digest map, or {@code null} if not set
+     * @return the digest map, or {@code null} if not set.
      */
     public Map<String, String> getDigest() {
         return digest;
@@ -114,7 +114,7 @@ public class ResourceDescriptor {
     /**
      * Gets the download URI for the resource, if different from {@link #getUri()}.
      *
-     * @return the download location URI, or {@code null} if not set
+     * @return the download location URI, or {@code null} if not set.
      */
     public String getDownloadLocation() {
         return downloadLocation;
@@ -123,7 +123,7 @@ public class ResourceDescriptor {
     /**
      * Gets the media type of the resource (e.g., {@code "application/octet-stream"}).
      *
-     * @return the media type, or {@code null} if not set
+     * @return the media type, or {@code null} if not set.
      */
     public String getMediaType() {
         return mediaType;
@@ -132,7 +132,7 @@ public class ResourceDescriptor {
     /**
      * Gets the name of the resource.
      *
-     * @return the resource name, or {@code null} if not set
+     * @return the resource name, or {@code null} if not set.
      */
     public String getName() {
         return name;
@@ -141,7 +141,7 @@ public class ResourceDescriptor {
     /**
      * Gets the URI identifying the resource.
      *
-     * @return the resource URI, or {@code null} if not set
+     * @return the resource URI, or {@code null} if not set.
      */
     public String getUri() {
         return uri;
@@ -155,8 +155,8 @@ public class ResourceDescriptor {
     /**
      * Sets additional key-value metadata about the resource.
      *
-     * @param annotations the annotations map
-     * @return this for chaining
+     * @param annotations the annotations map.
+     * @return this for chaining.
      */
     public ResourceDescriptor setAnnotations(Map<String, Object> annotations) {
         this.annotations = annotations;
@@ -166,8 +166,8 @@ public class ResourceDescriptor {
     /**
      * Sets the raw contents of the resource.
      *
-     * @param content the resource content
-     * @return this for chaining
+     * @param content the resource content.
+     * @return this for chaining.
      */
     public ResourceDescriptor setContent(byte[] content) {
         this.content = content;
@@ -177,8 +177,8 @@ public class ResourceDescriptor {
     /**
      * Sets the map of cryptographic digest algorithms to their hex-encoded values.
      *
-     * @param digest the digest map
-     * @return this for chaining
+     * @param digest the digest map.
+     * @return this for chaining.
      */
     public ResourceDescriptor setDigest(Map<String, String> digest) {
         this.digest = digest;
@@ -188,8 +188,8 @@ public class ResourceDescriptor {
     /**
      * Sets the download URI for the resource.
      *
-     * @param downloadLocation the download location URI
-     * @return this for chaining
+     * @param downloadLocation the download location URI.
+     * @return this for chaining.
      */
     public ResourceDescriptor setDownloadLocation(String downloadLocation) {
         this.downloadLocation = downloadLocation;
@@ -199,8 +199,8 @@ public class ResourceDescriptor {
     /**
      * Sets the media type of the resource.
      *
-     * @param mediaType the media type
-     * @return this for chaining
+     * @param mediaType the media type.
+     * @return this for chaining.
      */
     public ResourceDescriptor setMediaType(String mediaType) {
         this.mediaType = mediaType;
@@ -210,8 +210,8 @@ public class ResourceDescriptor {
     /**
      * Sets the name of the resource.
      *
-     * @param name the resource name
-     * @return this for chaining
+     * @param name the resource name.
+     * @return this for chaining.
      */
     public ResourceDescriptor setName(String name) {
         this.name = name;
@@ -221,8 +221,8 @@ public class ResourceDescriptor {
     /**
      * Sets the URI identifying the resource.
      *
-     * @param uri the resource URI
-     * @return this for chaining
+     * @param uri the resource URI.
+     * @return this for chaining.
      */
     public ResourceDescriptor setUri(String uri) {
         this.uri = uri;

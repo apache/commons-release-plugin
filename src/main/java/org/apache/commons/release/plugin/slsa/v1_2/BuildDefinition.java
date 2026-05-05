@@ -67,8 +67,8 @@ public class BuildDefinition {
     /**
      * Creates a new BuildDefinition with the given build type and external parameters.
      *
-     * @param buildType          URI indicating what type of build was performed
-     * @param externalParameters inputs passed to the build
+     * @param buildType          URI indicating what type of build was performed.
+     * @param externalParameters inputs passed to the build.
      */
     public BuildDefinition(String buildType, Map<String, Object> externalParameters) {
         this.buildType = buildType;
@@ -93,7 +93,7 @@ public class BuildDefinition {
      *
      * <p>Determines the meaning of {@code externalParameters} and {@code internalParameters}.</p>
      *
-     * @return the build type URI
+     * @return the build type URI.
      */
     public String getBuildType() {
         return buildType;
@@ -102,7 +102,7 @@ public class BuildDefinition {
     /**
      * Gets the inputs passed to the build, such as command-line arguments or environment variables.
      *
-     * @return the external parameters map, or {@code null} if not set
+     * @return the external parameters map, or {@code null} if not set.
      */
     public Map<String, Object> getExternalParameters() {
         return externalParameters;
@@ -112,7 +112,7 @@ public class BuildDefinition {
      * Gets the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
      * specified by URI and digest.
      *
-     * @return the internal parameters map, or {@code null} if not set
+     * @return the internal parameters map, or {@code null} if not set.
      */
     public Map<String, Object> getInternalParameters() {
         return internalParameters;
@@ -123,7 +123,7 @@ public class BuildDefinition {
      *
      * <p>Considered incomplete unless resolved materials are present.</p>
      *
-     * @return the list of resolved dependencies, or {@code null} if not set
+     * @return the list of resolved dependencies, or {@code null} if not set.
      */
     public List<ResourceDescriptor> getResolvedDependencies() {
         return resolvedDependencies;
@@ -137,8 +137,8 @@ public class BuildDefinition {
     /**
      * Sets the URI indicating what type of build was performed.
      *
-     * @param buildType the build type URI
-     * @return this for chaining
+     * @param buildType the build type URI.
+     * @return this for chaining.
      */
     public BuildDefinition setBuildType(String buildType) {
         this.buildType = buildType;
@@ -148,8 +148,8 @@ public class BuildDefinition {
     /**
      * Sets the inputs passed to the build.
      *
-     * @param externalParameters the external parameters map
-     * @return this for chaining
+     * @param externalParameters the external parameters map.
+     * @return this for chaining.
      */
     public BuildDefinition setExternalParameters(Map<String, Object> externalParameters) {
         this.externalParameters = externalParameters;
@@ -159,8 +159,8 @@ public class BuildDefinition {
     /**
      * Sets the artifacts the build depends on.
      *
-     * @param internalParameters the internal parameters map
-     * @return this for chaining
+     * @param internalParameters the internal parameters map.
+     * @return this for chaining.
      */
     public BuildDefinition setInternalParameters(Map<String, Object> internalParameters) {
         this.internalParameters = internalParameters;
@@ -170,8 +170,8 @@ public class BuildDefinition {
     /**
      * Sets the materials that influenced the build.
      *
-     * @param resolvedDependencies the list of resolved dependencies
-     * @return this for chaining
+     * @param resolvedDependencies the list of resolved dependencies.
+     * @return this for chaining.
      */
     public BuildDefinition setResolvedDependencies(List<ResourceDescriptor> resolvedDependencies) {
         this.resolvedDependencies = resolvedDependencies;

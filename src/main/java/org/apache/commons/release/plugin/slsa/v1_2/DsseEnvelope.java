@@ -61,7 +61,7 @@ public class DsseEnvelope {
      *
      * <p>When serialized to JSON the bytes are Base64-encoded.</p>
      *
-     * @return the payload bytes, or {@code null} if not set
+     * @return the payload bytes, or {@code null} if not set.
      */
     public byte[] getPayload() {
         return payload;
@@ -70,7 +70,7 @@ public class DsseEnvelope {
     /**
      * Gets the payload type URI.
      *
-     * @return the payload type, never {@code null} in a valid envelope
+     * @return the payload type, never {@code null} in a valid envelope.
      */
     public String getPayloadType() {
         return payloadType;
@@ -79,7 +79,7 @@ public class DsseEnvelope {
     /**
      * Gets the list of signatures over the PAE-encoded payload.
      *
-     * @return the signatures, or {@code null} if not set
+     * @return the signatures, or {@code null} if not set.
      */
     public List<Signature> getSignatures() {
         return signatures;
@@ -93,8 +93,8 @@ public class DsseEnvelope {
     /**
      * Sets the serialized payload bytes.
      *
-     * @param payload the payload bytes
-     * @return this for chaining
+     * @param payload the payload bytes.
+     * @return this for chaining.
      */
     public DsseEnvelope setPayload(byte[] payload) {
         this.payload = payload;
@@ -104,8 +104,8 @@ public class DsseEnvelope {
     /**
      * Sets the payload type URI.
      *
-     * @param payloadType the payload type URI
-     * @return this for chaining
+     * @param payloadType the payload type URI.
+     * @return this for chaining.
      */
     public DsseEnvelope setPayloadType(String payloadType) {
         this.payloadType = payloadType;
@@ -115,8 +115,8 @@ public class DsseEnvelope {
     /**
      * Sets the list of signatures over the PAE-encoded payload.
      *
-     * @param signatures the signatures
-     * @return this for chaining
+     * @param signatures the signatures.
+     * @return this for chaining.
      */
     public DsseEnvelope setSignatures(List<Signature> signatures) {
         this.signatures = signatures;
