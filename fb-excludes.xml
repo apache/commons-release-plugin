@@ -18,6 +18,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
 
+  <!-- SLSA provenance data models are short-lived DTOs serialized to JSON; defensive copying adds no safety. -->
+  <Match>
+    <Package name="org.apache.commons.release.plugin.slsa.v1_2" />
+    <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2" />
+  </Match>
+
   <!-- Omit junit tests -->
   <Match>
     <Class name="~.*\.*Test.*"/>

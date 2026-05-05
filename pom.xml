@@ -102,7 +102,20 @@
     <!-- Until Maven plugins used here don't fail the Moditect plugin -->
     <moditect.skip>true</moditect.skip>
     <japicmp.skip>true</japicmp.skip>
+    <!-- Dependency versions -->
+    <commons.jackson.version>2.21.2</commons.jackson.version>
   </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${commons.jackson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -159,6 +172,10 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>
       <version>1.28.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
