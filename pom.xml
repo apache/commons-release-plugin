@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>98</version>
+    <version>99</version>
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
@@ -53,24 +53,13 @@
       <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-release-plugin</url>
     </site>
   </distributionManagement>
-  <!-- Temporarily add Apache Snapshots repository -->
-  <repositories>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>https://repository.apache.org/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </repository>
-  </repositories>
   <properties>
     <failOnError>false</failOnError>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- 3.8.2 fails with some class not found error -->
     <!-- 3.8.3 fails because MavenProject.getAttachedArtifacts() returns an IMMUTABLE collection and we want to change it! -->
-    <maven.dependency.version>3.9.14</maven.dependency.version>
+    <maven.dependency.version>3.9.15</maven.dependency.version>
     <commons.componentid>release-plugin</commons.componentid>
     <commons.dist.subdir>release-plugin</commons.dist.subdir>
     <commons.jira.id>COMMONSSITE</commons.jira.id>
@@ -146,7 +135,7 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.21.0</version>
+      <version>2.22.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -187,7 +176,7 @@
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-      <version>1.22.0-SNAPSHOT</version>
+      <version>1.22.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

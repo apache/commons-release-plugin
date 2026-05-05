@@ -138,6 +138,8 @@ Linux: uname -a
 
 To check that a build is reproducible, run:
 
+# Verify using a JDK major version matching: @JAVA_VERSION@
+export TZ="@TIMEZONE@"
 mvn clean verify artifact:compare -DskipTests -Dreference.repo=https://repository.apache.org/content/repositories/staging/ '-Dbuildinfo.ignore=*/*.spdx.json'
 
 Note that this excludes SPDX files from the check.

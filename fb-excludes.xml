@@ -18,8 +18,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
 
-  <!-- Mutable objects are not passed to untrusted methods, so we exclude these checks -->
+  <!-- SLSA provenance data models and mojos are intentionally mutable; defensive copying adds no safety. -->
   <Match>
+    <Package name="~org[.]apache[.]commons[.]release[.]plugin[.](mojos|slsa[.]v1_2)" />
     <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2" />
   </Match>
 
