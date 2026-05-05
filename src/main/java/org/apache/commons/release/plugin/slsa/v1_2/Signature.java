@@ -68,7 +68,7 @@ public class Signature {
     /**
      * Gets the raw signature bytes.
      *
-     * @return the signature bytes, or {@code null} if not set
+     * @return the signature bytes, or {@code null} if not set.
      */
     public byte[] getSig() {
         return sig;
@@ -82,8 +82,8 @@ public class Signature {
     /**
      * Sets the key identifier hint.
      *
-     * @param keyid the key identifier, or {@code null} to leave unset
-     * @return this for chaining
+     * @param keyid the key identifier, or {@code null} to leave unset.
+     * @return this for chaining.
      */
     public Signature setKeyid(String keyid) {
         this.keyid = keyid;
@@ -93,8 +93,8 @@ public class Signature {
     /**
      * Sets the raw signature bytes.
      *
-     * @param sig the signature bytes
-     * @return this for chaining
+     * @param sig the signature bytes.
+     * @return this for chaining.
      */
     public Signature setSig(byte[] sig) {
         this.sig = sig;

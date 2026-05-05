@@ -51,8 +51,8 @@ public class Provenance {
     /**
      * Creates a new Provenance with the given build definition and run details.
      *
-     * @param buildDefinition inputs that defined the build
-     * @param runDetails      details about the build invocation
+     * @param buildDefinition inputs that defined the build.
+     * @param runDetails      details about the build invocation.
      */
     public Provenance(BuildDefinition buildDefinition, RunDetails runDetails) {
         this.buildDefinition = buildDefinition;
@@ -76,7 +76,7 @@ public class Provenance {
      *
      * <p>Includes source code, dependencies, build tools, base images, and other materials.</p>
      *
-     * @return the build definition, or {@code null} if not set
+     * @return the build definition, or {@code null} if not set.
      */
     public BuildDefinition getBuildDefinition() {
         return buildDefinition;
@@ -85,7 +85,7 @@ public class Provenance {
     /**
      * Gets the details about the invocation of the build tool and the environment in which it was run.
      *
-     * @return the run details, or {@code null} if not set
+     * @return the run details, or {@code null} if not set.
      */
     public RunDetails getRunDetails() {
         return runDetails;
@@ -99,8 +99,8 @@ public class Provenance {
     /**
      * Sets the build definition describing all inputs that produced the build output.
      *
-     * @param buildDefinition the build definition
-     * @return this for chaining
+     * @param buildDefinition the build definition.
+     * @return this for chaining.
      */
     public Provenance setBuildDefinition(BuildDefinition buildDefinition) {
         this.buildDefinition = buildDefinition;
@@ -110,8 +110,8 @@ public class Provenance {
     /**
      * Sets the details about the invocation of the build tool and the environment in which it was run.
      *
-     * @param runDetails the run details
-     * @return this for chaining
+     * @param runDetails the run details.
+     * @return this for chaining.
      */
     public Provenance setRunDetails(RunDetails runDetails) {
         this.runDetails = runDetails;
