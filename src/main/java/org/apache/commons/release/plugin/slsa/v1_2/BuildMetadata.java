@@ -33,14 +33,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BuildMetadata {
 
     /** Timestamp when the build completed. */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX", timezone = "UTC")
     @JsonProperty("finishedOn")
     private OffsetDateTime finishedOn;
     /** Identifier for this build invocation. */
     @JsonProperty("invocationId")
     private String invocationId;
     /** Timestamp when the build started. */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX", timezone = "UTC")
     @JsonProperty("startedOn")
     private OffsetDateTime startedOn;
 
