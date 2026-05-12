@@ -37,7 +37,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class ProvenanceTest {
+class StatementTest {
 
     private static final String FIXTURE = "/attestations/commons-text-1.4.intoto.json";
 
@@ -51,7 +51,7 @@ public class ProvenanceTest {
     }
 
     private static JsonNode readStatementResource() throws Exception {
-        try (InputStream in = ProvenanceTest.class.getResourceAsStream(FIXTURE)) {
+        try (InputStream in = StatementTest.class.getResourceAsStream(FIXTURE)) {
             assertNotNull(in, "Fixture resource not found: " + FIXTURE);
             return objectMapper.readTree(in);
         }
