@@ -56,8 +56,8 @@ public class RunDetails {
     /**
      * Creates a new RunDetails with the given builder and metadata.
      *
-     * @param builder  entity that executed the build
-     * @param metadata metadata about the build invocation
+     * @param builder  entity that executed the build.
+     * @param metadata metadata about the build invocation.
      */
     public RunDetails(Builder builder, BuildMetadata metadata) {
         this.builder = builder;
@@ -81,7 +81,7 @@ public class RunDetails {
      *
      * <p>Trusted to have correctly performed the operation and populated this provenance.</p>
      *
-     * @return the builder, or {@code null} if not set
+     * @return the builder, or {@code null} if not set.
      */
     public Builder getBuilder() {
         return builder;
@@ -90,7 +90,7 @@ public class RunDetails {
     /**
      * Gets artifacts produced as a side effect of the build that are not the primary output.
      *
-     * @return the list of byproduct artifacts, or {@code null} if not set
+     * @return the list of byproduct artifacts, or {@code null} if not set.
      */
     public List<ResourceDescriptor> getByproducts() {
         return byproducts;
@@ -99,7 +99,7 @@ public class RunDetails {
     /**
      * Gets the metadata about the build invocation, including its identifier and timing.
      *
-     * @return the build metadata, or {@code null} if not set
+     * @return the build metadata, or {@code null} if not set.
      */
     public BuildMetadata getMetadata() {
         return metadata;
@@ -113,8 +113,8 @@ public class RunDetails {
     /**
      * Sets the builder that executed the invocation.
      *
-     * @param builder the builder
-     * @return this for chaining
+     * @param builder the builder.
+     * @return this for chaining.
      */
     public RunDetails setBuilder(Builder builder) {
         this.builder = builder;
@@ -124,8 +124,8 @@ public class RunDetails {
     /**
      * Sets the artifacts produced as a side effect of the build that are not the primary output.
      *
-     * @param byproducts the list of byproduct artifacts
-     * @return this for chaining
+     * @param byproducts the list of byproduct artifacts.
+     * @return this for chaining.
      */
     public RunDetails setByproducts(List<ResourceDescriptor> byproducts) {
         this.byproducts = byproducts;
@@ -135,8 +135,8 @@ public class RunDetails {
     /**
      * Sets the metadata about the build invocation.
      *
-     * @param metadata the build metadata
-     * @return this for chaining
+     * @param metadata the build metadata.
+     * @return this for chaining.
      */
     public RunDetails setMetadata(BuildMetadata metadata) {
         this.metadata = metadata;

@@ -61,7 +61,7 @@ public class Builder {
      * Gets orchestrator dependencies that do not run within the build workload and do not affect the build output,
      * but may affect provenance generation or security guarantees.
      *
-     * @return the list of builder dependencies, or {@code null} if not set
+     * @return the list of builder dependencies, or {@code null} if not set.
      */
     public List<ResourceDescriptor> getBuilderDependencies() {
         return builderDependencies;
@@ -70,7 +70,7 @@ public class Builder {
     /**
      * Gets the identifier of the builder.
      *
-     * @return the builder identifier URI
+     * @return the builder identifier URI.
      */
     public String getId() {
         return id;
@@ -79,7 +79,7 @@ public class Builder {
     /**
      * Gets a map of build platform component names to their versions.
      *
-     * @return the version map, or {@code null} if not set
+     * @return the version map, or {@code null} if not set.
      */
     public Map<String, String> getVersion() {
         return version;
@@ -93,8 +93,8 @@ public class Builder {
     /**
      * Sets the orchestrator dependencies that may affect provenance generation or security guarantees.
      *
-     * @param builderDependencies the list of builder dependencies
-     * @return this for chaining
+     * @param builderDependencies the list of builder dependencies.
+     * @return this for chaining.
      */
     public Builder setBuilderDependencies(List<ResourceDescriptor> builderDependencies) {
         this.builderDependencies = builderDependencies;
@@ -104,8 +104,8 @@ public class Builder {
     /**
      * Sets the identifier of the builder.
      *
-     * @param id the builder identifier URI
-     * @return this for chaining
+     * @param id the builder identifier URI.
+     * @return this for chaining.
      */
     public Builder setId(String id) {
         this.id = id;
@@ -115,8 +115,8 @@ public class Builder {
     /**
      * Sets the map of build platform component names to their versions.
      *
-     * @param version the version map
-     * @return this for chaining
+     * @param version the version map.
+     * @return this for chaining.
      */
     public Builder setVersion(Map<String, String> version) {
         this.version = version;
