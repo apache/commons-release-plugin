@@ -66,6 +66,16 @@ public class Statement {
     }
 
     /**
+     * Setter required for symmetric JSON round-tripping; the value is always {@link #TYPE} and is ignored.
+     *
+     * @param type ignored
+     */
+    @JsonProperty("_type")
+    private void setType(final String type) {
+        // _type is a constant; nothing to do.
+    }
+
+    /**
      * Gets the provenance predicate.
      *
      * <p>Unset is treated the same as set-but-empty. May be omitted if {@code predicateType} fully describes the

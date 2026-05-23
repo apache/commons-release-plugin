@@ -53,6 +53,10 @@
             </p>
             <ul>
                 <li>
+                    <a href="build-attestation.html">commons-release:build-attestation</a> generates a signed
+                    SLSA v1.2 in-toto attestation covering all build artifacts and attaches it to the project.
+                </li>
+                <li>
                     <b>commons-release:detach-distributions</b> - Remove
                     <code>tar.gz</code>, <code>tar.gz.asc</code>, <code>zip</code>, and <code>zip.asc</code>
                     files from being uploaded to nexus and copy them to the <code>target/commons-release-plugin</code>
