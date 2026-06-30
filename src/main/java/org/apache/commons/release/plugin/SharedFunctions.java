@@ -105,7 +105,7 @@ public final class SharedFunctions {
      * </blockquote>
      *
      * @param obj the object reference to check for nullity
-     * @param <T> the type of the reference
+     * @param <T> The type of the reference
      * @return {@code obj} if not {@code null}
      * @throws MojoExecutionException if {@code obj} is {@code null}
      */
@@ -132,7 +132,7 @@ public final class SharedFunctions {
      * @param obj the object reference to check for nullity
      * @param message detail message to be used in the event that a {@code
      *                NullPointerException} is thrown
-     * @param <T> the type of the reference
+     * @param <T> The type of the reference
      * @return {@code obj} if not {@code null}
      * @throws MojoExecutionException if {@code obj} is {@code null}
      */
@@ -153,7 +153,7 @@ public final class SharedFunctions {
      *
      * @param obj the object reference to check for nullity
      * @param messageSupplier supplier of the detail message to be used in the event that a {@code NullPointerException} is thrown
-     * @param <T> the type of the reference
+     * @param <T> The type of the reference
      * @return {@code obj} if not {@code null}
      * @throws MojoExecutionException if {@code obj} is {@code null}
      */
