@@ -73,7 +73,7 @@ public final class HeaderHtmlVelocityDelegate {
      * Builds the HEADER.vm velocity template to the writer passed in.
      *
      * @param writer any {@link Writer} that we wish to have the filled velocity template written to.
-     * @return the {@link Writer} that we've filled out the template into.
+     * @return The {@link Writer} that we've filled out the template into.
      */
     public Writer render(final Writer writer) {
         final VelocityEngine ve = new VelocityEngine();

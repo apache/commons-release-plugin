@@ -71,7 +71,7 @@ public class Statement {
      * <p>Unset is treated the same as set-but-empty. May be omitted if {@code predicateType} fully describes the
      * predicate.</p>
      *
-     * @return the provenance predicate, or {@code null} if not set.
+     * @return The provenance predicate, or {@code null} if not set.
      */
     public Provenance getPredicate() {
         return predicate;
@@ -80,7 +80,7 @@ public class Statement {
     /**
      * Gets the URI identifying the type of the predicate.
      *
-     * @return the predicate type URI, or {@code null} if no predicate has been set.
+     * @return The predicate type URI, or {@code null} if no predicate has been set.
      */
     public String getPredicateType() {
         return predicateType;
@@ -91,7 +91,7 @@ public class Statement {
      *
      * <p>Each element represents a single artifact. Artifacts are matched purely by digest, regardless of content type.</p>
      *
-     * @return the list of subject artifacts, or {@code null} if not set.
+     * @return The list of subject artifacts, or {@code null} if not set.
      */
     public List<ResourceDescriptor> getSubject() {
         return subject;

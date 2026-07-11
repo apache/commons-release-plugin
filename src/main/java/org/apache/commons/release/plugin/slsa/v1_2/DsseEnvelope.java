@@ -62,7 +62,7 @@ public class DsseEnvelope {
      *
      * <p>When serialized to JSON the bytes are Base64-encoded.</p>
      *
-     * @return the payload bytes, or {@code null} if not set.
+     * @return The payload bytes, or {@code null} if not set.
      */
     public byte[] getPayload() {
         return payload;
@@ -71,7 +71,7 @@ public class DsseEnvelope {
     /**
      * Gets the payload type URI.
      *
-     * @return the payload type, never {@code null} in a valid envelope.
+     * @return The payload type, never {@code null} in a valid envelope.
      */
     public String getPayloadType() {
         return payloadType;
@@ -80,7 +80,7 @@ public class DsseEnvelope {
     /**
      * Gets the list of signatures over the PAE-encoded payload.
      *
-     * @return the signatures, or {@code null} if not set.
+     * @return The signatures, or {@code null} if not set.
      */
     public List<Signature> getSignatures() {
         return signatures;

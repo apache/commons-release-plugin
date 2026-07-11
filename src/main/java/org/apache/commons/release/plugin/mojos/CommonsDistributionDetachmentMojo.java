@@ -193,7 +193,7 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * commons-test-1.4-src.tar.gz should have its name as the key.
      *
      * @param artifact the {@link Artifact} that we wish to generate a key for.
-     * @return the generated key
+     * @return The generated key
      */
     private String getArtifactKey(final Artifact artifact) {
         return artifact.getFile().getName();

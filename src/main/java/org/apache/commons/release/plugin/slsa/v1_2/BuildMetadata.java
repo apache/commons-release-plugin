@@ -73,7 +73,7 @@ public class BuildMetadata {
     /**
      * Gets the timestamp of when the build completed, serialized as RFC 3339 in UTC ({@code "Z"} suffix).
      *
-     * @return the completion timestamp, or {@code null} if not set.
+     * @return The completion timestamp, or {@code null} if not set.
      */
     public OffsetDateTime getFinishedOn() {
         return finishedOn;
@@ -82,7 +82,7 @@ public class BuildMetadata {
     /**
      * Gets the identifier for this build invocation.
      *
-     * @return the invocation identifier, or {@code null} if not set.
+     * @return The invocation identifier, or {@code null} if not set.
      */
     public String getInvocationId() {
         return invocationId;
@@ -91,7 +91,7 @@ public class BuildMetadata {
     /**
      * Gets the timestamp of when the build started, serialized as RFC 3339 in UTC ({@code "Z"} suffix).
      *
-     * @return the start timestamp, or {@code null} if not set.
+     * @return The start timestamp, or {@code null} if not set.
      */
     public OffsetDateTime getStartedOn() {
         return startedOn;

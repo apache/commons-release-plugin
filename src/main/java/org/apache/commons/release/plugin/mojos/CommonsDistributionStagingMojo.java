@@ -213,7 +213,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      *     </li>
      * </ul>
      *
-     * @return the {@link List} of created files above
+     * @return The {@link List} of created files above
      * @throws MojoExecutionException if an {@link IOException} occurs in the creation of these
      *                                files fails.
      */
@@ -359,7 +359,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      * A utility method that takes the <code>RELEASE-NOTES.txt</code> file from the base directory of the
      * project and copies it into {@link CommonsDistributionStagingMojo#workingDirectory}.
      *
-     * @return the RELEASE-NOTES.txt file that exists in the <code>target/commons-release-notes/scm</code>
+     * @return The RELEASE-NOTES.txt file that exists in the <code>target/commons-release-notes/scm</code>
      *         directory for the purpose of adding it to the scm change set in the method
      *         {@link CommonsDistributionStagingMojo#copyDistributionsIntoScmDirectoryStructureAndAddToSvn(File,
      *         ScmProvider, ScmRepository)}.
@@ -378,7 +378,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      * Copies our <code>signature-validator.sh</code> script into
      * <code>${basedir}/target/commons-release-plugin/scm/signature-validator.sh</code>.
      *
-     * @return the {@link File} for the signature-validator.sh
+     * @return The {@link File} for the signature-validator.sh
      * @throws MojoExecutionException if an error occurs while the resource is being copied
      */
     private File copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
@@ -396,7 +396,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     /**
      * Copies <code>${basedir}/target/site</code> to <code>${basedir}/target/commons-release-plugin/scm/site</code>.
      *
-     * @return the {@link List} of {@link File}'s contained in
+     * @return The {@link List} of {@link File}'s contained in
      *         <code>${basedir}/target/commons-release-plugin/scm/site</code>, after the copy is complete.
      * @throws MojoExecutionException if the site copying fails for some reason.
      */

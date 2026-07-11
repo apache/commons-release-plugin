@@ -61,7 +61,7 @@ public class Builder {
      * Gets orchestrator dependencies that do not run within the build workload and do not affect the build output,
      * but may affect provenance generation or security guarantees.
      *
-     * @return the list of builder dependencies, or {@code null} if not set.
+     * @return The list of builder dependencies, or {@code null} if not set.
      */
     public List<ResourceDescriptor> getBuilderDependencies() {
         return builderDependencies;
@@ -70,7 +70,7 @@ public class Builder {
     /**
      * Gets the identifier of the builder.
      *
-     * @return the builder identifier URI.
+     * @return The builder identifier URI.
      */
     public String getId() {
         return id;
@@ -79,7 +79,7 @@ public class Builder {
     /**
      * Gets a map of build platform component names to their versions.
      *
-     * @return the version map, or {@code null} if not set.
+     * @return The version map, or {@code null} if not set.
      */
     public Map<String, String> getVersion() {
         return version;

@@ -59,7 +59,7 @@ public class Signature {
     /**
      * Gets the key identifier hint, or {@code null} if not set.
      *
-     * @return the key identifier, or {@code null}
+     * @return The key identifier, or {@code null}
      */
     public String getKeyid() {
         return keyid;
@@ -68,7 +68,7 @@ public class Signature {
     /**
      * Gets the raw signature bytes.
      *
-     * @return the signature bytes, or {@code null} if not set.
+     * @return The signature bytes, or {@code null} if not set.
      */
     public byte[] getSig() {
         return sig;

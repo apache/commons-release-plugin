@@ -85,7 +85,7 @@ public class ResourceDescriptor {
     /**
      * Gets additional key-value metadata about the resource, such as filename, size, or builder-specific attributes.
      *
-     * @return the annotations map, or {@code null} if not set.
+     * @return The annotations map, or {@code null} if not set.
      */
     public Map<String, Object> getAnnotations() {
         return annotations;
@@ -94,7 +94,7 @@ public class ResourceDescriptor {
     /**
      * Gets the raw contents of the resource, base64-encoded when serialized to JSON.
      *
-     * @return the resource content, or {@code null} if not set.
+     * @return The resource content, or {@code null} if not set.
      */
     public byte[] getContent() {
         return content;
@@ -105,7 +105,7 @@ public class ResourceDescriptor {
      *
      * <p>Common keys include {@code "sha256"} and {@code "sha512"}.</p>
      *
-     * @return the digest map, or {@code null} if not set.
+     * @return The digest map, or {@code null} if not set.
      */
     public Map<String, String> getDigest() {
         return digest;
@@ -114,7 +114,7 @@ public class ResourceDescriptor {
     /**
      * Gets the download URI for the resource, if different from {@link #getUri()}.
      *
-     * @return the download location URI, or {@code null} if not set.
+     * @return The download location URI, or {@code null} if not set.
      */
     public String getDownloadLocation() {
         return downloadLocation;
@@ -123,7 +123,7 @@ public class ResourceDescriptor {
     /**
      * Gets the media type of the resource (e.g., {@code "application/octet-stream"}).
      *
-     * @return the media type, or {@code null} if not set.
+     * @return The media type, or {@code null} if not set.
      */
     public String getMediaType() {
         return mediaType;
@@ -132,7 +132,7 @@ public class ResourceDescriptor {
     /**
      * Gets the name of the resource.
      *
-     * @return the resource name, or {@code null} if not set.
+     * @return The resource name, or {@code null} if not set.
      */
     public String getName() {
         return name;
@@ -141,7 +141,7 @@ public class ResourceDescriptor {
     /**
      * Gets the URI identifying the resource.
      *
-     * @return the resource URI, or {@code null} if not set.
+     * @return The resource URI, or {@code null} if not set.
      */
     public String getUri() {
         return uri;

@@ -76,7 +76,7 @@ public class Provenance {
      *
      * <p>Includes source code, dependencies, build tools, base images, and other materials.</p>
      *
-     * @return the build definition, or {@code null} if not set.
+     * @return The build definition, or {@code null} if not set.
      */
     public BuildDefinition getBuildDefinition() {
         return buildDefinition;
@@ -85,7 +85,7 @@ public class Provenance {
     /**
      * Gets the details about the invocation of the build tool and the environment in which it was run.
      *
-     * @return the run details, or {@code null} if not set.
+     * @return The run details, or {@code null} if not set.
      */
     public RunDetails getRunDetails() {
         return runDetails;

@@ -93,7 +93,7 @@ public class BuildDefinition {
      *
      * <p>Determines the meaning of {@code externalParameters} and {@code internalParameters}.</p>
      *
-     * @return the build type URI.
+     * @return The build type URI.
      */
     public String getBuildType() {
         return buildType;
@@ -102,7 +102,7 @@ public class BuildDefinition {
     /**
      * Gets the inputs passed to the build, such as command-line arguments or environment variables.
      *
-     * @return the external parameters map, or {@code null} if not set.
+     * @return The external parameters map, or {@code null} if not set.
      */
     public Map<String, Object> getExternalParameters() {
         return externalParameters;
@@ -112,7 +112,7 @@ public class BuildDefinition {
      * Gets the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
      * specified by URI and digest.
      *
-     * @return the internal parameters map, or {@code null} if not set.
+     * @return The internal parameters map, or {@code null} if not set.
      */
     public Map<String, Object> getInternalParameters() {
         return internalParameters;
@@ -123,7 +123,7 @@ public class BuildDefinition {
      *
      * <p>Considered incomplete unless resolved materials are present.</p>
      *
-     * @return the list of resolved dependencies, or {@code null} if not set.
+     * @return The list of resolved dependencies, or {@code null} if not set.
      */
     public List<ResourceDescriptor> getResolvedDependencies() {
         return resolvedDependencies;
