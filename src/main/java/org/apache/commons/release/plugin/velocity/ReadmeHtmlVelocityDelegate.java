@@ -57,7 +57,7 @@ public final class ReadmeHtmlVelocityDelegate {
         /**
          * Builds up the {@link ReadmeHtmlVelocityDelegate} from the previously set parameters.
          *
-         * @return a new {@link ReadmeHtmlVelocityDelegate}.
+         * @return A new {@link ReadmeHtmlVelocityDelegate}.
          */
         public ReadmeHtmlVelocityDelegate build() {
             return new ReadmeHtmlVelocityDelegate(this.artifactId, this.version, this.siteUrl);
@@ -137,7 +137,7 @@ public final class ReadmeHtmlVelocityDelegate {
      * {@link ReadmeHtmlVelocityDelegateBuilder}.
      *
      * @param writer is the {@link Writer} to which we wish to render the <code>README.vm</code> template.
-     * @return a reference to the {@link Writer} passed in.
+     * @return A reference to the {@link Writer} passed in.
      */
     public Writer render(final Writer writer) {
         final VelocityEngine ve = new VelocityEngine();

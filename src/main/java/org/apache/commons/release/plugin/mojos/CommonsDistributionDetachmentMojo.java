@@ -204,7 +204,7 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
      *
      * @param directory is the {@link File} for the directory in which to make the <code>.sha512</code> file.
      * @param file the {@link File} whose name we should use to create the <code>.sha512</code> file.
-     * @return a {@link String} that is the absolute path to the <code>.sha512</code> file.
+     * @return A {@link String} that is the absolute path to the <code>.sha512</code> file.
      */
     private String getSha512FilePath(final File directory, final File file) {
         final StringBuilder buffer = new StringBuilder(directory.getAbsolutePath());

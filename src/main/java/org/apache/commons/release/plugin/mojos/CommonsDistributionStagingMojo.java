@@ -286,7 +286,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      *                           <code>target/commons-release-plugin/scm</code> directory.
      * @param provider is the {@link ScmProvider} that we will use for adding the files we wish to commit.
      * @param repository is the {@link ScmRepository} that we will use for adding the files that we wish to commit.
-     * @return a {@link List} of {@link File}'s in the directory for the purpose of adding them to the maven
+     * @return A {@link List} of {@link File}'s in the directory for the purpose of adding them to the maven
      *         {@link ScmFileSet}.
      * @throws MojoExecutionException if an {@link IOException} occurs so that Maven can handle it properly.
      */
@@ -331,7 +331,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      *
      * @param headerFile The originally created <code>HEADER.html</code> file.
      * @param readmeFile The originally created <code>README.html</code> file.
-     * @return a {@link List} of created files.
+     * @return A {@link List} of created files.
      * @throws MojoExecutionException if the {@link SharedFunctions#copyFile(Log, File, File)}
      *                                fails.
      */
