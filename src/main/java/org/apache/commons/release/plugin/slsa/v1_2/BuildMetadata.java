@@ -105,7 +105,7 @@ public class BuildMetadata {
     /**
      * Sets the timestamp of when the build completed.
      *
-     * @param finishedOn the completion timestamp.
+     * @param finishedOn The completion timestamp.
      * @return this for chaining.
      */
     public BuildMetadata setFinishedOn(OffsetDateTime finishedOn) {
@@ -116,7 +116,7 @@ public class BuildMetadata {
     /**
      * Sets the identifier for this build invocation.
      *
-     * @param invocationId the invocation identifier.
+     * @param invocationId The invocation identifier.
      * @return this for chaining.
      */
     public BuildMetadata setInvocationId(String invocationId) {
@@ -127,7 +127,7 @@ public class BuildMetadata {
     /**
      * Sets the timestamp of when the build started.
      *
-     * @param startedOn the start timestamp.
+     * @param startedOn The start timestamp.
      * @return this for chaining.
      */
     public BuildMetadata setStartedOn(OffsetDateTime startedOn) {

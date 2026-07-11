@@ -192,7 +192,7 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * Generates the unique artifact key for storage in our sha512 map. For example,
      * commons-test-1.4-src.tar.gz should have its name as the key.
      *
-     * @param artifact the {@link Artifact} that we wish to generate a key for.
+     * @param artifact The {@link Artifact} that we wish to generate a key for.
      * @return The generated key
      */
     private String getArtifactKey(final Artifact artifact) {
@@ -203,7 +203,7 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
      * A helper method to create a file path for the <code>sha512</code> signature file from a given file.
      *
      * @param directory is the {@link File} for the directory in which to make the <code>.sha512</code> file.
-     * @param file the {@link File} whose name we should use to create the <code>.sha512</code> file.
+     * @param file The {@link File} whose name we should use to create the <code>.sha512</code> file.
      * @return A {@link String} that is the absolute path to the <code>.sha512</code> file.
      */
     private String getSha512FilePath(final File directory, final File file) {

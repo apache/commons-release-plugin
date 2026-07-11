@@ -82,7 +82,7 @@ public class Signature {
     /**
      * Sets the key identifier hint.
      *
-     * @param keyid the key identifier, or {@code null} to leave unset.
+     * @param keyid The key identifier, or {@code null} to leave unset.
      * @return this for chaining.
      */
     public Signature setKeyid(String keyid) {
@@ -93,7 +93,7 @@ public class Signature {
     /**
      * Sets the raw signature bytes.
      *
-     * @param sig the signature bytes.
+     * @param sig The signature bytes.
      * @return this for chaining.
      */
     public Signature setSig(byte[] sig) {

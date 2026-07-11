@@ -99,7 +99,7 @@ public class Provenance {
     /**
      * Sets the build definition describing all inputs that produced the build output.
      *
-     * @param buildDefinition the build definition.
+     * @param buildDefinition The build definition.
      * @return this for chaining.
      */
     public Provenance setBuildDefinition(BuildDefinition buildDefinition) {
@@ -110,7 +110,7 @@ public class Provenance {
     /**
      * Sets the details about the invocation of the build tool and the environment in which it was run.
      *
-     * @param runDetails the run details.
+     * @param runDetails The run details.
      * @return this for chaining.
      */
     public Provenance setRunDetails(RunDetails runDetails) {

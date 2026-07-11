@@ -48,9 +48,9 @@ public final class SharedFunctions {
      * Copies a {@link File} from the <code>fromFile</code> to the <code>toFile</code> and logs the failure
      * using the Maven {@link Log}.
      *
-     * @param log the {@link Log}, the maven logger.
-     * @param fromFile the {@link File} from which to copy.
-     * @param toFile the {@link File} to which to copy into.
+     * @param log The {@link Log}, the maven logger.
+     * @param fromFile The {@link File} from which to copy.
+     * @param toFile The {@link File} to which to copy into.
      * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
      */
     public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
@@ -104,7 +104,7 @@ public final class SharedFunctions {
      *
      * </blockquote>
      *
-     * @param obj the object reference to check for nullity
+     * @param obj The object reference to check for nullity
      * @param <T> The type of the reference
      * @return {@code obj} if not {@code null}
      * @throws MojoExecutionException if {@code obj} is {@code null}
@@ -129,7 +129,7 @@ public final class SharedFunctions {
      *
      * </blockquote>
      *
-     * @param obj the object reference to check for nullity
+     * @param obj The object reference to check for nullity
      * @param message detail message to be used in the event that a {@code
      *                NullPointerException} is thrown
      * @param <T> The type of the reference
@@ -151,7 +151,7 @@ public final class SharedFunctions {
      * message supplier are less than the cost of just creating the string message directly.
      * </p>
      *
-     * @param obj the object reference to check for nullity
+     * @param obj The object reference to check for nullity
      * @param messageSupplier supplier of the detail message to be used in the event that a {@code NullPointerException} is thrown
      * @param <T> The type of the reference
      * @return {@code obj} if not {@code null}

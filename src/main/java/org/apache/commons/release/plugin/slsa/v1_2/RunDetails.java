@@ -113,7 +113,7 @@ public class RunDetails {
     /**
      * Sets the builder that executed the invocation.
      *
-     * @param builder the builder.
+     * @param builder The builder.
      * @return this for chaining.
      */
     public RunDetails setBuilder(Builder builder) {
@@ -124,7 +124,7 @@ public class RunDetails {
     /**
      * Sets the artifacts produced as a side effect of the build that are not the primary output.
      *
-     * @param byproducts the list of byproduct artifacts.
+     * @param byproducts The list of byproduct artifacts.
      * @return this for chaining.
      */
     public RunDetails setByproducts(List<ResourceDescriptor> byproducts) {
@@ -135,7 +135,7 @@ public class RunDetails {
     /**
      * Sets the metadata about the build invocation.
      *
-     * @param metadata the build metadata.
+     * @param metadata The build metadata.
      * @return this for chaining.
      */
     public RunDetails setMetadata(BuildMetadata metadata) {

@@ -155,7 +155,7 @@ public class ResourceDescriptor {
     /**
      * Sets additional key-value metadata about the resource.
      *
-     * @param annotations the annotations map.
+     * @param annotations The annotations map.
      * @return this for chaining.
      */
     public ResourceDescriptor setAnnotations(Map<String, Object> annotations) {
@@ -166,7 +166,7 @@ public class ResourceDescriptor {
     /**
      * Sets the raw contents of the resource.
      *
-     * @param content the resource content.
+     * @param content The resource content.
      * @return this for chaining.
      */
     public ResourceDescriptor setContent(byte[] content) {
@@ -177,7 +177,7 @@ public class ResourceDescriptor {
     /**
      * Sets the map of cryptographic digest algorithms to their hex-encoded values.
      *
-     * @param digest the digest map.
+     * @param digest The digest map.
      * @return this for chaining.
      */
     public ResourceDescriptor setDigest(Map<String, String> digest) {
@@ -188,7 +188,7 @@ public class ResourceDescriptor {
     /**
      * Sets the download URI for the resource.
      *
-     * @param downloadLocation the download location URI.
+     * @param downloadLocation The download location URI.
      * @return this for chaining.
      */
     public ResourceDescriptor setDownloadLocation(String downloadLocation) {
@@ -199,7 +199,7 @@ public class ResourceDescriptor {
     /**
      * Sets the media type of the resource.
      *
-     * @param mediaType the media type.
+     * @param mediaType The media type.
      * @return this for chaining.
      */
     public ResourceDescriptor setMediaType(String mediaType) {
@@ -210,7 +210,7 @@ public class ResourceDescriptor {
     /**
      * Sets the name of the resource.
      *
-     * @param name the resource name.
+     * @param name The resource name.
      * @return this for chaining.
      */
     public ResourceDescriptor setName(String name) {
@@ -221,7 +221,7 @@ public class ResourceDescriptor {
     /**
      * Sets the URI identifying the resource.
      *
-     * @param uri the resource URI.
+     * @param uri The resource URI.
      * @return this for chaining.
      */
     public ResourceDescriptor setUri(String uri) {

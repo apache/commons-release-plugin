@@ -502,7 +502,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      * Lists all directories and files to a flat list.
      *
      * @param directory {@link File} containing directory to list
-     * @param files a {@link List} of {@link File} to which to append the files.
+     * @param files A {@link List} of {@link File} to which to append the files.
      */
     private void listNotHiddenFilesAndDirectories(final File directory, final List<File> files) {
         // Get all the files and directories from a directory.

@@ -137,7 +137,7 @@ public class BuildDefinition {
     /**
      * Sets the URI indicating what type of build was performed.
      *
-     * @param buildType the build type URI.
+     * @param buildType The build type URI.
      * @return this for chaining.
      */
     public BuildDefinition setBuildType(String buildType) {
@@ -148,7 +148,7 @@ public class BuildDefinition {
     /**
      * Sets the inputs passed to the build.
      *
-     * @param externalParameters the external parameters map.
+     * @param externalParameters The external parameters map.
      * @return this for chaining.
      */
     public BuildDefinition setExternalParameters(Map<String, Object> externalParameters) {
@@ -159,7 +159,7 @@ public class BuildDefinition {
     /**
      * Sets the artifacts the build depends on.
      *
-     * @param internalParameters the internal parameters map.
+     * @param internalParameters The internal parameters map.
      * @return this for chaining.
      */
     public BuildDefinition setInternalParameters(Map<String, Object> internalParameters) {
@@ -170,7 +170,7 @@ public class BuildDefinition {
     /**
      * Sets the materials that influenced the build.
      *
-     * @param resolvedDependencies the list of resolved dependencies.
+     * @param resolvedDependencies The list of resolved dependencies.
      * @return this for chaining.
      */
     public BuildDefinition setResolvedDependencies(List<ResourceDescriptor> resolvedDependencies) {

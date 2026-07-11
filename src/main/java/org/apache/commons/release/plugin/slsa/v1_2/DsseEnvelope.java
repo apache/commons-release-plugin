@@ -94,7 +94,7 @@ public class DsseEnvelope {
     /**
      * Sets the serialized payload bytes.
      *
-     * @param payload the payload bytes.
+     * @param payload The payload bytes.
      * @return this for chaining.
      */
     public DsseEnvelope setPayload(byte[] payload) {
@@ -105,7 +105,7 @@ public class DsseEnvelope {
     /**
      * Sets the payload type URI.
      *
-     * @param payloadType the payload type URI.
+     * @param payloadType The payload type URI.
      * @return this for chaining.
      */
     public DsseEnvelope setPayloadType(String payloadType) {
@@ -116,7 +116,7 @@ public class DsseEnvelope {
     /**
      * Sets the list of signatures over the PAE-encoded payload.
      *
-     * @param signatures the signatures.
+     * @param signatures The signatures.
      * @return this for chaining.
      */
     public DsseEnvelope setSignatures(List<Signature> signatures) {

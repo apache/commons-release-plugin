@@ -93,7 +93,7 @@ public class Builder {
     /**
      * Sets the orchestrator dependencies that may affect provenance generation or security guarantees.
      *
-     * @param builderDependencies the list of builder dependencies.
+     * @param builderDependencies The list of builder dependencies.
      * @return this for chaining.
      */
     public Builder setBuilderDependencies(List<ResourceDescriptor> builderDependencies) {
@@ -104,7 +104,7 @@ public class Builder {
     /**
      * Sets the identifier of the builder.
      *
-     * @param id the builder identifier URI.
+     * @param id The builder identifier URI.
      * @return this for chaining.
      */
     public Builder setId(String id) {
@@ -115,7 +115,7 @@ public class Builder {
     /**
      * Sets the map of build platform component names to their versions.
      *
-     * @param version the version map.
+     * @param version The version map.
      * @return this for chaining.
      */
     public Builder setVersion(Map<String, String> version) {

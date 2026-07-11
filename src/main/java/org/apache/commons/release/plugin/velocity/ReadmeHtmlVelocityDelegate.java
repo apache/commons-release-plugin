@@ -66,7 +66,7 @@ public final class ReadmeHtmlVelocityDelegate {
         /**
          * Adds the artifactId to the {@link ReadmeHtmlVelocityDelegate}.
          *
-         * @param artifactId the {@link String} representing the maven artifactId.
+         * @param artifactId The {@link String} representing the maven artifactId.
          * @return The builder to continue building.
          */
         public ReadmeHtmlVelocityDelegateBuilder setArtifactId(final String artifactId) {
@@ -77,7 +77,7 @@ public final class ReadmeHtmlVelocityDelegate {
         /**
          * Adds the siteUrl to the {@link ReadmeHtmlVelocityDelegate}.
          *
-         * @param siteUrl the site url to be used in the <code>README.html</code>
+         * @param siteUrl The site url to be used in the <code>README.html</code>
          * @return The builder to continue building.
          */
         public ReadmeHtmlVelocityDelegateBuilder setSiteUrl(final String siteUrl) {
@@ -88,7 +88,7 @@ public final class ReadmeHtmlVelocityDelegate {
         /**
          * Adds the version to the {@link ReadmeHtmlVelocityDelegate}.
          *
-         * @param version the maven version.
+         * @param version The maven version.
          * @return The builder to continue building.
          */
         public ReadmeHtmlVelocityDelegateBuilder setVersion(final String version) {
