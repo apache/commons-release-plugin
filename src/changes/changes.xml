@@ -26,6 +26,7 @@
   <body>
     <release version="1.9.3" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Precompile Pattern in ReadmeHtmlVelocityDelegate.render(Writer).</action>
       <!-- ADD -->
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 96 to 103.</action>

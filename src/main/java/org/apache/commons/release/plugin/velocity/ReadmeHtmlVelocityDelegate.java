@@ -17,6 +17,7 @@
 package org.apache.commons.release.plugin.velocity;
 
 import java.io.Writer;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
@@ -97,6 +98,11 @@ public final class ReadmeHtmlVelocityDelegate {
         }
     }
 
+    /**
+     * ".+\\d$" matches a non-empty string that terminates in a digit {0-9}.
+     */
+    private static final Pattern END_DIGIT = Pattern.compile(".+\\d$");
+
     /** The location of the velocity template for this class. */
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin"
                                          + "/velocity/README.vm";
@@ -153,8 +159,7 @@ public final class ReadmeHtmlVelocityDelegate {
         } else if (splitArtifactId.length == 1) {
             artifactShortName = splitArtifactId[0];
         }
-        // ".+\\d$" matches a non-empty string that terminates in a digit {0-9}.
-        if (artifactShortName.matches(".+\\d$")) {
+        if (END_DIGIT.matcher(artifactShortName).matches()) {
             artifactShortName = artifactShortName.substring(0, artifactShortName.length() - 1);
         }
         final String artifactIdWithFirstLetterscapitalized =
