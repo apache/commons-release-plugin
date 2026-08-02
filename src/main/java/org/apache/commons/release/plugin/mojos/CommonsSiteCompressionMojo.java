@@ -99,7 +99,7 @@ public final class CommonsSiteCompressionMojo extends AbstractMojo {
      *                       compressing. Generally this is <code>target/site</code>.
      * @param file A {@link File} to add to the {@link ZipOutputStream} <code>zos</code>.
      * @param zos The {@link ZipOutputStream} to which to add our <code>file</code>.
-     * @throws IOException if adding the <code>file</code> doesn't work out properly.
+     * @throws IOException Thrown if adding the <code>file</code> doesn't work out properly.
      */
     private void addToZip(final File directoryToZip, final File file, final ZipOutputStream zos) throws IOException {
         try (InputStream fis = Files.newInputStream(file.toPath())) {
