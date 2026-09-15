@@ -48,10 +48,10 @@ public final class SharedFunctions {
      * Copies a {@link File} from the <code>fromFile</code> to the <code>toFile</code> and logs the failure
      * using the Maven {@link Log}.
      *
-     * @param log The {@link Log}, the maven logger.
+     * @param log The {@link Log}, the Maven logger.
      * @param fromFile The {@link File} from which to copy.
-     * @param toFile The {@link File} to which to copy into.
-     * @throws MojoExecutionException if an {@link IOException} or {@link NullPointerException} is caught.
+     * @param toFile The destination {@link File}.
+     * @throws MojoExecutionException Thrown if an {@link IOException} or {@link NullPointerException} is caught.
      */
     public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
         final String format = "Unable to copy file %s to %s: %s";
@@ -70,10 +70,9 @@ public final class SharedFunctions {
      * Cleans and then initializes an empty directory that is given by the <code>workingDirectory</code>
      * parameter.
      *
-     * @param log is the Maven log for output logging, particularly in regards to error management.
-     * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete then create.
-     * @throws MojoExecutionException when an {@link IOException} or {@link NullPointerException} is caught for the
-     *      purpose of bubbling the exception up to Maven properly.
+     * @param log is the Maven log for output logging, particularly with regard to error management.
+     * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete and then create.
+     * @throws MojoExecutionException Thrown if an {@link IOException} or {@link NullPointerException} is caught.
      */
     public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
         final String format = "Unable to remove directory %s: %s";
@@ -107,7 +106,7 @@ public final class SharedFunctions {
      * @param obj The object reference to check for nullity
      * @param <T> The type of the reference
      * @return {@code obj} if not {@code null}
-     * @throws MojoExecutionException if {@code obj} is {@code null}
+     * @throws MojoExecutionException Thrown if {@code obj} is {@code null}.
      */
     public static <T> T requireNonNull(final T obj) throws MojoExecutionException {
         if (obj == null) {
@@ -134,7 +133,7 @@ public final class SharedFunctions {
      *                NullPointerException} is thrown
      * @param <T> The type of the reference
      * @return {@code obj} if not {@code null}
-     * @throws MojoExecutionException if {@code obj} is {@code null}
+     * @throws MojoExecutionException Thrown if {@code obj} is {@code null}.
      */
     public static <T> T requireNonNull(final T obj, final String message) throws MojoExecutionException {
         if (obj == null) {
@@ -147,15 +146,15 @@ public final class SharedFunctions {
      * Checks that the specified object reference is not {@code null} and throws a customized {@link MojoExecutionException} if it is.
      * <p>
      * Unlike the method {@link #requireNonNull(Object, String)}, this method allows creation of the message to be deferred until after the null check is made.
-     * While this may confer a performance advantage in the non-null case, when deciding to call this method care should be taken that the costs of creating the
-     * message supplier are less than the cost of just creating the string message directly.
+     * While this may confer a performance advantage in the non-null case, when deciding to call this method, care should be taken that the costs of creating
+     * the message supplier are less than the cost of just creating the string message directly.
      * </p>
      *
      * @param obj The object reference to check for nullity
      * @param messageSupplier supplier of the detail message to be used in the event that a {@code NullPointerException} is thrown
      * @param <T> The type of the reference
      * @return {@code obj} if not {@code null}
-     * @throws MojoExecutionException if {@code obj} is {@code null}
+     * @throws MojoExecutionException Thrown if {@code obj} is {@code null}.
      */
     public static <T> T requireNonNull(final T obj, final Supplier<String> messageSupplier) throws MojoExecutionException {
         if (obj == null) {
@@ -189,7 +188,7 @@ public final class SharedFunctions {
     }
 
     /**
-     * Making the constructor private because the class only contains static methods.
+     * Prevents instantiation of this utility class.
      */
     private SharedFunctions() {
         // Utility Class

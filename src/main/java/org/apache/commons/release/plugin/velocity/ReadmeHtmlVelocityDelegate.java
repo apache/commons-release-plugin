@@ -27,7 +27,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
- * This class' purpose is to generate the <code>README.html</code> that moves along with the
+ * This class's purpose is to generate the <code>README.html</code> that moves along with the
  * release for the sake of downloading the release from the distribution area.
  *
  * @since 1.3
@@ -39,13 +39,13 @@ public final class ReadmeHtmlVelocityDelegate {
      */
     public static final class ReadmeHtmlVelocityDelegateBuilder {
 
-        /** The maven artifactId to use in the <code>README.vm</code> template. */
+        /** The Maven artifactId to use in the <code>README.vm</code> template. */
         private String artifactId;
 
-        /** The maven version to use in the <code>README.vm</code> template. */
+        /** The Maven version to use in the <code>README.vm</code> template. */
         private String version;
 
-        /** The site url to use in the <code>README.vm</code> template. */
+        /** The site URL to use in the <code>README.vm</code> template. */
         private String siteUrl;
 
         /**
@@ -65,9 +65,9 @@ public final class ReadmeHtmlVelocityDelegate {
         }
 
         /**
-         * Adds the artifactId to the {@link ReadmeHtmlVelocityDelegate}.
+         * Sets the Maven artifact ID for the {@link ReadmeHtmlVelocityDelegate}.
          *
-         * @param artifactId The {@link String} representing the maven artifactId.
+         * @param artifactId The {@link String} representing the Maven artifactId.
          * @return The builder to continue building.
          */
         public ReadmeHtmlVelocityDelegateBuilder setArtifactId(final String artifactId) {
@@ -76,9 +76,9 @@ public final class ReadmeHtmlVelocityDelegate {
         }
 
         /**
-         * Adds the siteUrl to the {@link ReadmeHtmlVelocityDelegate}.
+         * Sets the site URL for the {@link ReadmeHtmlVelocityDelegate}.
          *
-         * @param siteUrl The site url to be used in the <code>README.html</code>
+         * @param siteUrl The site URL to be used in the <code>README.html</code>
          * @return The builder to continue building.
          */
         public ReadmeHtmlVelocityDelegateBuilder setSiteUrl(final String siteUrl) {
@@ -87,9 +87,9 @@ public final class ReadmeHtmlVelocityDelegate {
         }
 
         /**
-         * Adds the version to the {@link ReadmeHtmlVelocityDelegate}.
+         * Sets the version for the {@link ReadmeHtmlVelocityDelegate}.
          *
-         * @param version The maven version.
+         * @param version The Maven version.
          * @return The builder to continue building.
          */
         public ReadmeHtmlVelocityDelegateBuilder setVersion(final String version) {
@@ -103,7 +103,7 @@ public final class ReadmeHtmlVelocityDelegate {
      */
     private static final Pattern END_DIGIT = Pattern.compile(".+\\d$");
 
-    /** The location of the velocity template for this class. */
+    /** The location of the Velocity template for this class. */
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin"
                                          + "/velocity/README.vm";
 
@@ -116,13 +116,13 @@ public final class ReadmeHtmlVelocityDelegate {
         return new ReadmeHtmlVelocityDelegateBuilder();
     }
 
-    /** This is supposed to represent the maven artifactId. */
+    /** This is supposed to represent the Maven artifactId. */
     private final String artifactId;
 
-    /** This is supposed to represent the maven version of the release. */
+    /** This is supposed to represent the Maven version of the release. */
     private final String version;
 
-    /** The url of the site that gets set into the <code>README.html</code>. */
+    /** The URL of the site that gets set into the <code>README.html</code>. */
     private final String siteUrl;
 
     /**
@@ -139,7 +139,7 @@ public final class ReadmeHtmlVelocityDelegate {
     }
 
     /**
-     * Renders the <code>README.vm</code> velocity template with the variables constructed with the
+     * Renders the <code>README.vm</code> Velocity template with the variables constructed with the
      * {@link ReadmeHtmlVelocityDelegateBuilder}.
      *
      * @param writer is the {@link Writer} to which we wish to render the <code>README.vm</code> template.

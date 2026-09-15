@@ -60,7 +60,7 @@ public class DsseEnvelope {
     /**
      * Gets the serialized payload bytes.
      *
-     * <p>When serialized to JSON the bytes are Base64-encoded.</p>
+     * <p>When serialized to JSON, the bytes are Base64-encoded.</p>
      *
      * @return The payload bytes, or {@code null} if not set.
      */

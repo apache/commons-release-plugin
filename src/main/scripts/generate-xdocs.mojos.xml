@@ -27,7 +27,7 @@
     <mojo>
       <goal>vote-txt</goal>
       <call>vote-txt</call>
-      <description>Apache Commons Release Mojo: Generate VOTE.txt file.</description>
+      <description>Apache Commons Release Mojo: Generate a VOTE.txt file.</description>
       <requiresProject>true</requiresProject>
       <parameters>
         <parameter>
@@ -64,7 +64,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.jira.id}</defaultValue>
           <type>java.lang.String</type>
-          <description>The external JIRA id for the project (alphabetic, upper case.)</description>
+          <description>The external JIRA ID for the project (alphabetic, uppercase).</description>
         </parameter>
         <parameter>
           <name>commons.componentid</name>
@@ -73,7 +73,7 @@
           <readonly>true</readonly>
           <defaultValue>${commons.componentid}</defaultValue>
           <type>java.lang.String</type>
-          <description>The commons component id.</description>
+          <description>The Commons component ID.</description>
         </parameter>
         <parameter>
           <name>commons.jira.pid</name>
@@ -82,7 +82,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.jira.pid}</defaultValue>
           <type>java.lang.String</type>
-          <description>The internal JIRA id for the project (numeric.)</description>
+          <description>The internal JIRA ID for the project (numeric).</description>
         </parameter>
         <parameter>
           <name>commons.rc.version</name>
@@ -100,7 +100,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.bc.version}</defaultValue>
           <type>java.lang.String</type>
-          <description>The version of the latest release of the project this candidate should have binary compatibility.</description>
+          <description>The version of the latest release of the project with which this candidate should be binary compatible.</description>
         </parameter>
         <parameter>
           <name>commons.release.version</name>
@@ -145,7 +145,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.release.subdir}</defaultValue>
           <type>java.lang.String</type>
-          <description>Subdirectory (instead of source/binaries.)</description>
+          <description>Subdirectory (instead of source/binaries).</description>
         </parameter>
         <parameter>
           <name>commons.releaseManagerName</name>
@@ -172,7 +172,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.nexus.repo.id}</defaultValue>
           <type>java.lang.String</type>
-          <description>The Nexus repository ID on https://repository.apache.org/, usually a four digit number.
+          <description>The Nexus repository ID on https://repository.apache.org/, usually a four-digit number.
           This is the value after https://repository.apache.org/content/repositories/orgapachecommons-
           </description>
         </parameter>

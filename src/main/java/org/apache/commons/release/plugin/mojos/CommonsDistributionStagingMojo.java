@@ -59,9 +59,9 @@ import org.apache.maven.settings.Settings;
 import org.apache.maven.settings.crypto.SettingsDecrypter;
 
 /**
- * This class checks out the dev distribution location, copies the distributions into that directory
- * structure under the <code>target/commons-release-plugin/scm</code> directory. Then commits the
- * distributions back up to SVN. Also, we include the built and zipped site as well as the RELEASE-NOTES.txt.
+ * Checks out the dev distribution location, copies the distributions into that directory
+ * structure under the <code>target/commons-release-plugin/scm</code> directory, and commits the
+ * distributions back to SVN. Includes the built and zipped site as well as the RELEASE-NOTES.txt file.
  *
  * @since 1.0
  */
@@ -71,42 +71,42 @@ import org.apache.maven.settings.crypto.SettingsDecrypter;
         aggregator = true)
 public final class CommonsDistributionStagingMojo extends AbstractMojo {
 
-    /** The name of file generated from the README.vm velocity template to be checked into the dist svn repo. */
+    /** The name of the file generated from the README.vm Velocity template to be checked into the dist SVN repo. */
     private static final String README_FILE_NAME = "README.html";
 
-    /** The name of file generated from the HEADER.vm velocity template to be checked into the dist svn repo. */
+    /** The name of the file generated from the HEADER.vm Velocity template to be checked into the dist SVN repo. */
     private static final String HEADER_FILE_NAME = "HEADER.html";
 
-    /** The name of the signature validation shell script to be checked into the dist svn repo. */
+    /** The name of the signature validation shell script to be checked into the dist SVN repo. */
     private static final String SIGNATURE_VALIDATOR_NAME = "signature-validator.sh";
 
     /**
-     * The {@link MavenProject} object is essentially the context of the maven build at
+     * The {@link MavenProject} object is essentially the context of the Maven build at
      * a given time.
      */
     @Parameter(defaultValue = "${project}", required = true)
     private MavenProject project;
 
     /**
-     * The {@link File} that contains a file to the root directory of the working project. Typically
+     * The {@link File} representing the root directory of the working project. Typically
      * this directory is where the <code>pom.xml</code> resides.
      */
     @Parameter(defaultValue = "${basedir}")
     private File baseDir;
 
-    /** The location to which the site gets built during running <code>mvn site</code>. */
+    /** The location to which the site gets built when running <code>mvn site</code>. */
     @Parameter(defaultValue = "${project.build.directory}/site", property = "commons.siteOutputDirectory")
     private File siteDirectory;
 
     /**
      * The main working directory for the plugin, namely <code>target/commons-release-plugin</code>, but
-     * that assumes that we're using the default maven <code>${project.build.directory}</code>.
+     * that assumes that we're using the default Maven <code>${project.build.directory}</code>.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", property = "commons.outputDirectory")
     private File workingDirectory;
 
     /**
-     * The location to which to check out the dist subversion repository under our working directory, which
+     * The location to which to check out the dist Subversion repository under our working directory, which
      * was given above.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm",
@@ -120,16 +120,16 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     private File releaseNotesFile;
 
     /**
-     * A boolean that determines whether or not we actually commit the files up to the subversion repository.
-     * If this is set to {@code true}, we do all but make the commits. We do checkout the repository in question
+     * A boolean that determines whether or not we actually commit the files up to the Subversion repository.
+     * If this is set to {@code true}, we do all but make the commits. We do check out the repository in question,
      * though.
      */
     @Parameter(property = "commons.release.dryRun", defaultValue = "false")
     private Boolean dryRun;
 
     /**
-     * The url of the subversion repository to which we wish the artifacts to be staged. Typically this would need to
-     * be of the form: <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>. Note. that
+     * The URL of the Subversion repository to which we wish the artifacts to be staged. Typically this would need to
+     * be of the form: <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>. Note that
      * the prefix to the substring <code>https</code> is a requirement.
      */
     @Parameter(defaultValue = "", property = "commons.distSvnStagingUrl")
@@ -148,7 +148,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     private String commonsReleaseVersion;
 
     /**
-     * The RC version of the release. For example the first voted on candidate would be "RC1".
+     * The RC version of the release. For example, the first release candidate would be "RC1".
      */
     @Parameter(property = "commons.rc.version")
     private String commonsRcVersion;
@@ -161,7 +161,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     private String distServer;
 
     /**
-     * The username for the distribution subversion repository. This is typically your Apache id.
+     * The username for the distribution Subversion repository. This is typically your Apache ID.
      */
     @Parameter(property = "user.name")
     private String username;
@@ -186,7 +186,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
 
     /**
      * A subdirectory of the dist directory into which we are going to stage the release candidate. We
-     * build this up in the {@link CommonsDistributionStagingMojo#execute()} method. And, for example,
+     * build this up in the {@link CommonsDistributionStagingMojo#execute()} method. For example,
      * the directory should look like <code>https://dist.apache.org/repos/dist/dev/commons/text/1.4-RC1</code>.
      */
     private File distRcVersionDirectory;
@@ -199,7 +199,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     }
 
     /**
-     * Builds up <code>README.html</code> and <code>HEADER.html</code> that reside in following.
+     * Builds up <code>README.html</code> and <code>HEADER.html</code> that reside in the following directory structure:
      * <ul>
      *     <li>distRoot
      *     <ul>
@@ -214,8 +214,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      * </ul>
      *
      * @return The {@link List} of created files above
-     * @throws MojoExecutionException if an {@link IOException} occurs in the creation of these
-     *                                files fails.
+     * @throws MojoExecutionException Thrown if an {@link IOException} occurs while creating these files.
      */
     private List<File> buildReadmeAndHeaderHtmlFiles() throws MojoExecutionException {
         final List<File> headerAndReadmeFiles = new ArrayList<>();
@@ -286,9 +285,9 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      *                           <code>target/commons-release-plugin/scm</code> directory.
      * @param provider is the {@link ScmProvider} that we will use for adding the files we wish to commit.
      * @param repository is the {@link ScmRepository} that we will use for adding the files that we wish to commit.
-     * @return A {@link List} of {@link File}'s in the directory for the purpose of adding them to the maven
+     * @return A {@link List} of {@link File} objects in the directory for the purpose of adding them to the Maven
      *         {@link ScmFileSet}.
-     * @throws MojoExecutionException if an {@link IOException} occurs so that Maven can handle it properly.
+     * @throws MojoExecutionException Thrown if an {@link IOException} occurs.
      */
     private List<File> copyDistributionsIntoScmDirectoryStructureAndAddToSvn(final File copiedReleaseNotes,
                                                                              final ScmProvider provider,
@@ -332,8 +331,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      * @param headerFile The originally created <code>HEADER.html</code> file.
      * @param readmeFile The originally created <code>README.html</code> file.
      * @return A {@link List} of created files.
-     * @throws MojoExecutionException if the {@link SharedFunctions#copyFile(Log, File, File)}
-     *                                fails.
+     * @throws MojoExecutionException Thrown if {@link SharedFunctions#copyFile(Log, File, File)} fails.
      */
     private List<File> copyHeaderAndReadmeToSubdirectories(final File headerFile, final File readmeFile)
             throws MojoExecutionException {
@@ -363,8 +361,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      *         directory for the purpose of adding it to the scm change set in the method
      *         {@link CommonsDistributionStagingMojo#copyDistributionsIntoScmDirectoryStructureAndAddToSvn(File,
      *         ScmProvider, ScmRepository)}.
-     * @throws MojoExecutionException if an {@link IOException} occurs as a wrapper so that maven
-     *                                can properly handle the exception.
+     * @throws MojoExecutionException Thrown if an {@link IOException} occurs while copying the file.
      */
     private File copyReleaseNotesToWorkingDirectory() throws MojoExecutionException {
         SharedFunctions.initDirectory(getLog(), distRcVersionDirectory);
@@ -379,7 +376,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
      * <code>${basedir}/target/commons-release-plugin/scm/signature-validator.sh</code>.
      *
      * @return The {@link File} for the signature-validator.sh
-     * @throws MojoExecutionException if an error occurs while the resource is being copied
+     * @throws MojoExecutionException Thrown if an error occurs while copying the resource.
      */
     private File copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
         final Path scmTargetPath = Paths.get(distRcVersionDirectory.toString(), SIGNATURE_VALIDATOR_NAME);
@@ -396,9 +393,9 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     /**
      * Copies <code>${basedir}/target/site</code> to <code>${basedir}/target/commons-release-plugin/scm/site</code>.
      *
-     * @return The {@link List} of {@link File}'s contained in
+     * @return The {@link List} of {@link File} objects contained in
      *         <code>${basedir}/target/commons-release-plugin/scm/site</code>, after the copy is complete.
-     * @throws MojoExecutionException if the site copying fails for some reason.
+     * @throws MojoExecutionException Thrown if an error occurs while copying the site.
      */
     private List<File> copySiteToScmDirectory() throws MojoExecutionException {
         if (!siteDirectory.exists()) {
@@ -499,7 +496,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     }
 
     /**
-     * Lists all directories and files to a flat list.
+     * Lists all directories and files in a flat list.
      *
      * @param directory {@link File} containing directory to list
      * @param files A {@link List} of {@link File} to which to append the files.
@@ -518,8 +515,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     }
 
     /**
-     * This method is the setter for the {@link CommonsDistributionStagingMojo#baseDir} field, specifically
-     * for the usage in the unit tests.
+     * Sets the {@link CommonsDistributionStagingMojo#baseDir} field for use in unit tests.
      *
      * @param baseDir is the {@link File} to be used as the project's root directory when this mojo
      *                is invoked.

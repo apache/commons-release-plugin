@@ -30,17 +30,17 @@
                 Execute the goal using the following command: <source>mvn commons-release:vote-txt</source>
                 </p>
                 <p>
-                <strong>Note:</strong> The VOTE.txt should be regenerated before every release candidate.
+                <strong>Note:</strong> The VOTE.txt file should be regenerated before every release candidate.
                 </p>
                 <p>
-                This goal uses the following:
+                This goal works as follows:
                 </p>
                 <ul>
-                    <li>The goal is mapped to the ant script/target using the <code>vote-txt</code> mojo definition in the
+                    <li>The goal is mapped to the Ant script/target using the <code>vote-txt</code> mojo definition in the
                         <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.mojos.xml">generate-xdocs.mojos.xml</a> mapping document</li>
-                    <li>Executes the <code>vote-txt</code> target in
+                    <li>Executes the <code>vote-txt</code> target in the
                         <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.build.xml">generate-xdocs.build.xml</a>
-                        ant script</li>
+                        Ant script</li>
                     <li>Uses the <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/resources/commons-xdoc-templates/vote-txt-template.md">vote-txt-template.md</a>
                         template</li>
                     <li>Uses the <a href="vote-txt-mojo.html">goal's (i.e. mojo's) parameters</a> to filter values in the template</li>
@@ -48,7 +48,7 @@
             </subsection>
             <subsection name="Configuration">
                 <p>
-                To generate a VOTE.txt, the following <a href="vote-txt-mojo.html">properties</a>  are configured in the component's <code>pom.xml</code>
+                To generate a VOTE.txt file, configure the following <a href="vote-txt-mojo.html">properties</a> in the component's <code>pom.xml</code>:
                 </p>
                 <ul>
                     <li><b>commons.componentid</b> - Commons component ID</li>

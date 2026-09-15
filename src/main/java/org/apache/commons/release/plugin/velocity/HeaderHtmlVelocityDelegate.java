@@ -25,7 +25,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
- * This class' purpose is to generate the <code>HEADER.html</code> that moves along with the
+ * This class's purpose is to generate the <code>HEADER.html</code> that moves along with the
  * release for the sake of downloading the release from the distribution area.
  *
  * @since 1.3
@@ -53,7 +53,7 @@ public final class HeaderHtmlVelocityDelegate {
         }
     }
 
-    /** The location of the velocity template for this class. */
+    /** The location of the Velocity template for this class. */
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin/velocity/HEADER.vm";
 
     /**
@@ -70,10 +70,10 @@ public final class HeaderHtmlVelocityDelegate {
     }
 
     /**
-     * Builds the HEADER.vm velocity template to the writer passed in.
+     * Renders the HEADER.vm Velocity template to the supplied writer.
      *
-     * @param writer any {@link Writer} that we wish to have the filled velocity template written to.
-     * @return The {@link Writer} that we've filled out the template into.
+     * @param writer any {@link Writer} that we wish to have the filled Velocity template written to.
+     * @return The {@link Writer} to which the template was rendered.
      */
     public Writer render(final Writer writer) {
         final VelocityEngine ve = new VelocityEngine();

@@ -28,40 +28,39 @@
         <section name="Release Plugin">
 
             <p>
-            This is a <a href="https://maven.apache.org/">Maven 3.x</a> Plugin which is
-            used by <a href="https://commons.apache.org/">Apache Commons</a> releases. See
+            This is a <a href="https://maven.apache.org/">Maven 3.x</a> plugin that is
+            used for <a href="https://commons.apache.org/">Apache Commons</a> releases. See
             the <a href="development.html">Development</a> page for information to
             help maintain this plugin.
             </p>
 
-            <p>The main purpose of the plugin is to automate the steps of our, namely
-            The Apache Commons Project's, release process. Currently we have the mechanics
-            for detaching distribution artifacts (i.e. all <code>tar.gz</code> artifacts and
+            <p>The main purpose of the plugin is to automate the steps of the
+            Apache Commons Project's release process. Currently, it supports detaching distribution artifacts (i.e., all <code>tar.gz</code> artifacts and
             signatures as well as all <code>.zip</code> artifacts and signatures), creating
-            a <code>site.zip</code> file, and staging all of those artifacts in a subversion
+            a <code>site.zip</code> file, and staging all of those artifacts in a Subversion
             repository (for the most part a subdirectory of
-            <a href="https://dist.apache.org/repos/dist/dev/commons/">https://dist.apache.org/repos/dist/dev/commons/</a>.
-            It can, however, stage to any subversion repository.
+            <a href="https://dist.apache.org/repos/dist/dev/commons/">https://dist.apache.org/repos/dist/dev/commons/</a>).
+            It can, however, stage to any Subversion repository.
             </p>
 
         </section>
 
         <section name="Plugin Goals">
             <p>
-            Available Goals (which are meant to be used together; the only reason they are separated is for
+            Available goals (which are meant to be used together; the only reason they are separated is for
             code readability):
             </p>
             <ul>
                 <li>
                     <b>commons-release:detach-distributions</b> - Remove
                     <code>tar.gz</code>, <code>tar.gz.asc</code>, <code>zip</code>, and <code>zip.asc</code>
-                    files from being uploaded to nexus and copy them to the <code>target/commons-release-plugin</code>
+                    files from being uploaded to Nexus and copy them to the <code>target/commons-release-plugin</code>
                     directory.
                 </li>
                 <li>
                     <b>commons-release:stage-distributions</b> - Take all staged files in the
                     <code>target/commons-release-plugin</code> directory, and the <code>RELEASE-NOTES.txt</code> from
-                    the root of the project, and commit them to a specified staging subversion repository.
+                    the root of the project, and commit them to a specified staging Subversion repository.
                 </li>
                 <li>
                   <a href="vote-txt.html">commons-release:vote-txt</a> -Dcommons.nexus.repo.id=nnnn [-Dgit.tag.name] # where nnn is the number following orgapachecommons- in the Nexus 'Repository' column
@@ -71,9 +70,9 @@
 
         <section name="Using the plugin">
             <p>
-            Configure the plugin as the last plugin in the<code>&lt;build&gt;</code> section of the <code>pom.xml</code>
+            Configure the plugin as the last plugin in the <code>&lt;build&gt;</code> section of the <code>pom.xml</code> file.
             </p>
-            <p>This is now done in the Commons Parent POM, so is not needed in the component POM.</p>
+            <p>This is now done in the Commons Parent POM, so it is not needed in the component POM.</p>
 <source><![CDATA[
 <plugin>
   <groupId>org.apache.commons</groupId>
@@ -105,7 +104,7 @@
 </plugin>
 ]]></source>
             <p>
-            The following properties need to be defined in the component POM if not already defined
+            The following properties need to be defined in the component POM if they are not already defined:
             </p>
 <source><![CDATA[
     <properties>
@@ -116,7 +115,7 @@
 ]]></source>
             <p>
             Ensure your Release Manager details are defined in your Maven <code>~/.m2/settings.xml</code> file
-            (These are used by the vote-txt goal)
+            (these are used by the vote-txt goal).
             Properties have to be defined in a profile. For example:
             </p>
 <source><![CDATA[
@@ -141,17 +140,17 @@
 </settings>
 ]]></source>
             <p>
-            After the above configuration performing the release would occur by (<i>note.</i> more
-            in depth details can be found at
+            After configuring the plugin as shown above, perform the release using the following steps (more
+            in-depth details can be found at
             <a href="https://commons.apache.org/releases/prepare.html">Preparations For A Release</a>):
             </p>
             <ol>
               <li>creating our release branch,</li>
               <li>checking compatibility,</li>
               <li>checking your dependencies,</li>
-              <li>checking javadocs and code style,</li>
-              <li>checking the apache license,</li>
-              <li>configure the build to generate a complete set of release artifacts,</li>
+              <li>checking Javadocs and code style,</li>
+              <li>checking the Apache license,</li>
+              <li>configuring the build to generate a complete set of release artifacts,</li>
               <li>preparing the release notes, updating the download file and other autogenerated files,</li>
               <li>tagging the release candidate, and</li>
               <li>
@@ -166,9 +165,9 @@ mvn -Duser.name=<yourApacheId> [-Duser.password=<yourApacheIdsPassword] [-Dcommo
             to specify a server definition in Maven <code>settings.xml</code> which defines your (encrypted, right?) authentication info.
             </p>
             <p>
-            If the component is new, then, before running this maven command, you would want to create
-            the requisite subversion directory <code>https://dist.apache.org/repos/dist/dev/commons/foo</code>. Notice,
-            that the way to perform a dry run of the release you need to include
+            If the component is new, then, before running this Maven command, you would want to create
+            the requisite Subversion directory <code>https://dist.apache.org/repos/dist/dev/commons/foo</code>. Note
+            that to perform a dry run of the release, you need to include
             <code>-Dcommons.release.dryRun=true -Ptest-deploy</code>.
             </p>
         </section>

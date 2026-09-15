@@ -21,8 +21,8 @@
 
 <p><font color="red" size="+2">Note:</font>
     The tar files in the distribution use GNU tar extensions
-    and must be untarred with a GNU compatible version of tar. The version
-    of tar on Solaris and Mac OS X will not work with these files</p>
+    and must be untarred with a GNU-compatible version of tar. The version
+    of tar on Solaris and Mac OS X will not work with these files.</p>
 
 <a name="changes"><h2>Changes</h2></a>
 

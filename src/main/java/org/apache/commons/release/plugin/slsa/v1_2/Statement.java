@@ -56,7 +56,7 @@ public class Statement {
     }
 
     /**
-     * Type of JSON object.
+     * Gets the JSON object type.
      *
      * @return Always {@value TYPE}.
      */

@@ -21,11 +21,11 @@ Subject: [VOTE] Release @NAME@ @VERSION@ based on @RC@
 We have fixed a few bugs and added enhancements since the release of @NAME@ @BC@, so I would like to release @NAME@ @VERSION@.
 
 @NAME@ @VERSION@ @RC@ is available for review here:
-    @DISTURL@ (svn revision @RCREV@)
+    @DISTURL@ (SVN revision @RCREV@)
 
 The Git tag @TAGNAME@ commit for this RC is @TAGCOMMIT@, which you can browse here:
     https://gitbox.apache.org/repos/asf?p=commons-@ID@.git;a=commit;h=@TAGCOMMIT@
-You may checkout this tag using:
+You may check out this tag using:
     git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
 
 Maven artifacts are here:
@@ -98,43 +98,43 @@ You can validate a release from a release candidate (RC) tag as follows.
 
 @DISTURL@/source
 
-1b) Check out the RC tag from git (optional)
+1b) Check out the RC tag from Git (optional)
 
-This is optional,  as a reviewer must at least check source distributions.
+This is optional, as a reviewer must at least check source distributions.
 
 git clone https://gitbox.apache.org/repos/asf/commons-@ID@.git --branch @TAGNAME@ @TAGNAME@
 cd @TAGNAME@
 
-2) Checking the build
+2) Check the build
 
 All components should include a default Maven goal, such that you can run 'mvn' from the command line by itself.
 
-2) Check Apache licenses
+3) Check Apache licenses
 
 This step is not required if the site includes a RAT report page, which you then must check.
 This check should be included in the default Maven build, but you can check it with:
 
 mvn apache-rat:check
 
-3) Check binary compatibility
+4) Check binary compatibility
 
 This step is not required if the site includes a JApiCmp report page, which you then must check.
 This check should be included in the default Maven build, but you can check it with:
 
 mvn verify -DskipTests -P japicmp japicmp:cmp
 
-4) Build the package
+5) Build the package
 
 This check should be included in the default Maven build, but you can check it with:
 
 mvn -V clean package
 
-You can record the Maven and Java version produced by -V in your VOTE reply.
+You can record the Maven and Java versions produced by -V in your VOTE reply.
 To gather OS information from a command line:
 Windows: ver
 Linux: uname -a
 
-4b) Check reproducibility
+6) Check reproducibility
 
 To check that a build is reproducible, run:
 
@@ -144,7 +144,7 @@ mvn clean verify artifact:compare -DskipTests -Dreference.repo=https://repositor
 
 Note that this excludes SPDX files from the check.
 
-5) Build the site for a single module project
+7) Build the site for a single-module project
 
 Note: Some plugins require the components to be installed instead of packaged.
 
@@ -153,7 +153,7 @@ Check the site reports in:
 - Windows: target\site\index.html
 - Linux: target/site/index.html
 
-6) Build the site for a multi-module project
+8) Build the site for a multi-module project
 
 mvn site
 mvn site:stage

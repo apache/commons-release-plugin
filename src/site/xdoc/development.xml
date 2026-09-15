@@ -36,8 +36,8 @@
     <section name="New Mojos">
 
       <p>
-        Each Mojo is a java file that extends <code>AbstractMojo</code> that contains an annotation specifying
-        the goal name for the mojo and the maven lifecycle phase that it executes under by default. For, example
+        Each mojo is a Java class that extends <code>AbstractMojo</code> and contains an annotation specifying
+        the goal name for the mojo and the Maven lifecycle phase in which it executes by default. For example, the following class
 <source><![CDATA[
 package org.apache.commons.release.plugin.mojos;
 
@@ -45,19 +45,18 @@ package org.apache.commons.release.plugin.mojos;
 public class CommonsDistributionDetachmentMojo extends AbstractMojo {
   .....
 }]]></source>
-        specifies the goal <code>commons-release:detach-distributions</code> that is to occur during the VERIFY maven
-        lifecycle.
+        specifies the goal <code>commons-release:detach-distributions</code> that is to occur during the VERIFY phase of the Maven lifecycle.
       </p>
 
       <p>
-        The variables in the mojo that are declared as private with the annotations <code>@Parameter</code> get
-        imported to the Mojo by the existent maven variables or the declared <code>&lt;configuration&gt;</code>. For
+        The variables in the mojo that are declared as private with the annotation <code>@Parameter</code> are
+        initialized from existing Maven variables or the declared <code>&lt;configuration&gt;</code>. For
         example, we have a boolean variable named <code>dryRun</code> declared as:
 <source><![CDATA[
 @Parameter(property = "commons.release.dryRun", defaultValue = "false")
 private Boolean dryRun;
 ]]></source>
-        that can be configured by
+        that can be configured as follows:
 <source><![CDATA[
 <plugin>
   <groupId>org.apache.commons</groupId>
@@ -68,8 +67,8 @@ private Boolean dryRun;
   </configuration>
 </plugin>]]></source>
 
-        And, because we've set the <code>property here</code> (as in the 1.1 release), you can, on the command line,
-        use the following <code>-Dcommons.release.dryRun=true</code>.
+        Because we've set the <code>property</code> here (as in the 1.1 release), you can use
+        <code>-Dcommons.release.dryRun=true</code> on the command line.
       </p>
 
     </section>
@@ -77,12 +76,12 @@ private Boolean dryRun;
     <section name="Unit testing">
 
       <p>
-        We've declared mock maven poms in the <code>resources</code> directory of the <code>src/test</code> folder,
-        under which we've stored in subdirectories corresponding to the names of the mojos that they are testing. All
-        variables that you wish to be available to your mojo must be specifically declared in the mock pom file. For
-        example, we need to use the already existent <code>MavenProject</code> in the maven runtime by instead, in a
-        test package declaring a class extending <code>MavenProjectStub</code> that returns values we wish to be used
-        in testing. We then add this to our pom in the following declaration of the plugin:
+        We've declared mock Maven POMs in the <code>resources</code> directory of the <code>src/test</code> folder,
+        stored in subdirectories corresponding to the names of the mojos that they are testing. All
+        variables that you wish to be available to your mojo must be specifically declared in the mock POM file. For
+        example, we can supply a <code>MavenProject</code> to the Maven runtime by declaring a class in a
+        test package that extends <code>MavenProjectStub</code> and returns the values we wish to use
+        in testing. We then add this to our POM in the following declaration of the plugin:
         <source><![CDATA[
 <plugin>
   <groupId>org.apache.commons</groupId>
@@ -93,7 +92,7 @@ private Boolean dryRun;
     <distSvnStagingUrl>mockDistSvnStagingUrl</distSvnStagingUrl>
   </configuration>
 </plugin>]]></source>
-        Also note here we are declaring other values that we are using in the testing of the plugin. We then retrieve
+        Also note that we are declaring other values that we are using in the testing of the plugin. We then retrieve
         our instantiated mojo by declaring a <code>MojoRule</code> in our test class,
 <source><![CDATA[
 @Rule
@@ -106,7 +105,7 @@ public MojoRule rule = new MojoRule() {
     protected void after() {
     }
 };]]></source>
-        and then retrieve the mojo by newing up a <code>File</code> pointed to the path of the mock pom, and then
+        and then retrieve the mojo by creating a <code>File</code> pointing to the mock POM and then
         making the following call:
 <source><![CDATA[
 mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
@@ -120,12 +119,12 @@ mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
 
       <p>
         Maven ships with a debugger under the hood. It is suggested that you have a sandbox project in which you can
-        run the goals or the plugin configuration. Once you have that set up you can run something like
+        run the goals or the plugin configuration. Once you have that set up, you can run something like
         <source><![CDATA[
 mvnDebug commons-release:detach-distributions
 ]]></source>
-        which exposes a remote debugger on port 8000 and halts the maven process until you attach a remote debugger
-        to that port. Once you have a remote debugger attached the maven process continues and stops at any
+        which exposes a remote debugger on port 8000 and halts the Maven process until you attach a remote debugger
+        to that port. Once you have a remote debugger attached, the Maven process continues and stops at any
         breakpoints that you have set up in your project.
       </p>
 

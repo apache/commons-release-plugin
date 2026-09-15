@@ -16,10 +16,9 @@
  */
 
 /**
- * Contains classes that take our velocity templates and render's them to a {@link java.io.Writer}
- * class.
+ * Contains classes that render Velocity templates to a {@link java.io.Writer}.
  * <p>
- * The main reason for velocity templates are to fill out the following files that get deployed alongside:
+ * The Velocity templates generate the following files, which are deployed alongside the release:</p>
  * <ul>
  *     <li><code>HEADER.html</code></li>
  *     <li><code>README.html</code></li>

@@ -17,7 +17,7 @@
 
 /**
  * Base package for the commons-release-plugin. It should contain only classes
- * that are used across all sub-packages. For now the only class in this package
+ * that are used across all sub-packages. For now, the only class in this package
  * is:
  * <ul>
  *     <li>{@link org.apache.commons.release.plugin.SharedFunctions}</li>

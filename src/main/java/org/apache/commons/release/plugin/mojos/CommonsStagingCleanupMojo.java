@@ -46,7 +46,7 @@ import org.apache.maven.settings.crypto.SettingsDecrypter;
 
 /**
  * This class checks out the dev distribution location, checks whether anything exists in the
- * distribution location, and if it is non-empty it deletes all the resources there.
+ * distribution location, and, if it is non-empty, deletes all the resources there.
  *
  * @since 1.6
  */
@@ -57,7 +57,7 @@ import org.apache.maven.settings.crypto.SettingsDecrypter;
 public final class CommonsStagingCleanupMojo extends AbstractMojo {
 
     /**
-     * The {@link MavenProject} object is essentially the context of the maven build at
+     * The {@link MavenProject} object is essentially the context of the Maven build at
      * a given time.
      */
     @Parameter(defaultValue = "${project}", required = true)
@@ -65,13 +65,13 @@ public final class CommonsStagingCleanupMojo extends AbstractMojo {
 
     /**
      * The main working directory for the plugin, namely <code>target/commons-release-plugin</code>, but
-     * that assumes that we're using the default maven <code>${project.build.directory}</code>.
+     * that assumes that we're using the default Maven <code>${project.build.directory}</code>.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", property = "commons.outputDirectory")
     private File workingDirectory;
 
     /**
-     * The location to which to checkout the dist subversion repository under our working directory, which
+     * The location to which to check out the dist Subversion repository under our working directory, which
      * was given above. We then do an SVN delete on all the directories in this repository.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm-cleanup",
@@ -79,16 +79,16 @@ public final class CommonsStagingCleanupMojo extends AbstractMojo {
     private File distCleanupDirectory;
 
     /**
-     * A boolean that determines whether or not we actually commit the files up to the subversion repository.
-     * If this is set to {@code true}, we do all but make the commits. We do checkout the repository in question
+     * A boolean that determines whether or not we actually commit the files up to the Subversion repository.
+     * If this is set to {@code true}, we do all but make the commits. We do check out the repository in question,
      * though.
      */
     @Parameter(property = "commons.release.dryRun", defaultValue = "false")
     private Boolean dryRun;
 
     /**
-     * The url of the subversion repository to which we wish the artifacts to be staged. Typically this would need to
-     * be of the form: <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>. Note. that
+     * The URL of the Subversion repository to which we wish the artifacts to be staged. Typically this would need to
+     * be of the form: <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>. Note that
      * the prefix to the substring <code>https</code> is a requirement.
      */
     @Parameter(defaultValue = "", property = "commons.distSvnStagingUrl")
@@ -108,7 +108,7 @@ public final class CommonsStagingCleanupMojo extends AbstractMojo {
     private String distServer;
 
     /**
-     * The username for the distribution subversion repository. This is typically your Apache id.
+     * The username for the distribution Subversion repository. This is typically your Apache ID.
      */
     @Parameter(property = "user.name")
     private String username;

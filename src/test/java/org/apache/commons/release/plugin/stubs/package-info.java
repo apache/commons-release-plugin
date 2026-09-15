@@ -16,10 +16,10 @@
  */
 
 /**
- * This package is meant to contain stubbed objects for the maven testing
- * paradigm. These stubs can in turn be used in the poms in the <code>src/test/resources</code>
+ * This package is meant to contain stubbed objects for the Maven testing
+ * paradigm. These stubs can in turn be used in the POMs in the <code>src/test/resources</code>
  * directory of the project in the implementation block of the declaration of the configuration
- * property. The maven unit testing framework then wires this stubbed object into the appropriate mojo
+ * property. The Maven unit testing framework then wires this stubbed object into the appropriate mojo
  * for testing purposes.
  *
  * @since 1.0
