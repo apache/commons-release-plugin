@@ -16,6 +16,8 @@
 github:
   description: Apache Commons Release Plugin
   homepage: https://commons.apache.org/release-plugin/
+  autolink_jira:
+    - COMMONSSITE
 
 notifications:
     commits:      commits@commons.apache.org
