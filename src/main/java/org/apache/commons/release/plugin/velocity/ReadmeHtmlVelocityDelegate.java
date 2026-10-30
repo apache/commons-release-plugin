@@ -27,8 +27,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
- * This class's purpose is to generate the <code>README.html</code> that moves along with the
- * release for the sake of downloading the release from the distribution area.
+ * Generates the <code>README.html</code> file that accompanies the release in the distribution area.
  *
  * @since 1.3
  */

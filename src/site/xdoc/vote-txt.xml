@@ -43,7 +43,7 @@
                         Ant script</li>
                     <li>Uses the <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/resources/commons-xdoc-templates/vote-txt-template.md">vote-txt-template.md</a>
                         template</li>
-                    <li>Uses the <a href="vote-txt-mojo.html">goal's (i.e. mojo's) parameters</a> to filter values in the template</li>
+                    <li>Uses the <a href="vote-txt-mojo.html">goal's parameters</a> to filter values in the template</li>
                 </ul>
             </subsection>
             <subsection name="Configuration">

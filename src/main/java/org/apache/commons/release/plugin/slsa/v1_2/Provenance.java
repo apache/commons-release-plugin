@@ -24,8 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Root predicate of an SLSA v1.2 provenance attestation, describing what was built and how.
  *
- * <p>Combines a {@link BuildDefinition} (the inputs) with {@link RunDetails} (the execution context). Intended to be
- * used as the {@code predicate} field of an in-toto {@link Statement}.</p>
+ * <p>
+ * This predicate combines a {@link BuildDefinition} (the inputs) with {@link RunDetails} (the execution context). It is intended to be
+ * used as the {@code predicate} field of an in-toto {@link Statement}.
+ * </p>
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
@@ -74,7 +76,9 @@ public class Provenance {
     /**
      * Gets the build definition describing all inputs that produced the build output.
      *
-     * <p>Includes source code, dependencies, build tools, base images, and other materials.</p>
+     * <p>
+     * Includes source code, dependencies, build tools, base images, and other materials.
+     * </p>
      *
      * @return The build definition, or {@code null} if not set.
      */

@@ -25,8 +25,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
- * This class's purpose is to generate the <code>HEADER.html</code> that moves along with the
- * release for the sake of downloading the release from the distribution area.
+ * Generates the <code>HEADER.html</code> file that accompanies the release in the distribution area.
  *
  * @since 1.3
  */
@@ -44,9 +43,9 @@ public final class HeaderHtmlVelocityDelegate {
         }
 
         /**
-         * Builds up the {@link ReadmeHtmlVelocityDelegate} from the previously set parameters.
+         * Builds a new {@link HeaderHtmlVelocityDelegate}.
          *
-         * @return A new {@link ReadmeHtmlVelocityDelegate}.
+         * @return A new {@link HeaderHtmlVelocityDelegate}.
          */
         public HeaderHtmlVelocityDelegate build() {
             return new HeaderHtmlVelocityDelegate();
@@ -57,7 +56,7 @@ public final class HeaderHtmlVelocityDelegate {
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin/velocity/HEADER.vm";
 
     /**
-     * For instantiating our {@link HeaderHtmlVelocityDelegate} using the {@link HeaderHtmlVelocityDelegateBuilder}.
+     * Gets a builder for constructing a {@link HeaderHtmlVelocityDelegate}.
      *
      * @return A {@link HeaderHtmlVelocityDelegateBuilder}.
      */

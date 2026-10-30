@@ -39,8 +39,7 @@ import org.codehaus.plexus.util.FileUtils;
 public final class SharedFunctions {
 
     /**
-     * I want a buffer that is an array with 1024 elements of bytes. We declare
-     * the constant here for the sake of making the code more readable.
+     * The buffer size in bytes.
      */
     public static final int BUFFER_BYTE_SIZE = 1024;
 
@@ -51,7 +50,7 @@ public final class SharedFunctions {
      * @param log The {@link Log}, the Maven logger.
      * @param fromFile The {@link File} from which to copy.
      * @param toFile The destination {@link File}.
-     * @throws MojoExecutionException Thrown if an {@link IOException} or {@link NullPointerException} is caught.
+     * @throws MojoExecutionException Thrown if an {@link IOException} occurs.
      */
     public static void copyFile(final Log log, final File fromFile, final File toFile) throws MojoExecutionException {
         final String format = "Unable to copy file %s to %s: %s";
@@ -72,7 +71,7 @@ public final class SharedFunctions {
      *
      * @param log is the Maven log for output logging, particularly with regard to error management.
      * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete and then create.
-     * @throws MojoExecutionException Thrown if an {@link IOException} or {@link NullPointerException} is caught.
+     * @throws MojoExecutionException Thrown if an {@link IOException} occurs.
      */
     public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
         final String format = "Unable to remove directory %s: %s";
@@ -166,12 +165,12 @@ public final class SharedFunctions {
     /**
      * Sets authentication information on the specified {@link ScmProviderRepository}.
      *
-     * @param providerRepository target.
-     * @param distServer temp.
-     * @param settings temp.
-     * @param settingsDecrypter temp.
-     * @param username temp.
-     * @param password temp.
+     * @param providerRepository The repository to configure.
+     * @param distServer The server ID used to look up credentials in Maven settings.
+     * @param settings The Maven settings.
+     * @param settingsDecrypter The decrypter for stored credentials.
+     * @param username The fallback username when no server username is available.
+     * @param password The fallback password when no server password is available.
      */
     public static void setAuthentication(final ScmProviderRepository providerRepository,
                                    final String distServer,
@@ -191,6 +190,6 @@ public final class SharedFunctions {
      * Prevents instantiation of this utility class.
      */
     private SharedFunctions() {
-        // Utility Class
+        // Utility class.
     }
 }

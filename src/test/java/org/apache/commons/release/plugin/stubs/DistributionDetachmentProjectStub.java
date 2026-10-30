@@ -28,11 +28,11 @@ import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.apache.maven.project.MavenProject;
 
 /**
- * Stub for {@link MavenProject} for the {@link CommonsDistributionDetachmentMojoTest}. See the
- * testing pom,
- * <code>src/test/resources/detach-distributions/detach-distributions.xml</code> for the declared
- * usage of
- * this class.
+ * Stub for {@link MavenProject} used by {@link CommonsDistributionDetachmentMojoTest}.
+ *
+ * <p>
+ * See the test POM at <code>src/test/resources/mojos/detach-distributions/detach-distributions.xml</code> for the configuration that uses this class.
+ * </p>
  *
  * @since 1.0
  */

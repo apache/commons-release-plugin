@@ -60,8 +60,8 @@ Site:
     These exceptions are also noted in the Changes and Release Notes.
 
     Errors reported:
-    - methods added to interface: OK because that does not affect binary compatibility.
-    - etc.
+    - methods added to an interface: OK because this does not affect binary compatibility.
+    - Add other errors and their explanations here.
     ***
 
 RAT Report:

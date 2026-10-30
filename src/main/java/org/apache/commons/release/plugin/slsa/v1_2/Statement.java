@@ -68,8 +68,10 @@ public class Statement {
     /**
      * Gets the provenance predicate.
      *
-     * <p>Unset is treated the same as set-but-empty. May be omitted if {@code predicateType} fully describes the
-     * predicate.</p>
+     * <p>
+     * An unset predicate is treated the same as an empty predicate. The predicate may be omitted if {@code predicateType} fully describes the
+     * predicate.
+     * </p>
      *
      * @return The provenance predicate, or {@code null} if not set.
      */
@@ -89,7 +91,9 @@ public class Statement {
     /**
      * Gets the set of software artifacts that the attestation applies to.
      *
-     * <p>Each element represents a single artifact. Artifacts are matched purely by digest, regardless of content type.</p>
+     * <p>
+     * Each element represents a single artifact. Artifacts are matched purely by digest, regardless of content type.
+     * </p>
      *
      * @return The list of subject artifacts, or {@code null} if not set.
      */

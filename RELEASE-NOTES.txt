@@ -543,7 +543,7 @@ New Features
 ------------
 
 o COMMONSSITE-96:   Create commons-release-component project skeleton.
-o COMMONSSITE-99:   Prepare Standard Build integrations, travis, jacoco, checkstyle, etc.
+o COMMONSSITE-99:   Prepare standard build integrations, including Travis, JaCoCo, and Checkstyle.
 o COMMONSSITE-97:   Documentation for commons-release-plugin.
 
 

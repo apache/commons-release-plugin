@@ -79,14 +79,12 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
     private final List<Artifact> detachedArtifacts = new ArrayList<>();
 
     /**
-     * A {@link SortedProperties} of {@link Artifact} → {@link String} containing the sha512 signatures
-     * for the individual artifacts, where the {@link Artifact} is represented as:
-     * <code>groupId:artifactId:version:type=sha512</code>.
+     * A {@link SortedProperties} mapping artifact file names to their SHA-512 hashes.
      */
     private final SortedProperties artifactSha512s = new SortedProperties();
 
     /**
-     * The Maven project context injection so that we can get a hold of the variables at hand.
+     * The Maven project context injection so that we can access the project variables.
      */
     @Parameter(defaultValue = "${project}", required = true)
     private MavenProject project;
@@ -199,7 +197,7 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
     }
 
     /**
-     * Gets the file path for the <code>sha512</code> signature file for a given file.
+     * Gets the file path for the <code>sha512</code> checksum file for a given file.
      *
      * @param directory is the {@link File} for the directory in which to make the <code>.sha512</code> file.
      * @param file The {@link File} whose name we should use to create the <code>.sha512</code> file.
@@ -214,9 +212,8 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
     }
 
     /**
-     *  A helper method that creates sha512 signature files for our detached artifacts in the
-     *  <code>target/commons-release-plugin</code> directory for the purpose of being uploaded by
-     *  the {@link CommonsDistributionStagingMojo}.
+     * Creates SHA-512 checksum files for detached artifacts in the <code>target/commons-release-plugin</code> directory
+     * for upload by {@link CommonsDistributionStagingMojo}.
      *
      * @throws MojoExecutionException Thrown if an {@link IOException} occurs.
      */
@@ -241,10 +238,10 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
     }
 
     /**
-     * Takes an attached artifact and puts the signature in the map.
+     * Computes the SHA-512 hash of an attached artifact and stores it in the map.
      *
      * @param artifact is a Maven {@link Artifact} taken from the project when the mojo starts.
-     * @throws MojoExecutionException Thrown if an {@link IOException} occurs when getting the sha512 of the
+     * @throws MojoExecutionException Thrown if an {@link IOException} occurs when computing the SHA-512 hash of the
      *                                artifact.
      */
     private void putAttachedArtifactInSha512Map(final Artifact artifact) throws MojoExecutionException {

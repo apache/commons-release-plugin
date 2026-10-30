@@ -34,7 +34,9 @@ public class Signature {
     /**
      * Hint for which key was used to sign; unset is treated as empty.
      *
-     * <p>Consumers MUST NOT require this field to be set, and MUST NOT use it for security decisions.</p>
+     * <p>
+     * Consumers MUST NOT require this field to be set, and MUST NOT use it for security decisions.
+     * </p>
      */
     @JsonProperty("keyid")
     private String keyid;

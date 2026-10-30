@@ -18,13 +18,17 @@
 /**
  * SLSA 1.2 Build Attestation Models.
  *
- * <p>This package provides Jackson-annotated model classes that implement the <a href="https://slsa.dev/spec/v1.2">Supply-chain Levels for Software Artifacts
- * (SLSA) v1.2 specification</a>.</p>
+ * <p>
+ * This package provides Jackson-annotated model classes that implement the <a href="https://slsa.dev/spec/v1.2">Supply-chain Levels for Software Artifacts
+ * (SLSA) v1.2 specification</a>.
+ * </p>
  *
  * <h2>Overview</h2>
  *
- * <p>SLSA is a framework for evaluating and improving the security posture of build systems. SLSA v1.2 defines a standard for recording build provenance:
- * information about how software artifacts were produced.</p>
+ * <p>
+ * SLSA is a framework for evaluating and improving the security posture of build systems. SLSA v1.2 defines a standard for recording build provenance:
+ * information about how software artifacts were produced.
+ * </p>
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @see <a href="https://github.com/in-toto/attestation">In-toto Attestation Framework</a>

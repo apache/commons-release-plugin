@@ -25,7 +25,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Description of an artifact or resource referenced in the build, identified by URI and cryptographic digest.
  *
- * <p>Used to represent inputs to, outputs from, or byproducts of the build process.</p>
+ * <p>
+ * Used to represent inputs to, outputs from, or byproducts of the build process.
+ * </p>
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
@@ -103,7 +105,9 @@ public class ResourceDescriptor {
     /**
      * Gets the map of cryptographic digest algorithms to their corresponding hex-encoded values for this resource.
      *
-     * <p>Common keys include {@code "sha256"} and {@code "sha512"}.</p>
+     * <p>
+     * Common keys include {@code "sha256"} and {@code "sha512"}.
+     * </p>
      *
      * @return The digest map, or {@code null} if not set.
      */
@@ -121,7 +125,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Gets the media type of the resource (e.g., {@code "application/octet-stream"}).
+     * Gets the media type of the resource (for example, {@code "application/octet-stream"}).
      *
      * @return The media type, or {@code null} if not set.
      */

@@ -79,7 +79,9 @@ public class RunDetails {
     /**
      * Gets the builder that executed the invocation.
      *
-     * <p>Trusted to have correctly performed the operation and populated this provenance.</p>
+     * <p>
+     * The builder is trusted to have correctly performed the operation and populated this provenance.
+     * </p>
      *
      * @return The builder, or {@code null} if not set.
      */

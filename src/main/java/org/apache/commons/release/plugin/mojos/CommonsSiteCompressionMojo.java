@@ -92,7 +92,7 @@ public final class CommonsSiteCompressionMojo extends AbstractMojo {
     }
 
     /**
-     * Given the <code>directoryToZip</code>, we add the <code>file</code> to the ZIP archive represented by
+     * Adds the <code>file</code> from <code>directoryToZip</code> to the ZIP archive represented by
      * <code>zos</code>.
      *
      * @param directoryToZip A {@link File} representing the directory containing the file to compress. Generally, this is <code>target/site</code>.
@@ -102,8 +102,7 @@ public final class CommonsSiteCompressionMojo extends AbstractMojo {
      */
     private void addToZip(final File directoryToZip, final File file, final ZipOutputStream zos) throws IOException {
         try (InputStream fis = Files.newInputStream(file.toPath())) {
-            // we want the zipEntry's path to be a relative path that is relative
-            // to the directory being zipped, so chop off the rest of the path
+            // Make the ZIP entry path relative to the directory being compressed.
             final String zipFilePath = file.getCanonicalPath().substring(
                     directoryToZip.getCanonicalPath().length() + 1,
                     file.getCanonicalPath().length());
@@ -165,7 +164,7 @@ public final class CommonsSiteCompressionMojo extends AbstractMojo {
     }
 
     /**
-     * A helper method for writing all the files in our <code>fileList</code> to a <code>site.zip</code> file
+     * Writes all the files in <code>fileList</code> to a <code>site.zip</code> file
      * in the <code>workingDirectory</code>.
      *
      * @param outputDirectory is a {@link File} representing the place to put the site.zip file.

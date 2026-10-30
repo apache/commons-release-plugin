@@ -26,8 +26,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Inputs that define the build: the build type, external and internal parameters, and resolved dependencies.
  *
- * <p>Specifies everything that influenced the build output. Together with {@link RunDetails}, it forms the complete
- * {@link Provenance} record.</p>
+ * <p>
+ * Specifies everything that influenced the build output. Together with {@link RunDetails}, it forms the complete
+ * {@link Provenance} record.
+ * </p>
  *
  * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
@@ -91,7 +93,9 @@ public class BuildDefinition {
     /**
      * Gets the URI indicating what type of build was performed.
      *
-     * <p>Determines the meaning of {@code externalParameters} and {@code internalParameters}.</p>
+     * <p>
+     * Determines the meaning of {@code externalParameters} and {@code internalParameters}.
+     * </p>
      *
      * @return The build type URI.
      */
@@ -109,8 +113,7 @@ public class BuildDefinition {
     }
 
     /**
-     * Gets the artifacts the build depends on, such as sources, dependencies, build tools, and base images,
-     * specified by URI and digest.
+     * Gets the parameters set by the build platform.
      *
      * @return The internal parameters map, or {@code null} if not set.
      */
@@ -121,7 +124,9 @@ public class BuildDefinition {
     /**
      * Gets the materials that influenced the build.
      *
-     * <p>Considered incomplete unless resolved materials are present.</p>
+     * <p>
+     * The dependency list is considered incomplete unless resolved materials are present.
+     * </p>
      *
      * @return The list of resolved dependencies, or {@code null} if not set.
      */
@@ -157,7 +162,7 @@ public class BuildDefinition {
     }
 
     /**
-     * Sets the artifacts the build depends on.
+     * Sets the parameters set by the build platform.
      *
      * @param internalParameters The internal parameters map.
      * @return this for chaining.

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link CommonsSiteCompressionMojo}.
+ * Unit tests for {@link CommonsStagingCleanupMojo}.
  */
 @MojoTest
 public class CommonsStagingCleanupMojoTest {

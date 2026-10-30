@@ -311,7 +311,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
                 filesForMavenScmFileSet.add(file);
             } else if (Strings.CS.containsAny(file.getName(), "scm", "sha256.properties", "sha512.properties")) {
                 getLog().debug("Not copying scm directory over to the scm directory because it is the scm directory.");
-                //do nothing because we are copying into scm
+                // Do nothing because we are copying into the SCM directory.
             } else {
                 copy = new File(distCheckoutDirectory.getAbsolutePath(),  file.getName());
                 SharedFunctions.copyFile(getLog(), file, copy);
@@ -354,11 +354,9 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     }
 
     /**
-     * A utility method that takes the <code>RELEASE-NOTES.txt</code> file from the base directory of the
-     * project and copies it into {@link CommonsDistributionStagingMojo#workingDirectory}.
+     * Copies the configured release notes file into {@link #distRcVersionDirectory}.
      *
-     * @return The RELEASE-NOTES.txt file that exists in the <code>target/commons-release-notes/scm</code>
-     *         directory for the purpose of adding it to the scm change set in the method
+     * @return The copied release notes file in {@link #distRcVersionDirectory}, for inclusion in the SCM change set in the method
      *         {@link CommonsDistributionStagingMojo#copyDistributionsIntoScmDirectoryStructureAndAddToSvn(File,
      *         ScmProvider, ScmRepository)}.
      * @throws MojoExecutionException Thrown if an {@link IOException} occurs while copying the file.
@@ -381,7 +379,7 @@ public final class CommonsDistributionStagingMojo extends AbstractMojo {
     private File copySignatureValidatorScriptToScmDirectory() throws MojoExecutionException {
         final Path scmTargetPath = Paths.get(distRcVersionDirectory.toString(), SIGNATURE_VALIDATOR_NAME);
         final String name = "/resources/" + SIGNATURE_VALIDATOR_NAME;
-        // The source can be in a local file or inside a jar file.
+        // The source can be in a local file or inside a JAR file.
         try {
             PathUtils.copyFile(getClass().getResource(name), scmTargetPath);
         } catch (final Exception e) {
