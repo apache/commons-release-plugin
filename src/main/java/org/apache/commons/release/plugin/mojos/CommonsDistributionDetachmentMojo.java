@@ -179,6 +179,11 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
         if (!workingDirectory.exists()) {
             SharedFunctions.initDirectory(getLog(), workingDirectory);
         }
+        final Artifact mainArtifact = project.getArtifact();
+        if (mainArtifact != null && mainArtifact.getFile() != null && !"pom".equals(mainArtifact.getType())) {
+            putFileInSha512Map(mainArtifact.getFile().getName(), mainArtifact.getFile());
+        }
+        putFileInSha512Map(project.getArtifactId() + "-" + project.getVersion() + ".pom", project.getFile());
         writeAllArtifactsInSha512PropertiesFile();
         copyRemovedArtifactsToWorkingDirectory();
         getLog().info("");
@@ -245,24 +250,24 @@ public final class CommonsDistributionDetachmentMojo extends AbstractMojo {
      *                                artifact.
      */
     private void putAttachedArtifactInSha512Map(final Artifact artifact) throws MojoExecutionException {
-        try {
-            final String artifactKey = getArtifactKey(artifact);
-            if (!artifactKey.endsWith(".asc")) { // .asc files don't need hashes
-                try (InputStream fis = Files.newInputStream(artifact.getFile().toPath())) {
-                    artifactSha512s.put(artifactKey, DigestUtils.sha512Hex(fis));
-                }
-            }
+        final String artifactKey = getArtifactKey(artifact);
+        if (!artifactKey.endsWith(".asc")) { // .asc files don't need hashes
+            putFileInSha512Map(artifactKey, artifact.getFile());
+        }
+    }
+
+    /**
+     * Computes a file's SHA-512 hash and stores it under its release artifact name.
+     *
+     * @param artifactKey the release artifact name.
+     * @param file the file to hash.
+     * @throws MojoExecutionException if the file cannot be read.
+     */
+    private void putFileInSha512Map(final String artifactKey, final File file) throws MojoExecutionException {
+        try (InputStream input = Files.newInputStream(file.toPath())) {
+            artifactSha512s.put(artifactKey, DigestUtils.sha512Hex(input));
         } catch (final IOException e) {
-            throw new MojoExecutionException(
-                "Could not find artifact signature for: "
-                    + artifact.getArtifactId()
-                    + "-"
-                    + artifact.getClassifier()
-                    + "-"
-                    + artifact.getVersion()
-                    + " type: "
-                    + artifact.getType(),
-                e);
+            throw new MojoExecutionException("Could not compute SHA-512 for: " + file, e);
         }
     }
 

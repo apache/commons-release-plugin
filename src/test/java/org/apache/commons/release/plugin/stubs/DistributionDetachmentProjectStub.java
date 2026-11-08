@@ -83,6 +83,13 @@ public final class DistributionDetachmentProjectStub extends MavenProjectStub {
     private List<Artifact> attachedArtifacts;
 
     @Override
+    public Artifact getArtifact() {
+        return new DistributionDetachmentArtifactStub(
+            new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.jar"),
+            "jar", "org.apache.commons", "commons-text", null, "1.4");
+    }
+
+    @Override
     public String getArtifactId() {
         return "commons-text";
     }
@@ -164,29 +171,11 @@ public final class DistributionDetachmentProjectStub extends MavenProjectStub {
         );
         attachedArtifacts.add(
             new DistributionDetachmentArtifactStub(
-                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.jar"),
-                "jar",
-                "org.apache.commons",
-                "commons-text",
-                "jar", "1.4"
-            )
-        );
-        attachedArtifacts.add(
-            new DistributionDetachmentArtifactStub(
                 new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.jar.asc"),
                 "jar.asc",
                 "org.apache.commons",
                 "commons-text",
                 "jar", "1.4"
-            )
-        );
-        attachedArtifacts.add(
-            new DistributionDetachmentArtifactStub(
-                new File("src/test/resources/mojos/detach-distributions/target/commons-text-1.4.pom"),
-                "pom",
-                "org.apache.commons",
-                "commons-text",
-                "pom", "1.4"
             )
         );
         attachedArtifacts.add(
@@ -235,6 +224,11 @@ public final class DistributionDetachmentProjectStub extends MavenProjectStub {
             )
         );
         return attachedArtifacts;
+    }
+
+    @Override
+    public File getFile() {
+        return new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml");
     }
 
     @Override

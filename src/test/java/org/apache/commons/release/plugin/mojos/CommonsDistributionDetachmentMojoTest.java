@@ -87,7 +87,9 @@ public class CommonsDistributionDetachmentMojoTest {
         final String[] suffixes = {"-bin.tar.gz", "-bin.zip", "-src.tar.gz", "-src.zip", ".jar", ".pom", "-javadoc.jar", "-sources.jar"};
         for (final String suffix : suffixes) {
             final String name = "commons-text-1.4" + suffix;
-            final Path artifact = new File("src/test/resources/mojos/detach-distributions/target", name).toPath();
+            final Path artifact = ".pom".equals(suffix)
+                ? new File("src/test/resources/mojos/detach-distributions/detach-distributions.xml").toPath()
+                : new File("src/test/resources/mojos/detach-distributions/target", name).toPath();
             expected.setProperty(name, Hex.encodeHexString(MessageDigest.getInstance("SHA-512").digest(Files.readAllBytes(artifact))));
         }
         // Exact equality also excludes signatures and unexpected artifacts.
