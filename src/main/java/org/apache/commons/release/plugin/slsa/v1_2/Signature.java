@@ -50,11 +50,11 @@ public class Signature {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (!(o instanceof Signature)) {
             return false;
         }
-        Signature signature = (Signature) o;
+        final Signature signature = (Signature) o;
         return Objects.equals(keyid, signature.keyid) && Arrays.equals(sig, signature.sig);
     }
 
@@ -87,7 +87,7 @@ public class Signature {
      * @param keyid The key identifier, or {@code null} to leave unset.
      * @return this for chaining.
      */
-    public Signature setKeyid(String keyid) {
+    public Signature setKeyid(final String keyid) {
         this.keyid = keyid;
         return this;
     }
@@ -98,7 +98,7 @@ public class Signature {
      * @param sig The signature bytes.
      * @return this for chaining.
      */
-    public Signature setSig(byte[] sig) {
+    public Signature setSig(final byte[] sig) {
         this.sig = sig;
         return this;
     }

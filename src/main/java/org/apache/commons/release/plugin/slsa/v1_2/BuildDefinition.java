@@ -72,20 +72,20 @@ public class BuildDefinition {
      * @param buildType          URI indicating what type of build was performed.
      * @param externalParameters inputs passed to the build.
      */
-    public BuildDefinition(String buildType, Map<String, Object> externalParameters) {
+    public BuildDefinition(final String buildType, final Map<String, Object> externalParameters) {
         this.buildType = buildType;
         this.externalParameters = externalParameters;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BuildDefinition that = (BuildDefinition) o;
+        final BuildDefinition that = (BuildDefinition) o;
         return Objects.equals(buildType, that.buildType) && Objects.equals(externalParameters, that.externalParameters) && Objects.equals(internalParameters,
                 that.internalParameters) && Objects.equals(resolvedDependencies, that.resolvedDependencies);
     }
@@ -145,7 +145,7 @@ public class BuildDefinition {
      * @param buildType The build type URI.
      * @return this for chaining.
      */
-    public BuildDefinition setBuildType(String buildType) {
+    public BuildDefinition setBuildType(final String buildType) {
         this.buildType = buildType;
         return this;
     }
@@ -156,7 +156,7 @@ public class BuildDefinition {
      * @param externalParameters The external parameters map.
      * @return this for chaining.
      */
-    public BuildDefinition setExternalParameters(Map<String, Object> externalParameters) {
+    public BuildDefinition setExternalParameters(final Map<String, Object> externalParameters) {
         this.externalParameters = externalParameters;
         return this;
     }
@@ -167,7 +167,7 @@ public class BuildDefinition {
      * @param internalParameters The internal parameters map.
      * @return this for chaining.
      */
-    public BuildDefinition setInternalParameters(Map<String, Object> internalParameters) {
+    public BuildDefinition setInternalParameters(final Map<String, Object> internalParameters) {
         this.internalParameters = internalParameters;
         return this;
     }
@@ -178,7 +178,7 @@ public class BuildDefinition {
      * @param resolvedDependencies The list of resolved dependencies.
      * @return this for chaining.
      */
-    public BuildDefinition setResolvedDependencies(List<ResourceDescriptor> resolvedDependencies) {
+    public BuildDefinition setResolvedDependencies(final List<ResourceDescriptor> resolvedDependencies) {
         this.resolvedDependencies = resolvedDependencies;
         return this;
     }

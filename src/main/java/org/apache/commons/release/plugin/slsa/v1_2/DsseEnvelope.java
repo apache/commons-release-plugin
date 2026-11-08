@@ -48,11 +48,11 @@ public class DsseEnvelope {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (!(o instanceof DsseEnvelope)) {
             return false;
         }
-        DsseEnvelope envelope = (DsseEnvelope) o;
+        final DsseEnvelope envelope = (DsseEnvelope) o;
         return Objects.equals(payloadType, envelope.payloadType) && Arrays.equals(payload, envelope.payload)
                 && Objects.equals(signatures, envelope.signatures);
     }
@@ -99,7 +99,7 @@ public class DsseEnvelope {
      * @param payload The payload bytes.
      * @return this for chaining.
      */
-    public DsseEnvelope setPayload(byte[] payload) {
+    public DsseEnvelope setPayload(final byte[] payload) {
         this.payload = payload;
         return this;
     }
@@ -110,7 +110,7 @@ public class DsseEnvelope {
      * @param payloadType The payload type URI.
      * @return this for chaining.
      */
-    public DsseEnvelope setPayloadType(String payloadType) {
+    public DsseEnvelope setPayloadType(final String payloadType) {
         this.payloadType = payloadType;
         return this;
     }
@@ -121,7 +121,7 @@ public class DsseEnvelope {
      * @param signatures The signatures.
      * @return this for chaining.
      */
-    public DsseEnvelope setSignatures(List<Signature> signatures) {
+    public DsseEnvelope setSignatures(final List<Signature> signatures) {
         this.signatures = signatures;
         return this;
     }

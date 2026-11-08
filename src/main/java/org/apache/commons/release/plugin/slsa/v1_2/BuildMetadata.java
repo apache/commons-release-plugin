@@ -55,18 +55,18 @@ public class BuildMetadata {
      * @param startedOn    timestamp when the build started.
      * @param finishedOn   timestamp when the build completed.
      */
-    public BuildMetadata(String invocationId, OffsetDateTime startedOn, OffsetDateTime finishedOn) {
+    public BuildMetadata(final String invocationId, final OffsetDateTime startedOn, final OffsetDateTime finishedOn) {
         this.invocationId = invocationId;
         this.startedOn = startedOn;
         this.finishedOn = finishedOn;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (!(o instanceof BuildMetadata)) {
             return false;
         }
-        BuildMetadata that = (BuildMetadata) o;
+        final BuildMetadata that = (BuildMetadata) o;
         return Objects.equals(invocationId, that.invocationId) && Objects.equals(startedOn, that.startedOn) && Objects.equals(finishedOn, that.finishedOn);
     }
 
@@ -108,7 +108,7 @@ public class BuildMetadata {
      * @param finishedOn The completion timestamp.
      * @return this for chaining.
      */
-    public BuildMetadata setFinishedOn(OffsetDateTime finishedOn) {
+    public BuildMetadata setFinishedOn(final OffsetDateTime finishedOn) {
         this.finishedOn = finishedOn;
         return this;
     }
@@ -119,7 +119,7 @@ public class BuildMetadata {
      * @param invocationId The invocation identifier.
      * @return this for chaining.
      */
-    public BuildMetadata setInvocationId(String invocationId) {
+    public BuildMetadata setInvocationId(final String invocationId) {
         this.invocationId = invocationId;
         return this;
     }
@@ -130,7 +130,7 @@ public class BuildMetadata {
      * @param startedOn The start timestamp.
      * @return this for chaining.
      */
-    public BuildMetadata setStartedOn(OffsetDateTime startedOn) {
+    public BuildMetadata setStartedOn(final OffsetDateTime startedOn) {
         this.startedOn = startedOn;
         return this;
     }

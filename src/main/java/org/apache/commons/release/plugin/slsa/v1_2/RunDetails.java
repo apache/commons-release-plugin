@@ -59,20 +59,20 @@ public class RunDetails {
      * @param builder  entity that executed the build.
      * @param metadata metadata about the build invocation.
      */
-    public RunDetails(Builder builder, BuildMetadata metadata) {
+    public RunDetails(final Builder builder, final BuildMetadata metadata) {
         this.builder = builder;
         this.metadata = metadata;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RunDetails that = (RunDetails) o;
+        final RunDetails that = (RunDetails) o;
         return Objects.equals(builder, that.builder) && Objects.equals(metadata, that.metadata) && Objects.equals(byproducts, that.byproducts);
     }
 
@@ -118,7 +118,7 @@ public class RunDetails {
      * @param builder The builder.
      * @return this for chaining.
      */
-    public RunDetails setBuilder(Builder builder) {
+    public RunDetails setBuilder(final Builder builder) {
         this.builder = builder;
         return this;
     }
@@ -129,7 +129,7 @@ public class RunDetails {
      * @param byproducts The list of byproduct artifacts.
      * @return this for chaining.
      */
-    public RunDetails setByproducts(List<ResourceDescriptor> byproducts) {
+    public RunDetails setByproducts(final List<ResourceDescriptor> byproducts) {
         this.byproducts = byproducts;
         return this;
     }
@@ -140,7 +140,7 @@ public class RunDetails {
      * @param metadata The build metadata.
      * @return this for chaining.
      */
-    public RunDetails setMetadata(BuildMetadata metadata) {
+    public RunDetails setMetadata(final BuildMetadata metadata) {
         this.metadata = metadata;
         return this;
     }

@@ -46,11 +46,11 @@ public class Statement {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (!(o instanceof Statement)) {
             return false;
         }
-        Statement statement = (Statement) o;
+        final Statement statement = (Statement) o;
         return Objects.equals(subject, statement.subject) && Objects.equals(predicateType, statement.predicateType) && Objects.equals(predicate,
                 statement.predicate);
     }
@@ -112,7 +112,7 @@ public class Statement {
      * @param predicate The provenance predicate.
      * @return this for chaining.
      */
-    public Statement setPredicate(Provenance predicate) {
+    public Statement setPredicate(final Provenance predicate) {
         this.predicate = predicate;
         this.predicateType = Provenance.PREDICATE_TYPE;
         return this;
@@ -124,7 +124,7 @@ public class Statement {
      * @param subject The list of subject artifacts.
      * @return this for chaining.
      */
-    public Statement setSubject(List<ResourceDescriptor> subject) {
+    public Statement setSubject(final List<ResourceDescriptor> subject) {
         this.subject = subject;
         return this;
     }

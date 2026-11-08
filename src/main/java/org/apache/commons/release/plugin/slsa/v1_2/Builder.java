@@ -47,11 +47,11 @@ public class Builder {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (!(o instanceof Builder)) {
             return false;
         }
-        Builder that = (Builder) o;
+        final Builder that = (Builder) o;
         return Objects.equals(id, that.id)
                 && Objects.equals(builderDependencies, that.builderDependencies)
                 && Objects.equals(version, that.version);
@@ -96,7 +96,7 @@ public class Builder {
      * @param builderDependencies The list of builder dependencies.
      * @return this for chaining.
      */
-    public Builder setBuilderDependencies(List<ResourceDescriptor> builderDependencies) {
+    public Builder setBuilderDependencies(final List<ResourceDescriptor> builderDependencies) {
         this.builderDependencies = builderDependencies;
         return this;
     }
@@ -107,7 +107,7 @@ public class Builder {
      * @param id The builder identifier URI.
      * @return this for chaining.
      */
-    public Builder setId(String id) {
+    public Builder setId(final String id) {
         this.id = id;
         return this;
     }
@@ -118,7 +118,7 @@ public class Builder {
      * @param version The version map.
      * @return this for chaining.
      */
-    public Builder setVersion(Map<String, String> version) {
+    public Builder setVersion(final Map<String, String> version) {
         this.version = version;
         return this;
     }

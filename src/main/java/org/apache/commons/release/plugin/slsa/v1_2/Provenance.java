@@ -56,20 +56,20 @@ public class Provenance {
      * @param buildDefinition inputs that defined the build.
      * @param runDetails      details about the build invocation.
      */
-    public Provenance(BuildDefinition buildDefinition, RunDetails runDetails) {
+    public Provenance(final BuildDefinition buildDefinition, final RunDetails runDetails) {
         this.buildDefinition = buildDefinition;
         this.runDetails = runDetails;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Provenance that = (Provenance) o;
+        final Provenance that = (Provenance) o;
         return Objects.equals(buildDefinition, that.buildDefinition) && Objects.equals(runDetails, that.runDetails);
     }
 
@@ -106,7 +106,7 @@ public class Provenance {
      * @param buildDefinition The build definition.
      * @return this for chaining.
      */
-    public Provenance setBuildDefinition(BuildDefinition buildDefinition) {
+    public Provenance setBuildDefinition(final BuildDefinition buildDefinition) {
         this.buildDefinition = buildDefinition;
         return this;
     }
@@ -117,7 +117,7 @@ public class Provenance {
      * @param runDetails The run details.
      * @return this for chaining.
      */
-    public Provenance setRunDetails(RunDetails runDetails) {
+    public Provenance setRunDetails(final RunDetails runDetails) {
         this.runDetails = runDetails;
         return this;
     }

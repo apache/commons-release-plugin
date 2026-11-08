@@ -67,20 +67,20 @@ public class ResourceDescriptor {
      * @param uri    URI identifying the resource.
      * @param digest map of digest algorithm names to their hex-encoded values.
      */
-    public ResourceDescriptor(String uri, Map<String, String> digest) {
+    public ResourceDescriptor(final String uri, final Map<String, String> digest) {
         this.uri = uri;
         this.digest = digest;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ResourceDescriptor that = (ResourceDescriptor) o;
+        final ResourceDescriptor that = (ResourceDescriptor) o;
         return Objects.equals(uri, that.uri) && Objects.equals(digest, that.digest);
     }
 
@@ -162,7 +162,7 @@ public class ResourceDescriptor {
      * @param annotations The annotations map.
      * @return this for chaining.
      */
-    public ResourceDescriptor setAnnotations(Map<String, Object> annotations) {
+    public ResourceDescriptor setAnnotations(final Map<String, Object> annotations) {
         this.annotations = annotations;
         return this;
     }
@@ -173,7 +173,7 @@ public class ResourceDescriptor {
      * @param content The resource content.
      * @return this for chaining.
      */
-    public ResourceDescriptor setContent(byte[] content) {
+    public ResourceDescriptor setContent(final byte[] content) {
         this.content = content;
         return this;
     }
@@ -184,7 +184,7 @@ public class ResourceDescriptor {
      * @param digest The digest map.
      * @return this for chaining.
      */
-    public ResourceDescriptor setDigest(Map<String, String> digest) {
+    public ResourceDescriptor setDigest(final Map<String, String> digest) {
         this.digest = digest;
         return this;
     }
@@ -195,7 +195,7 @@ public class ResourceDescriptor {
      * @param downloadLocation The download location URI.
      * @return this for chaining.
      */
-    public ResourceDescriptor setDownloadLocation(String downloadLocation) {
+    public ResourceDescriptor setDownloadLocation(final String downloadLocation) {
         this.downloadLocation = downloadLocation;
         return this;
     }
@@ -206,7 +206,7 @@ public class ResourceDescriptor {
      * @param mediaType The media type.
      * @return this for chaining.
      */
-    public ResourceDescriptor setMediaType(String mediaType) {
+    public ResourceDescriptor setMediaType(final String mediaType) {
         this.mediaType = mediaType;
         return this;
     }
@@ -217,7 +217,7 @@ public class ResourceDescriptor {
      * @param name The resource name.
      * @return this for chaining.
      */
-    public ResourceDescriptor setName(String name) {
+    public ResourceDescriptor setName(final String name) {
         this.name = name;
         return this;
     }
@@ -228,7 +228,7 @@ public class ResourceDescriptor {
      * @param uri The resource URI.
      * @return this for chaining.
      */
-    public ResourceDescriptor setUri(String uri) {
+    public ResourceDescriptor setUri(final String uri) {
         this.uri = uri;
         return this;
     }
