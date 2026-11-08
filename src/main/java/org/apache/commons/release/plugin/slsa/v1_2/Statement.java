@@ -58,7 +58,7 @@ public class Statement {
     /**
      * Gets the JSON object type.
      *
-     * @return Always {@value TYPE}.
+     * @return Always {@value #TYPE}.
      */
     @JsonProperty("_type")
     public String getType() {
