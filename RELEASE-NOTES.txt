@@ -1,3 +1,51 @@
+Apache Commons Release Plugin 1.10.0 Release Notes
+------------------------------------------------
+
+The Apache Commons Release Plugin team is pleased to announce the release of Apache Commons Release Plugin 1.10.0.
+
+This document contains the release notes for Apache Commons Release Plugin.
+
+Apache Maven Mojo for Apache Commons Release tasks.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+
+
+Fixed Bugs
+----------
+
+*                   Precompile Pattern in ReadmeHtmlVelocityDelegate.render(Writer). Thanks to Gary Gregory.
+*                   Include the main project artifact and POM in sha512.properties for vote-txt. Thanks to Gary Gregory.
+
+Changes
+-------
+
+*                   Bump org.apache.commons:commons-parent from 96 to 107. Thanks to Gary Gregory.
+*                   Bump commons-codec:commons-codec from 1.20.0 to 1.22.1. Thanks to Gary Gregory.
+*                   Bump org.apache.maven.plugin-testing:maven-plugin-testing-harness from 3.4.0 to 3.5.1 #426. Thanks to Gary Gregory, Dependabot.
+*                   Bump maven.dependency.version from 3.9.12 to 3.10.0 #424. Thanks to Gary Gregory, Dependabot.
+*                   Bump org.codehaus.mojo:jdepend-maven-plugin from 2.1 to 2.2.1 #425. Thanks to Gary Gregory, Dependabot.
+*                   Bump commons-io:commons-io from 2.21.0 to 2.22.0. Thanks to Gary Gregory.
+*                   Bump com.fasterxml.jackson.core:jackson-databind from 2.21.3 to 2.22.4 (#431). Thanks to Gary Gregory, Dependabot.
+*                   Bump org.apache.commons:commons-collections4 from 4.5.0 to 4.6.0. Thanks to Gary Gregory.
+*                   Bump org.codehaus.plexus:plexus-velocity from 2.3.0 to 2.4.0. Thanks to Gary Gregory.
+*                   Bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.15.2 to 3.16.0. Thanks to Gary Gregory.
+*                   Bump org.apache.maven.plugin-tools:maven-plugin-tools-ant from 3.15.2 to 3.16.0. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-release-plugin//changes.html
+
+For complete information on Apache Commons Release Plugin, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Release Plugin website:
+
+https://commons.apache.org/proper/commons-release-plugin/
+
+Download page: https://commons.apache.org/proper/commons-release-plugin//download_release-plugin.cgi
+
+Have fun!
+-Apache Commons Team
+
+-----------------------------------------------------------------------------
 Apache Commons Release Plugin 1.9.2 Release Notes
 ------------------------------------------------
 

@@ -45,9 +45,9 @@ Apache Commons Release Plugin
 
 [![Java CI](https://github.com/apache/commons-release-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-release-plugin/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.commons/commons-release-plugin?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.commons/commons-release-plugin)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-release-plugin/1.9.2.svg)](https://javadoc.io/doc/org.apache.commons/commons-release-plugin/1.9.2)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-release-plugin/1.10.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-release-plugin/1.10.0)
 [![CodeQL](https://github.com/apache/commons-release-plugin/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-release-plugin/actions/workflows/codeql-analysis.yml)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-release-plugin/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-release-plugin)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-release-plugin/badge)](https://scorecard.dev/viewer/?uri=github.com/apache/commons-release-plugin)
 
 Apache Maven Mojo for Apache Commons Release tasks.
 
@@ -68,7 +68,7 @@ Alternatively, you can pull it from the central Maven repositories:
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-release-plugin</artifactId>
-  <version>1.9.2</version>
+  <version>1.10.0</version>
 </dependency>
 ```
 
@@ -83,11 +83,11 @@ From a command shell, run `mvn` without arguments to invoke the default Maven go
 Contributing
 ------------
 
-We accept Pull Requests via GitHub. The [developer mailing list](https://commons.apache.org/mail-lists.html) is the main channel of communication for contributors.
+We accept pull requests via GitHub. The [developer mailing list](https://commons.apache.org/mail-lists.html) is the main channel of communication for contributors.
 There are some guidelines which will make applying PRs easier for us:
 + No tabs! Please use spaces for indentation.
 + Respect the existing code style for each file.
-+ Create minimal diffs - disable on-save actions like reformatting source code or organizing imports. If you feel the source code should be reformatted, create a separate PR for this change.
++ Create minimal diffs: disable on-save actions like reformatting source code or organizing imports. If you feel the source code should be reformatted, create a separate PR for this change.
 + Provide JUnit tests for your changes and make sure your changes don't break any existing tests by running `mvn`.
 + Before you push a PR, run `mvn` (without arguments). This runs the default goal which contains all build checks.
 + To see the code coverage report, regardless of coverage failures, run `mvn clean site -Dcommons.jacoco.haltOnFailure=false -Pjacoco`
@@ -115,4 +115,5 @@ Additional Resources
 Apache Commons Components
 -------------------------
 
-Please see the [list of components](https://commons.apache.org/components.html).
++ [List of Apache Commons components](https://commons.apache.org/components.html): homepages and documentation for all components.
++ [`REPOSITORIES.md`](https://github.com/apache/commons-parent/blob/master/REPOSITORIES.md): overview of the code repositories and their build status.
