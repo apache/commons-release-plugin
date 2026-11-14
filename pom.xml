@@ -26,7 +26,7 @@
   </parent>
   <artifactId>commons-release-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.10.0</version>
+  <version>1.10.1-SNAPSHOT</version>
   <name>Apache Commons Release Plugin</name>
   <description>
     Apache Maven Mojo for Apache Commons Release tasks.
@@ -83,7 +83,7 @@
     <project.build.sourceEncoding>${commons.encoding}</project.build.sourceEncoding>
     <!-- This is used by reporting plugins -->
     <project.reporting.outputEncoding>${commons.encoding}</project.reporting.outputEncoding>
-    <project.build.outputTimestamp>2026-11-08T16:36:30Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-11-14T12:33:54Z</project.build.outputTimestamp>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.release.version>1.10.0</commons.release.version>
     <commons.release.next>1.10.1</commons.release.next>
