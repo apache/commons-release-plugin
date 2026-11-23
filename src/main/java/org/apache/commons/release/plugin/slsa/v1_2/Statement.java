@@ -24,24 +24,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * In-toto v1 attestation envelope that binds a set of subject artifacts to an SLSA provenance predicate.
  *
- * @see <a href="https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md">in-toto Statement v1</a>
  * @since 1.10.0
+ * @see <a href="https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md">in-toto Statement v1</a>
  */
 public class Statement {
 
-    /** The in-toto statement schema URI. */
+    /**
+     * The in-toto statement schema URI.
+     */
     public static final String TYPE = "https://in-toto.io/Statement/v1";
-    /** The provenance predicate. */
+    /**
+     * The provenance predicate.
+     */
     @JsonProperty("predicate")
     private Provenance predicate;
-    /** URI identifying the type of the predicate. */
+    /**
+     * URI identifying the type of the predicate.
+     */
     @JsonProperty("predicateType")
     private String predicateType;
-    /** Software artifacts that the attestation applies to. */
+    /**
+     * Software artifacts that the attestation applies to.
+     */
     @JsonProperty("subject")
     private List<ResourceDescriptor> subject;
 
-    /** Creates a new Statement instance. */
+    /**
+     * Creates a new Statement instance.
+     */
     public Statement() {
     }
 
@@ -110,7 +120,7 @@ public class Statement {
      * Sets the provenance predicate and automatically assigns {@code predicateType} to the SLSA provenance v1 URI.
      *
      * @param predicate The provenance predicate.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Statement setPredicate(final Provenance predicate) {
         this.predicate = predicate;
@@ -122,7 +132,7 @@ public class Statement {
      * Sets the set of software artifacts that the attestation applies to.
      *
      * @param subject The list of subject artifacts.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Statement setSubject(final List<ResourceDescriptor> subject) {
         this.subject = subject;

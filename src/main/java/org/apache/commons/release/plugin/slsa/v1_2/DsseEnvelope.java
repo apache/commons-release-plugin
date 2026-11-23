@@ -26,24 +26,34 @@ import org.apache.commons.lang3.ArrayUtils;
 /**
  * DSSE (Dead Simple Signing Envelope) that wraps a signed in-toto statement payload.
  *
- * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
  * @since 1.10.0
+ * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
  */
 public class DsseEnvelope {
 
-    /** The payload type URI for in-toto attestation statements. */
+    /**
+     * The payload type URI for in-toto attestation statements.
+     */
     public static final String PAYLOAD_TYPE = "application/vnd.in-toto+json";
-    /** Serialized statement bytes, Base64-encoded in JSON. */
+    /**
+     * Serialized statement bytes, Base64-encoded in JSON.
+     */
     @JsonProperty("payload")
     private byte[] payload;
-    /** Content type identifying the format of {@link #payload}. */
+    /**
+     * Content type identifying the format of {@link #payload}.
+     */
     @JsonProperty("payloadType")
     private String payloadType = PAYLOAD_TYPE;
-    /** One or more signatures over the PAE-encoded payload. */
+    /**
+     * One or more signatures over the PAE-encoded payload.
+     */
     @JsonProperty("signatures")
     private List<Signature> signatures;
 
-    /** Creates a new DsseEnvelope instance with {@code payloadType} pre-set to {@link #PAYLOAD_TYPE}. */
+    /**
+     * Creates a new DsseEnvelope instance with {@code payloadType} preset to {@link #PAYLOAD_TYPE}.
+     */
     public DsseEnvelope() {
     }
 
@@ -97,7 +107,7 @@ public class DsseEnvelope {
      * Sets the serialized payload bytes.
      *
      * @param payload The payload bytes.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public DsseEnvelope setPayload(final byte[] payload) {
         this.payload = payload;
@@ -108,7 +118,7 @@ public class DsseEnvelope {
      * Sets the payload type URI.
      *
      * @param payloadType The payload type URI.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public DsseEnvelope setPayloadType(final String payloadType) {
         this.payloadType = payloadType;
@@ -119,7 +129,7 @@ public class DsseEnvelope {
      * Sets the list of signatures over the PAE-encoded payload.
      *
      * @param signatures The signatures.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public DsseEnvelope setSignatures(final List<Signature> signatures) {
         this.signatures = signatures;

@@ -17,7 +17,7 @@
 <h1>${artifactIdWithFirstLetterscapitalized} v${version}.</h1>
 
 <p>
-This is the ${version} version of ${artifactId}. It is available in both binary and source distributions.
+This is version ${version} of ${artifactId}. It is available in both binary and source distributions.
 </p>
 
 
@@ -63,18 +63,17 @@ Many of the files have been digitally signed using GnuPG.  If so,
 </p>
 
 <p>
-<b>Always download the KEYS file directly from the Apache site, never from a mirror site.</b>
+<b>Always download the KEYS file directly from the Apache site. Never download it from a mirror site.</b>
 </p>
 
 
 <pre>Always test available signatures. For example:
 $ pgpk -a KEYS
 $ pgpv ${artifactId}-${version}-bin.tar.gz.asc
-or,
+or
 $ pgp -ka KEYS
 $ pgp ${artifactId}-${version}-bin.tar.gz.asc
-or,
+or
 $ gpg --import KEYS
 $ gpg --verify ${artifactId}-${version}-bin.tar.gz.asc
 </pre>
-<p>

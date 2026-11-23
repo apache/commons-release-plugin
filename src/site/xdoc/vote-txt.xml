@@ -36,14 +36,14 @@
                 This goal works as follows:
                 </p>
                 <ul>
-                    <li>The goal is mapped to the Ant script/target using the <code>vote-txt</code> mojo definition in the
-                        <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.mojos.xml">generate-xdocs.mojos.xml</a> mapping document</li>
-                    <li>Executes the <code>vote-txt</code> target in the
+                    <li>The goal is mapped to the Ant script and target using the <code>vote-txt</code> mojo definition in the
+                        <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.mojos.xml">generate-xdocs.mojos.xml</a> mapping document.</li>
+                    <li>The goal executes the <code>vote-txt</code> target in the
                         <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/scripts/generate-xdocs.build.xml">generate-xdocs.build.xml</a>
-                        Ant script</li>
-                    <li>Uses the <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/resources/commons-xdoc-templates/vote-txt-template.md">vote-txt-template.md</a>
-                        template</li>
-                    <li>Uses the <a href="vote-txt-mojo.html">goal's parameters</a> to filter values in the template</li>
+                        Ant script.</li>
+                    <li>The goal uses the <a href="https://svn.apache.org/repos/asf/commons/proper/commons-release-plugin/trunk/src/main/resources/commons-xdoc-templates/vote-txt-template.md">vote-txt-template.md</a>
+                        template.</li>
+                    <li>The goal uses the <a href="vote-txt-mojo.html">goal's parameters</a> to filter values in the template.</li>
                 </ul>
             </subsection>
             <subsection name="Configuration">

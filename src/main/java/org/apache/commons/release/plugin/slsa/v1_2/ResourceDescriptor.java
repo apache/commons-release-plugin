@@ -26,38 +26,54 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Description of an artifact or resource referenced in the build, identified by URI and cryptographic digest.
  *
  * <p>
- * Used to represent inputs to, outputs from, or byproducts of the build process.
+ * This class represents inputs to, outputs from, or byproducts of the build process.
  * </p>
  *
- * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
+ * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResourceDescriptor {
 
-    /** Additional key-value metadata about the resource. */
+    /**
+     * Additional key-value metadata about the resource.
+     */
     @JsonProperty("annotations")
     private Map<String, Object> annotations;
-    /** Raw contents of the resource, base64-encoded in JSON. */
+    /**
+     * Raw contents of the resource, Base64-encoded in JSON.
+     */
     @JsonProperty("content")
     private byte[] content;
-    /** Map of digest algorithm names to hex-encoded values. */
+    /**
+     * Map of digest algorithm names to hex-encoded values.
+     */
     @JsonProperty("digest")
     private Map<String, String> digest;
-    /** Download URI for the resource, if different from {@link #uri}. */
+    /**
+     * Download URI for the resource, if different from {@link #uri}.
+     */
     @JsonProperty("downloadLocation")
     private String downloadLocation;
-    /** Media type of the resource. */
+    /**
+     * Media type of the resource.
+     */
     @JsonProperty("mediaType")
     private String mediaType;
-    /** Human-readable name of the resource. */
+    /**
+     * Human-readable name of the resource.
+     */
     @JsonProperty("name")
     private String name;
-    /** URI identifying the resource. */
+    /**
+     * URI identifying the resource.
+     */
     @JsonProperty("uri")
     private String uri;
 
-    /** Creates a new ResourceDescriptor instance. */
+    /**
+     * Creates a new ResourceDescriptor instance.
+     */
     public ResourceDescriptor() {
     }
 
@@ -85,7 +101,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Gets additional key-value metadata about the resource, such as filename, size, or builder-specific attributes.
+     * Gets additional key-value metadata about the resource, such as the file name, size, or builder-specific attributes.
      *
      * @return The annotations map, or {@code null} if not set.
      */
@@ -94,7 +110,7 @@ public class ResourceDescriptor {
     }
 
     /**
-     * Gets the raw contents of the resource, base64-encoded when serialized to JSON.
+     * Gets the raw contents of the resource, Base64-encoded when serialized to JSON.
      *
      * @return The resource content, or {@code null} if not set.
      */
@@ -160,7 +176,7 @@ public class ResourceDescriptor {
      * Sets additional key-value metadata about the resource.
      *
      * @param annotations The annotations map.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public ResourceDescriptor setAnnotations(final Map<String, Object> annotations) {
         this.annotations = annotations;
@@ -171,7 +187,7 @@ public class ResourceDescriptor {
      * Sets the raw contents of the resource.
      *
      * @param content The resource content.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public ResourceDescriptor setContent(final byte[] content) {
         this.content = content;
@@ -182,7 +198,7 @@ public class ResourceDescriptor {
      * Sets the map of cryptographic digest algorithms to their hex-encoded values.
      *
      * @param digest The digest map.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public ResourceDescriptor setDigest(final Map<String, String> digest) {
         this.digest = digest;
@@ -193,7 +209,7 @@ public class ResourceDescriptor {
      * Sets the download URI for the resource.
      *
      * @param downloadLocation The download location URI.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public ResourceDescriptor setDownloadLocation(final String downloadLocation) {
         this.downloadLocation = downloadLocation;
@@ -204,7 +220,7 @@ public class ResourceDescriptor {
      * Sets the media type of the resource.
      *
      * @param mediaType The media type.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public ResourceDescriptor setMediaType(final String mediaType) {
         this.mediaType = mediaType;
@@ -215,7 +231,7 @@ public class ResourceDescriptor {
      * Sets the name of the resource.
      *
      * @param name The resource name.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public ResourceDescriptor setName(final String name) {
         this.name = name;
@@ -226,7 +242,7 @@ public class ResourceDescriptor {
      * Sets the URI identifying the resource.
      *
      * @param uri The resource URI.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public ResourceDescriptor setUri(final String uri) {
         this.uri = uri;

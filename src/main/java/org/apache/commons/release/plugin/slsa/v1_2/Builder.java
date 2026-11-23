@@ -27,22 +27,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Entity that executed the build and is trusted to have correctly performed the operation and populated the provenance.
  *
- * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
+ * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  */
 public class Builder {
 
-    /** Orchestrator dependencies that may affect provenance generation. */
+    /**
+     * Orchestrator dependencies that may affect provenance generation.
+     */
     @JsonProperty("builderDependencies")
     private List<ResourceDescriptor> builderDependencies = new ArrayList<>();
-    /** Identifier URI of the builder. */
+    /**
+     * Identifier URI of the builder.
+     */
     @JsonProperty("id")
     private String id;
-    /** Map of build platform component names to their versions. */
+    /**
+     * Map of build platform component names to their versions.
+     */
     @JsonProperty("version")
     private Map<String, String> version = new HashMap<>();
 
-    /** Creates a new Builder instance. */
+    /**
+     * Creates a new Builder instance.
+     */
     public Builder() {
     }
 
@@ -94,7 +102,7 @@ public class Builder {
      * Sets the orchestrator dependencies that may affect provenance generation or security guarantees.
      *
      * @param builderDependencies The list of builder dependencies.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Builder setBuilderDependencies(final List<ResourceDescriptor> builderDependencies) {
         this.builderDependencies = builderDependencies;
@@ -105,7 +113,7 @@ public class Builder {
      * Sets the identifier of the builder.
      *
      * @param id The builder identifier URI.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Builder setId(final String id) {
         this.id = id;
@@ -116,7 +124,7 @@ public class Builder {
      * Sets the map of build platform component names to their versions.
      *
      * @param version The version map.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Builder setVersion(final Map<String, String> version) {
         this.version = version;

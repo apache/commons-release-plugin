@@ -26,25 +26,33 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Metadata about a build invocation: its identifier and start and finish timestamps.
  *
- * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
+ * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BuildMetadata {
 
-    /** Timestamp when the build completed. */
+    /**
+     * Timestamp when the build completed.
+     */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @JsonProperty("finishedOn")
     private OffsetDateTime finishedOn;
-    /** Identifier for this build invocation. */
+    /**
+     * Identifier for this build invocation.
+     */
     @JsonProperty("invocationId")
     private String invocationId;
-    /** Timestamp when the build started. */
+    /**
+     * Timestamp when the build started.
+     */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @JsonProperty("startedOn")
     private OffsetDateTime startedOn;
 
-    /** Creates a new BuildMetadata instance. */
+    /**
+     * Creates a new BuildMetadata instance.
+     */
     public BuildMetadata() {
     }
 
@@ -106,7 +114,7 @@ public class BuildMetadata {
      * Sets the timestamp of when the build completed.
      *
      * @param finishedOn The completion timestamp.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public BuildMetadata setFinishedOn(final OffsetDateTime finishedOn) {
         this.finishedOn = finishedOn;
@@ -117,7 +125,7 @@ public class BuildMetadata {
      * Sets the identifier for this build invocation.
      *
      * @param invocationId The invocation identifier.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public BuildMetadata setInvocationId(final String invocationId) {
         this.invocationId = invocationId;
@@ -128,7 +136,7 @@ public class BuildMetadata {
      * Sets the timestamp of when the build started.
      *
      * @param startedOn The start timestamp.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public BuildMetadata setStartedOn(final OffsetDateTime startedOn) {
         this.startedOn = startedOn;

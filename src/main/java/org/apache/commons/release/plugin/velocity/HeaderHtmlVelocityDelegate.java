@@ -52,7 +52,9 @@ public final class HeaderHtmlVelocityDelegate {
         }
     }
 
-    /** The location of the Velocity template for this class. */
+    /**
+     * The location of the Velocity template for this class.
+     */
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin/velocity/HEADER.vm";
 
     /**
@@ -64,14 +66,16 @@ public final class HeaderHtmlVelocityDelegate {
         return new HeaderHtmlVelocityDelegateBuilder();
     }
 
-    /** The private constructor to be used by the {@link HeaderHtmlVelocityDelegateBuilder}. */
+    /**
+     * The private constructor to be used by the {@link HeaderHtmlVelocityDelegateBuilder}.
+     */
     private HeaderHtmlVelocityDelegate() {
     }
 
     /**
      * Renders the HEADER.vm Velocity template to the supplied writer.
      *
-     * @param writer any {@link Writer} that we wish to have the filled Velocity template written to.
+     * @param writer The writer to which to render the template.
      * @return The {@link Writer} to which the template was rendered.
      */
     public Writer render(final Writer writer) {

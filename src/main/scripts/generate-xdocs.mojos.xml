@@ -46,7 +46,7 @@
           <readonly>true</readonly>
           <defaultValue>${project.groupId}</defaultValue>
           <type>java.lang.String</type>
-          <description>The groupId of the project currently being built.</description>
+          <description>The group ID of the project currently being built.</description>
         </parameter>
         <parameter>
           <name>project.artifactId</name>
@@ -55,7 +55,7 @@
           <readonly>true</readonly>
           <defaultValue>${project.artifactId}</defaultValue>
           <type>java.lang.String</type>
-          <description>The artifactId of the project currently being built.</description>
+          <description>The artifact ID of the project currently being built.</description>
         </parameter>
         <parameter>
           <name>commons.jira.id</name>
@@ -136,7 +136,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.release.desc}</defaultValue>
           <type>java.lang.String</type>
-          <description>Release Title or Description.</description>
+          <description>The release title or description.</description>
         </parameter>
         <parameter>
           <name>commons.release.subdir</name>
@@ -154,7 +154,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.releaseManagerName}</defaultValue>
           <type>java.lang.String</type>
-          <description>Release manager name. This should be defined in your Maven settings.xml file, not the POM.</description>
+          <description>The release manager's name. This should be defined in your Maven settings.xml file, not the POM.</description>
         </parameter>
         <parameter>
           <name>commons.releaseManagerKey</name>
@@ -163,7 +163,7 @@
           <readonly>false</readonly>
           <defaultValue>${commons.releaseManagerKey}</defaultValue>
           <type>java.lang.String</type>
-          <description>Release manager key. This should be defined in your Maven settings.xml file, not the POM.</description>
+          <description>The release manager's key. This should be defined in your Maven settings.xml file, not the POM.</description>
         </parameter>
         <parameter>
           <name>commons.nexus.repo.id</name>
@@ -173,7 +173,7 @@
           <defaultValue>${commons.nexus.repo.id}</defaultValue>
           <type>java.lang.String</type>
           <description>The Nexus repository ID on https://repository.apache.org/, usually a four-digit number.
-          This is the value after https://repository.apache.org/content/repositories/orgapachecommons-
+          This is the value following the orgapachecommons- prefix in the repository URL.
           </description>
         </parameter>
       </parameters>

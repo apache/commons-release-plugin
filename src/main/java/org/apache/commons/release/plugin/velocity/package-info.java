@@ -17,6 +17,7 @@
 
 /**
  * Contains classes that render Velocity templates to a {@link java.io.Writer}.
+ *
  * <p>
  * The Velocity templates generate the following files, which are deployed alongside the release:
  * </p>

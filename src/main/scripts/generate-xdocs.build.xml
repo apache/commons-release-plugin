@@ -34,7 +34,7 @@
         <property name="git.tag.name" value="commons-${commons.componentid}-${commons.release.version}-${commons.rc.version}" />
         <property name="svn.site.url" value="https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}/${commons.release.version}-${commons.rc.version}/site" />
 
-        <!-- Convert groupId to path name -->
+        <!-- Convert the group ID to a path. -->
         <loadresource property="tmp.groupPath">
           <propertyresource name="project.groupId"/>
           <filterchain>
@@ -68,19 +68,19 @@
 
         <echo level="info" message="*** Generating ${project.name} VOTE.txt ***" />
 
-        <!-- Create a temporary directory to load the template files into -->
+        <!-- Create a temporary directory for the template files. -->
         <mkdir dir="${commonsMojoTempDir}"/>
 
-        <!-- Load SHA-512 file created by the deploy goal -->
+        <!-- Load the SHA-512 file created by the detach-distributions goal. -->
         <loadfile property="commons.sha512list" srcFile="target/commons-release-plugin/sha512.properties" failonerror="false"/>
 
-        <!-- Load the vote-txt template from mojo resources to temp directory -->
+        <!-- Load the vote-txt template from the mojo resources into the temporary directory. -->
         <loadresource property="vote-txt">
             <javaresource name="${commonsMojoXdocDir}/vote-txt-template.txt"/>
         </loadresource>
         <echo message="${vote-txt}" file="${commonsMojoTempDir}/vote-txt-template.txt" append="false" />
 
-        <!-- Without using ant-contrib: remove "-project" for multi-module artifacts -->
+        <!-- Remove "-project" from multi-module artifact IDs without using ant-contrib. -->
         <loadresource property="tmp.artifactId">
             <propertyresource name="project.artifactId" />
             <filterchain>
@@ -103,7 +103,7 @@
         </exec>
         <echo level="${level}" message="git.tag.commit              : ${git.tag.commit}" />
 
-        <!-- Copy the vote-txt template filtering to replace properties. -->
+        <!-- Copy the vote-txt template, filtering it to replace properties. -->
         <copy file="${commonsMojoTempDir}/vote-txt-template.txt" tofile="target/VOTE.txt" overwrite="true">
             <filterset>
              <filter token="NAME"           value="${project.name}"/>

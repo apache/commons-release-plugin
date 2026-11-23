@@ -51,12 +51,12 @@ public class CommonsDistributionDetachmentMojo extends AbstractMojo {
       <p>
         The variables in the mojo that are declared as private with the annotation <code>@Parameter</code> are
         initialized from existing Maven variables or the declared <code>&lt;configuration&gt;</code>. For
-        example, we have a boolean variable named <code>dryRun</code> declared as:
+        example, we declare a Boolean variable named <code>dryRun</code> as follows:
 <source><![CDATA[
 @Parameter(property = "commons.release.dryRun", defaultValue = "false")
 private Boolean dryRun;
 ]]></source>
-        that can be configured as follows:
+        It can be configured as follows:
 <source><![CDATA[
 <plugin>
   <groupId>org.apache.commons</groupId>
@@ -92,8 +92,7 @@ private Boolean dryRun;
     <distSvnStagingUrl>mockDistSvnStagingUrl</distSvnStagingUrl>
   </configuration>
 </plugin>]]></source>
-        Also note that we are declaring other values that we are using in the testing of the plugin. We then retrieve
-        our instantiated mojo by declaring a <code>MojoRule</code> in our test class,
+        The POM also declares other values used to test the plugin. To retrieve the instantiated mojo, first declare a <code>MojoRule</code> in the test class:
 <source><![CDATA[
 @Rule
 public MojoRule rule = new MojoRule() {
@@ -105,12 +104,11 @@ public MojoRule rule = new MojoRule() {
     protected void after() {
     }
 };]]></source>
-        and then retrieve the mojo by creating a <code>File</code> pointing to the mock POM and then
-        making the following call:
+        Then create a <code>File</code> pointing to the mock POM and retrieve the mojo with the following call:
 <source><![CDATA[
 mojo = (CommonsSiteCompressionMojo) rule.lookupMojo("compress-site", testPom);
 ]]></source>
-        where we are trying to get the mojo with the <code>compress-site</code> goal.
+        This retrieves the mojo for the <code>compress-site</code> goal.
       </p>
 
     </section>

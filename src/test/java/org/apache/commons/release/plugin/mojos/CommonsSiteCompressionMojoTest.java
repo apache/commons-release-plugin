@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@link CommonsSiteCompressionMojo}.
  */
-@SuppressWarnings("deprecation") // testing a deprecated class
+@SuppressWarnings("deprecation") // Tests a deprecated class.
 @MojoTest
 public class CommonsSiteCompressionMojoTest {
 

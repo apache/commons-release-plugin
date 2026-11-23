@@ -45,8 +45,7 @@ import org.apache.maven.settings.Settings;
 import org.apache.maven.settings.crypto.SettingsDecrypter;
 
 /**
- * This class checks out the dev distribution location, checks whether anything exists in the
- * distribution location, and, if it is non-empty, deletes all the resources there.
+ * Checks out the development distribution repository and deletes its contents if it is not empty.
  *
  * @since 1.6
  */
@@ -57,52 +56,58 @@ import org.apache.maven.settings.crypto.SettingsDecrypter;
 public final class CommonsStagingCleanupMojo extends AbstractMojo {
 
     /**
-     * The {@link MavenProject} object is essentially the context of the Maven build at
-     * a given time.
+     * The Maven project context for the current build.
      */
     @Parameter(defaultValue = "${project}", required = true)
     private MavenProject project;
 
     /**
-     * The main working directory for the plugin, namely <code>target/commons-release-plugin</code>, but
-     * that assumes that we're using the default Maven <code>${project.build.directory}</code>.
+     * The main working directory for the plugin, which is <code>target/commons-release-plugin</code> when Maven uses
+     * the default <code>${project.build.directory}</code>.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin", property = "commons.outputDirectory")
     private File workingDirectory;
 
     /**
-     * The location to which to check out the dist Subversion repository under our working directory, which
-     * was given above. We then do an SVN delete on all the directories in this repository.
+     * The directory under the working directory in which to check out the distribution Subversion repository for cleanup.
      */
     @Parameter(defaultValue = "${project.build.directory}/commons-release-plugin/scm-cleanup",
             property = "commons.distCleanupDirectory")
     private File distCleanupDirectory;
 
     /**
-     * A boolean that determines whether or not we actually commit the files up to the Subversion repository.
-     * If this is set to {@code true}, we do all but make the commits. We do check out the repository in question,
-     * though.
+     * Whether to perform a dry run without committing changes to the Subversion repository.
+     *
+     * <p>
+     * If {@code true}, the mojo checks out the repository and identifies files to delete but does not remove them or commit changes.
+     * </p>
      */
     @Parameter(property = "commons.release.dryRun", defaultValue = "false")
     private Boolean dryRun;
 
     /**
-     * The URL of the Subversion repository to which we wish the artifacts to be staged. Typically this would need to
-     * be of the form: <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>. Note that
-     * the prefix to the substring <code>https</code> is a requirement.
+     * The URL of the Subversion repository used to stage artifacts.
+     *
+     * <p>
+     * Typically, this has the form <code>scm:svn:https://dist.apache.org/repos/dist/dev/commons/foo/version-RC#</code>.
+     * The <code>scm:svn:</code> prefix is required.
+     * </p>
      */
     @Parameter(defaultValue = "", property = "commons.distSvnStagingUrl")
     private String distSvnStagingUrl;
 
     /**
-     * A parameter to generally avoid running unless it is specifically turned on by the consuming module.
+     * Whether the consuming module enables this mojo for distribution artifacts.
      */
     @Parameter(defaultValue = "false", property = "commons.release.isDistModule")
     private Boolean isDistModule;
 
     /**
-     * The ID of the server (specified in settings.xml) which should be used for dist authentication.
-     * This will be used in preference to {@link #username}/{@link #password}.
+     * The ID of the server in <code>settings.xml</code> used for authentication to the distribution repository.
+     *
+     * <p>
+     * These credentials take precedence over {@link #username} and {@link #password}.
+     * </p>
      */
     @Parameter(property = "commons.distServer")
     private String distServer;
@@ -114,7 +119,7 @@ public final class CommonsStagingCleanupMojo extends AbstractMojo {
     private String username;
 
     /**
-     * The password associated with {@link CommonsDistributionStagingMojo#username}.
+     * The password associated with {@link #username}.
      */
     @Parameter(property = "user.password")
     private String password;
@@ -135,7 +140,7 @@ public final class CommonsStagingCleanupMojo extends AbstractMojo {
      * Constructs a new instance.
      */
     public CommonsStagingCleanupMojo() {
-        // empty
+        // No initialization required.
     }
 
     @Override
