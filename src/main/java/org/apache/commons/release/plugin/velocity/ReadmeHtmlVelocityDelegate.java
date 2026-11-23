@@ -38,13 +38,19 @@ public final class ReadmeHtmlVelocityDelegate {
      */
     public static final class ReadmeHtmlVelocityDelegateBuilder {
 
-        /** The Maven artifactId to use in the <code>README.vm</code> template. */
+        /**
+         * The Maven artifact ID to use in the <code>README.vm</code> template.
+         */
         private String artifactId;
 
-        /** The Maven version to use in the <code>README.vm</code> template. */
+        /**
+         * The Maven version to use in the <code>README.vm</code> template.
+         */
         private String version;
 
-        /** The site URL to use in the <code>README.vm</code> template. */
+        /**
+         * The site URL to use in the <code>README.vm</code> template.
+         */
         private String siteUrl;
 
         /**
@@ -66,7 +72,7 @@ public final class ReadmeHtmlVelocityDelegate {
         /**
          * Sets the Maven artifact ID for the {@link ReadmeHtmlVelocityDelegate}.
          *
-         * @param artifactId The {@link String} representing the Maven artifactId.
+         * @param artifactId The {@link String} representing the Maven artifact ID.
          * @return The builder to continue building.
          */
         public ReadmeHtmlVelocityDelegateBuilder setArtifactId(final String artifactId) {
@@ -77,7 +83,7 @@ public final class ReadmeHtmlVelocityDelegate {
         /**
          * Sets the site URL for the {@link ReadmeHtmlVelocityDelegate}.
          *
-         * @param siteUrl The site URL to be used in the <code>README.html</code>
+         * @param siteUrl The site URL to use in <code>README.html</code>.
          * @return The builder to continue building.
          */
         public ReadmeHtmlVelocityDelegateBuilder setSiteUrl(final String siteUrl) {
@@ -102,7 +108,9 @@ public final class ReadmeHtmlVelocityDelegate {
      */
     private static final Pattern END_DIGIT = Pattern.compile(".+\\d$");
 
-    /** The location of the Velocity template for this class. */
+    /**
+     * The location of the Velocity template for this class.
+     */
     private static final String TEMPLATE = "resources/org/apache/commons/release/plugin"
                                          + "/velocity/README.vm";
 
@@ -115,21 +123,27 @@ public final class ReadmeHtmlVelocityDelegate {
         return new ReadmeHtmlVelocityDelegateBuilder();
     }
 
-    /** This is supposed to represent the Maven artifactId. */
+    /**
+     * The Maven artifact ID.
+     */
     private final String artifactId;
 
-    /** This is supposed to represent the Maven version of the release. */
+    /**
+     * The Maven version of the release.
+     */
     private final String version;
 
-    /** The URL of the site that gets set into the <code>README.html</code>. */
+    /**
+     * The URL of the site that gets set into the <code>README.html</code>.
+     */
     private final String siteUrl;
 
     /**
      * The private constructor to be used by the {@link ReadmeHtmlVelocityDelegateBuilder}.
      *
-     * @param artifactId sets the {@link ReadmeHtmlVelocityDelegate#artifactId}.
-     * @param version sets the {@link ReadmeHtmlVelocityDelegate#version}.
-     * @param siteUrl sets the {@link ReadmeHtmlVelocityDelegate#siteUrl}.
+     * @param artifactId The Maven artifact ID.
+     * @param version The Maven version of the release.
+     * @param siteUrl The site URL.
      */
     private ReadmeHtmlVelocityDelegate(final String artifactId, final String version, final String siteUrl) {
         this.artifactId = artifactId;
@@ -141,7 +155,7 @@ public final class ReadmeHtmlVelocityDelegate {
      * Renders the <code>README.vm</code> Velocity template with the variables constructed with the
      * {@link ReadmeHtmlVelocityDelegateBuilder}.
      *
-     * @param writer is the {@link Writer} to which we wish to render the <code>README.vm</code> template.
+     * @param writer The writer to which to render the <code>README.vm</code> template.
      * @return A reference to the {@link Writer} passed in.
      */
     public Writer render(final Writer writer) {

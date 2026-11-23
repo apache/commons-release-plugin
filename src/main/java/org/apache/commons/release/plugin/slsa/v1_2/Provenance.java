@@ -29,24 +29,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * used as the {@code predicate} field of an in-toto {@link Statement}.
  * </p>
  *
- * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
+ * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Provenance {
 
-    /** Predicate type URI used in the in-toto {@link Statement} wrapping this provenance. */
+    /**
+     * Predicate type URI used in the in-toto {@link Statement} wrapping this provenance.
+     */
     public static final String PREDICATE_TYPE = "https://slsa.dev/provenance/v1";
 
-    /** Inputs that defined the build. */
+    /**
+     * Inputs that defined the build.
+     */
     @JsonProperty("buildDefinition")
     private BuildDefinition buildDefinition;
 
-    /** Details about the build invocation. */
+    /**
+     * Details about the build invocation.
+     */
     @JsonProperty("runDetails")
     private RunDetails runDetails;
 
-    /** Creates a new Provenance instance. */
+    /**
+     * Creates a new Provenance instance.
+     */
     public Provenance() {
     }
 
@@ -77,7 +85,7 @@ public class Provenance {
      * Gets the build definition describing all inputs that produced the build output.
      *
      * <p>
-     * Includes source code, dependencies, build tools, base images, and other materials.
+     * The inputs include source code, dependencies, build tools, base images, and other materials.
      * </p>
      *
      * @return The build definition, or {@code null} if not set.
@@ -104,7 +112,7 @@ public class Provenance {
      * Sets the build definition describing all inputs that produced the build output.
      *
      * @param buildDefinition The build definition.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Provenance setBuildDefinition(final BuildDefinition buildDefinition) {
         this.buildDefinition = buildDefinition;
@@ -115,7 +123,7 @@ public class Provenance {
      * Sets the details about the invocation of the build tool and the environment in which it was run.
      *
      * @param runDetails The run details.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Provenance setRunDetails(final RunDetails runDetails) {
         this.runDetails = runDetails;

@@ -17,7 +17,7 @@
 ###########
 # DOCUMENTATION.
 # Place this script in the root of the SVN distribution checkout.
-# For example, my directory looks like:
+# For example, a directory listing might look like this:
 #
 #   drwxr-xr-x@  8 usr  staff   256 Oct  1 11:22 .svn
 #   -rw-r--r--@  1 usr  staff  1230 Oct  1 11:22 HEADER.html

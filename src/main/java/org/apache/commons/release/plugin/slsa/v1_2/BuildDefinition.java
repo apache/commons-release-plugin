@@ -27,12 +27,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Inputs that define the build: the build type, external and internal parameters, and resolved dependencies.
  *
  * <p>
- * Specifies everything that influenced the build output. Together with {@link RunDetails}, it forms the complete
+ * The build definition specifies everything that influenced the build output. Together with {@link RunDetails}, it forms the complete
  * {@link Provenance} record.
  * </p>
  *
- * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
+ * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  */
 public class BuildDefinition {
 
@@ -94,7 +94,7 @@ public class BuildDefinition {
      * Gets the URI indicating what type of build was performed.
      *
      * <p>
-     * Determines the meaning of {@code externalParameters} and {@code internalParameters}.
+     * The build type determines the meaning of {@code externalParameters} and {@code internalParameters}.
      * </p>
      *
      * @return The build type URI.
@@ -143,7 +143,7 @@ public class BuildDefinition {
      * Sets the URI indicating what type of build was performed.
      *
      * @param buildType The build type URI.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public BuildDefinition setBuildType(final String buildType) {
         this.buildType = buildType;
@@ -154,7 +154,7 @@ public class BuildDefinition {
      * Sets the inputs passed to the build.
      *
      * @param externalParameters The external parameters map.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public BuildDefinition setExternalParameters(final Map<String, Object> externalParameters) {
         this.externalParameters = externalParameters;
@@ -165,7 +165,7 @@ public class BuildDefinition {
      * Sets the parameters set by the build platform.
      *
      * @param internalParameters The internal parameters map.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public BuildDefinition setInternalParameters(final Map<String, Object> internalParameters) {
         this.internalParameters = internalParameters;
@@ -176,7 +176,7 @@ public class BuildDefinition {
      * Sets the materials that influenced the build.
      *
      * @param resolvedDependencies The list of resolved dependencies.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public BuildDefinition setResolvedDependencies(final List<ResourceDescriptor> resolvedDependencies) {
         this.resolvedDependencies = resolvedDependencies;

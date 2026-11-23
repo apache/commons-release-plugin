@@ -56,8 +56,8 @@
     <failOnError>false</failOnError>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- 3.8.2 fails with some class not found error -->
-    <!-- 3.8.3 fails because MavenProject.getAttachedArtifacts() returns an IMMUTABLE collection and we want to change it! -->
+    <!-- 3.8.2 fails with a class-not-found error. -->
+    <!-- 3.8.3 fails because MavenProject.getAttachedArtifacts() returns an immutable collection that this plugin needs to modify. -->
     <maven.dependency.version>3.10.2</maven.dependency.version>
     <commons.componentid>release-plugin</commons.componentid>
     <commons.dist.subdir>release-plugin</commons.dist.subdir>
@@ -77,11 +77,11 @@
     <commons.jacoco.complexityRatio>0.1</commons.jacoco.complexityRatio>
     <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
     <commons.encoding>ISO-8859-1</commons.encoding>
-    <!-- Provide the Javadoc HTML file encoding -->
+    <!-- Provide the Javadoc HTML file encoding. -->
     <commons.docEncoding>${commons.encoding}</commons.docEncoding>
-    <!-- Define source encoding for filtering; used by general plugins -->
+    <!-- Define the source encoding for filtering and general plugin use. -->
     <project.build.sourceEncoding>${commons.encoding}</project.build.sourceEncoding>
-    <!-- This is used by reporting plugins -->
+    <!-- This encoding is used by reporting plugins. -->
     <project.reporting.outputEncoding>${commons.encoding}</project.reporting.outputEncoding>
     <project.build.outputTimestamp>2026-11-14T12:33:54Z</project.build.outputTimestamp>
     <commons.release.isDistModule>true</commons.release.isDistModule>
@@ -91,15 +91,14 @@
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <!--
-      Define the following in ~/.m2/settings.xml in an active profile:
-      (or provide them on the command line)
+      Define the following in an active profile in ~/.m2/settings.xml, or provide them on the command line:
       commons.releaseManagerName
       commons.releaseManagerKey
     -->
-    <!-- Including commons release plugin older version -->
+    <!-- Maven plugin tools version. -->
     <maven.plugin.version>3.16.0</maven.plugin.version>
     <commons.build-plugin.version>1.16.0</commons.build-plugin.version>
-    <!-- Until Maven plugins used here don't fail the Moditect plugin -->
+    <!-- Skip Moditect until it works with the Maven plugins used here. -->
     <moditect.skip>true</moditect.skip>
     <japicmp.skip>true</japicmp.skip>
     <!-- Dependency versions -->
@@ -278,7 +277,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <!-- Add the Ant plugin tools to the plugin -->
+        <!-- Add the Ant plugin tools to the plugin. -->
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -298,7 +297,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <!-- keep only errors and warnings -->
+          <!-- Keep only errors and warnings. -->
           <show>private</show>
           <quiet>true</quiet>
           <encoding>${commons.encoding}</encoding>
@@ -359,7 +358,7 @@
         <!-- Note that since JaCoCo relies on an agent to perform tests,
              it changes the surefire arguments line. If a component also
              needs to change the argument line of maven-surefire-plugin,
-             then it must add ${argLine} property (which is set by JaCoCo)
+             then it must add the ${argLine} property (which is set by JaCoCo)
              in the argLine configuration element of maven-surefire-plugin
              to preserve JaCoCo settings. -->
         <executions>
@@ -621,7 +620,7 @@
               </execution>
             </executions>
           </plugin>
-          <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+          <!-- Sign the artifact, the POM, and all attached artifacts. -->
           <plugin>
             <artifactId>maven-gpg-plugin</artifactId>
             <executions>
@@ -670,7 +669,7 @@
                 <goals>
                   <goal>single</goal>
                 </goals>
-                <!-- COMMONSSITE-87 Ensure this runs after all package phase plugins -->
+                <!-- COMMONSSITE-87: Ensure this runs after all plugins bound to the package phase. -->
                 <phase>verify</phase>
               </execution>
             </executions>

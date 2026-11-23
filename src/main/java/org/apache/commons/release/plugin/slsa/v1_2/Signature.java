@@ -25,14 +25,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * A single cryptographic signature within a DSSE envelope.
  *
- * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
  * @since 1.10.0
+ * @see <a href="https://github.com/secure-systems-lab/dsse/blob/v1.0.2/envelope.md">DSSE Envelope specification</a>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Signature {
 
     /**
-     * Hint for which key was used to sign; unset is treated as empty.
+     * A hint identifying the key used to sign the payload; an unset value is treated as empty.
      *
      * <p>
      * Consumers MUST NOT require this field to be set, and MUST NOT use it for security decisions.
@@ -41,11 +41,15 @@ public class Signature {
     @JsonProperty("keyid")
     private String keyid;
 
-    /** Raw signature bytes of the PAE-encoded payload. */
+    /**
+     * Raw signature bytes of the PAE-encoded payload.
+     */
     @JsonProperty("sig")
     private byte[] sig;
 
-    /** Creates a new Signature instance. */
+    /**
+     * Creates a new Signature instance.
+     */
     public Signature() {
     }
 
@@ -61,7 +65,7 @@ public class Signature {
     /**
      * Gets the key identifier hint, or {@code null} if not set.
      *
-     * @return The key identifier, or {@code null}
+     * @return The key identifier, or {@code null}.
      */
     public String getKeyid() {
         return keyid;
@@ -85,7 +89,7 @@ public class Signature {
      * Sets the key identifier hint.
      *
      * @param keyid The key identifier, or {@code null} to leave unset.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Signature setKeyid(final String keyid) {
         this.keyid = keyid;
@@ -96,7 +100,7 @@ public class Signature {
      * Sets the raw signature bytes.
      *
      * @param sig The signature bytes.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public Signature setSig(final byte[] sig) {
         this.sig = sig;

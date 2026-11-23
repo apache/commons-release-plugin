@@ -39,12 +39,12 @@ public class CommonsDistributionStagingMojoTest {
     public final MojoRule rule = new MojoRule() {
         @Override
         protected void after() {
-            // noop
+            // No action required.
         }
 
         @Override
         protected void before() throws Throwable {
-            // noop
+            // No action required.
         }
     };
 

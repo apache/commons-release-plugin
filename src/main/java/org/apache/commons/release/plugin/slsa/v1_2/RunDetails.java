@@ -25,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Details about the build invocation: the builder identity, execution metadata, and any byproduct artifacts.
  *
- * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  * @since 1.10.0
+ * @see <a href="https://slsa.dev/spec/v1.2">SLSA v1.2 Specification</a>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RunDetails {
@@ -116,7 +116,7 @@ public class RunDetails {
      * Sets the builder that executed the invocation.
      *
      * @param builder The builder.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public RunDetails setBuilder(final Builder builder) {
         this.builder = builder;
@@ -127,7 +127,7 @@ public class RunDetails {
      * Sets the artifacts produced as a side effect of the build that are not the primary output.
      *
      * @param byproducts The list of byproduct artifacts.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public RunDetails setByproducts(final List<ResourceDescriptor> byproducts) {
         this.byproducts = byproducts;
@@ -138,7 +138,7 @@ public class RunDetails {
      * Sets the metadata about the build invocation.
      *
      * @param metadata The build metadata.
-     * @return this for chaining.
+     * @return {@code this} for chaining.
      */
     public RunDetails setMetadata(final BuildMetadata metadata) {
         this.metadata = metadata;

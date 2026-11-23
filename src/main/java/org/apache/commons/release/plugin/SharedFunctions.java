@@ -44,8 +44,7 @@ public final class SharedFunctions {
     public static final int BUFFER_BYTE_SIZE = 1024;
 
     /**
-     * Copies a {@link File} from the <code>fromFile</code> to the <code>toFile</code> and logs the failure
-     * using the Maven {@link Log}.
+     * Copies <code>fromFile</code> to <code>toFile</code> and logs I/O failures using the Maven {@link Log}.
      *
      * @param log The {@link Log}, the Maven logger.
      * @param fromFile The {@link File} from which to copy.
@@ -66,11 +65,10 @@ public final class SharedFunctions {
     }
 
     /**
-     * Cleans and then initializes an empty directory that is given by the <code>workingDirectory</code>
-     * parameter.
+     * Cleans and then initializes the directory specified by <code>workingDirectory</code>.
      *
-     * @param log is the Maven log for output logging, particularly with regard to error management.
-     * @param workingDirectory is a {@link File} that represents the directory to first attempt to delete and then create.
+     * @param log The Maven logger.
+     * @param workingDirectory The directory to delete and then create.
      * @throws MojoExecutionException Thrown if an {@link IOException} occurs.
      */
     public static void initDirectory(final Log log, final File workingDirectory) throws MojoExecutionException {
@@ -91,8 +89,12 @@ public final class SharedFunctions {
     }
 
     /**
-     * Checks that the specified object reference is not {@code null}. This method is designed primarily for doing parameter validation in methods and
-     * constructors, as demonstrated below: <blockquote>
+     * Checks that the specified object reference is not {@code null}.
+     *
+     * <p>
+     * This method is designed primarily for parameter validation in methods and constructors, as demonstrated below.
+     * </p>
+     * <blockquote>
      *
      * <pre>
      * public Foo(Bar bar) {
@@ -102,9 +104,9 @@ public final class SharedFunctions {
      *
      * </blockquote>
      *
-     * @param obj The object reference to check for nullity
-     * @param <T> The type of the reference
-     * @return {@code obj} if not {@code null}
+     * @param obj The object reference to check for nullity.
+     * @param <T> The type of the reference.
+     * @return {@code obj} if not {@code null}.
      * @throws MojoExecutionException Thrown if {@code obj} is {@code null}.
      */
     public static <T> T requireNonNull(final T obj) throws MojoExecutionException {
@@ -115,8 +117,12 @@ public final class SharedFunctions {
     }
 
     /**
-     * Checks that the specified object reference is not {@code null} and throws a customized {@link MojoExecutionException} if it is. This method is designed
-     * primarily for doing parameter validation in methods and constructors with multiple parameters, as demonstrated below: <blockquote>
+     * Checks that the specified object reference is not {@code null} and throws a customized {@link MojoExecutionException} if it is.
+     *
+     * <p>
+     * This method is designed primarily for parameter validation in methods and constructors with multiple parameters, as demonstrated below.
+     * </p>
+     * <blockquote>
      *
      * <pre>
      * public Foo(Bar bar, Baz baz) {
@@ -127,11 +133,10 @@ public final class SharedFunctions {
      *
      * </blockquote>
      *
-     * @param obj The object reference to check for nullity
-     * @param message detail message to be used in the event that a {@code
-     *                NullPointerException} is thrown
-     * @param <T> The type of the reference
-     * @return {@code obj} if not {@code null}
+     * @param obj The object reference to check for nullity.
+     * @param message The detail message for the {@code NullPointerException} wrapped in the thrown {@code MojoExecutionException}.
+     * @param <T> The type of the reference.
+     * @return {@code obj} if not {@code null}.
      * @throws MojoExecutionException Thrown if {@code obj} is {@code null}.
      */
     public static <T> T requireNonNull(final T obj, final String message) throws MojoExecutionException {
@@ -143,16 +148,16 @@ public final class SharedFunctions {
 
     /**
      * Checks that the specified object reference is not {@code null} and throws a customized {@link MojoExecutionException} if it is.
+     *
      * <p>
-     * Unlike the method {@link #requireNonNull(Object, String)}, this method allows creation of the message to be deferred until after the null check is made.
-     * While this may confer a performance advantage in the non-null case, when deciding to call this method, care should be taken that the costs of creating
-     * the message supplier are less than the cost of just creating the string message directly.
+     * Unlike {@link #requireNonNull(Object, String)}, this method defers message creation until after the null check. This may improve performance when the
+     * object is not null, provided that creating the message supplier costs less than creating the message directly.
      * </p>
      *
-     * @param obj The object reference to check for nullity
-     * @param messageSupplier supplier of the detail message to be used in the event that a {@code NullPointerException} is thrown
-     * @param <T> The type of the reference
-     * @return {@code obj} if not {@code null}
+     * @param obj The object reference to check for nullity.
+     * @param messageSupplier The supplier of the detail message for the {@code NullPointerException} wrapped in the thrown {@code MojoExecutionException}.
+     * @param <T> The type of the reference.
+     * @return {@code obj} if not {@code null}.
      * @throws MojoExecutionException Thrown if {@code obj} is {@code null}.
      */
     public static <T> T requireNonNull(final T obj, final Supplier<String> messageSupplier) throws MojoExecutionException {
